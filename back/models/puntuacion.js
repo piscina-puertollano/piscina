@@ -14,7 +14,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Puntuacion.init({
-    id: DataTypes.INTEGER,
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true
+    },
     nota: DataTypes.INTEGER,
     entrenamiento_id: DataTypes.INTEGER
   }, {

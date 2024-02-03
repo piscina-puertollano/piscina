@@ -14,7 +14,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   PuntuacionUsuario.init({
-    id: DataTypes.INTEGER,
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true
+    },
     usuario_id: DataTypes.INTEGER,
     puntuacion_id: DataTypes.INTEGER
   }, {

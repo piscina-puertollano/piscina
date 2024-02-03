@@ -14,7 +14,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   EntrenamientoUsuario.init({
-    id: DataTypes.INTEGER,
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true
+    },
     usuario_id: DataTypes.INTEGER,
     entrenamiento_id: DataTypes.INTEGER
   }, {
