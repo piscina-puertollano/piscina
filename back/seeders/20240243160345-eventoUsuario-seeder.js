@@ -3,17 +3,15 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-   
-      await queryInterface.bulkInsert('users', [{
-        nombre: '24H',
-        fecha: new Date('2024/05/12').toISOString(),
-        sede: 'Puertollano',
-        categoria: 'Todos',
-        visible: true,
-        privado: false
-     },
-    ], {});
-  },
+    
+    await queryInterface.bulkInsert('eventosUsuarios', [{
+      idUsuario: 1,
+      idEvento: 1,
+      createdAt: new Date(),
+      updatedAt: new Date()
+   },
+  ], {});
+},
 
   async down (queryInterface, Sequelize) {
     /**

@@ -7,6 +7,7 @@ class Server {
     constructor() {
         this.app = express();
         this.userRoutePath = '/api';
+        this.eventosRoutePath = '/api/eventos';
 
         this.middlewares();
         this.routes(); 
@@ -18,7 +19,8 @@ class Server {
     }
 
     routes(){
-        this.app.use(this.userRoutePath , require('../routes/userRoutes'));
+        //this.app.use(this.userRoutePath , require('../routes/userRoutes'));
+        this.app.use(this.eventosRoutePath , require('../routes/eventoRoutes'));
     }
 
     listen() {
