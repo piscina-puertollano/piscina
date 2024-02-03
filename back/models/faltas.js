@@ -1,9 +1,11 @@
 'use strict';
+
 const {
-  Model
+ Model
 } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
-  class faltas extends Model {
+ class Faltas extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,15 +13,42 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.belongsTo(models.Users, {
+        foreignKey: 'usuario_idusuario',
+        as: 'usuario'
+      });
+      this.belongsTo(models.Clase, {
+        foreignKey: 'clase_idclase',
+        as: 'clase'
+      });
     }
-  }
-  faltas.init({
-    idfaldas: DataTypes.INTEGER,
-    usuario_idusuario: DataTypes.INTEGER,
-    clase_idclase: DataTypes.INTEGER
-  }, {
+ }
+ Faltas.init({
+    idfaltas: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER
+    },
+    usuario_idusuario: {
+      allowNull: false,
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'Users', 
+        key: 'id'
+      }
+    },
+    clase_idclase: {
+      allowNull: false,
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'clase', 
+        key: 'idclase'
+      }
+    }
+ }, {
     sequelize,
-    modelName: 'faltas',
-  });
-  return faltas;
+    modelName: 'Faltas',
+ });
+ return Faltas;
 };
