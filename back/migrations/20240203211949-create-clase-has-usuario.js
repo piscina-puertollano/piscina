@@ -11,7 +11,7 @@ module.exports = {
           key: 'id'
         }
       },
-      claseId: {
+      clase_idclase: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
