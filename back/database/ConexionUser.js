@@ -45,6 +45,31 @@ class ConexionSequilze {
         }
         return resultado;
     }
+    showUser = async(userId) => {
+        this.conectar();
+        let resultado = await models.Users.findByPk(userId,{
+            attributes: ['id', 'firstName', 'lastName','email']
+        })
+
+        if (!resultado){
+            this.desconectar();
+            throw error;
+        }
+        this.desconectar();
+        return resultado;
+    }
+
+    showRolUser = async(userId) => {
+        this.conectar();
+        let resultado = await models.UserRol.findAll({ where: { id_user: userId } });
+
+        if (!resultado){
+            this.desconectar();
+            throw error;
+        }
+        this.desconectar();
+        return resultado;
+    }
 
     registrarUsuario = async(user) => {
         let newUser = 0
@@ -87,22 +112,24 @@ class ConexionSequilze {
 
         try{
             listUsers = await models.Users.findAll({
-                attributes: ['id', 'firstName', 'lastName', 'email','isSocio','createdAt'],
-                include:{
+                attributes: ['id', 'email'],
+                include: {
                     model: models.Rol,
-                    as:'roles',
-                    attributes:['id', 'name']
-            }
+                    as: 'roles',
+                    attributes:['id'],
+                    through: {
+                        attributes: []
+                    }
+                }
             });
 
         } catch (error) {
-            throw error; 
+            throw error;
         } finally {
             this.desconectar();
         }
         return listUsers;
     }
-
 }
 
 module.exports = ConexionSequilze;

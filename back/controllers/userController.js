@@ -2,20 +2,55 @@ const {response, request} = require("express");
 const Conexion = require("../database/ConexionUser");
 const bcrypt = require('bcrypt');
 const { generateRandPass } = require("../helpers/user");
+const { generarJWT } = require("../helpers/jwt");
 
 
-const getUserByEmail = (req, res = response) => {
+const showUser = (req, res = response) => {
     const conx = new Conexion();
 
-    conx.getUserByEmail(req.body.email)
+    conx.showUser(req.params.id)
         .then((msg) => {
             res.status(200).json(msg);
         })
         .catch((err) => {
-            res.status(203).json({msg: "No se han encontrado registros"});
+            res.status(404).json({msg: 'User not found'});
         });
 };
 
+const login = (req, res) => {
+    let email = req.body.email;
+    const conx = new Conexion();
+    let storedHash = '';
+
+    conx.getUserByEmail(email)
+        .then((msg) => {
+            console.log('llego')
+            bcrypt.compare(req.body.password, storedHash, (err, result) => {
+                if (result) {
+                    res.status(401).json({msg: 'Error with credentials, try again'})
+                }
+                conx.showRolUser(msg.id).then(roles => {
+                    let arrRoles = []
+                    roles.forEach(element => {
+                        if (element.id_rol != null) {
+                            arrRoles.push(element.id_rol)
+                        }
+                    })
+                    
+                    let token = generarJWT(msg.id, arrRoles)
+                    res.status(200).json({
+                        user: msg,
+                        roles: arrRoles,
+                        token
+                    })
+                })
+            })
+        })
+        .catch((err) => {
+            res.status(401).json({msg: 'Error with credentials, try again'})
+
+        });
+};
 const newUser = async (req, res) => {
     const conx = new Conexion()
     let pass = req.body.password
@@ -37,9 +72,11 @@ const updateUser = async (req, res) => {
     const conx = new Conexion()
     let pass = req.body.password
 
-    req.body.password = await bcrypt.hash(pass, 10)
+    if(pass !=null){
+        req.body.password = await bcrypt.hash(pass, 10)
+    }
 
-    conx.updateUser(req.body)
+    conx.updateUser(req.body.id,req.body)
     .then((msg) => {
         console.log(msg)
         res.status(200).json(msg)
@@ -80,6 +117,7 @@ const index = async (req, res) => {
 
         })
         .catch(error => {
+            console.log(error)
             res.status(400).json(error)
         })
 }
@@ -89,8 +127,9 @@ const index = async (req, res) => {
 
 module.exports = {
     newUser,
-    getUserByEmail,
+    showUser,
     index,
     forgetPass,
-    updateUser
+    updateUser,
+    login
 };
