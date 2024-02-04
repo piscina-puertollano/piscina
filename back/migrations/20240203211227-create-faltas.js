@@ -1,34 +1,33 @@
 'use strict';
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
-     await queryInterface.createTable('faltas', {
-       idfaltas: {
-         allowNull: false,
-         autoIncrement: true,
-         primaryKey: true,
-         type: Sequelize.INTEGER
-       },
-       usuario_idusuario: {
-         allowNull: false,
-         type: Sequelize.INTEGER,
-         references: {
-           model: 'Users',
-           key: 'id'
-         }
-       },
-       clase_idclase: {
-         allowNull: false,
-         type: Sequelize.INTEGER,
-         references: {
-           model: 'clase',
-           key: 'idclase'
-         }
-       }
-     });
+  async up(queryInterface, Sequelize) {
+    await queryInterface.createTable('faltas', {
+      idfaltas: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER
+      },
+      usuario_idusuario: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Users',
+          key: 'id'
+        }
+      },
+      clase_idclase: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'clase',
+          key: 'id'
+        }
+      }
+    });
   },
-  down: async (queryInterface, Sequelize) => {
-     await queryInterface.dropTable('faltas');
+  async down(queryInterface, Sequelize) {
+    await queryInterface.dropTable('faltas');
   }
- };
- 
+};
