@@ -13,6 +13,14 @@ module.exports = {
         isSocio: 0,
         createdAt: new Date(),
         updatedAt: new Date()
+      },{
+        firstName:'entrenador',
+        lastName: 'entrenador',
+        email: 'entrenador@piscina.com',
+        password: await bcrypt.hash('1234', 10),
+        isSocio: 0,
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
         firstName:'prueba',
