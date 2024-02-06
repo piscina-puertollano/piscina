@@ -17,6 +17,26 @@ const showUser = (req, res = response) => {
         });
 };
 
+const getUserByValue = (req, res = response) => {
+    const conx = new Conexion();
+    let value = req.body.email
+    if(value == null){
+        value = req.body.id
+    }
+    conx.searchByValue(value)
+        .then((msg) => {
+            if(msg.length == 0){
+                res.status(404).json({msg:'User not found'});
+                
+            }else{
+                res.status(200).json(msg);
+            }
+        })
+        .catch((err) => {
+            res.status(404).json({msg: 'User not found'});
+        });
+};
+
 const login = (req, res) => {
     let email = req.body.email;
     const conx = new Conexion();
@@ -131,5 +151,6 @@ module.exports = {
     index,
     forgetPass,
     updateUser,
-    login
+    login,
+    getUserByValue
 };

@@ -45,6 +45,25 @@ class ConexionSequilze {
         }
         return resultado;
     }
+
+    searchByValue = async(value) => {
+        let resultado = [];
+        this.conectar();
+        resultado = await models.Users.findAll({
+            where:{
+                [Op.or]:{
+                    email:{ [Op.like]: `%${value}%` },
+                    id:{ [Op.like]: `%${value}%` },
+                }
+            },
+            attributes: ['id', 'firstName', 'lastName','email']
+        });
+        this.desconectar();
+        if (!resultado){
+            throw new Error('user not found');
+        }
+        return resultado;
+    }
     showUser = async(userId) => {
         this.conectar();
         let resultado = await models.Users.findByPk(userId,{
@@ -95,7 +114,8 @@ class ConexionSequilze {
         this.conectar();
         try{
             upUser = await models.Users.findByPk(id)
-            upUser.update(user)
+            await upUser.update(user)
+            await upUser.save()
 
         } catch (error) {
             throw error; 
