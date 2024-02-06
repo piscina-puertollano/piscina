@@ -24,8 +24,16 @@ export class UserService {
     )
   }
 
-  searchUserByEmail(email:string): Observable<Array<User> | undefined> {
-    return this.http.post<User>(this.urSearch,email,{withCredentials:true}).pipe(
+  searchUserByEmail(email:any): Observable<Array<User> | undefined> {
+    return this.http.post<User>(this.urSearch,email,{withCredentials:false}).pipe(
+      catchError((error) =>{
+        return of(error)
+      })
+    )
+  }
+
+  searchUserById(email:any): Observable<Array<User> | undefined> {
+    return this.http.post<User>(this.urSearch,email,{withCredentials:false}).pipe(
       catchError((error) =>{
         return of(error)
       })

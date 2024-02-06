@@ -1,12 +1,14 @@
 <h1>Gestión de usuarios</h1>
 <label for="search">Buscar por</label>
-<select name="" id="">
-    <option value="">Número de socio</option>
-    <option value="">email</option>
+<select (click)="search($event)">
+    <option value="searchEmail" selected>email</option>
+    <option value="searchSocio">Número de socio</option>
 </select>
-<input type="search" alt="Buscador de usuarios" id="search">
-
-<section class="FlexContainer">
+<input type="search" alt="Buscador de usuarios" [(ngModel)]="searchValue" (input)="search($event)" id="search">
+@if(alert.show){
+    <app-alert header="{{alert.header}}" message="{{alert.message}}" type="danger" ></app-alert>
+}
+<section>
     <div>
         <table>
             <thead>
@@ -44,13 +46,25 @@
             <tbody>
                 @for (att of [user]; track user.id) {
                 <tr>
-                    <td><input type="text"  class="user" value="{{att.id}}"></td>
-                    <td><input type="text"  class="user" value="{{att.firstName}}"></td>
-                    <td><input type="text"  class="user" value="{{att.lastName}}"></td>
-                    <td><input type="text"  class="user" value="{{att.email}}"></td>
+                    <td><input type="text"  class="user" [(ngModel)]="user.id" value="{{att.id}}"></td>
+                    <td><input type="text"  class="user" [(ngModel)]="user.firstName" value="{{att.firstName}}"></td>
+                    <td><input type="text"  class="user" [(ngModel)]="user.lastName" value="{{att.lastName}}"></td>
+                    <td><input type="text"  class="user" [(ngModel)]="user.email" value="{{att.email}}"></td>
                 </tr>
-                <input type="submit" value="Guardar cambios" (click)="updateUser()">
-                }
+            }
+            <br>
+            <input id="tutor" type="checkbox">
+            <label for="tutor">Tutor</label>
+            <br>
+            <input id="socio" type="checkbox">
+            <label for="socio">Socio</label>
+            <br>
+            <input id="entrenador" type="checkbox">
+            <label for="entrenador">Entrenador</label>
+            <br>
+            <input id="Administrativo" type="checkbox">
+            <label for="Administrativo">Administrativo</label>
+            <input type="submit" value="Guardar cambios" (click)="updateUser()">
             </tbody>
         </table>
     </div>
