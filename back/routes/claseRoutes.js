@@ -1,9 +1,20 @@
 const express = require('express');
 const router = express.Router();
+const claseController = require('../controllers/claseController');
 
-// Definición de rutas...
-router.post('/', (req, res) => {
-  // Manejo de la solicitud POST para crear una clase
-});
+// Ruta para obtener todas las clases
+router.get('/', claseController.obtenerClases);
+
+// Ruta para obtener una clase por su ID
+router.get('/:id', claseController.obtenerClasePorId);
+
+// Ruta para crear una nueva clase
+router.post('/', claseController.crearClase);
+
+// Ruta para actualizar una clase por su ID
+router.put('/:id', claseController.actualizarClase);
+
+// Ruta para eliminar una clase por su ID
+router.delete('/:id', claseController.eliminarClase);
 
 module.exports = router;
