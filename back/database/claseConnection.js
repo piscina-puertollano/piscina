@@ -20,13 +20,19 @@ class ClaseConnection {
 
     getClases = async () => {
         let clases = [];
-        await conexion.conectar();
-        clases = await Clase.findAll({
-            attributes: ['idclase']
-        });
-        await conexion.desconectar();
+        try {
+            await conexion.conectar();
+            clases = await Clase.findAll({
+                attributes: ['idclase']
+            });
+            await conexion.desconectar();
+        } catch (error) {
+            console.error('Error en getClases:', error); // Agrega esta línea para registrar el error
+            throw error; // Asegúrate de volver a lanzar el error
+        }
         return clases;
     };
+    
 
     getClase = async (id) => {
         await conexion.conectar();

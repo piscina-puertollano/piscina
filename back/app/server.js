@@ -7,7 +7,7 @@ class Server {
     constructor() {
         this.app = express();
         this.userRoutePath = '/api';
-        this.userRouteClasesPath = '/api/clases';
+        this.userRouteClasesPath = '/api';
 
         this.middlewares();
         this.routes(); 
