@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.INTEGER
     },
-    usuario_idusuario: {
+    id_usuario: {
       allowNull: false,
       type: DataTypes.INTEGER,
       references: {
@@ -38,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
         key: 'id'
       }
     },
-    clase_idclase: {
+    id_clase: {
       allowNull: false,
       type: DataTypes.INTEGER,
       references: {
