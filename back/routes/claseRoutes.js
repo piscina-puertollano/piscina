@@ -1,20 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const claseController = require('../controllers/claseController');
+const ClaseController = require('../controllers/claseController.js');
 
-// Ruta para obtener todas las clases
-router.get('/', claseController.obtenerClases);
+// Define the routes
+router.get('/clases', ClaseController.obtenerClases);
+router.get('/clases/:id', ClaseController.obtenerClasePorId);
+router.post('/clases', ClaseController.crearClase);
+router.put('/clases/:id', ClaseController.actualizarClase);
+router.delete('/clases/:id', ClaseController.eliminarClase);
 
-// Ruta para obtener una clase por su ID
-router.get('/:id', claseController.obtenerClasePorId);
-
-// Ruta para crear una nueva clase
-router.post('/', claseController.crearClase);
-
-// Ruta para actualizar una clase por su ID
-router.put('/:id', claseController.actualizarClase);
-
-// Ruta para eliminar una clase por su ID
-router.delete('/:id', claseController.eliminarClase);
-
+// Export the router
 module.exports = router;

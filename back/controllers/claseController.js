@@ -1,115 +1,62 @@
-const { response } = require('express');
-const Clase = require('../models/clase');
-const Conexion = require('../database/connection');
+const express = require('express');
+const ClaseConnection = require('../database/claseConnection');
+const claseConnection = new ClaseConnection();
 
-// Crear una instancia de la clase Conexion
-const conexion = new Conexion();
-
-// Controlador para obtener todas las clases
-const obtenerClases = async (req, res = response) => {
-    // Conectar a la base de datos
-    conexion.conectar();
-
+const obtenerClases = async (req, res = express.response) => {
     try {
-        const clases = await Clase.findAll();
-        console.log('Listado de clases correcto');
+        const clases = await claseConnection.getClases();
         res.status(200).json(clases);
     } catch (error) {
-        console.log('No se han encontrado registros de clases');
-        res.status(203).json(error);
-    } finally {
-        // Desconectar de la base de datos
-        conexion.desconectar();
+        res.status(500).json({ mensaje: 'Error al obtener las clases', error: error });
     }
-}
+};
 
-// Controlador para obtener una clase por su ID
-const obtenerClasePorId = async (req, res = response) => {
-    // Conectar a la base de datos
-    conexion.conectar();
-
+const obtenerClasePorId = async (req, res = express.response) => {
     const { id } = req.params;
     try {
-        const clase = await Clase.findByPk(id);
+        const clase = await claseConnection.getClase(id);
         if (clase) {
-            console.log('Clase obtenida correctamente');
             res.status(200).json(clase);
         } else {
-            console.log('Clase no encontrada');
-            res.status(203).json({ mensaje: 'Clase no encontrada' });
-        }
-    } catch (error) {
-        console.log('Error al obtener la clase por ID');
-        res.status(500).json({ mensaje: 'Error al obtener la clase por ID' });
-    } finally {
-        // Desconectar de la base de datos
-        conexion.desconectar();
-    }
-}
-
-// Controlador para crear una nueva clase
-const crearClase = async (req, res = response) => {
-    // Conectar a la base de datos
-    conexion.conectar();
-
-    try {
-        const nuevaClase = await Clase.create(req.body);
-        console.log('Clase creada correctamente');
-        res.status(200).json(nuevaClase);
-    } catch (error) {
-        console.log('Error al crear la clase');
-        res.status(500).json({ mensaje: 'Error al crear la clase' });
-    } finally {
-        // Desconectar de la base de datos
-        conexion.desconectar();
-    }
-}
-
-// Controlador para actualizar una clase por su ID
-const actualizarClase = async (req, res = response) => {
-    const { id } = req.params;
-    // Conectar a la base de datos
-    conexion.conectar();
-    try {
-        const [actualizado] = await Clase.update(req.body, { where: { id: id } });
-        if (actualizado) {
-            console.log('Clase actualizada correctamente');
-            res.status(200).json({ mensaje: 'Clase actualizada correctamente' });
-        } else {
-            console.log('Clase no encontrada');
             res.status(404).json({ mensaje: 'Clase no encontrada' });
         }
     } catch (error) {
-        console.log('Error al actualizar la clase');
-        res.status(500).json({ mensaje: 'Error al actualizar la clase' });
-    } finally {
-        // Desconectar de la base de datos
-        conexion.desconectar();
+        res.status(500).json({ mensaje: 'Error al obtener la clase por ID', error: error });
     }
-}
+};
 
-// Controlador para eliminar una clase por su ID
-const eliminarClase = async (req, res = response) => {
-    const { id } = req.params;
-    // Conectar a la base de datos
-    conexion.conectar();
+const crearClase = async (req, res = express.response) => {
     try {
-        const eliminado = await Clase.destroy({ where: { id: id } });
-        if (eliminado) {
-            console.log('Clase eliminada correctamente');
-            res.status(200).json({ mensaje: 'Clase eliminada correctamente' });
+        const resultado = await claseConnection.insertClase(req.body);
+        if (resultado ===  1) {
+            res.status(201).json({ mensaje: 'Clase creada correctamente' });
         } else {
-            console.log('Clase no encontrada');
-            res.status(404).json({ mensaje: 'Clase no encontrada' });
+            res.status(500).json({ mensaje: 'Error al crear la clase' });
         }
     } catch (error) {
-        console.log('Error al eliminar la clase');
-        res.status(500).json({ mensaje: 'Error al eliminar la clase' });
-    } finally {
-        // Desconectar de la base de datos
-        conexion.desconectar();
+        res.status(500).json({ mensaje: 'Error al crear la clase', error: error });
     }
-}
+};
+
+const actualizarClase = async (req, res = express.response) => {
+    const { id } = req.params;
+    try {
+        await claseConnection.updateClase(id, req.body);
+        res.status(200).json({ mensaje: 'Clase actualizada correctamente' });
+    } catch (error) {
+        res.status(500).json({ mensaje: 'Error al actualizar la clase', error: error });
+    }
+};
+
+const eliminarClase = async (req, res = express.response) => {
+    const { id } = req.params;
+    try {
+        await claseConnection.deleteClase(id);
+        res.status(200).json({ mensaje: 'Clase eliminada correctamente' });
+    } catch (error) {
+        res.status(500).json({ mensaje: 'Error al eliminar la clase', error: error });
+    }
+};
 
 module.exports = {
     obtenerClases,
