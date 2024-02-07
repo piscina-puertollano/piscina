@@ -14,10 +14,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Clase.init({
-    idclase: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'clase',
+    tableName: 'clase'
   });
   return Clase;
 };

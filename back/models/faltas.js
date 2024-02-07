@@ -13,14 +13,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.belongsTo(models.Users, {
-        foreignKey: 'usuario_idusuario',
-        as: 'usuario'
-      });
-      this.belongsTo(models.Clase, {
-        foreignKey: 'clase_idclase',
-        as: 'clase'
-      });
+      // this.belongsTo(models.Users, {
+      //   foreignKey: 'usuario_idusuario',
+      //   as: 'usuario'
+      // });
+      // this.belongsTo(models.Clase, {
+      //   foreignKey: 'clase_idclase',
+      //   as: 'clase'
+      // });
     }
  }
  Faltas.init({

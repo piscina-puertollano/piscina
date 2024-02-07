@@ -1,6 +1,6 @@
 require('dotenv').config();
 const { Sequelize, Model } = require('sequelize');
-const Clase = require('../models/clase.js'); 
+const models = require('../models/index.js')
 const conexion = require('./connection.js');
 
 class ClaseConnection {
@@ -21,11 +21,10 @@ class ClaseConnection {
     getClases = async () => {
         let clases = [];
         try {
-            await conexion.conectar();
-            clases = await Clase.findAll({
-                attributes: ['idclase']
-            });
-            await conexion.desconectar();
+            let con = new conexion();
+            con.conectar()
+            clases = await models.clase.findAll();
+            con.desconectar();
         } catch (error) {
             console.error('Error en getClases:', error); // Agrega esta línea para registrar el error
             throw error; // Asegúrate de volver a lanzar el error
