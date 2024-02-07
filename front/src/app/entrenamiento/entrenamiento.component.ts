@@ -44,4 +44,16 @@ export class EntrenamientoComponent {
       },
     });
   }
+
+  updateEntrenamiento(){
+    this.entrenamientoService.updateEntrenamientos(this.entrenamiento).subscribe({
+      next: (entrenamiento: any | undefined) => {
+        console.log(entrenamiento)
+        this.entrenamiento = entrenamiento
+      },
+      error: (err) => {
+        console.log(err)
+      }
+    })
+  }
 }

@@ -1,6 +1,7 @@
 
 <h2>Entrenamientos</h2>
 
+<button>Crear un Nuevo Entrenamiento</button>
 <table>
     <thead>
         <th>Entrenamiento</th>
@@ -11,6 +12,11 @@
             <tr>
                 <td>{{entrenamiento.nombre}}</td>
                 <td>{{entrenamiento.descripcion}}</td>
+                <td>
+                    <button (click)="updateEntrenamiento()">Modificar Entrenamiento</button>
+                    <br>
+                    <button>Eliminar Entrenamiento</button>
+                </td>
             </tr>
         }
     </tbody>
