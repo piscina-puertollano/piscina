@@ -1,5 +1,5 @@
 const {response, request} = require("express");
-const Conexion = require("../database/ConexionUser");
+const Conexion = require("../database/UserConnection");
 const bcrypt = require('bcrypt');
 const { generateRandPass } = require("../helpers/user");
 const { generarJWT } = require("../helpers/jwt");
@@ -44,7 +44,6 @@ const login = (req, res) => {
 
     conx.getUserByEmail(email)
         .then((msg) => {
-            console.log('llego')
             bcrypt.compare(req.body.password, storedHash, (err, result) => {
                 if (result) {
                     res.status(401).json({msg: 'Error with credentials, try again'})
@@ -60,7 +59,6 @@ const login = (req, res) => {
                     let token = generarJWT(msg.id, arrRoles)
                     res.status(200).json({
                         user: msg,
-                        roles: arrRoles,
                         token
                     })
                 })
@@ -142,7 +140,19 @@ const index = async (req, res) => {
         })
 }
 
+const setUserRol = async (req, res) => {
+    const conx = new Conexion()
 
+    conx.indexUsers()
+        .then((msg) => {
+            res.status(200).json(msg)
+
+        })
+        .catch(error => {
+            console.log(error)
+            res.status(400).json(error)
+        })
+}
 
 
 module.exports = {
