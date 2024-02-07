@@ -32,8 +32,8 @@ export class UserService {
     )
   }
 
-  searchUserById(email:any): Observable<Array<User> | undefined> {
-    return this.http.post<User>(this.urSearch,email,{withCredentials:false}).pipe(
+  searchUserById(id:any): Observable<Array<User> | undefined> {
+    return this.http.post<User>(this.urSearch,id,{withCredentials:false}).pipe(
       catchError((error) =>{
         return of(error)
       })

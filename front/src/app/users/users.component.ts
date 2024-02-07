@@ -31,17 +31,27 @@ export class UsersComponent implements OnInit{
 
   search(event: Event) {
     let target = event.target as HTMLSelectElement
-    let selected = target.textContent
+    let selected = target.id
     
     let input = event.target as HTMLInputElement
 
     if(input.value.length==0){
       this.allUsers()
     }
-    if(selected = 'email'){
-      this.searchByEmail(event)
+    console.log(selected)
+
+    if(selected = 'searchEmail'){
+      this.searchByEmail()
     }else{
-      this.searchById()
+      console.log('llego')
+      if(typeof input.value != 'string'){
+        this.searchById()
+      }else{
+        this.alert.show = true;
+        this.alert.header = 'Error';
+        this.alert.message =
+          'Solo se admiten dígitos numericos para la búsqueda por número de socio.';
+      }
     }
   }
  
@@ -88,12 +98,13 @@ export class UsersComponent implements OnInit{
     });
   }
 
-  searchByEmail(event: Event) {
+  searchByEmail() {
 
     this.alert.show = false;
     this.userService.searchUserByEmail({email: this.searchValue}).subscribe({
       next: (user: any | undefined) => {
-        if (user.length == 0) {
+        console.log(user)
+        if (user.length == 0 || user.status == 404) {
           this.alert.show = true;
           this.alert.header = 'Error';
           this.alert.message =
@@ -116,7 +127,8 @@ export class UsersComponent implements OnInit{
     this.alert.show = false;
     this.userService.searchUserById({id: this.searchValue}).subscribe({
       next: (user: any | undefined) => {
-        if (user.length == 0) {
+        console.log(user)
+        if (user.length == 0 || user.status == 404) {
           this.alert.show = true;
           this.alert.header = 'Error';
           this.alert.message =
