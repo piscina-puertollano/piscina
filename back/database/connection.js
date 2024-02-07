@@ -1,8 +1,16 @@
+
 const {Sequelize} = require('sequelize');
 
 class Conexion {
     constructor() {
         this.db = new Sequelize(process.env.DB_DATABASE, process.env.DB_USER, process.env.DB_PASSWORD, {
+
+const { Sequelize } = require('sequelize');
+
+class Conexion {
+    constructor() {
+        this.db = new Sequelize(process.env.DB_DATABASE, process.env.DB_USER, process.env.DB_PASWORD, {
+
             host: process.env.DB_HOST,
             dialect: 'mysql',
             pool: {
@@ -29,3 +37,9 @@ class Conexion {
 }
 
 module.exports = Conexion
+        console.log('Connection has been closed succesfully.');
+        process.on('SIGINT', () => conn.close());
+    }
+}
+
+module.exports = Conexion;
