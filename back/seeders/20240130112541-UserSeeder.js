@@ -34,6 +34,16 @@ module.exports = {
         isSocio: 0,
         createdAt: new Date(),
         updatedAt: new Date()
+      },
+      {
+        id:4,
+        firstName:'tutor',
+        lastName: 'socio',
+        email: 'tutorsocio@piscina.com',
+        password: await bcrypt.hash('1234', 10),
+        isSocio: 0,
+        createdAt: new Date(),
+        updatedAt: new Date()
       }
     ], {});
   },

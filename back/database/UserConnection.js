@@ -75,6 +75,19 @@ class UserModel{
         conexion.desconectar();
         return resultado;
     }
+
+    deleteUser = async(userId) => {
+        conexion.conectar();
+        let resultado = await models.Users.findByPk(userId);
+        await resultado.destroy()
+    
+        if (!resultado){
+            conexion.desconectar();
+            throw error;
+        }
+        conexion.desconectar();
+        return resultado;
+    }
     
     registrarUsuario = async(user) => {
         let newUser = 0
@@ -110,6 +123,50 @@ class UserModel{
         }
         return upUser;
     }
+
+    updateRolsUser = async(userId, rolId) => {
+        console.log(userId)
+        console.log(rolId)
+        let upUsers = [];
+        let updatedRoles = [];
+        conexion.conectar();
+        try {
+            upUsers = await models.UserRol.findAll({ where: { id_user: userId } });
+    
+            if (upUsers.length >=  1) {
+                for (let userRole of upUsers) {
+                    await userRole.destroy();
+                }
+            }
+    
+            if (Array.isArray(rolId)) {
+                
+                for (let rol of rolId) {
+                    let newRole = await models.UserRol.create({
+                        id_user: userId,
+                        id_rol: rol.id
+                    });
+                    updatedRoles.push(newRole);
+                }
+            } else {
+                console.log('entro')
+                let newRole = await models.UserRol.create({
+                    id_user: userId,
+                    id_rol: rolId.id
+                });
+                updatedRoles.push(newRole);
+            }
+    
+            console.log(updatedRoles);
+        } catch (error) {
+            console.log(error)
+            throw error;
+        } finally {
+            conexion.desconectar();
+        }
+        return updatedRoles;
+    };
+    
     
     indexUsers = async() =>{
     

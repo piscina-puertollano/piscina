@@ -93,10 +93,25 @@ const updateUser = async (req, res) => {
     if(pass !=null){
         req.body.password = await bcrypt.hash(pass, 10)
     }
+    
+    if(req.body.roles != null){
+
+        await conx.updateRolsUser(req.body.id, req.body.roles)
+        .then((msg) => {
+           // console.log(msg)
+            // res.status(200).json(msg)
+            
+        })
+        .catch(error => {
+            console.log(error)
+            // res.status(200).json(error)
+            
+        })
+
+    }
 
     conx.updateUser(req.body.id,req.body)
     .then((msg) => {
-        console.log(msg)
         res.status(200).json(msg)
     })
     .catch(error => {
@@ -140,10 +155,10 @@ const index = async (req, res) => {
         })
 }
 
-const setUserRol = async (req, res) => {
+const deleteUser = async (req, res) => {
     const conx = new Conexion()
 
-    conx.indexUsers()
+    conx.deleteUser(req.params.id)
         .then((msg) => {
             res.status(200).json(msg)
 
@@ -162,5 +177,6 @@ module.exports = {
     forgetPass,
     updateUser,
     login,
-    getUserByValue
+    getUserByValue,
+    deleteUser
 };

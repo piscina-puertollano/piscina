@@ -27,7 +27,7 @@ module.exports = {
         allowNull:true
       },
       isSocio: {
-        type: Sequelize.BOOLEAN,
+        type: Sequelize.TINYINT,
         defaultValue: false
       },
       createdAt: {
