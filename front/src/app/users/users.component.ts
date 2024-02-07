@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, input } from '@angular/core';
 import { User } from '../interfaces/user';
 import { Alert } from '../interfaces/alert';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AlertComponent } from '../utils/alert/alert.component';
+import { DialogComponent } from '../utils/dialog/dialog.component';
+import { elementAt } from 'rxjs';
 
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [FormsModule, AlertComponent],
+  imports: [FormsModule, AlertComponent, DialogComponent],
   templateUrl: './users.component.html',
   styleUrl: './users.component.css'
 })
@@ -19,6 +21,7 @@ export class UsersComponent implements OnInit{
   arrUsers: Array<User> = [];
   searchValue: string = ''
   whatSearch: string = ''
+
 
   constructor(private userService: UserService, private router: Router) {
     this.user = {};
@@ -86,16 +89,18 @@ export class UsersComponent implements OnInit{
     });
   }
 
-  updateUser() {
-    this.userService.updateUser(this.user).subscribe({
-      next: (user: any | undefined) => {
-        console.log(user)
-        this.user = user
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
+  updateUser(event: Boolean) {
+    if(event){
+      this.userService.updateUser(this.user).subscribe({
+        next: (user: any | undefined) => {
+          console.log(user)
+          this.user = user
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    }
   }
 
   searchByEmail() {
@@ -146,20 +151,22 @@ export class UsersComponent implements OnInit{
     });
   }
 
-  deleteUser(){
+  deleteUser(id:any){
     this.alert.show = false;
-    this.userService.searchUserById({id: this.searchValue}).subscribe({
+    this.userService.deleteUser(id).subscribe({
       next: (user: any | undefined) => {
         console.log(user)
         if (user.length == 0 || user.status == 404) {
           this.alert.show = true;
           this.alert.header = 'Error';
           this.alert.message =
-            'Usuario no encontrado';
+            'El usuario no se ha podido eliminar';
         } else {
-          this.alert.show = false;
-          this.arrUsers = []
-          this.arrUsers = user!!
+          this.alert.show = true;
+          this.alert.header = 'Operación completada';
+          this.alert.message =
+            'Usuario eliminado correctamente';
+          this.alert.type = 'success'
         }
 
       },
@@ -167,5 +174,19 @@ export class UsersComponent implements OnInit{
         console.log(err);
       },
     });
+  }
+
+  hasRole(roleId: number): boolean {
+    return this.user.roles!!.some(role => role.id === roleId);
+  }
+
+  onCheckboxChange(event: Event, roleId: number) {
+    const checked = (event.target as HTMLInputElement).checked;
+    if (checked) {
+      this.user.roles!!.push({ id: roleId });
+    } else {
+      this.user.roles = this.user.roles!!.filter(role => role.id !== roleId);
+    }
+
   }
 }

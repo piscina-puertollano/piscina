@@ -62,4 +62,12 @@ export class UserService {
       })
     )
   }
+
+  deleteUser(userId: string): Observable<Array<User> | undefined> {
+    return this.http.delete<User>(this.urlShowUser+userId).pipe(
+      catchError((error) =>{
+        return of(error)
+      })
+    )
+  }
 }

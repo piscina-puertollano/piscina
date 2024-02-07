@@ -4,5 +4,5 @@ export class User {
     lastName?:string
     email?:string
     password?:string
-
+    roles?:Array<any>
 }
