@@ -5,7 +5,8 @@ const Conexion = require('../database/connection')
 const conx = new Conexion()
 
 
-class eventoConnection{
+
+class categoriaConnection{
 
     constructor() {
         this.db = new Sequelize(process.env.DB_DEV, process.env.DB_USER, process.env.DB_PASSWORD, {
@@ -20,55 +21,37 @@ class eventoConnection{
           });
     }
 
-    getEventos = async() => {
+    getCategorias = async() => {
 
-        let eventos = []
+        let categorias = []
         conx.conectar
         
-        eventos = await models.Evento.findAll({
-            attributes: ['id', 'nombre', 'fecha', 'idCategoria']
+        categorias = await models.Categoria.findAll({
+            attributes: ['id', 'nombre']
         })
         
-        let devolver = []
-
-        for(let i=0;i < eventos.length;i++){
-            
-            devolver[i] = {}
-            devolver[i].id = eventos[i].id
-            //console.log('entra')
-            devolver[i].nombre = eventos[i].nombre
-            devolver[i].fecha = eventos[i].fecha
-            let categoria = ''
-            categoria = await models.Categoria.findByPk(eventos[i].idCategoria);
-
-            devolver[i].Categoria = categoria.nombre;
-
-
-        }
-       
-        
         conx.desconectar
-        return devolver
+        return categorias
     }
 
-    getEvento = async(id) => {
+    getCategoria = async(id) => {
 
         conx.conectar
-        let evento = await models.Evento.findByPk(id)
+        let categoria = await models.Categoria.findByPk(id)
 
         conx.desconectar
-        return evento
+        return categoria
         
     }
 
-    insertEvento = async(body) => {
+    insertCategoria = async(body) => {
 
         let resultado = 0
         conx.conectar
 
         try {
             console.log(body)
-            let nuevoEvento = await models.Evento.create(body)
+            let nuevaCategoria= await models.Categoria.create(body)
             resultado = 1
             return resultado
         } catch (error) {
@@ -79,11 +62,11 @@ class eventoConnection{
     }
 
 
-    updateEvento = async(id,body) => {
+    updateCategoria = async(id,body) => {
 
         let resultado
         conx.conectar
-        resultado = await models.Evento.findByPk(id)
+        resultado = await models.Categoria.findByPk(id)
             
         if (!resultado){
             console.log(id);
@@ -95,42 +78,28 @@ class eventoConnection{
         conx.desconectar();
     }
 
-    deleteEvento = async(id) => {
+    deleteCategoria = async(id) => {
 
-        
         let resultado
         conx.conectar
 
-        resultado = await models.Evento.findByPk(id)
-        
+        resultado = await models.Categoria.findByPk(id)
+
         if (!resultado){
             console.log(id);
             conx.desconectar();
             throw error;
         }
 
-        
+        console.log(resultado)
         await resultado.destroy()
-        console.log('es aqui')
         conx.desconectar();
 
         }
     }
 
 
-    getParticipantes = async(idEvento) => {
-
-        conx.conectar
-
-        let resultado = await models.User.destroy({
-            where: { idEvento: idEvento },
-        });
-
-        conx.desconectar
-    }
 
 
 
-
-
-module.exports = eventoConnection;
+module.exports = categoriaConnection;

@@ -1,6 +1,10 @@
 const {response,request} = require('express');
 const Conexion = require('../database/eventoConnection')
 const conx = new Conexion();
+const Conexion2 = require('../database/eventoUsuarioConnection')
+const conx2 = new Conexion2();
+const Conexion3 = require('../database/eventoNoSocioConnection')
+const conx3 = new Conexion3();
 
 const eventosGet = (req,res = response) => {
 
@@ -31,7 +35,7 @@ const eventoInsert = (req,res = response) => {
         console.log('Insertado correctamente')
         res.status(200).json(msg)
     }).catch( err => {
-        console.log('No se ha podido realizar la inserción del evento')
+        console.log('No se ha podido insertar el evento')
         req.status(203).json(err)
     })
 }
@@ -42,18 +46,36 @@ const eventoUpdate = (req,res = response) => {
         console.log('Actualización del evento realizada')
         res.status(200).json(msg)
     }).catch( err => {
-        console.log('No se a podido realizar la actualización de evento')
+        console.log('No se a podido actualizar el evento')
         res.status(203).json(err)
     })
 }
 
 const eventoDelete = (req,res = response) => {
 
-    conx.deleteEvento(req.params.id).then( msg => {
-        console.log('Evento eliminado con exito')
+    conx2.deleteConIdEvento(req.params.id).then( msg => {
+        
+        console.log('Eliminado eventoUusario con exito')
+        
+        conx3.deleteWithIdEvento(req.params.id).then( msg => {
+            console.log('Eliminado eventoNoSocio correctamente')
+
+            conx.deleteEvento(req.params.id).then( msg => {
+                console.log('Eliminado evento correctamente')
+            }).catch( err => {
+                console.log('No se ha podido eliminar el evento')
+                res.status(203).json(err)
+            })
+
+        }).catch( err => {
+            console.log('No se ha podido eliminar eventoNoSocio')
+            res.status(203).json(err)
+        })
+
         res.status(200).json(msg)
+
     }).catch( err => {
-        console.log('No se a podido eliminar el evento')
+        console.log('No se ha podido eliminar eventoUsuario ')
         res.status(203).json(err)
     })
 }
