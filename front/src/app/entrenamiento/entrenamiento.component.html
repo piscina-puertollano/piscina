@@ -1,0 +1,17 @@
+
+<h2>Entrenamientos</h2>
+
+<table>
+    <thead>
+        <th>Entrenamiento</th>
+        <th>Descripción</th>
+    </thead>
+    <tbody>
+        @for (entrenamiento of arrEntrenamientos; track entrenamiento.nombre){
+            <tr>
+                <td>{{entrenamiento.nombre}}</td>
+                <td>{{entrenamiento.descripcion}}</td>
+            </tr>
+        }
+    </tbody>
+</table>
