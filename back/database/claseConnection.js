@@ -26,8 +26,8 @@ class ClaseConnection {
             clases = await models.clase.findAll();
             con.desconectar();
         } catch (error) {
-            console.error('Error en getClases:', error); // Agrega esta línea para registrar el error
-            throw error; // Asegúrate de volver a lanzar el error
+            console.error('Error en getClases:', error);
+            throw error;
         }
         return clases;
     };
