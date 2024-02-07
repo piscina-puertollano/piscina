@@ -51,19 +51,29 @@
                     <td><input type="text"  class="user" [(ngModel)]="user.email" value="{{att.email}}"></td>
                 </tr>
             }
-            <br>
-            <input id="tutor" type="checkbox">
-            <label for="tutor">Tutor</label>
-            <br>
-            <input id="socio" type="checkbox">
-            <label for="socio">Socio</label>
-            <br>
-            <input id="entrenador" type="checkbox">
-            <label for="entrenador">Entrenador</label>
-            <br>
-            <input id="Administrativo" type="checkbox">
-            <label for="Administrativo">Administrativo</label>
-            <input type="submit" value="Guardar cambios" (click)="updateUser()">
+            <section id="checkRols">
+                <article>
+                    <span>El usuario es:</span>
+                    <br>
+                    <input id="tutor" type="radio" name="typeUser">
+                    <label for="tutor">Tutor</label>
+                    <br>
+                    <input id="socio" type="radio"  name="typeUser">
+                    <label for="socio">Socio</label>
+                    <br>
+                    <input id="socioTutor" type="radio"  name="typeUser">
+                    <label for="socioTutor">Socio y tutor </label>
+                    <br>
+                </article>
+                <article>
+                    <input id="entrenador" type="checkbox">
+                    <label for="entrenador">Entrenador</label>
+                    <br>
+                    <input id="Administrativo" type="checkbox">
+                    <label for="Administrativo">Administrativo</label>
+                </article>
+            </section>
+            <input type="submit" id="btnSave" value="Guardar cambios" (click)="updateUser()">
             </tbody>
         </table>
     </div>

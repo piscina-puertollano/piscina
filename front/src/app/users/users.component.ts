@@ -145,4 +145,27 @@ export class UsersComponent implements OnInit{
       },
     });
   }
+
+  deleteUser(){
+    this.alert.show = false;
+    this.userService.searchUserById({id: this.searchValue}).subscribe({
+      next: (user: any | undefined) => {
+        console.log(user)
+        if (user.length == 0 || user.status == 404) {
+          this.alert.show = true;
+          this.alert.header = 'Error';
+          this.alert.message =
+            'Usuario no encontrado';
+        } else {
+          this.alert.show = false;
+          this.arrUsers = []
+          this.arrUsers = user!!
+        }
+
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
 }

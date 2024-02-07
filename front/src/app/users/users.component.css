@@ -6,9 +6,20 @@ svg {
     max-width: 130px;
 }
 
-#btnAdd{
-    position: absolute;
-    right: 25vw;
-    top: 30vh
+#checkRols {
+    display: flex;
+    flex-direction: row;
+}
 
+article {
+    min-width:150px;
+    margin: 20px;
+    
+}
+
+#btnSave{
+    margin-bottom: 50px !important;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
