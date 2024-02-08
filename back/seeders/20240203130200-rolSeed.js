@@ -19,6 +19,11 @@ module.exports = {
         id:3,
         name: 'socio',
         desc: 'Usuario que paga la cuota y es miembro'
+      },
+      {
+        id:4,
+        name: 'entrenador',
+        desc: 'Usuario que entrena a los socios'
       }
     ], {});
   },

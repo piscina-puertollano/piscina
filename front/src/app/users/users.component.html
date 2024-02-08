@@ -10,9 +10,13 @@
 <section id="sectionUser">
     <button id="btnAdd">Agregar nuevo usuario</button>
 </section>
+
 @if(alert.show){
-    <app-alert header="{{alert.header}}" message="{{alert.message}}" type="danger" ></app-alert>
+    <app-alert header="{{alert.header}}" message="{{alert.message}}" type="{{alert.type}}" ></app-alert>
 }
+
+
+
 <section>
     <div>
         <table>
@@ -27,7 +31,7 @@
                     <td>{{user.email}}</td>
                     <td>
                         <i width="25px" style="margin-right:15px" (click)="showUser(user.id)" class="pi pi-eye"></i>
-                        <i width="25px" (click)="showUser(user.id)" class="pi pi-trash"></i>
+                        <i width="25px" (click)="deleteUser(user.id)" class="pi pi-trash"></i>
                     </td>
                 </tr>
                 }
@@ -51,29 +55,40 @@
                     <td><input type="text"  class="user" [(ngModel)]="user.email" value="{{att.email}}"></td>
                 </tr>
             }
-            <section id="checkRols">
-                <article>
-                    <span>El usuario es:</span>
-                    <br>
-                    <input id="tutor" type="radio" name="typeUser">
-                    <label for="tutor">Tutor</label>
-                    <br>
-                    <input id="socio" type="radio"  name="typeUser">
-                    <label for="socio">Socio</label>
-                    <br>
-                    <input id="socioTutor" type="radio"  name="typeUser">
-                    <label for="socioTutor">Socio y tutor </label>
-                    <br>
-                </article>
-                <article>
-                    <input id="entrenador" type="checkbox">
-                    <label for="entrenador">Entrenador</label>
-                    <br>
-                    <input id="Administrativo" type="checkbox">
-                    <label for="Administrativo">Administrativo</label>
-                </article>
-            </section>
-            <input type="submit" id="btnSave" value="Guardar cambios" (click)="updateUser()">
+            @if(user.roles!=undefined){
+                <section id="checkRols">
+                    <article>
+                        <span>El usuario es:</span>
+                        <br>
+                        <input id="tutor" type="checkbox" (change)="onCheckboxChange($event, 2)" [checked]="hasRole(2)">
+                        <label for="tutor">Tutor</label>
+                        <br>
+                        @for(rol of user.roles; track rol.id){
+                            @if(rol.id == 2 ){
+                                <input type="text" (change)="searchByEmail('socio')">
+                                <select name="" id="">
+                                        @for (user of arrUsers; track user.id) {
+                                            <option value="">{{user.email}}</option>
+                                        }
+                                </select>
+                            <br>
+
+                            }
+                        }
+                        <input id="socio" type="checkbox"   (change)="onCheckboxChange($event, 3)" [checked]="hasRole(3)">
+                        <label for="socio">Socio</label>
+                        <br>
+                    </article>
+                    <article>
+                        <input id="entrenador" type="checkbox" (change)="onCheckboxChange($event, 4)"  [checked]="hasRole(4)">
+                        <label for="entrenador">Entrenador</label>
+                        <br>
+                        <input id="Administrativo" type="checkbox" (change)="onCheckboxChange($event, 1)" [checked]="hasRole(1)">
+                        <label for="Administrativo">Administrativo</label>
+                    </article>
+                </section>
+            }
+            <app-dialog (eventEmiter)="updateUser($event)" (reject)="true" [header]="'prueba texto'" [message]="'prueba texto'" [nameBtn]="'Guardar cambios'"></app-dialog>
             </tbody>
         </table>
     </div>
