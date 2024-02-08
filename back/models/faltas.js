@@ -1,29 +1,30 @@
 'use strict';
 
 const {
- Model
+  Model
 } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
- class Faltas extends Model {
+  class Faltas extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      // Define associations here
+      // For example, if Faltas belongs to Users and Clase
       // this.belongsTo(models.Users, {
-      //   foreignKey: 'usuario_idusuario',
+      //   foreignKey: 'id_usuario',
       //   as: 'usuario'
       // });
       // this.belongsTo(models.Clase, {
-      //   foreignKey: 'clase_idclase',
+      //   foreignKey: 'id_clase',
       //   as: 'clase'
       // });
     }
- }
- Faltas.init({
+  }
+  Faltas.init({
     idfaltas: {
       allowNull: false,
       autoIncrement: true,
@@ -34,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.INTEGER,
       references: {
-        model: 'Users', 
+        model: 'Users',  
         key: 'id'
       }
     },
@@ -42,13 +43,17 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.INTEGER,
       references: {
-        model: 'clase', 
+        model: 'clase',  
         key: 'idclase'
       }
     }
- }, {
+    // No se necesitan campos 'createdAt' y 'updatedAt' ya que Sequelize los busca por defecto
+  }, {
     sequelize,
     modelName: 'faltas',
- });
- return Faltas;
+    timestamps: false, 
+    underscored: true, 
+    freezeTableName: true, 
+  });
+  return Faltas;
 };

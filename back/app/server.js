@@ -1,5 +1,5 @@
-const express = require('express');
-const cors = require('cors');
+const express = require("express");
+const cors = require("cors");
 
 class Server {
 
@@ -12,14 +12,14 @@ class Server {
         this.noSociosRoutePath = '/api/noSocios';
         this.eventoUsuariosRoutePath = '/api/eventoUsuarios';
 
-        this.middlewares();
-        this.routes(); 
-    }
+    this.middlewares();
+    this.routes();
+  }
 
-    middlewares() {
-        this.app.use(cors());
-        this.app.use(express.json());
-    }
+  middlewares() {
+    this.app.use(cors());
+    this.app.use(express.json());
+  }
 
     routes(){
         this.app.use(this.userRouteClasesPath , require('../routes/claseRoutes'));
@@ -35,11 +35,11 @@ class Server {
         this.app.use(this.eventoUsuariosRoutePath , require('../routes/eventoUsuarioRoutes'));
     }
 
-    listen() {
-        this.app.listen(process.env.PORT, () => {
-            console.log(`Servidor escuchando en: ${process.env.PORT}`);
-        })
-    }
+  listen() {
+    this.app.listen(process.env.PORT, () => {
+      console.log(`Servidor escuchando en: ${process.env.PORT}`);
+    });
+  }
 }
 
 module.exports = Server;

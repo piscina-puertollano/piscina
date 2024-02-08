@@ -1,10 +1,9 @@
 require('dotenv').config();
-const { Sequelize, Model } = require('sequelize');
-const models = require('../models/index.js')
+const { Sequelize } = require('sequelize');
+const models = require('../models/index.js');
 const conexion = require('./connection.js');
 
 class ClaseConnection {
-
     constructor() {
         this.db = new Sequelize(process.env.DB_DEV, process.env.DB_USER, process.env.DB_PASSWORD, {
             host: process.env.DB_HOST,
@@ -22,16 +21,16 @@ class ClaseConnection {
         let clases = [];
         try {
             let con = new conexion();
-            con.conectar()
+            await con.conectar();
             clases = await models.clase.findAll();
-            con.desconectar();
+            await con.desconectar();
         } catch (error) {
             console.error('Error en getClases:', error);
             throw error;
         }
         return clases;
     };
-   
+    
     getClase = async (id) => {
         let clase;
         let con = new conexion();
@@ -47,24 +46,6 @@ class ClaseConnection {
         return clase;
     };
     
-    getClaseTemporada = async (temporada) => {
-        let clase;
-        let con = new conexion();
-        try {
-            await con.conectar();
-            clase = await models.clase.findAll({
-                where: {
-                  temporada: temporada
-        }});
-        } catch (error) {
-            console.error('Error en getClase:', error);
-            throw error;
-        } finally {
-            await con.desconectar();
-        }
-        return clase;
-    };
-
     insertClase = async (data) => {
         let resultado =  0;
         let con = new conexion();
@@ -74,13 +55,13 @@ class ClaseConnection {
             resultado =  1;
         } catch (error) {
             console.error('Error en insertClase:', error);
+            throw error;
         } finally {
             await con.desconectar();
         }
         return resultado;
     };
     
-
     updateClase = async (id, data) => {
         let con = new conexion();
         try {
@@ -99,7 +80,6 @@ class ClaseConnection {
         }
     };
     
-
     deleteClase = async (id) => {
         let con = new conexion();
         try {
@@ -117,7 +97,6 @@ class ClaseConnection {
             await con.desconectar();
         }
     };
-    
 }
 
 module.exports = ClaseConnection;
