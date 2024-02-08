@@ -8,7 +8,7 @@
     <input type="search" alt="Bu    scador de usuarios" [(ngModel)]="searchValue" (input)="search($event)" id="search">
 </section>
 <section id="sectionUser">
-    <button id="btnAdd">Agregar nuevo usuario</button>
+    <app-modal></app-modal>
 </section>
 
 @if(alert.show){

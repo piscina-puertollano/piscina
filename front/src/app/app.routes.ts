@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './user/login/login.component';
-import { UsersComponent } from './users/users.component';
+import { LoginComponent } from './users/login/login.component';
+import { UsersComponent } from './users/admin/users.component';
 import { ClaseComponent} from "./clase/clase.component";
 import { EntrenamientoComponent } from './entrenamiento/entrenamiento.component';
 

@@ -1,17 +1,18 @@
 import { Component, OnInit, input } from '@angular/core';
-import { User } from '../interfaces/user';
-import { Alert } from '../interfaces/alert';
-import { UserService } from '../services/user.service';
+import { User } from '../../interfaces/user';
+import { Alert } from '../../interfaces/alert';
+import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { AlertComponent } from '../utils/alert/alert.component';
-import { DialogComponent } from '../utils/dialog/dialog.component';
+import { AlertComponent } from '../../utils/alert/alert.component';
+import { DialogComponent } from '../../utils/dialog/dialog.component';
 import { elementAt } from 'rxjs';
+import { ModalComponent } from '../../utils/modal/modal.component';
 
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [FormsModule, AlertComponent, DialogComponent],
+  imports: [FormsModule, AlertComponent, DialogComponent, ModalComponent],
   templateUrl: './users.component.html',
   styleUrl: './users.component.css'
 })
