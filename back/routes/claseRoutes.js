@@ -1,20 +1,14 @@
-const {Router } = require('express');
+const express = require('express');
+const router = express.Router();
 const ClaseController = require('../controllers/claseController.js');
-const { check } = require('express-validator');
-const { validateFilds } = require('../middlewares/validators');
-const router = Router();
 
+// Define the routes
 router.get('/clases', ClaseController.obtenerClases);
 router.get('/clases/:id', ClaseController.obtenerClasePorId);
 router.get('/clases/temporada/:temporada', ClaseController.obtenerTemporadaPorId);
-router.post('/clases', [
-    check('temporada', 'La temporada debe de ser una cadena de texto').isString(),
-    validateFilds
-], ClaseController.crearClase);
-router.put('/clases/:id', [
-    check('temporada', 'La temporada debe de ser una cadena de texto').isString(),
-    validateFilds
-], ClaseController.actualizarClase);
+router.post('/clases', ClaseController.crearClase);
+router.put('/clases/:id', ClaseController.actualizarClase);
 router.delete('/clases/:id', ClaseController.eliminarClase);
 
+// Export the router
 module.exports = router;
