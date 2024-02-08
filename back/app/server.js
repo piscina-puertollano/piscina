@@ -6,6 +6,7 @@ class Server {
     this.app = express();
     this.userRoutePath = "/api";
     this.userRouteClasesPath = "/api";
+    this.userclaseRouteClasesPath = "/api/relacion";
 
     this.middlewares();
     this.routes();
@@ -19,6 +20,7 @@ class Server {
   routes() {
     this.app.use(this.userRouteClasesPath, require("../routes/claseRoutes"));
     this.app.use(this.userRouteClasesPath, require("../routes/faltasRoutes"));
+    this.app.use(this.userclaseRouteClasesPath, require("../routes/claseHasUsuarioRoutes"));
     this.app.use(this.userRoutePath, require("../routes/userRoutes"));
     this.app.use(this.userRoutePath, require("../routes/entrenamientosRoutes"));
     this.app.use(this.userRoutePath, require("../routes/puntuacionRoutes"));

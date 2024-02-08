@@ -32,12 +32,15 @@ class FaltasConnection {
         return faltas;
     };
 
-    getFalta = async (id) => {
+    getFalta = async (id_usuario) => {
         let falta;
         let con = new conexion();
         try {
             await con.conectar();
-            falta = await models.faltas.findByPk(id);
+            falta = await models.faltas.findAll({
+                where: {
+                  id_usuario: id_usuario
+                }});
             await con.desconectar();
         } catch (error) {
             console.error('Error en getFalta:', error);
