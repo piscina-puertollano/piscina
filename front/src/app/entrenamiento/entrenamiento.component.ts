@@ -45,15 +45,11 @@ export class EntrenamientoComponent {
     });
   }
 
-  updateEntrenamiento(){
-    this.entrenamientoService.updateEntrenamientos(this.entrenamiento).subscribe({
-      next: (entrenamiento: any | undefined) => {
-        console.log(entrenamiento)
-        this.entrenamiento = entrenamiento
-      },
-      error: (err) => {
-        console.log(err)
-      }
-    })
+  navModificarEntre(id?: number): void {
+    if (typeof id === 'number'){
+      this.router.navigate(['/modificar-entrenamiento', id]);
+    } else {
+      console.error('Id de entrenamiento no válido: ', id)
+    }
   }
 }

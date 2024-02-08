@@ -13,9 +13,15 @@ export class EntrenamientoService {
   private baseUrl : string = environment.baseUrl
   private urlListarEntrenamientos : string = this.baseUrl + '/listar-entrenamientos'
   private urlUpdateEntrenamiento : string = this.baseUrl + '/actualizar-entrenamiento'
+  private urlgetEntrenamientoId : string = this.baseUrl + '/listar-entrenamiento'
 
   getEntrenamientos(): Observable<Array<Entrenamiento> | undefined> {
     return this.http.get<any[]>(this.urlListarEntrenamientos);
+  }
+
+  getEntrenamientoId(entrenamiento: Entrenamiento): Observable<Array<Entrenamiento> | undefined> {
+    const url = `${this.urlgetEntrenamientoId}/${entrenamiento.id}`
+    return this.http.get<any[]>(url);
   }
 
   updateEntrenamientos(entrenamiento: Entrenamiento): Observable<Entrenamiento> {
