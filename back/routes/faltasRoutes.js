@@ -14,7 +14,13 @@ router.post('/faltas',
     validateFilds
 ], 
 FaltasController.crearFalta);
-router.put('/faltas/:id', FaltasController.actualizarFalta);
+router.put('/faltas/:id',
+[
+    check('id_usuario', 'El id del usuario debe de ser un número entero').isInt(),
+    check('id_clase', 'El id de la clase debe de ser un número entero').isInt(),
+    validateFilds
+], 
+FaltasController.actualizarFalta);
 router.delete('/faltas/:id', FaltasController.eliminarFalta);
 
 module.exports = router;
