@@ -63,6 +63,18 @@
                         <input id="tutor" type="checkbox" (change)="onCheckboxChange($event, 2)" [checked]="hasRole(2)">
                         <label for="tutor">Tutor</label>
                         <br>
+                        @for(rol of user.roles; track rol.id){
+                            @if(rol.id == 2 ){
+                                <input type="text" (change)="searchByEmail('socio')">
+                                <select name="" id="">
+                                        @for (user of arrUsers; track user.id) {
+                                            <option value="">{{user.email}}</option>
+                                        }
+                                </select>
+                            <br>
+
+                            }
+                        }
                         <input id="socio" type="checkbox"   (change)="onCheckboxChange($event, 3)" [checked]="hasRole(3)">
                         <label for="socio">Socio</label>
                         <br>

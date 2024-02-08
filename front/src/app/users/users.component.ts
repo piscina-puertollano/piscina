@@ -21,6 +21,7 @@ export class UsersComponent implements OnInit{
   arrUsers: Array<User> = [];
   searchValue: string = ''
   whatSearch: string = ''
+  
 
 
   constructor(private userService: UserService, private router: Router) {
@@ -44,7 +45,7 @@ export class UsersComponent implements OnInit{
     console.log(selected)
 
     if(selected = 'searchEmail'){
-      this.searchByEmail()
+      this.searchByEmail(this.searchValue)
     }else{
       console.log('llego')
       if(typeof input.value != 'string'){
@@ -103,10 +104,10 @@ export class UsersComponent implements OnInit{
     }
   }
 
-  searchByEmail() {
+  searchByEmail(searchValue: string) {
 
     this.alert.show = false;
-    this.userService.searchUserByEmail({email: this.searchValue}).subscribe({
+    this.userService.searchUserByEmail({email: searchValue}).subscribe({
       next: (user: any | undefined) => {
         console.log(user)
         if (user.length == 0 || user.status == 404) {
@@ -187,6 +188,5 @@ export class UsersComponent implements OnInit{
     } else {
       this.user.roles = this.user.roles!!.filter(role => role.id !== roleId);
     }
-
   }
 }
