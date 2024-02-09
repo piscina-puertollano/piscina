@@ -1,11 +1,10 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Users extends Model {
 
     static associate(models) {
+      
       this.belongsToMany(models.Rol, {
          through: models.UserRol,
          foreignKey: 'id_user',
@@ -14,6 +13,21 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: 'CASCADE'
 
       });
+
+      this.belongsToMany(models.Users, {
+        through: models.TutorUser,
+        foreignKey: 'id_tutor',
+        otherKey: 'id_socio',
+        as: 'socios'
+      });
+
+      this.belongsToMany(models.Users, {
+        through: models.TutorUser,
+        foreignKey: 'id_socio',
+        otherKey: 'id_tutor',
+        as: 'tutores'
+      });
+
      }
   }
   Users.init({
@@ -21,12 +35,10 @@ module.exports = (sequelize, DataTypes) => {
     lastName: DataTypes.STRING,
     email: DataTypes.STRING,
     password: DataTypes.STRING,
-    isSocio: DataTypes.TINYINT,
   }, {
     sequelize,
     modelName: 'Users',
     tableName: 'users',
-    tableName:'users'
   });
   return Users;
 };
