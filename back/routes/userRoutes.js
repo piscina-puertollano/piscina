@@ -7,6 +7,7 @@ const router = Router();
 router.post('/login/', controlador.login );
 router.get('/user/:id', controlador.showUser );
 router.delete('/user/:id', controlador.deleteUser );
+
 router.post('/user/', [
     check('firstName', 'El nombre es obligatorio').notEmpty(),
     check('lastName', 'Los apellido son obligatorios').notEmpty(),
@@ -15,10 +16,18 @@ router.post('/user/', [
     check('password', 'La contraseña no puede estar vacía').notEmpty(),
     validateFilds
 ],controlador.newUser );
+
+
 router.put('/user/', controlador.updateUser );
 router.get('/users/', controlador.index);
 router.post('/forget-pass/', controlador.forgetPass);
 router.post('/search', controlador.getUserByValue);
+
+//obtener los socios asociados a un tutor
+router.get('/socios/:idTutor', controlador.showSociosOfTutor);
+
+//obtener de un socio los tutores asociados
+router.get('/socio/:idSocio', controlador.showTutorsOfSocio);
 
 
 

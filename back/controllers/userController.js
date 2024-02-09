@@ -169,6 +169,34 @@ const deleteUser = async (req, res) => {
         })
 }
 
+const showSociosOfTutor = async (req, res) => {
+    const conx = new Conexion()
+
+    conx.showSociosOfTutor(req.params.idTutor)
+        .then((msg) => {
+            res.status(200).json(msg)
+
+        })
+        .catch(error => {
+            console.log(error)
+            res.status(400).json(error)
+        })
+}
+
+const showTutorsOfSocio = async (req, res) => {
+    const conx = new Conexion()
+
+    conx.showTutorsOfSocio(req.params.idSocio)
+        .then((msg) => {
+            res.status(200).json(msg)
+
+        })
+        .catch(error => {
+            console.log(error)
+            res.status(400).json(error)
+        })
+}
+
 
 module.exports = {
     newUser,
@@ -178,5 +206,7 @@ module.exports = {
     updateUser,
     login,
     getUserByValue,
-    deleteUser
+    deleteUser,
+    showSociosOfTutor,
+    showTutorsOfSocio
 };

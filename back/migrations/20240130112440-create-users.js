@@ -10,6 +10,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         onDelete: 'CASCADE'
       },
+      numSocio: {
+        allowNull: true,
+        type: Sequelize.INTEGER,
+      },
       firstName: {
         type: Sequelize.STRING,
         allowNull:false
@@ -25,10 +29,6 @@ module.exports = {
       password: {
         type: Sequelize.STRING,
         allowNull:true
-      },
-      isSocio: {
-        type: Sequelize.TINYINT,
-        defaultValue: false
       },
       createdAt: {
         allowNull: false,

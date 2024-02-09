@@ -193,8 +193,88 @@ class UserModel{
         }
         return listUsers;
     }
-}
 
+    // asignUser = async(tutorId, arruser) =>{
+    
+    //     let listUsers = 0
+    //     conexion.conectar();
+    
+    //     try{
+    //         listUsers = await models.TutorUser.create({
+    //             attributes: ['id', 'email'],
+    //             include: {
+    //                 model: models.Rol,
+    //                 as: 'roles',
+    //                 attributes:['id'],
+    //                 through: {
+    //                     attributes: []
+    //                 }
+    //             }
+    //         });
+    
+    //     } catch (error) {
+    //         throw error;
+    //     } finally {
+    //         conexion.desconectar();
+    //     }
+    //     return listUsers;
+    // }
+
+    showSociosOfTutor = async(idTutor) => {
+        let resultado = [];
+        try {
+            conexion.conectar();
+            resultado = await models.TutorUser.findAll({
+                where:{
+                    'id_tutor':idTutor
+                },
+                attributes:['id_socio'],
+                include:[
+                    {
+                        model: models.Users,
+                        as: 'socio',
+                        attributes:['id','firstName','lastName','email']
+
+                    }
+                ]
+            });
+        } catch (error) {
+            if (!resultado){
+                throw new Error('user not found');
+            }
+        }finally{
+            conexion.desconectar();
+            return resultado;
+        }
+    }
+
+    showTutorsOfSocio = async(idSocio) => {
+        let resultado = [];
+        try {
+            conexion.conectar();
+            resultado = await models.TutorUser.findAll({
+                where:{
+                    'id_socio':idSocio
+                },
+                attributes:['id_tutor'],
+                include:[
+                    {
+                        model: models.Users,
+                        as: 'tutor',
+                        attributes:['id','firstName','lastName','email']
+                    }
+                ]
+            });
+        } catch (error) {
+            if (!resultado){
+                throw new Error('user not found');
+            }
+        }finally{
+            conexion.desconectar();
+            return resultado;
+        }
+    }
+}
 
 
 module.exports = UserModel

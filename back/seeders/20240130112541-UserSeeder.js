@@ -11,7 +11,6 @@ module.exports = {
         lastName: 'admin',
         email: 'admin@piscina.com',
         password: await bcrypt.hash('1234', 10),
-        isSocio: 0,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -21,7 +20,6 @@ module.exports = {
         lastName: 'tutor',
         email: 'tutor@piscina.com',
         password: await bcrypt.hash('1234', 10),
-        isSocio: 0,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -31,7 +29,6 @@ module.exports = {
         lastName: 'socio',
         email: 'socio@piscina.com',
         password: await bcrypt.hash('1234', 10),
-        isSocio: 0,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -41,7 +38,6 @@ module.exports = {
         lastName: 'socio',
         email: 'tutorsocio@piscina.com',
         password: await bcrypt.hash('1234', 10),
-        isSocio: 0,
         createdAt: new Date(),
         updatedAt: new Date()
       }
