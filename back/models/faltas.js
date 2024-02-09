@@ -12,16 +12,6 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // Define associations here
-      // For example, if Faltas belongs to Users and Clase
-      // this.belongsTo(models.Users, {
-      //   foreignKey: 'id_usuario',
-      //   as: 'usuario'
-      // });
-      // this.belongsTo(models.Clase, {
-      //   foreignKey: 'id_clase',
-      //   as: 'clase'
-      // });
     }
   }
   Faltas.init({
