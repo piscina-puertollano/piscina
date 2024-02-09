@@ -97,5 +97,3 @@ Aqui añadimos una descripcion del proyecto
 - [Marina Laguna Valdepeñas](https://github.com/demon-for-arcangel)
 
 - [Gonzalo Martínez Haro](https://github.com/GonzaloMartinezHaro)
-
-
