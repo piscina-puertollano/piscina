@@ -14,6 +14,7 @@ export class EntrenamientoService {
   private urlListarEntrenamientos : string = this.baseUrl + '/listar-entrenamientos'
   private urlUpdateEntrenamiento : string = this.baseUrl + '/actualizar-entrenamiento'
   private urlgetEntrenamientoId : string = this.baseUrl + '/listar-entrenamiento'
+  private urldeleteEntrenamiento: string = this.baseUrl + '/eliminar-entrenamiento';
 
   getEntrenamientos(): Observable<Array<Entrenamiento> | undefined> {
     return this.http.get<any[]>(this.urlListarEntrenamientos);
@@ -34,8 +35,13 @@ export class EntrenamientoService {
     );
   }
 
-
-  /* deleteEntrenamientos(id: any): Observable<Array<Entrenamiento> | undefined>{
-    return 
-  } */
+  deleteEntrenamientos(entrenamiento: Entrenamiento): Observable<Entrenamiento | undefined> {
+    const url = `${this.urldeleteEntrenamiento}/${entrenamiento.id}`;
+    return this.http.delete<Entrenamiento>(url).pipe(
+      catchError((error) => {
+        console.error('Error al eliminar el entrenamiento:', error);
+        throw error;
+      })
+    );
+  }
 }

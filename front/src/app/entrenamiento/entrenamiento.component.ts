@@ -52,4 +52,26 @@ export class EntrenamientoComponent {
       console.error('Id de entrenamiento no válido: ', id)
     }
   }
+
+  deleteEntrenamiento(entrenamiento: Entrenamiento) {
+    this.entrenamientoService.deleteEntrenamientos(entrenamiento).subscribe({
+      next: (deletedEntrenamiento: Entrenamiento | undefined) => {
+        if (deletedEntrenamiento) {
+          this.arrEntrenamientos = this.arrEntrenamientos.filter(e => e.id !== entrenamiento.id);
+          this.alert.show = true;
+          this.alert.header = 'Success';
+          this.alert.message = 'Entrenamiento eliminado correctamente.';
+        } else {
+          this.alert.show = true;
+          this.alert.header = 'Error';
+          this.alert.message = 'El entrenamiento no pudo ser eliminado.';
+        }
+      },
+      error: (err) => {
+        this.alert.show = true;
+        this.alert.header = 'Error';
+        this.alert.message = 'Ha ocurrido un error al intentar eliminar el entrenamiento.';
+      }
+    });
+  }
 }

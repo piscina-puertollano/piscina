@@ -17,8 +17,8 @@ class Server {
     }
 
     routes(){
-/*         this.app.use(this.userRoutePath, require('../routes/userRoutes'));
- */        this.app.use(this.userRoutePath, require('../routes/entrenamientosRoutes'));
+        this.app.use(this.userRoutePath, require('../routes/userRoutes'));
+        this.app.use(this.userRoutePath, require('../routes/entrenamientosRoutes'));
         this.app.use(this.userRoutePath, require('../routes/puntuacionRoutes'));
     }
 

@@ -1,9 +1,10 @@
 <h2>Modificar Entrenamiento</h2>
-
-<label>Nombre</label>
-<input [(ngModel)]="entrenamiento.nombre" name="nombre" type="text">
-
-<label>Descripcion</label>
-<input [(ngModel)]="entrenamiento.descripcion" name="descripcion" type="text">
-
-<button (click)="updateEntrenamiento()">Modificar Entrenamiento</button>
+@for (att of [entrenamiento]; track entrenamiento.id){
+    <label>Nombre</label>
+    <input {{entrenamiento.nombre}} name="nombre" type="text">
+    
+    <label>Descripcion</label>
+    <input {{entrenamiento.descripcion}} name="descripcion" type="text">
+    
+    <button (click)="updateEntrenamiento()">Modificar Entrenamiento</button> 
+}

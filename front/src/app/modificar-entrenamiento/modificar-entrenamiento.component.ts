@@ -23,10 +23,6 @@ export class ModificarEntrenamientoComponent {
     this.alert = new Alert();
   }
 
-  ngOnInit(){
-    this.getEntrenamiento()
-  }
-
   updateEntrenamiento(){
     this.entrenamientoService.updateEntrenamientos(this.entrenamiento).subscribe({
       next: (entrenamiento: any | undefined) => {
@@ -38,21 +34,24 @@ export class ModificarEntrenamientoComponent {
     })
   }
 
-  getEntrenamiento(){
-    this.entrenamientoService.getEntrenamientoId(this.entrenamiento).subscribe({
+  getEntrenamiento() {
+    this.entrenamientoService.getEntrenamientoId({ id: this.entrenamiento.id }).subscribe({
       next: (entrenamiento: any | undefined) => {
-        console.log(entrenamiento)
-        if (entrenamiento && entrenamiento.length ===  0) {
+        console.log(entrenamiento);
+        if (!entrenamiento || entrenamiento.length ===  0) {
           this.alert.show = true;
           this.alert.header = 'Error';
           this.alert.message = 'Entrenamiento no encontrado';
-        } else if (entrenamiento) {
+        } else {
           this.alert.show = false;
-          this.arrEntrenamientos = entrenamiento;
+          this.entrenamiento = entrenamiento[0]; 
         }
-      },  
+      },
       error: (err) => {
         console.log(err);
+        this.alert.show = true;
+        this.alert.header = 'Error';
+        this.alert.message = 'Ha ocurrido un error al intentar obtener el entrenamiento';
       }
     });
   }
