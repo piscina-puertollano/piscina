@@ -7,7 +7,7 @@ const { validateFilds } = require('../middlewares/validators');
 router.get('/usuarios-clases', ClaseHasUsuarioController.obtenerClasesHasUsuarios);
 
 // Asumiendo que la ruta para obtener una relación específica entre un usuario y una clase será '/usuarios-clases/:usuario_idusuario/:clase_idclase'
-router.get('/usuarios-clases/:usuario_idusuario/:clase_idclase', ClaseHasUsuarioController.obtenerClaseHasUsuarioPorIds);
+router.get('/usuarios-clases/id_usuario', ClaseHasUsuarioController.obtenerClaseHasUsuarioPorIds);
 router.post('/usuarios-clases',  [
     check('id_usuario', 'El id del usuario debe de ser un número entero').isInt(),
     check('id_clase', 'El id de la clase debe de ser un número entero').isInt(),

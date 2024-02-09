@@ -12,9 +12,9 @@ const obtenerClasesHasUsuarios = async (req, res = express.response) => {
 };
 
 const obtenerClaseHasUsuarioPorIds = async (req, res = express.response) => {
-    const { usuario_idusuario, clase_idclase } = req.params;
+    const { id_usuario} = req.params;
     try {
-        const claseHasUsuario = await claseHasUsuarioConnection.getClaseHasUsuario(usuario_idusuario, clase_idclase);
+        const claseHasUsuario = await claseHasUsuarioConnection.getClaseHasUsuario(id_usuario);
         if (claseHasUsuario) {
             res.status(200).json(claseHasUsuario);
         } else {

@@ -19,16 +19,16 @@ class ClaseHasUsuarioConnection {
         return clasesHasUsuarios;
     };
 
-    getClaseHasUsuario = async (usuario_idusuario, clase_idclase) => {
+    getClaseHasUsuario = async (id_usuario) => {
         let claseHasUsuario;
         let con = new conexion();
         try {
             await con.conectar();
             claseHasUsuario = await models.clase_has_usuario.findOne({
                 where: {
-                  usuario_idusuario: usuario_idusuario,
-                  clase_idclase: clase_idclase
-                }
+                    id_usuario: id_usuario
+                },
+                raw: true
             });
             await con.desconectar();
         } catch (error) {
