@@ -1,6 +1,5 @@
 
 const express = require('express');
-// const body_parser = require('body-parser');
 const cors = require('cors');
 
 class Server {
@@ -8,6 +7,7 @@ class Server {
     constructor() {
         this.app = express();
         this.userRoutePath = '/api';
+        this.userRouteClasesPath = '/api';
         this.eventosRoutePath = '/api/eventos';
         this.categoriasRoutePath = '/api/categorias';
         this.noSociosRoutePath = '/api/noSocios';
@@ -23,7 +23,13 @@ class Server {
     }
 
     routes(){
-        //this.app.use(this.userRoutePath , require('../routes/userRoutes'));
+        this.app.use(this.userRouteClasesPath , require('../routes/claseRoutes'));
+
+         this.app.use(this.userRoutePath, require('../routes/userRoutes'));
+         this.app.use(this.userRoutePath, require('../routes/entrenamientosRoutes'));
+        this.app.use(this.userRoutePath, require('../routes/puntuacionRoutes'));
+
+      
         this.app.use(this.eventosRoutePath , require('../routes/eventoRoutes'));
         this.app.use(this.categoriasRoutePath , require('../routes/categoriaRoutes'));
         this.app.use(this.noSociosRoutePath , require('../routes/noSocioRoutes'));

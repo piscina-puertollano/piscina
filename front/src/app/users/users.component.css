@@ -1,0 +1,14 @@
+svg {
+    cursor: pointer;
+}
+
+.user{
+    max-width: 130px;
+}
+
+#btnAdd{
+    position: absolute;
+    right: 25vw;
+    top: 30vh
+
+}

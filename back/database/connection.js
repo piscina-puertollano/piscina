@@ -20,7 +20,7 @@ class Conexion {
         }).catch((error) => {
             console.error('Unable to connect to the database: ')
         })
-    }
+    };
 
     desconectar = () => {
         console.log('Connection has been closed successfully.')
@@ -28,4 +28,4 @@ class Conexion {
     }
 }
 
-module.exports = Conexion
+module.exports = Conexion;
