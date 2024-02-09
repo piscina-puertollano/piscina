@@ -1,69 +1,67 @@
 const express = require('express');
-const ClaseConnection = require('../database/claseHasUsuarioConnection');
-const claseConnection = new ClaseConnection();
+const ClaseHasUsuarioConnection = require('../database/claseHasUsuarioConnection');
+const claseHasUsuarioConnection = new ClaseHasUsuarioConnection();
 
-const obtenerClases = async (req, res = express.response) => {
+const obtenerClasesHasUsuarios = async (req, res = express.response) => {
     try {
-        const clases = await claseConnection.getClasesHasUsuarios();
-        res.status(200).json(clases);
+        const clasesHasUsuarios = await claseHasUsuarioConnection.getClasesHasUsuarios();
+        res.status(200).json(clasesHasUsuarios);
     } catch (error) {
-        res.status(500).json({ mensaje: 'Error al obtener las clases', error: error });
+        res.status(500).json({ mensaje: 'Error al obtener las clases y usuarios', error: error });
     }
 };
 
-
-const obtenerClasePorId = async (req, res = express.response) => {
-    const { id } = req.params;
+const obtenerClaseHasUsuarioPorIds = async (req, res = express.response) => {
+    const { usuario_idusuario, clase_idclase } = req.params;
     try {
-        const clase = await claseConnection.getClaseHasUsuarioById(id); // Cambio aquí
-        if (clase) {
-            res.status(200).json(clase);
+        const claseHasUsuario = await claseHasUsuarioConnection.getClaseHasUsuario(usuario_idusuario, clase_idclase);
+        if (claseHasUsuario) {
+            res.status(200).json(claseHasUsuario);
         } else {
-            res.status(404).json({ mensaje: 'Clase no encontrada' });
+            res.status(404).json({ mensaje: 'Relación entre usuario y clase no encontrada' });
         }
     } catch (error) {
-        res.status(500).json({ mensaje: 'Error al obtener la clase por ID', error: error });
+        res.status(500).json({ mensaje: 'Error al obtener la relación entre usuario y clase por IDs', error: error });
     }
 };
 
-
-const crearClase = async (req, res = express.response) => {
+const crearClaseHasUsuario = async (req, res = express.response) => {
     try {
-        const resultado = await claseConnection.insertClase(req.body); // Cambio aquí
+        const resultado = await claseHasUsuarioConnection.insertClaseHasUsuario(req.body);
         if (resultado ===  1) {
-            res.status(201).json({ mensaje: 'Clase creada correctamente' });
+            res.status(201).json({ mensaje: 'Relación creada correctamente' });
         } else {
-            res.status(500).json({ mensaje: 'Error al crear la clase' });
+            res.status(500).json({ mensaje: 'Error al crear la relación entre usuario y clase' });
         }
     } catch (error) {
-        res.status(500).json({ mensaje: 'Error al crear la clase', error: error });
+        res.status(500).json({ mensaje: 'Error al crear la relación entre usuario y clase', error: error });
     }
 };
 
-const actualizarClase = async (req, res = express.response) => {
+const actualizarClaseHasUsuario = async (req, res = express.response) => {
     const { id } = req.params;
     try {
-        await claseConnection.updateClase(id, req.body); // Cambio aquí
-        res.status(200).json({ mensaje: 'Clase actualizada correctamente' });
+        await claseHasUsuarioConnection.updateClaseHasUsuario(id, req.body);
+        res.status(200).json({ mensaje: 'Relación actualizada correctamente' });
     } catch (error) {
-        res.status(500).json({ mensaje: 'Error al actualizar la clase', error: error });
+        res.status(500).json({ mensaje: 'Error al actualizar la relación entre usuario y clase', error: error });
     }
 };
 
-const eliminarClase = async (req, res = express.response) => {
+const eliminarClaseHasUsuario = async (req, res = express.response) => {
     const { id } = req.params;
     try {
-        await claseConnection.deleteClase(id); // Cambio aquí
-        res.status(200).json({ mensaje: 'Clase eliminada correctamente' });
+        await claseHasUsuarioConnection.deleteClaseHasUsuario(id);
+        res.status(200).json({ mensaje: 'Relación eliminada correctamente' });
     } catch (error) {
-        res.status(500).json({ mensaje: 'Error al eliminar la clase', error: error });
+        res.status(500).json({ mensaje: 'Error al eliminar la relación entre usuario y clase', error: error });
     }
 };
 
 module.exports = {
-    obtenerClases,
-    obtenerClasePorId,
-    crearClase,
-    actualizarClase,
-    eliminarClase
+    obtenerClasesHasUsuarios,
+    obtenerClaseHasUsuarioPorIds,
+    crearClaseHasUsuario,
+    actualizarClaseHasUsuario,
+    eliminarClaseHasUsuario
 };

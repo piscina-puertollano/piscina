@@ -11,6 +11,7 @@ class Server {
         this.categoriasRoutePath = '/api/categorias';
         this.noSociosRoutePath = '/api/noSocios';
         this.eventoUsuariosRoutePath = '/api/eventoUsuarios';
+        this.relacionusuarioclases = '/api/relacion';
 
     this.middlewares();
     this.routes();
@@ -23,6 +24,8 @@ class Server {
 
     routes(){
         this.app.use(this.userRouteClasesPath , require('../routes/claseRoutes'));
+        this.app.use(this.userRouteClasesPath , require('../routes/faltasRoutes'));
+        this.app.use(this.relacionusuarioclases , require('../routes/claseHasUsuarioRoutes'));
 
          this.app.use(this.userRoutePath, require('../routes/userRoutes'));
          this.app.use(this.userRoutePath, require('../routes/entrenamientosRoutes'));

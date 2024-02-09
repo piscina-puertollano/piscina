@@ -1,19 +1,26 @@
 'use strict';
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('clase_has_usuario', {
-      id_usuario: {
-        allowNull: false,
+      id: {
         type: Sequelize.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true
+      },
+      id_usuario: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
         references: {
           model: 'users',
           key: 'id'
         }
       },
       id_clase: {
-        allowNull: false,
         type: Sequelize.INTEGER,
+        allowNull: false,
         references: {
           model: 'clase',
           key: 'id'
