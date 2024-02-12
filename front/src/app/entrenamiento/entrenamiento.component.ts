@@ -70,4 +70,8 @@ export class EntrenamientoComponent {
       console.error('Id de entrenamiento no válido: ', id)
     }
   }
+
+  navCrearEntre(){
+    this.router.navigate(['crear-entrenamiento']);
+  }
 }
