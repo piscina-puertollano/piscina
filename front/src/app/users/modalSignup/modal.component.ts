@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { SignupComponent } from '../../users/signup/signup.component';
+import { SignupComponent } from '../signup/signup.component';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 
@@ -39,8 +39,7 @@ export class ModalComponent implements OnDestroy{
     });
 
     this.ref.onMaximize.subscribe((value) => {
-        console.log('se ha maximizadi')
-
+        
         this.messageService.add({ severity: 'info', summary: 'Maximized', detail: `maximized: ${value.maximized}` });
     });
 }
