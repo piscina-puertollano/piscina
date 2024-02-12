@@ -1,6 +1,6 @@
 <h2>Entrenamientos</h2>
 
-<button>Crear un Nuevo Entrenamiento</button>
+<button (click)="navCrearEntre()">Crear un Nuevo Entrenamiento</button>
 <table>
     <thead>
         <th>Entrenamiento</th>
@@ -14,8 +14,7 @@
                 <td>
                     <button (click)="navModificarEntre(entrenamiento.id)">Modificar Entrenamiento</button>
                     <br>
-                    <button (click)="deleteEntrenamiento(entrenamiento)">Eliminar Entrenamiento</button>
-                </td>
+                    <button (click)="deleteEntrenamiento(entrenamiento)">Eliminar Entrenamiento</button>                </td>
             </tr>
         }
     </tbody>
