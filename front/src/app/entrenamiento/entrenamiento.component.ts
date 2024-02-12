@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { ApplicationConfig, Component, OnInit } from '@angular/core';
 import { EntrenamientoService } from '../services/entrenamiento.service';
 import { Entrenamiento } from '../interfaces/entrenamiento';
-import { Router } from '@angular/router';
+import { Router, provideRouter } from '@angular/router';
 import { Alert } from '../interfaces/alert';
 import { AlertComponent } from '../utils/alert/alert.component';
 
@@ -12,6 +12,7 @@ import { AlertComponent } from '../utils/alert/alert.component';
   templateUrl: './entrenamiento.component.html',
   styleUrl: './entrenamiento.component.css'
 })
+
 export class EntrenamientoComponent {
   entrenamiento: Entrenamiento;
   alert: Alert;
