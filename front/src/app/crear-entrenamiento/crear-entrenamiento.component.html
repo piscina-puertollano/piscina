@@ -1,0 +1,9 @@
+<h2>Crear Entrenamiento</h2>
+
+<label for="nombre">Nombre</label>
+<input [(ngModel)]="entrenamiento.nombre" name="nombre" type="text" required>
+
+<label for="descripcion">Descripcion</label>
+<textarea [(ngModel)]="entrenamiento.descripcion" name="descripcion" required></textarea>
+
+<button (click)="insertEntrenamiento()">Crear Entrenamiento</button>
