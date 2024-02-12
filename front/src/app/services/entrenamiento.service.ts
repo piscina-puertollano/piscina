@@ -37,6 +37,8 @@ export class EntrenamientoService {
 
   deleteEntrenamientos(entrenamiento: Entrenamiento): Observable<Entrenamiento | undefined> {
     const url = `${this.urldeleteEntrenamiento}/${entrenamiento.id}`;
+    console.log('URL de eliminación:', url);
+  
     return this.http.delete<Entrenamiento>(url).pipe(
       catchError((error) => {
         console.error('Error al eliminar el entrenamiento:', error);
