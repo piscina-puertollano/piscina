@@ -28,6 +28,11 @@ module.exports = (sequelize, DataTypes) => {
         as: 'tutores'
       });
 
+      this.hasOne(models.Assets, {
+        foreignKey: 'id',
+        sourceKey: 'photo_profile',
+        as: 'image'
+      });
      }
   }
   Users.init({
@@ -35,6 +40,7 @@ module.exports = (sequelize, DataTypes) => {
     lastName: DataTypes.STRING,
     email: DataTypes.STRING,
     password: DataTypes.STRING,
+    photo_profile: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Users',

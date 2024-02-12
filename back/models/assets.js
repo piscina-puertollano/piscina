@@ -6,7 +6,10 @@ module.exports = (sequelize, DataTypes) => {
   class Assets extends Model {
 
     static associate(models) {
-      // define association here
+      this.hasOne(models.Users, {
+        foreignKey: 'photo_profile',
+        as: 'image'
+     });
     }
   }
   Assets.init({
@@ -14,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Assets',
+    tableName: 'assets'
   });
   return Assets;
 };
