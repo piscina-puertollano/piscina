@@ -1,10 +1,11 @@
 <h2>Modificar Entrenamiento</h2>
-@for (att of [entrenamiento]; track entrenamiento.id){
-    <label>Nombre</label>
-    <input {{entrenamiento.nombre}} name="nombre" type="text">
-    
-    <label>Descripcion</label>
-    <input {{entrenamiento.descripcion}} name="descripcion" type="text">
-    
-    <button (click)="updateEntrenamiento()">Modificar Entrenamiento</button> 
-}
+
+<form>
+  <label for="nombre">Nombre</label>
+  <input [(ngModel)]="entrenamiento.nombre" name="nombre" type="text">
+
+  <label for="descripcion">Descripcion</label>
+  <textarea [(ngModel)]="entrenamiento.descripcion" name="descripcion"></textarea>
+
+  <button (click)="updateEntrenamiento()">Modificar Entrenamiento</button>
+</form>
