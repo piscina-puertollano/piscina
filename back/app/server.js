@@ -1,5 +1,7 @@
 const express = require("express");
 const cors = require("cors");
+const mongoose = require("mongoose");
+mongoose.set('strictQuery', false);
 
 class Server {
 
@@ -16,6 +18,18 @@ class Server {
     this.routes();
   }
 
+  conectarMongoose() {
+
+    mongoose.connect('mongodb://' + process.env.DB_MONGO_URL + ':' + process.env.DB_MONGO_PORT + '/' + process.env.DB_MONGO_DATABASE, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    });
+
+    this.db = mongoose.connection;
+    this.db.on('error', console.error.bind(console, 'Error de conexión a MongoDB:'));
+    this.db.once('open', () => {console.log('Conexión exitosa a MongoDB');});
+}
+
   middlewares() {
     this.app.use(cors());
     this.app.use(express.json());
@@ -25,6 +39,8 @@ class Server {
         this.app.use(this.userRouteClasesPath , require('../routes/claseRoutes'));
 
          this.app.use(this.userRoutePath, require('../routes/userRoutes'));
+         this.app.use(this.userRoutePath, require('../routes/clubRoutes'));
+
          this.app.use(this.userRoutePath, require('../routes/entrenamientosRoutes'));
         this.app.use(this.userRoutePath, require('../routes/puntuacionRoutes'));
 
