@@ -32,7 +32,7 @@ export class EntrenamientoComponent {
       next: (entrenamiento: any | undefined) => {
         console.log(entrenamiento);
   
-        if (Array.isArray(entrenamiento)) {  // Verifica si es un array
+        if (Array.isArray(entrenamiento)) {  
           this.arrEntrenamientos = entrenamiento;
         } else {
           this.alert.show = true;
@@ -46,33 +46,28 @@ export class EntrenamientoComponent {
     });
   }
 
+  deleteEntrenamiento(entrenamiento: Entrenamiento) {
+    this.entrenamientoService.deleteEntrenamientos(entrenamiento).subscribe({
+      next: (deletedEntrenamiento: Entrenamiento | undefined) => {
+        console.log('eliminando')
+        if (deletedEntrenamiento) {
+          this.arrEntrenamientos = this.arrEntrenamientos.filter(e => e.id !== entrenamiento.id);
+          console.log('Entrenamiento eliminado correctamente:', deletedEntrenamiento);
+        } else {
+          console.error('El entrenamiento no pudo ser eliminado.');
+        }
+      },
+      error: (err) => {
+        console.error('Error al eliminar el entrenamiento:', err);
+      }
+    });
+  }
+
   navModificarEntre(id?: number): void {
     if (typeof id === 'number'){
       this.router.navigate(['/modificar-entrenamiento', id]);
     } else {
       console.error('Id de entrenamiento no válido: ', id)
     }
-  }
-
-  deleteEntrenamiento(entrenamiento: Entrenamiento) {
-    this.entrenamientoService.deleteEntrenamientos(entrenamiento).subscribe({
-      next: (deletedEntrenamiento: Entrenamiento | undefined) => {
-        if (deletedEntrenamiento) {
-          this.arrEntrenamientos = this.arrEntrenamientos.filter(e => e.id !== entrenamiento.id);
-          this.alert.show = true;
-          this.alert.header = 'Success';
-          this.alert.message = 'Entrenamiento eliminado correctamente.';
-        } else {
-          this.alert.show = true;
-          this.alert.header = 'Error';
-          this.alert.message = 'El entrenamiento no pudo ser eliminado.';
-        }
-      },
-      error: (err) => {
-        this.alert.show = true;
-        this.alert.header = 'Error';
-        this.alert.message = 'Ha ocurrido un error al intentar eliminar el entrenamiento.';
-      }
-    });
   }
 }
