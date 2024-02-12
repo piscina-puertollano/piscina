@@ -1,4 +1,4 @@
-import { ApplicationConfig, Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { EntrenamientoService } from '../services/entrenamiento.service';
 import { Entrenamiento } from '../interfaces/entrenamiento';
 import { Router, provideRouter } from '@angular/router';
@@ -30,14 +30,14 @@ export class EntrenamientoComponent {
   listarEntrenamientos() {
     this.entrenamientoService.getEntrenamientos().subscribe({
       next: (entrenamiento: any | undefined) => {
-        console.log(entrenamiento)
-        if (entrenamiento.status >= 400){
+        console.log(entrenamiento);
+  
+        if (Array.isArray(entrenamiento)) {  // Verifica si es un array
+          this.arrEntrenamientos = entrenamiento;
+        } else {
           this.alert.show = true;
           this.alert.header = 'Error';
-          this.alert.message = 
-          'No se han podido cargar los entrenamientos. Póngase en contacto con un administrador.';
-        } else {
-          this.arrEntrenamientos = entrenamiento;
+          this.alert.message = 'No se han podido cargar los entrenamientos. Póngase en contacto con un administrador.';
         }
       },
       error: (err) => {
