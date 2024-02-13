@@ -5,13 +5,37 @@ class ClubConnection{
 
     constructor(){}
 
-    allClubs = async ()=>{
+    allSections = async ()=>{
         let resClub = 0
         try{
             resClub = await clubModel.find();
-            console.log(resClub)
         }catch(error){
-            console.log(error)
+            throw new Error(error)
+        }finally{
+            return resClub
+        }
+    }
+
+    showByTag = async (tag)=>{
+        let resClub = 0
+        try{
+            resClub = await clubModel.findOne( { tag: tag });
+        }catch(error){
+            throw new Error(error)
+        }finally{
+            return resClub
+        }
+    }
+
+    updateById = async (id, updateObj)=>{
+        let resClub = 0
+        try{
+            resClub = await clubModel.findOneAndUpdate(
+                { _id: id }, 
+                updateObj,
+                { new: true } 
+              );
+        }catch(error){
             throw new Error(error)
         }finally{
             return resClub
