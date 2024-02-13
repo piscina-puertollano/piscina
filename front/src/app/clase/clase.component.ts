@@ -34,9 +34,9 @@ export class ClaseComponent implements OnInit {
     );
   }
 
-  prepareEdit(user: any): void {
-    this.currentNombre = user.nombre;
-    this.currentTemporada = user.temporada;
+  prepareEdit(clase: any): void {
+    this.currentNombre = clase.id;
+    this.currentTemporada = clase.temporada;
     this.isEditing = true;
   }
 

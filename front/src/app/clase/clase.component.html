@@ -21,7 +21,7 @@
 
 <!-- Campos de entrada para editar -->
 <div [@animationTrigger]="isEditing">
-  <input type="hidden"  value="{{currentNombre}}" disabled/>
+  <input type="text"  value="{{currentNombre}}" disabled/>
   <label>Temporada:</label>
   <input type="text" value="{{currentTemporada}}" />
   <button (click)="saveChanges()">Actualizar Clase</button>
