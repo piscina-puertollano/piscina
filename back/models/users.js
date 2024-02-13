@@ -14,6 +14,11 @@ module.exports = (sequelize, DataTypes) => {
 
       });
 
+      this.belongsToMany(models.Assets, {
+        through: models.UserAssets,
+        foreignKey:'id_user'
+      });
+
       this.belongsToMany(models.Users, {
         through: models.TutorUser,
         foreignKey: 'id_tutor',

@@ -6,6 +6,13 @@ module.exports = (sequelize, DataTypes) => {
   class Assets extends Model {
 
     static associate(models) {
+
+      this.belongsToMany(models.Users, {
+        through: models.UserAssets,
+        foreignKey:'id_asset'
+      });
+
+
       this.hasOne(models.Users, {
         foreignKey: 'photo_profile',
         as: 'image'

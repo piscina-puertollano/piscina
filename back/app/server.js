@@ -41,6 +41,7 @@ class Server {
 
          this.app.use(this.userRoutePath, require('../routes/userRoutes'));
          this.app.use(this.userRoutePath, require('../routes/clubRoutes'));
+         this.app.use(this.userRoutePath, require('../routes/assetsRoutes'));
 
          this.app.use(this.userRoutePath, require('../routes/entrenamientosRoutes'));
         this.app.use(this.userRoutePath, require('../routes/puntuacionRoutes'));
