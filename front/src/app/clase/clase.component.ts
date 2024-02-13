@@ -28,6 +28,6 @@ export class ClaseComponent implements OnInit {
   }
 
   trackByNombre(index: number, user: any): string | undefined {
-    return user?.id; // Suponiendo que 'nombre' es una propiedad única de cada usuario
+    return user?.id; 
   }
 }
