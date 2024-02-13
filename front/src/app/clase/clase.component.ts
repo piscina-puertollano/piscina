@@ -49,10 +49,8 @@ export class ClaseComponent implements OnInit {
     const apiUrl = `http://localhost:9090/api/clases/${user.id}`;
     this.http.delete(apiUrl)
       .subscribe(() => {
-        // Elimina la clase del arreglo local después de una respuesta exitosa
         this.datos = this.datos.filter(clase => clase.id !== user.id);
       }, error => {
-        // Maneja el error, por ejemplo, mostrando un mensaje al usuario
         console.error('Error al eliminar la clase:', error);
       });
   }
