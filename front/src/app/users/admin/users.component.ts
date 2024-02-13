@@ -6,8 +6,7 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AlertComponent } from '../../utils/alert/alert.component';
 import { DialogComponent } from '../../utils/dialog/dialog.component';
-import { elementAt } from 'rxjs';
-import { ModalComponent } from '../../utils/modal/modal.component';
+import { ModalComponent } from '../signup/modalSignup/modal.component';
 
 @Component({
   selector: 'app-users',

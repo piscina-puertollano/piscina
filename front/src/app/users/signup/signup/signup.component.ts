@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { User } from '../../interfaces/user';
+import { User } from '../../../interfaces/user';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { MessageService } from 'primeng/api';
