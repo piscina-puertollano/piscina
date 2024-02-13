@@ -13,7 +13,8 @@ class Server {
         this.categoriasRoutePath = '/api/categorias';
         this.noSociosRoutePath = '/api/noSocios';
         this.eventoUsuariosRoutePath = '/api/eventoUsuarios';
-
+        
+        this.conectarMongoose();
     this.middlewares();
     this.routes();
   }
