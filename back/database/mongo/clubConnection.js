@@ -8,7 +8,8 @@ class ClubConnection{
     allSections = async ()=>{
         let resClub = 0
         try{
-            resClub = await clubModel.find();
+            resClub = await clubModel.find().sort({order:1});
+
         }catch(error){
             throw new Error(error)
         }finally{

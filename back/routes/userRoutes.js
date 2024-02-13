@@ -27,8 +27,8 @@ router.post('/search', controlador.getUserByValue);
 router.get('/socios/:idTutor', controlador.showSociosOfTutor);
 
 //obtener de un socio los tutores asociados
-router.get('/socio/:idSocio', controlador.showTutorsOfSocio);
+router.get('/tutor/:idSocio', controlador.showTutorsOfSocio);
 
-
+router.post('/asign', controlador.asignUser)
 
 module.exports = router;

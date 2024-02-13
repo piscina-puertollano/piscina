@@ -6,6 +6,7 @@ const clubSchema = new mongoose.Schema({
     history: { type: Object },
     estructura: {type: Object},
     tag: {type: String},
+    order: {type: String},
     ubicacion: {
         direccion: String,
         mapa: String
