@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-clase',
@@ -9,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 export class ClaseComponent implements OnInit {
   datos: any[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor() {}
 
   ngOnInit(): void {
     this.cargarDatos();
@@ -17,17 +16,22 @@ export class ClaseComponent implements OnInit {
 
   cargarDatos(): void {
     const apiUrl = 'http://localhost:9090/api/clases';
-    this.http.get<any[]>(apiUrl).subscribe({
-      next: (data) => {
+    fetch(apiUrl)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
         this.datos = data;
-      },
-      error: (err) => {
-        console.error('Hubo un error al obtener los datos:', err);
-      }
-    });
+      })
+      .catch(error => {
+        console.error('Hubo un error al obtener los datos:', error);
+      });
   }
 
   trackByNombre(index: number, user: any): string | undefined {
-    return user?.id; 
+    return user?.nombre; // Suponiendo que 'nombre' es una propiedad única de cada usuario
   }
 }
