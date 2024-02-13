@@ -1,21 +1,30 @@
-<table>
-  <thead>
+<p-table [value]="datos" [(selection)]="selectedUser">
+  <ng-template pTemplate="header">
     <tr>
       <th>Número de clase</th>
       <th>Temporada</th>
+      <th>Acciones</th>
     </tr>
-  </thead>
-  <tbody>
-    @for (user of datos; track user.id) {
-      <tr>
-        <td> Clase {{ user.id }}</td>
-        <td>{{ user.temporada }}</td>
-      </tr>
-    }
-    @empty {
-      <tr>
-        <td colspan="2">No hay datos disponibles.</td>
-      </tr>
-    }
-  </tbody>
-</table>
+  </ng-template>
+  <ng-template pTemplate="body" let-user>
+    <tr>
+      <td>{{ user.id }}</td>
+      <td>{{ user.temporada }}</td>
+      <td>
+        <button pButton type="button" label="Editar" (click)="prepareEdit(user)">Modificar</button>
+        <button pButton type="button" label="Eliminar" (click)="eliminar(user)">Eliminar</button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<!-- Campos de entrada para editar -->
+<div [@animationTrigger]="isEditing">
+  <label>Número de clase:</label>
+  <input type="text"  value="{{currentNombre}}" disabled />
+  <br/>
+  <label>Temporada:</label>
+  <input type="text" value="{{currentTemporada}}" />
+  <br/>
+  <button (click)="saveChanges()">Guardar cambios</button>
+</div>
