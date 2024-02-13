@@ -1,19 +1,21 @@
-<div id="tabla-container">
-  <h2>Tabla Dinámica</h2>
-  <table>
-    <thead>
+<table>
+  <thead>
     <tr>
-      <th>Nombre</th>
-      <th>Edad</th>
-      <th>País</th>
+      <th>Número de clase</th>
+      <th>Temporada</th>
     </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let dato of datos">
-      <td>{{ dato.nombre }}</td>
-      <td>{{ dato.edad }}</td>
-      <td>{{ dato.pais }}</td>
-    </tr>
-    </tbody>
-  </table>
-</div>
+  </thead>
+  <tbody>
+    @for (user of datos; track user.id) {
+      <tr>
+        <td>{{ user.nombre }}</td>
+        <td>{{ user.temporada }}</td>
+      </tr>
+    }
+    @empty {
+      <tr>
+        <td colspan="2">No hay datos disponibles.</td>
+      </tr>
+    }
+  </tbody>
+</table>

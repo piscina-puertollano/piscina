@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { HeadersComponent } from './headers/headers.component';
 import { PrimeNGConfig } from 'primeng/api';
 
+
 @Component({
   selector: 'app-root',
   standalone: true,
