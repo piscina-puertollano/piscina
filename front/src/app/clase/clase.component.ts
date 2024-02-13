@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { TableModule } from 'primeng/table';
+import { Table, TableModule } from 'primeng/table';
 
 @Component({
   selector: 'app-clase',
@@ -52,6 +52,22 @@ export class ClaseComponent implements OnInit {
         this.datos = this.datos.filter(clase => clase.id !== user.id);
       }, error => {
         console.error('Error al eliminar la clase:', error);
+      });
+  }
+
+
+  agregarClase(temporada: string): void {
+    // Lógica para agregar la nueva clase, por ejemplo, hacer una petición POST a la API
+    const apiUrl = 'http://localhost:9090/api/clases';
+    const nuevaClase = { temporada }; // Asegúrate de incluir todos los campos necesarios aquí
+
+    this.http.post(apiUrl, nuevaClase)
+      .subscribe((response: any) => {
+        // Manejar la respuesta exitosa, por ejemplo, agregar la nueva clase al arreglo local
+        this.datos.push(response);
+      }, error => {
+        // Manejar el error, por ejemplo, mostrar un mensaje al usuario
+        console.error('Error al agregar la clase:', error);
       });
   }
 }

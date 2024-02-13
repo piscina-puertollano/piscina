@@ -28,3 +28,12 @@
   <br/>
   <button (click)="saveChanges()">Guardar cambios</button>
 </div>
+
+
+<!-- Campo de entrada para agregar una nueva clase -->
+<form (submit)="agregarClase(temporadaInput.value)">
+  <label>Temporada:</label>
+  <input #temporadaInput type="text" required />
+  <br/>
+  <button type="submit">Agregar Clase</button>
+</form>
