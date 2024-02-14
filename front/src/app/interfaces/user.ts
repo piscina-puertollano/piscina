@@ -1,8 +1,18 @@
-export class User {
-    id?:number
-    firstName?:string
-    lastName?:string
-    email?:string
-    password?:string
+export interface User {
+    id?:        number;
+    idSocio?:   number;
+    firstName?: string;
+    lastName?:  string;
+    password?:  string;
+    email?:     string;
+    roles?:     Role[];
+    image?:     Image | null;
+}
 
+export interface Image {
+    ruta: string;
+}
+
+export interface Role {
+    id: number;
 }

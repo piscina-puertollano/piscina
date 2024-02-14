@@ -1,0 +1,14 @@
+<p-editor 
+  [(ngModel)]="text" 
+  [style]="{ height: '320px' }">
+
+  <ng-template pTemplate="header">
+      <span class="ql-formats">
+          <button type="button" class="ql-bold" aria-label="Bold"></button>
+          <button type="button" class="ql-italic" aria-label="Italic"></button>
+          <button type="button" class="ql-underline" aria-label="Underline"></button>
+      </span>
+  </ng-template>
+</p-editor>
+
+<button (click)="update()" >Actualizar</button>

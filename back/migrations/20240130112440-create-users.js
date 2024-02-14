@@ -10,6 +10,21 @@ module.exports = {
         type: Sequelize.INTEGER,
         onDelete: 'CASCADE'
       },
+      photo_profile: {
+        defaultValue: 1,
+        type: Sequelize.INTEGER,
+        references:{
+          model: {
+            tableName: 'assets'   
+          },
+          key: 'id'
+        },
+        
+      },
+      numSocio: {
+        allowNull: true,
+        type: Sequelize.INTEGER,
+      },
       firstName: {
         type: Sequelize.STRING,
         allowNull:false
@@ -25,10 +40,6 @@ module.exports = {
       password: {
         type: Sequelize.STRING,
         allowNull:true
-      },
-      isSocio: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false
       },
       createdAt: {
         allowNull: false,
