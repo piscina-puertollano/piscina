@@ -7,7 +7,7 @@ const obtenerClases = async (req, res = express.response) => {
         const clases = await claseConnection.getClases();
         res.status(200).json(clases);
     } catch (error) {
-        res.status(500).json({ mensaje: 'Error al obtener las clases', error: error });
+        res.status(500).json({ mensaje: 'Error al obtener los datos', error: error });
     }
 };
 
@@ -21,7 +21,7 @@ const obtenerClasePorId = async (req, res = express.response) => {
             res.status(404).json({ mensaje: 'Clase no encontrada' });
         }
     } catch (error) {
-        res.status(500).json({ mensaje: 'Error al obtener la clase por ID', error: error });
+        res.status(500).json({ mensaje: 'Error al obtener datos por ID', error: error });
     }
 };
 
@@ -35,7 +35,7 @@ const obtenerTemporadaPorId = async (req, res = express.response) => {
             res.status(404).json({ mensaje: 'Clase no encontrada' });
         }
     } catch (error) {
-        res.status(500).json({ mensaje: 'Error al obtener la clase por ID', error: error });
+        res.status(500).json({ mensaje: 'Error al obtener datos por ID', error: error });
     }
 };
 
@@ -45,10 +45,10 @@ const crearClase = async (req, res = express.response) => {
         if (resultado ===  1) {
             res.status(201).json({ mensaje: 'Clase creada correctamente' });
         } else {
-            res.status(500).json({ mensaje: 'Error al crear la clase' });
+            res.status(500).json({ mensaje: 'Error al crear ' });
         }
     } catch (error) {
-        res.status(500).json({ mensaje: 'Error al crear la clase', error: error });
+        res.status(500).json({ mensaje: 'Error al crear ', error: error });
     }
 };
 
@@ -58,7 +58,7 @@ const actualizarClase = async (req, res = express.response) => {
         await claseConnection.updateClase(id, req.body);
         res.status(200).json({ mensaje: 'Clase actualizada correctamente' });
     } catch (error) {
-        res.status(500).json({ mensaje: 'Error al actualizar la clase', error: error });
+        res.status(500).json({ mensaje: 'Error al actualizar ', error: error });
     }
 };
 
@@ -68,7 +68,7 @@ const eliminarClase = async (req, res = express.response) => {
         await claseConnection.deleteClase(id);
         res.status(200).json({ mensaje: 'Clase eliminada correctamente' });
     } catch (error) {
-        res.status(500).json({ mensaje: 'Error al eliminar la clase', error: error });
+        res.status(500).json({ mensaje: 'Error al eliminar ', error: error });
     }
 };
 

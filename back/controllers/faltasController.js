@@ -18,10 +18,10 @@ const obtenerFaltaPorId = async (req, res = express.response) => {
         if (falta) {
             res.status(200).json(falta);
         } else {
-            res.status(404).json({ mensaje: 'Falta no encontrada' });
+            res.status(404).json({ mensaje: 'No tiene faltas' });
         }
     } catch (error) {
-        res.status(500).json({ mensaje: 'Error al obtener la falta por ID', error: error });
+        res.status(500).json({ mensaje: 'Error al buscar las faltas por ID', error: error });
     }
 };
 
@@ -29,7 +29,7 @@ const crearFalta = async (req, res = express.response) => {
     try {
         const resultado = await faltasConnection.insertFalta(req.body);
         if (resultado ===   1) {
-            res.status(201).json({ mensaje: 'Falta creada correctamente' });
+            res.status(201).json({ mensaje: 'Falta creada' });
         } else {
             res.status(500).json({ mensaje: 'Error al crear la falta' });
         }
@@ -42,7 +42,7 @@ const actualizarFalta = async (req, res = express.response) => {
     const { id } = req.params;
     try {
         await faltasConnection.updateFalta(id, req.body);
-        res.status(200).json({ mensaje: 'Falta actualizada correctamente' });
+        res.status(200).json({ mensaje: 'Falta actualizada' });
     } catch (error) {
         res.status(500).json({ mensaje: 'Error al actualizar la falta', error: error });
     }
@@ -52,7 +52,7 @@ const eliminarFalta = async (req, res = express.response) => {
     const { id } = req.params;
     try {
         await faltasConnection.deleteFalta(id);
-        res.status(200).json({ mensaje: 'Falta eliminada correctamente' });
+        res.status(200).json({ mensaje: 'Falta eliminada' });
     } catch (error) {
         res.status(500).json({ mensaje: 'Error al eliminar la falta', error: error });
     }
