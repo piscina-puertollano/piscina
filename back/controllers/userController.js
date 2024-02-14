@@ -207,15 +207,18 @@ const asignUser = async (req, res) => {
 
   if (Array.isArray(socioId)) {
     let i = 0;
-    while (socioId.length > i) {
-       await setUserToTutor(tutorId, socioId[i], arrSocios)
-      i++;
-    }
+      while (socioId.length > i) {
+        await setUserToTutor(tutorId, socioId[i], arrSocios)
+        i++;
+      }
     } else {
-        setUserToTutor(tutorId, socioId, arrSocios)
+        await setUserToTutor(tutorId, socioId, arrSocios)
     }
-
-  res.status(200).json(arrSocios);
+    if(arrSocios.length>=1){
+      res.status(201).json(arrSocios);
+    }else{
+      res.status(401).json({msg:"El usuario ya está asociado o no existe"});
+    }
 };
 
 
