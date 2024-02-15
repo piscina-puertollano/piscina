@@ -6,9 +6,11 @@ import { EntrenamientoComponent } from './entrenamiento/entrenamiento.component'
 import { ListComponent } from './users/list/list.component';
 import { ClubComponent } from './landing/club/club.component';
 import { ClubEditComponent } from './editor/club/club.component';
+import { ContactComponent } from './landing/contact/contact.component';
 
 export const routes: Routes = [
   {path: '', component: ClubComponent },
+  {path: 'contact', component: ContactComponent },
   {path: 'login', component: LoginComponent },
   {path: 'users', component: ListComponent },
   {path: 'clases', component: ClaseComponent},
