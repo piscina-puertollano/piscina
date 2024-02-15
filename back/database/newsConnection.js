@@ -13,11 +13,19 @@ class NewsModel {
     try{
         conexion.conectar();
         resultado = await models.News.findAll({
-            include:{
+          attributes:["id", "title", "body"],
+            include:[{
               model: models.Users,
               as: "author",
               attributes: ["id","firstName", "lastName"]
-          }
+          }, 
+          {
+            model: models.Assets,
+            as: "new_image",
+            attributes: ["ruta"]
+        }
+        ],
+          
         });
         
         conexion.desconectar();
@@ -36,11 +44,19 @@ class NewsModel {
     try{
         conexion.conectar();
         resultado = await models.News.findByPk(id_new, {
-          include:{
+          attributes:["id", "title", "body"],
+          include:[{
             model: models.Users,
             as: "author",
             attributes: ["id","firstName", "lastName"]
-        }});
+        },
+        {
+          model: models.Assets,
+          as: "new_image",
+          attributes: ["ruta"]
+      }
+    ]
+      });
         
         conexion.desconectar();
         if (!resultado) {
