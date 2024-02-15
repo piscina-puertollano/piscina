@@ -10,6 +10,8 @@ module.exports = {
       title:'Nueva página!!',
       body: 'Le damos la bienvenida a la nueva página',
       id_user:1,
+      main_image:1,
+      visit_counter: 4,
       createdAt: new Date(),
       updatedAt: new Date()
     }
