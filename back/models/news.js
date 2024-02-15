@@ -8,12 +8,19 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'id_user',
         as: 'author'
       });
+      this.hasOne(models.Assets, {
+        foreignKey: 'id',
+        sourceKey: 'main_image',
+        as: 'new_image'
+      });
     }
   }
   News.init({
     title: DataTypes.STRING,
     body: DataTypes.TEXT,
-    id_user: DataTypes.INTEGER
+    id_user: DataTypes.INTEGER,
+    main_image: DataTypes.INTEGER,
+    visit_counter: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'News',
