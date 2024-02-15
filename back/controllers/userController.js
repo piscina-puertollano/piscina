@@ -245,6 +245,30 @@ const deleteOldSocios = async (tutorId, socioId, arrSocios) =>{
     });
 }
 
+
+const deleteUserToTutor = async (req, res) =>{
+  let arrSocios = [];
+
+  const tutorId = req.body.id_tutor;
+  const socioId = req.body.id_socio;
+
+  if (Array.isArray(socioId)) {
+    let i = 0;
+      while (socioId.length > i) {
+        await deleteOldSocios(tutorId, socioId[i], arrSocios)
+        i++;
+      }
+    } else {
+        await deleteOldSocios(tutorId, socioId, arrSocios)
+    }
+    if(arrSocios.length>=1){
+      res.status(201).json(arrSocios);
+    }else{
+      res.status(401).json({msg:"El usuario ya está asociado o no existe"});
+    }
+}
+
+
 module.exports = {
   newUser,
   showUser,
@@ -256,5 +280,6 @@ module.exports = {
   deleteUser,
   showSociosOfTutor,
   showTutorsOfSocio,
-  asignUser
+  asignUser,
+  deleteOldSocios
 };
