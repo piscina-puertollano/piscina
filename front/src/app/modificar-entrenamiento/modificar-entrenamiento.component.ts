@@ -46,14 +46,13 @@ export class ModificarEntrenamientoComponent {
   getEntrenamiento() {
     this.entrenamientoService.getEntrenamientoId({ id: this.entrenamiento.id }).subscribe({
       next: (response: any) => {
-        console.log('Respuesta completa:', response);
         if (response && !Array.isArray(response)) {
-          this.entrenamiento = response; // Asume que la respuesta es un objeto
+          this.entrenamiento = response; 
         } else {
           this.alert.show = true;
           this.alert.header = 'Error';
           this.alert.message = 'Entrenamiento no encontrado';
-          this.entrenamiento = {}; // Reinicia el objeto entrenamiento a un estado vacío
+          this.entrenamiento = {}; 
         }
       },
       error: (err) => {
