@@ -6,14 +6,15 @@ const conexion = require("./connection.js");
 class ClaseConnection {
   getClases = async () => {
     let clases = [];
+    let con = new conexion();
     try {
-      let con = new conexion();
       con.conectar();
-      clases = models.clase.findAll();
-      con.desconectar();
+      clases = await models.clase.findAll(); // Añade await aquí
     } catch (error) {
       console.error("Error obtener los datos", error);
       throw error;
+    } finally {
+      con.desconectar();
     }
     return clases;
   };
@@ -23,7 +24,7 @@ class ClaseConnection {
     let con = new conexion();
     try {
       con.conectar();
-      clase = models.clase.findByPk(id);
+      clase = await models.clase.findByPk(id); // Añade await aquí
     } catch (error) {
       console.error("Error al obtener el dato por el id", error);
       throw error;
@@ -38,11 +39,11 @@ class ClaseConnection {
     let con = new conexion();
     try {
       con.conectar();
-      clase = models.clase.findAll({
+      clase = await models.clase.findAll({
         where: {
           temporada: temporada,
         },
-      });
+      }); // Añade await aquí
     } catch (error) {
       console.error("Error en getClase:", error);
       throw error;
@@ -57,7 +58,7 @@ class ClaseConnection {
     let con = new conexion();
     try {
       con.conectar();
-      const nuevaClase = models.clase.create(data);
+      const nuevaClase = await models.clase.create(data); // Añade await aquí
       resultado = 1;
     } catch (error) {
       console.error("Error al insertar la clase", error);
@@ -71,11 +72,11 @@ class ClaseConnection {
     let con = new conexion();
     try {
       con.conectar();
-      const clase = models.clase.findByPk(id);
+      const clase = await models.clase.findByPk(id); // Añade await aquí
       if (!clase) {
         throw new Error(`Clase con id ${id} no encontrada`);
       }
-      clase.update(data);
+      await clase.update(data); // Añade await aquí también
     } catch (error) {
       console.error("Error al actualizar", error);
       throw error;
@@ -88,11 +89,11 @@ class ClaseConnection {
     let con = new conexion();
     try {
       con.conectar();
-      const clase = models.clase.findByPk(id);
+      const clase = await models.clase.findByPk(id); // Añade await aquí
       if (!clase) {
-        throw new Error(`Clase con id ${id} no encontrado`);
+        throw new Error(`Clase con id ${id} no encontrada`);
       }
-      clase.destroy();
+      await clase.destroy(); // Añade await aquí también
     } catch (error) {
       console.error("Error al eliminar la clase", error);
       throw error;
