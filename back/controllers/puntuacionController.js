@@ -43,6 +43,26 @@ const puntuacionDelete = (req, res = response) => {
     });
 };
 
+/* 
+LÓGICA PARA PODER ASOCIAR ENTRENAMIENTOS A LAS CALIFICACIONES QUE NO SUPEREN EL 50%
+*/
+
+const obtenerEntrenamientoId = () => {}
+
+const asignarEntrenamiento = (puntuacion, userId) => {
+    if (puntuacion < 5){
+        const entrenamientoId = obtenerEntrenamientoId();
+
+        conexion.updateEntreAsig(userId, entrenamientoId)
+            .then(() =>{
+                res.status(200).json({ message: 'Entrenamiento asignado'});
+            })
+            .catch((err) => {
+                res.status(203).json({ message: 'Error al asignar entrenamiento'});
+            })
+    }
+}
+
 module.exports = {
     puntuacionesGet,
     puntuacionGetId,
