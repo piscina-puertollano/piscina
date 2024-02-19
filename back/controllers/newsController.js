@@ -32,16 +32,13 @@ const show = async (req, res) => {
 };
 
 const createNew = async (req, res) => {
-  try {
-    let resNew = await conx.createNew(req.body);
-    if (resNew != 0) {
+    await conx.createNew(req.body).then(resNew=>{
       res.status(200).json(resNew);
-    } else {
-      res.status(400).json({ msg: "No se ha podido crear la noticia" });
-    }
-  } catch (err) {
-    res.status(400).json({ error: err });
-  }
+    }).catch(err=>{
+      console.log(err)
+      res.status(400).json({ msg: "No se ha podido crear la noticia", error: err });
+    });
+    
 };
 
 const updateNew = async (req, res) => {

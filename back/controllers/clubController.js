@@ -9,7 +9,6 @@ const index = async (req, res) => {
     let resClub = await conx.allSections();
 
     if (resClub != 0) {
-      console.log(resClub);
       res.status(200).json(resClub);
     } else {
       res.status(400).json({ msg: "No se han encontrado registros" });
@@ -23,7 +22,6 @@ const showClub = async (req, res) => {
     try {
       let resClub = await conx.showByTag(req.body.tag);
       if (resClub != 0) {
-        console.log(resClub);
         res.status(200).json(resClub);
       } else {
         res.status(400).json({ msg: "No se han encontrado registros" });

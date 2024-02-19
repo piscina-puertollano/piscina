@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const clubSchema = new mongoose.Schema({
     id: { type: Number},
-    titulo: { type: String },
+    title: { type: String },
     history: { type: Object },
     estructura: {type: Object},
     tag: {type: String},

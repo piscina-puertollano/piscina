@@ -3,6 +3,7 @@ const controlador = require('../controllers/newsController');
 const { check } = require('express-validator');
 const { validateFilds } = require('../middlewares/validators');
 const { exitUser } = require('../helpers/db-validator');
+const { getSocket } = require('../middlewares/sockets');
 const router = Router();
 
 router.get('/news', controlador.index );
