@@ -26,6 +26,12 @@ const puntuacionInsert = async (req, res = response) => {
     const { nota, userId, idEntrenamiento } = req.body;
 
     try {
+        const puntuacionExistente = await conexion.getPuntuacionExistente(userId, idEntrenamiento);
+
+        if (puntuacionExistente) {
+            return res.status(203).json({ message: 'La puntuación ya está registrada para este usuario y entrenamiento' });
+        }
+
         if (nota < 5) {
             if (idEntrenamientoExistente(idEntrenamiento)) {
                 const msg = await conexion.insertPuntuacion(req.body);
@@ -35,14 +41,13 @@ const puntuacionInsert = async (req, res = response) => {
                 res.status(203).json({ message: 'El idEntrenamiento no es válido' });
             }
         } else {
-            res.status(203).json({ message: 'La nota es mayor o igual a 5, no se puede asociar un entrenamiento' });
+            const msg = await conexion.insertPuntuacion(req.body);
+            res.status(200).json({ message: msg, data: { nota, userId } });
         }
     } catch (error) {
         console.error(error);
 
-        // Evita enviar múltiples respuestas al cliente
         if (!res.headersSent) {
-            // Envía una respuesta de error al cliente solo si los encabezados no se han enviado
             return res.status(500).json({ error: 'Error interno del servidor' });
         }
     }
