@@ -3,12 +3,14 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.bulkInsert('puntuacionUsuarios', [{
-      id_user: 1,
-      idPuntuacion: 1,
+    await queryInterface.bulkInsert('entrenamientos', [{
+      idEjercicio: 1,
+      nombre: '3000 metros',
+      descripcion: 'Entrenamiento de 3000 metros en las Lagunas de Ruidera',
       createdAt: new Date(),
       updatedAt: new Date()
-    }])
+    },
+  ])
   },
 
   async down (queryInterface, Sequelize) {

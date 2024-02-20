@@ -9,8 +9,15 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      entrenamiento_id: {
-        type: Sequelize.INTEGER
+      idEntrenamiento: {
+        type: Sequelize.DataTypes.INTEGER,
+        references: {
+          model: {
+            tableName: 'entrenamientos'
+          },
+          key: 'id'
+        },
+        allowNull: false
       },
       asset_id: {
         type: Sequelize.INTEGER

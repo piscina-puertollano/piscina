@@ -12,7 +12,6 @@ module.exports = (sequelize, DataTypes) => {
          otherKey: 'id_rol',
          as: 'roles',
         onDelete: 'CASCADE'
-
       });
      }
   }

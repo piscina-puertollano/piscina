@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      
     }
   }
   PuntuacionUsuario.init({
@@ -20,8 +20,8 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true
     },
-    usuario_id: DataTypes.INTEGER,
-    puntuacion_id: DataTypes.INTEGER
+    id_user: DataTypes.INTEGER,
+    idPuntuacion: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'PuntuacionUsuario',
