@@ -20,4 +20,20 @@ export class ClaseService {
       })
     )
   }
+
+  searchClaseById(id:any): Observable<Array<Clase> | undefined> {
+    return this.http.post<Clase>(this.urAllClases,id,{withCredentials:false}).pipe(
+      catchError((error) =>{
+        return of(error)
+      })
+    )
+  }
+
+  updateClase(Clase:Clase): Observable<Array<Clase> | undefined> {
+    return this.http.put<Clase>(this.urAllClases, Clase).pipe(
+      catchError((error) =>{
+        return of(error)
+      })
+    )
+  }
 }

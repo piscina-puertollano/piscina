@@ -50,6 +50,7 @@ export class ClaseComponent implements OnInit {
     });
   }
 
+  
   edit(clase: Clase) {
     // Lógica para editar la clase
   }
