@@ -1,5 +1,5 @@
 export class Alert {
-    header?:string
+    header?:string = 'danger'
     message?:string
     show?:boolean
 }

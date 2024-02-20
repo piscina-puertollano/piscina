@@ -38,7 +38,8 @@ export class ClaseService {
   }
 
   deleteclase(claseId: string): Observable<Array<Clase> | undefined> {
-    return this.http.delete<Clase>(this.urAllClases+claseId).pipe(
+    const apiUrl = `${this.urAllClases}/${claseId}`;
+    return this.http.delete<Clase>(apiUrl).pipe(
       catchError((error) =>{
         return of(error)
       })
