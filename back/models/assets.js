@@ -24,7 +24,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Assets.init({
-    ruta: DataTypes.STRING
+    ruta: DataTypes.STRING,
+    public: DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'Assets',

@@ -2,20 +2,18 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('assets', {
+    await queryInterface.createTable('legal_texts', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      ruta: {
-        allowNull: false,
+      title: {
         type: Sequelize.STRING
       },
-      public:{
-        type: Sequelize.BOOLEAN,
-        defaultValue:false,
+      text: {
+        type: Sequelize.TEXT
       },
       createdAt: {
         allowNull: false,
@@ -28,6 +26,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('assets');
+    await queryInterface.dropTable('legal_texts');
   }
 };
