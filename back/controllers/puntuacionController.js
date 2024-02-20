@@ -1,3 +1,6 @@
+/**
+ * author: Marina Laguna
+ */
 const {response,request} = require('express');
 const Conexion = require('../database/puntuacionConnection');
 const ConexionEntrenamiento = require('../database/entrenamientoConnection');
@@ -29,7 +32,7 @@ const puntuacionInsert = async (req, res = response) => {
         const puntuacionExistente = await conexion.getPuntuacionExistente(userId, idEntrenamiento);
 
         if (puntuacionExistente) {
-            return res.status(203).json({ message: 'La puntuación ya está registrada para este usuario y entrenamiento' });
+            return res.status(203).json({ message: 'La puntuación ya está registrada para este usuario' });
         }
 
         if (nota < 5) {
@@ -48,7 +51,7 @@ const puntuacionInsert = async (req, res = response) => {
         console.error(error);
 
         if (!res.headersSent) {
-            return res.status(500).json({ error: 'Error interno del servidor' });
+            return res.status(500).json({ error: 'Error en el servidor' });
         }
     }
 };
@@ -58,7 +61,7 @@ const idEntrenamientoExistente = async (idEntrenamiento) => {
         const entrenamiento = await conexionEntrenamiento.getEntrenamientoId(idEntrenamiento);
         return entrenamiento !== null;
     } catch (error) {
-        console.error('Error al verificar la existencia del idEntrenamiento:', error);
+        console.error('Error al verificar al encontrar el entrenamiento:', error);
         return false;
     }
 };

@@ -1,3 +1,6 @@
+/**
+ * author: Marina Laguna
+ */
 'use strict';
 
 /** @type {import('sequelize-cli').Migration} */

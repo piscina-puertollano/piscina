@@ -1,3 +1,6 @@
+/**
+ * author: Marina Laguna
+ */
 const {response,request} = require('express');
 const Conexion = require('../database/ejercicioConnection')
 const conexion = new Conexion();

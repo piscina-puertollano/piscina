@@ -1,3 +1,6 @@
+/**
+ * author: Marina Laguna
+ */
 require('dotenv').config()
 const { Sequelize } = require('sequelize');
 const models = require('../models/index.js');

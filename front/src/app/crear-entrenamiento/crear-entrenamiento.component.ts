@@ -1,3 +1,6 @@
+/**
+ * author: Marina Laguna
+ */
 import { Component } from '@angular/core';
 import { EntrenamientoService } from '../services/entrenamiento.service';
 import { Entrenamiento } from '../interfaces/entrenamiento';
