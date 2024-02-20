@@ -91,16 +91,6 @@ export class ClaseComponent implements OnInit {
     // Por ejemplo, puedes hacer una petición HTTP para actualizar los datos en el servidor
   }
 
-  eliminar(clase: any): void {
-    const apiUrl = `http://localhost:9090/api/clases/${clase.id}`;
-    this.http.delete(apiUrl)
-      .subscribe(() => {
-        this.datos = this.datos.filter(item => item.id !== clase.id);
-      }, error => {
-        console.error('Error al eliminar la clase:', error);
-      });
-  }
-
   agregarClase(temporada: string): void {
     const apiUrl = 'http://localhost:9090/api/clases';
     const nuevaClase = { temporada };
