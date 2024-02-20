@@ -9,11 +9,25 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      usuario_id: {
-        type: Sequelize.INTEGER
+      idUsuario: {
+        type: Sequelize.DataTypes.INTEGER,
+        references: {
+          model: {
+            tableName: 'users'
+          },
+          key: 'id'
+        },
+        allowNull: false
       },
-      puntuacion_id: {
-        type: Sequelize.INTEGER
+      idPuntuacion: {
+        type: Sequelize.DataTypes.INTEGER,
+        references: {
+          model: {
+            tableName: 'puntuaciones'
+          },
+          key: 'id'
+        },
+        allowNull: false
       },
       createdAt: {
         allowNull: false,

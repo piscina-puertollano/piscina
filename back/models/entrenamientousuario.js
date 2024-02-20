@@ -4,13 +4,15 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class EntrenamientoUsuario extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      // define association here
+      this.belongsTo(models.Entrenamiento, {
+        foreignKey: 'idEntrenamiento',
+        as: 'entrenamiento'
+      });
+      this.belongsTo(models.User, {
+        foreignKey: 'id_user',
+        as: 'usuario'
+      });
     }
   }
   EntrenamientoUsuario.init({
@@ -20,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true
     },
-    usuario_id: DataTypes.INTEGER,
+    id_user: DataTypes.INTEGER,
     entrenamiento_id: DataTypes.INTEGER
   }, {
     sequelize,

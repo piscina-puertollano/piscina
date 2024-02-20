@@ -1,3 +1,4 @@
+import { entrenamientoGetId } from "./entrenamientoController"
 const {response,request} = require('express');
 const Conexion = require('../database/puntuacionConnection')
 const conexion = new Conexion();
@@ -44,14 +45,12 @@ const puntuacionDelete = (req, res = response) => {
 };
 
 /* 
-LÓGICA PARA PODER ASOCIAR ENTRENAMIENTOS A LAS CALIFICACIONES QUE NO SUPEREN EL 50%
+LÓGICA PARA PODER ASOCIAR ENTRENAMIENTOS A LAS CALIFICACIONES QUE NO SUPEREN EL 5
 */
-
-const obtenerEntrenamientoId = () => {}
 
 const asignarEntrenamiento = (puntuacion, userId) => {
     if (puntuacion < 5){
-        const entrenamientoId = obtenerEntrenamientoId();
+        const entrenamientoId = entrenamientoGetId();
 
         conexion.updateEntreAsig(userId, entrenamientoId)
             .then(() =>{
