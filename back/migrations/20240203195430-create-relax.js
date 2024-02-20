@@ -2,18 +2,15 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('puntuaciones', {
+    await queryInterface.createTable('relax', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      nota: {
-        type: Sequelize.INTEGER
-      },
-      idEntrenamiento: {
-        type: Sequelize.INTEGER
+      ejercicio: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
@@ -26,6 +23,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('puntuaciones');
+    await queryInterface.dropTable('relax');
   }
 };

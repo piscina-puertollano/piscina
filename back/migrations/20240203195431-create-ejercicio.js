@@ -2,28 +2,38 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('entrenamientosUsuarios', {
+    await queryInterface.createTable('ejercicio', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      id_user: {
+      idCalentamiento: {
         type: Sequelize.DataTypes.INTEGER,
         references: {
           model: {
-            tableName: 'users'
+            tableName: 'calentamiento'
           },
           key: 'id'
         },
         allowNull: false
       },
-      idEntrenamiento: {
+      idPrincipal: {
         type: Sequelize.DataTypes.INTEGER,
         references: {
           model: {
-            tableName: 'entrenamientos'
+            tableName: 'principal'
+          },
+          key: 'id'
+        },
+        allowNull: false
+      },
+      idRelax: {
+        type: Sequelize.DataTypes.INTEGER,
+        references: {
+          model: {
+            tableName: 'relax'
           },
           key: 'id'
         },
@@ -40,6 +50,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('entrenamientosUsuarios');
+    await queryInterface.dropTable('ejercicio');
   }
 };

@@ -9,6 +9,14 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      idEjercicio: {
+        type: Sequelize.DataTypes.INTEGER,
+        references: {
+          model: 'Ejercicio',
+          key: 'id'
+        },
+        allowNull: false
+      },
       nombre: {
         type: Sequelize.STRING
       },
