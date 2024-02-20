@@ -13,7 +13,14 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       idEntrenamiento: {
-        type: Sequelize.INTEGER
+        type: Sequelize.DataTypes.INTEGER,
+        references: {
+          model: {
+            tableName: 'entrenamientos'
+          },
+          key: 'id'
+        },
+        allowNull: false
       },
       createdAt: {
         allowNull: false,

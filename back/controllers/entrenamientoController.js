@@ -1,4 +1,4 @@
-const {response,request} = require('express');
+const {response, request} = require('express');
 const Conexion = require('../database/entrenamientoConnection')
 const conexion = new Conexion();
 
