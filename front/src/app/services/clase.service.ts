@@ -37,8 +37,8 @@ export class ClaseService {
     )
   }
 
-  deleteUser(userId: string): Observable<Array<Clase> | undefined> {
-    return this.http.delete<Clase>(this.urAllClases+userId).pipe(
+  deleteclase(claseId: string): Observable<Array<Clase> | undefined> {
+    return this.http.delete<Clase>(this.urAllClases+claseId).pipe(
       catchError((error) =>{
         return of(error)
       })

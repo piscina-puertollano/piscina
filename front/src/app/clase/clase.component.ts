@@ -1,17 +1,16 @@
 import { Router } from '@angular/router';
 import {TableModule } from 'primeng/table';
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { ClaseService } from '../services/clase.service';
 import { Alert } from '../interfaces/alert';
-import { Observable } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { Clase } from '../interfaces/clase';
+import { AlertComponent } from '../utils/alert/alert.component';
 
 @Component({
   selector: 'app-clase',
   standalone: true,
-  imports: [TableModule, FormsModule],
+  imports: [TableModule, FormsModule, AlertComponent],
   templateUrl: './clase.component.html',
   styleUrls: ['./clase.component.css']
 })
@@ -55,8 +54,29 @@ export class ClaseComponent implements OnInit {
     // Lógica para editar la clase
   }
   
-  delete(clase: Clase) {
-    // Lógica para eliminar la clase
+  deleteClase(id:any){
+    this.alert.show = false;
+    this.service.deleteclase(id).subscribe({
+      next: (clase: any | undefined) => {
+        console.log(clase)
+        if (clase.length == 0 || clase.status == 404) {
+          this.alert.show = true;
+          this.alert.header = 'Error';
+          this.alert.message =
+            'El usuario no se ha podido eliminar';
+        } else {
+          this.alert.show = true;
+          this.alert.header = 'Operación completada';
+          this.alert.message =
+            'Usuario eliminado correctamente';
+          //this.alert.type = 'success'
+        }
+
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
   
 
