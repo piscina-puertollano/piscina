@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Clase.init({
-    temporada: {
+    categoria: {
       type: DataTypes.STRING,
       allowNull: false
     }

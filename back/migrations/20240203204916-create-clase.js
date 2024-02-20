@@ -10,7 +10,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      temporada:{
+      categoria:{
         allowNull: false,
         type: Sequelize.STRING
       },

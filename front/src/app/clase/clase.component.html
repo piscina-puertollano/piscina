@@ -1,36 +1,24 @@
-<br>
-<p-table [value]="datos">
-  <ng-template pTemplate="header">
-    <tr>
-      <th>Número de clase</th>
-      <th>Temporada</th>
-      <th>Acciones</th>
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="body" let-user>
-    <tr>
-      <td>{{ user.id }}</td>
-      <td>{{ user.temporada }}</td>
-      <td>
-        <button pButton type="button" label="Editar" (click)="prepareEdit(user)" class="pi pi-eye"></button>
-        <button pButton type="button" label="Eliminar" (click)="eliminar(user)"  class="pi pi-trash"></button>
-      </td>
-    </tr>
-  </ng-template>
-</p-table>
-
-<!-- Campos de entrada para editar -->
-<div [@animationTrigger]="isEditing">
-  <input type="text"  value="{{currentNombre}}" disabled/>
-  <label>Temporada:</label>
-  <input type="text" value="{{currentTemporada}}" />
-  <button (click)="saveChanges()">Actualizar Clase</button>
-</div>
-
-
-<!-- Campo de entrada para agregar una nueva clase -->
-<form (submit)="agregarClase(temporadaInput.value)">
-  <label>Temporada:</label>
-  <input #temporadaInput type="text" required />
-  <button type="submit">Agregar Clase</button>
-</form>
+<h1>Gestión de usuarios</h1>
+<section>
+  <div>
+    <table>
+      <thead>
+        <th>ID</th>
+        <th>Categoria</th>
+        <th>Acciones</th>
+      </thead>
+      <tbody>
+        @for (att of arrClases; track att.id) {
+          <tr>
+            <td><label>{{att.id}}</label></td>
+            <td><label>{{att.categoria}}</label></td>
+            <td>
+              <i width="25px" style="margin-right:15px" class="pi pi-eye"></i>
+              <i width="25px" class="pi pi-trash"></i>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</section>
