@@ -30,7 +30,6 @@ export class EntrenamientoComponent {
   listarEntrenamientos() {
     this.entrenamientoService.getEntrenamientos().subscribe({
       next: (entrenamiento: any | undefined) => {
-        console.log(entrenamiento);
   
         if (Array.isArray(entrenamiento)) {  
           this.arrEntrenamientos = entrenamiento;
@@ -49,10 +48,8 @@ export class EntrenamientoComponent {
   deleteEntrenamiento(entrenamiento: Entrenamiento) {
     this.entrenamientoService.deleteEntrenamientos(entrenamiento).subscribe({
       next: (deletedEntrenamiento: Entrenamiento | undefined) => {
-        console.log('eliminando')
         if (deletedEntrenamiento) {
           this.arrEntrenamientos = this.arrEntrenamientos.filter(e => e.id !== entrenamiento.id);
-          console.log('Entrenamiento eliminado correctamente:', deletedEntrenamiento);
         } else {
           console.error('El entrenamiento no pudo ser eliminado.');
         }
