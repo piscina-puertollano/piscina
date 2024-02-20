@@ -36,4 +36,12 @@ export class ClaseService {
       })
     )
   }
+
+  deleteUser(userId: string): Observable<Array<Clase> | undefined> {
+    return this.http.delete<Clase>(this.urAllClases+userId).pipe(
+      catchError((error) =>{
+        return of(error)
+      })
+    )
+  }
 }
