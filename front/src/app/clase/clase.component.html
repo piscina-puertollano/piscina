@@ -1,4 +1,4 @@
-<h1>Gestión de usuarios</h1>
+<h1>Categorias de las clases</h1>
 <section>
   <div>
     <table>
@@ -17,21 +17,42 @@
             <label>{{ att.categoria }}</label>
           </td>
           <td>
-            <button pButton type="button" class="pi pi-pencil" (click)="edit(att)"></button>
-            <button pButton type="button" class="pi pi-trash" (click)="deleteClase(att.id)"></button>
+            <button
+              pButton
+              type="button"
+              class="pi pi-pencil"
+              (click)="edit(att)"
+            ></button>
+            <button
+              pButton
+              type="button"
+              class="pi pi-trash"
+              (click)="deleteClase(att.id)"
+            ></button>
           </td>
         </tr>
         }
       </tbody>
     </table>
     <div class="row">
-      <input type="hidden" [(ngModel)]="selectedClase.id" name="txtid" id="txtid" disabled />
+      <input
+        type="hidden"
+        [(ngModel)]="clase.id"
+        name="txtid"
+        id="txtid"
+        disabled
+      />
       <output>Categoria</output>
-      <input type="text" [(ngModel)]="selectedClase.categoria" name="txtcategoria" id="txtcategoria"/>
+      <input
+        type="text"
+        [(ngModel)]="clase.categoria"
+        name="txtcategoria"
+        id="txtcategoria"
+      />
       <div>
         <button (click)="actualizar()">Actualizar Datos</button>
-        <button>Agregar categoria</button>
+        <button (click)="agregarClase()">Agregar Categoria</button>
       </div>
-    </div>    
+    </div>
   </div>
 </section>

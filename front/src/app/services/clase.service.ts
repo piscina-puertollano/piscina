@@ -13,6 +13,14 @@ export class ClaseService {
   private baseUrl : string = environment.baseUrl
   private urAllClases : string = this.baseUrl+'/clases'
 
+  agregarClase(nuevaClase: Clase): Observable<Clase> {
+    return this.http.post<Clase>(this.urAllClases, nuevaClase).pipe(
+      catchError(error => {
+        console.error('Error al agregar la clase', error);
+        return of(error);
+      })
+    );
+  }
   
   allClases(): Observable<Array<Clase> | undefined> {
     return this.http.get<Clase>(this.urAllClases).pipe(
