@@ -1,5 +1,6 @@
 export class Alert {
-    header?:string = 'danger'
+    type:string = 'danger'
+    header?:string
     message?:string
     show?:boolean
 }

@@ -1,0 +1,7 @@
+ @for (newObj of arrNews; track $index) {
+     <p-card header="{{newObj.title}}">
+        @if(newObj.new_image != null){
+            <img src="{{newObj.new_image.ruta}}" alt="" srcset="">
+        }
+    </p-card>
+}

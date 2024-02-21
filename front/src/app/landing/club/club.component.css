@@ -1,0 +1,19 @@
+#landing{
+    position: relative;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    margin-top: 50px;
+    max-width: 50%;
+
+}
+
+h1{
+    font-size: 50px;
+}
+
+#structure{
+    margin-bottom: 50px;
+}

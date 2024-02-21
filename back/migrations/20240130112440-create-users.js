@@ -10,6 +10,21 @@ module.exports = {
         type: Sequelize.INTEGER,
         onDelete: 'CASCADE'
       },
+      photo_profile: {
+        defaultValue: 1,
+        type: Sequelize.INTEGER,
+        references:{
+          model: {
+            tableName: 'assets'   
+          },
+          key: 'id'
+        },
+        
+      },
+      num_socio: {
+        allowNull: true,
+        type: Sequelize.INTEGER,
+      },
       firstName: {
         type: Sequelize.STRING,
         allowNull:false
@@ -26,9 +41,27 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull:true
       },
-      isSocio: {
+      tlf: {
+        type: Sequelize.STRING,
+        allowNull:true
+      },
+      domicilio: {
+        type: Sequelize.STRING,
+        allowNull:true
+      },
+      corriente_pago: {
         type: Sequelize.BOOLEAN,
-        defaultValue: false
+        allowNull:true,
+        defaultValue: 1
+      },
+      active: {
+        type: Sequelize.BOOLEAN,
+        allowNull:false,
+        defaultValue: 1,
+      },
+      born_date: {
+        type: Sequelize.DATE,
+        allowNull:true
       },
       createdAt: {
         allowNull: false,

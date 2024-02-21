@@ -1,3 +1,6 @@
+/**
+ * author: Marina Laguna
+ */
 'use strict';
 const {
   Model
@@ -10,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      
     }
   }
   Puntuacion.init({
@@ -21,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true
     },
     nota: DataTypes.INTEGER,
-    entrenamiento_id: DataTypes.INTEGER
+    idEntrenamiento: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Puntuacion',

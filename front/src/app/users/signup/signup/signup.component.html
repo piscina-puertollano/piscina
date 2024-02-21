@@ -1,0 +1,33 @@
+<div class="form-container">
+    <div>
+        <p-toast></p-toast>
+        <p-button label="Foto de perfil">
+            <input type="file" (click)="signup()" severity="success">  
+        </p-button>
+
+        <div class="card flex justify-content-center">
+            <p-toast></p-toast>
+            
+        </div>
+    </div>
+    <label for="name">Nombre</label>
+    <input type="text" id="name" pInputText required [(ngModel)]="user.firstName">
+
+    <label for="lastName">Apellidos</label>
+    <input type="text" id="lastName" pInputText required  [(ngModel)]="user.lastName">
+    
+    <label for="email">email</label>
+    <input type="email" id="email" required pInputText  [(ngModel)]="user.email">
+    
+    <label for="idSocio">Número de socio</label>
+    <input type="number" id="idSocio"  pInputText  [(ngModel)]="user.idSocio">
+   
+    <label for="">Dirección</label>
+    <input type="number" id="idSocio" required pInputText autocomplete [(ngModel)]="user">
+
+    <label for="">Teléfono</label>
+    <input type="number" id="idSocio" required pInputText autocomplete [(ngModel)]="user">
+
+    
+    <p-button label="Crear usuario" (click)="signup()" severity="success"></p-button>
+</div>
