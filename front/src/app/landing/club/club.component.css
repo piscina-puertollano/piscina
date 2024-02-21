@@ -1,0 +1,15 @@
+#landing{
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 80%;
+}
+
+h1{
+    font-size: 50px;
+}
+
+#structure{
+    margin-bottom: 50px;
+}
