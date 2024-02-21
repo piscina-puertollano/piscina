@@ -67,11 +67,19 @@ export class EntrenamientoComponent {
     if (typeof id === 'number'){
       this.router.navigate(['/modificar-entrenamiento', id]);
     } else {
-      console.error('Id de entrenamiento no válido: ', id)
+      console.error('Id no válido: ', id)
     }
   }
 
   navCrearEntre(){
     this.router.navigate(['crear-entrenamiento']);
+  }
+
+  consultarEntre(id?: number): void{
+    if (typeof id === 'number'){
+      this.router.navigate(['/consultar-entrenamiento', id]);
+    } else {
+      console.error('Id no válido: ', id);
+    }
   }
 }
