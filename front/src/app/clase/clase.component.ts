@@ -99,7 +99,6 @@ export class ClaseComponent implements OnInit {
     }
   }
   
-  
   /*prepareEdit(clase: any): void {
     this.currentNombre = clase.id;
     this.currentCategoria = clase.categoria;

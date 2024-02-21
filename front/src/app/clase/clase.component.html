@@ -17,15 +17,8 @@
             <label>{{ att.categoria }}</label>
           </td>
           <td>
-            <button pButton type="button" icon="pi pi-pencil" (click)="edit(att)">Modifica</button>
-            <button
-              pButton
-              type="button"
-              icon="pi pi-trash"
-              (click)="deleteClase(att.id)"
-            >
-              Eliminar
-            </button>
+            <button pButton type="button" class="pi pi-pencil" (click)="edit(att)"></button>
+            <button pButton type="button" class="pi pi-trash" (click)="deleteClase(att.id)"></button>
           </td>
         </tr>
         }
