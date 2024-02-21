@@ -38,6 +38,7 @@ export class ClaseComponent implements OnInit {
     this.service.agregarClase(this.nuevaClase).subscribe({
       next: (nuevaClase: Clase) => {
         console.log('Clase agregada exitosamente:', nuevaClase);
+        location.reload();
       },
       error: (err) => {
         console.error('Error al agregar la clase:', err);
@@ -65,7 +66,8 @@ export class ClaseComponent implements OnInit {
   }
 
   edit(clase: Clase) {
-    this.selectedClase = clase;
+    this.clase = clase
+    console.log(clase)
   }
 
   deleteClase(id: any) {
@@ -82,6 +84,7 @@ export class ClaseComponent implements OnInit {
           this.alert.header = 'Operación completada';
           this.alert.message = 'Usuario eliminado correctamente';
           //this.alert.type = 'success'
+          location.reload();
         }
       },
       error: (err) => {
@@ -91,14 +94,14 @@ export class ClaseComponent implements OnInit {
   }
 
   actualizar() {
-    if (this.selectedClase && this.selectedClase.id !== undefined) {
+    if (this.clase && this.clase.id !== undefined) {
       this.service
-        .updateClase(this.selectedClase.id, this.selectedClase)
+        .updateClase(this.clase.id, this.clase)
         .subscribe({
           next: (clase: Clase | undefined) => {
             if (clase) {
               console.log(clase);
-              this.selectedClase = clase;
+              location.reload()
             }
           },
           error: (err) => {
