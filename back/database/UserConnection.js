@@ -24,6 +24,19 @@ class UserModel {
     return resultado;
   };
 
+  getUserById = async (id_user) => {
+    let resultado = [];
+    conexion.conectar();
+    resultado = await models.Users.findByPk(id_user,{
+      attributes: ["id", "firstName", "lastName", "email"],
+    });
+    conexion.desconectar();
+    if (!resultado) {
+      throw new Error("user not found");
+    }
+    return resultado;
+  };
+
   searchByValue = async (value) => {
     let resultado = [];
     conexion.conectar();

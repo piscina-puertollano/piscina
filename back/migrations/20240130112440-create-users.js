@@ -21,7 +21,7 @@ module.exports = {
         },
         
       },
-      numSocio: {
+      num_socio: {
         allowNull: true,
         type: Sequelize.INTEGER,
       },
@@ -39,6 +39,28 @@ module.exports = {
       },
       password: {
         type: Sequelize.STRING,
+        allowNull:true
+      },
+      tlf: {
+        type: Sequelize.STRING,
+        allowNull:true
+      },
+      domicilio: {
+        type: Sequelize.STRING,
+        allowNull:true
+      },
+      corriente_pago: {
+        type: Sequelize.BOOLEAN,
+        allowNull:true,
+        defaultValue: 1
+      },
+      active: {
+        type: Sequelize.BOOLEAN,
+        allowNull:false,
+        defaultValue: 1,
+      },
+      born_date: {
+        type: Sequelize.DATE,
         allowNull:true
       },
       createdAt: {

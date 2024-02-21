@@ -2,44 +2,33 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('user_assets', {
+    await queryInterface.createTable('user_accept_legal_texts', {
       id_user: {
-        allowNull: false,
         primaryKey: true,
         type: Sequelize.INTEGER,
         references:{
           model: {
-            tableName: 'users'   
+            tableName: 'users'          
           },
           key: 'id'
-        }
+        },
       },
-      id_asset: {
-        allowNull: false,
-        primaryKey: true,
+      id_legal_text: {
         type: Sequelize.INTEGER,
         references:{
           model: {
-            tableName: 'assets'   
+            tableName: 'legal_texts'          
           },
           key: 'id'
-        }
+        },
       },
-      public: {
-        defaultValue: false,
-        type: Sequelize.BOOLEAN
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
+      acceptedAt: {
         allowNull: false,
         type: Sequelize.DATE
       }
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('user_assets');
+    await queryInterface.dropTable('user_accept_legal_texts');
   }
 };

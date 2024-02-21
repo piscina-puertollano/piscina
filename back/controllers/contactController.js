@@ -1,15 +1,14 @@
 const { response, request } = require("express");
-const ClubConnection = require("../database/mongo/clubConnection");
-const clubModel = require("../models/mongo/clubModel");
+const ContactConnection = require("../database/mongo/contactConnection");
 
-const conx = new ClubConnection();
+const conx = new ContactConnection();
 
 const index = async (req, res) => {
   try {
-    let resClub = await conx.allSections();
+    let resContact = await conx.allSections();
 
-    if (resClub != 0) {
-      res.status(200).json(resClub);
+    if (resContact != 0) {
+      res.status(200).json(resContact);
     } else {
       res.status(400).json({ msg: "No se han encontrado registros" });
     }
@@ -20,9 +19,9 @@ const index = async (req, res) => {
 
 const showClub = async (req, res) => {
     try {
-      let resClub = await conx.showByTag(req.body.tag);
-      if (resClub != 0) {
-        res.status(200).json(resClub);
+      let resContact = await conx.showByTag(req.body.tag);
+      if (resContact != 0) {
+        res.status(200).json(resContact);
       } else {
         res.status(400).json({ msg: "No se han encontrado registros" });
       }
@@ -49,6 +48,26 @@ const updateClub = async (req, res) => {
       res.status(400).send({msg:"No se ha podido actualizar",error:error});
     }
   };
+
+  const deleteContact = async (req, res) => {
+    let idClub = req.params.id;
+    let updateFields = req.body;
+  
+    try {
+  
+      let updatedDocument = await conx.updateById(idClub, updateFields)
+  
+      if (updatedDocument == 0) {
+        return res.status(404).send("No se ha podido actualizar, error con el ID.");
+      }
+  
+      res.send(updatedDocument);
+    } catch (err) {
+      console.log(err);
+      res.status(400).send({msg:"No se ha podido actualizar",error:error});
+    }
+  };
+
   
 
 module.exports = {

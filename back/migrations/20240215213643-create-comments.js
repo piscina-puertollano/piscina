@@ -2,32 +2,24 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('user_assets', {
-      id_user: {
+    await queryInterface.createTable('comments', {
+      id: {
         allowNull: false,
+        autoIncrement: true,
         primaryKey: true,
+        type: Sequelize.INTEGER
+      },
+      comment: {
+        type: Sequelize.TEXT
+      },
+      respond_to: {
         type: Sequelize.INTEGER,
         references:{
           model: {
-            tableName: 'users'   
+            tableName: 'users'          
           },
           key: 'id'
         }
-      },
-      id_asset: {
-        allowNull: false,
-        primaryKey: true,
-        type: Sequelize.INTEGER,
-        references:{
-          model: {
-            tableName: 'assets'   
-          },
-          key: 'id'
-        }
-      },
-      public: {
-        defaultValue: false,
-        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,
@@ -40,6 +32,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('user_assets');
+    await queryInterface.dropTable('comments');
   }
 };

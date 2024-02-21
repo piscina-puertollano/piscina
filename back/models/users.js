@@ -33,11 +33,16 @@ module.exports = (sequelize, DataTypes) => {
         as: 'tutores'
       });
 
-      this.hasOne(models.Assets, {
-        foreignKey: 'id',
-        sourceKey: 'photo_profile',
-        as: 'image'
-      });
+        this.hasOne(models.Assets, {
+          foreignKey: 'id',
+          sourceKey: 'photo_profile',
+          as: 'image'
+        });
+
+        this.hasMany(models.News, {
+          foreignKey: 'id_user',
+          as: 'news'
+        });
      }
   }
   Users.init({
@@ -45,7 +50,12 @@ module.exports = (sequelize, DataTypes) => {
     lastName: DataTypes.STRING,
     email: DataTypes.STRING,
     password: DataTypes.STRING,
-    photo_profile: DataTypes.INTEGER
+    photo_profile: DataTypes.INTEGER,
+    num_socio: DataTypes.STRING,
+    corriente_pago: DataTypes.BOOLEAN,
+    born_date: DataTypes.DATE,
+    domicilio: DataTypes.STRING,
+    tlf: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Users',

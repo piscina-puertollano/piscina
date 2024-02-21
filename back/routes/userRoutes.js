@@ -30,5 +30,6 @@ router.get('/socios/:idTutor', controlador.showSociosOfTutor);
 router.get('/tutor/:idSocio', controlador.showTutorsOfSocio);
 
 router.post('/asign', controlador.asignUser)
+router.post('/remove', controlador.deleteOldSocios)
 
 module.exports = router;

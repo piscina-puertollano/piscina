@@ -12,6 +12,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey:'id_asset'
       });
 
+      this.hasOne(models.News, {
+        foreignKey: 'main_image',
+        as: 'new_image'
+     });
 
       this.hasOne(models.Users, {
         foreignKey: 'photo_profile',
@@ -20,7 +24,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Assets.init({
-    ruta: DataTypes.STRING
+    ruta: DataTypes.STRING,
+    public: DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'Assets',

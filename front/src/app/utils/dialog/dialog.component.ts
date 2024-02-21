@@ -22,33 +22,20 @@ export class DialogComponent {
 
     confirm() {
         this.confirmationService.confirm({
-            header: 'Confirmation',
-            message: 'Please confirm to proceed moving forward.',
+            header: this.header,
+            message: this.message,
             acceptIcon: 'pi pi-check mr-2',
             rejectIcon: 'pi pi-times mr-2',
             rejectButtonStyleClass: 'p-button-sm',
             acceptButtonStyleClass: 'p-button-outlined p-button-sm',
             accept: () => {
-                this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
+                this.messageService.add({ severity: 'info', summary: 'Información', detail: 'Su solicitud se está procesando', life: 3000 });
                 this.eventEmiter.emit(true);
             },
             reject: () => {
-                this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+                this.messageService.add({ severity: 'error', summary: 'Cancelado', detail: 'No se han producido los cambios', life: 3000 });
                 this.eventEmiter.emit(false);
-
             }
         });
     }
-    // confirm() {
-    //     this.confirmationService.confirm({
-    //         header: this.header,
-    //         message: this.message,
-    //         accept: () => {
-    //             this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Ha aceptado correctamente', life: 3000 });
-    //         },
-    //         reject: () => {
-    //             this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'Ha cancelado', life: 3000 });
-    //         }
-    //     });
-    // }
 }
