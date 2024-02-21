@@ -91,6 +91,11 @@ class Server {
       this.eventoUsuariosRoutePath,
       require("../routes/eventoUsuarioRoutes")
     );
+    
+    this.app.use(this.userRoutePath, require('../routes/userRoutes'));
+    this.app.use(this.userRoutePath, require('../routes/entrenamientosRoutes'));
+    this.app.use(this.userRoutePath, require('../routes/puntuacionRoutes'));
+    this.app.use(this.userRoutePath, require('../routes/ejerciciosRoutes'))
   }
 
   sockets() {

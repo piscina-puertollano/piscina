@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+/**
+ * author: Marina Laguna
+ */
+import { Component } from '@angular/core';
 import { EntrenamientoService } from '../services/entrenamiento.service';
 import { Entrenamiento } from '../interfaces/entrenamiento';
-import { Router } from '@angular/router';
+import { Router, provideRouter } from '@angular/router';
 import { Alert } from '../interfaces/alert';
 import { AlertComponent } from '../utils/alert/alert.component';
 
@@ -12,6 +15,7 @@ import { AlertComponent } from '../utils/alert/alert.component';
   templateUrl: './entrenamiento.component.html',
   styleUrl: './entrenamiento.component.css'
 })
+
 export class EntrenamientoComponent {
   entrenamiento: Entrenamiento;
   alert: Alert;
@@ -29,19 +33,33 @@ export class EntrenamientoComponent {
   listarEntrenamientos() {
     this.entrenamientoService.getEntrenamientos().subscribe({
       next: (entrenamiento: any | undefined) => {
-        console.log(entrenamiento)
-        if (entrenamiento.status >= 400){
+  
+        if (Array.isArray(entrenamiento)) {  
+          this.arrEntrenamientos = entrenamiento;
+        } else {
           this.alert.show = true;
           this.alert.header = 'Error';
-          this.alert.message = 
-          'No se han podido cargar los entrenamientos. Póngase en contacto con un administrador.';
-        } else {
-          this.arrEntrenamientos = entrenamiento;
+          this.alert.message = 'No se han podido cargar los entrenamientos. Póngase en contacto con un administrador.';
         }
       },
       error: (err) => {
         console.log(err);
       },
+    });
+  }
+
+  deleteEntrenamiento(entrenamiento: Entrenamiento) {
+    this.entrenamientoService.deleteEntrenamientos(entrenamiento).subscribe({
+      next: (deletedEntrenamiento: Entrenamiento | undefined) => {
+        if (deletedEntrenamiento) {
+          this.arrEntrenamientos = this.arrEntrenamientos.filter(e => e.id !== entrenamiento.id);
+        } else {
+          console.error('El entrenamiento no pudo ser eliminado.');
+        }
+      },
+      error: (err) => {
+        console.error('Error al eliminar el entrenamiento:', err);
+      }
     });
   }
 
@@ -51,5 +69,9 @@ export class EntrenamientoComponent {
     } else {
       console.error('Id de entrenamiento no válido: ', id)
     }
+  }
+
+  navCrearEntre(){
+    this.router.navigate(['crear-entrenamiento']);
   }
 }
