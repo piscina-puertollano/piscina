@@ -1,0 +1,14 @@
+.row {
+    display: flex;
+    align-items: center;
+  }
+  
+  .row > * {
+    margin-right: 10px;
+  }
+  
+  .row input,
+  .row output {
+    margin-right: 20px;
+}
+  

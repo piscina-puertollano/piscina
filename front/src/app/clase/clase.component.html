@@ -9,16 +9,36 @@
       </thead>
       <tbody>
         @for (att of arrClases; track att.id) {
-          <tr>
-            <td><label>{{att.id}}</label></td>
-            <td><label>{{att.categoria}}</label></td>
-            <td>
-              <button pButton type="button" icon="pi pi-pencil" >Modifica</button>
-              <button pButton type="button" icon="pi pi-trash" (click)="deleteClase(att.id)">Eliminar</button>
-            </td>
-          </tr>
+        <tr>
+          <td>
+            <label>{{ att.id }}</label>
+          </td>
+          <td>
+            <label>{{ att.categoria }}</label>
+          </td>
+          <td>
+            <button pButton type="button" icon="pi pi-pencil" (click)="edit(att)">Modifica</button>
+            <button
+              pButton
+              type="button"
+              icon="pi pi-trash"
+              (click)="deleteClase(att.id)"
+            >
+              Eliminar
+            </button>
+          </td>
+        </tr>
         }
       </tbody>
     </table>
+    <div class="row">
+      <input type="hidden" [(ngModel)]="selectedClase.id" name="txtid" id="txtid" disabled />
+      <output>Categoria</output>
+      <input type="text" [(ngModel)]="selectedClase.categoria" name="txtcategoria" id="txtcategoria"/>
+      <div>
+        <button (click)="actualizar()">Actualizar Datos</button>
+        <button>Agregar categoria</button>
+      </div>
+    </div>    
   </div>
 </section>

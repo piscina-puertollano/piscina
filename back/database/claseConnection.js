@@ -34,14 +34,14 @@ class ClaseConnection {
     return clase;
   };
 
-  getClaseTemporada = async (temporada) => {
+  getClaseCategoria = async (categoria) => {
     let clase;
     let con = new conexion();
     try {
       con.conectar();
       clase = await models.clase.findAll({
         where: {
-          temporada: temporada,
+          categoria: categoria,
         },
       }); // Añade await aquí
     } catch (error) {

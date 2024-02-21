@@ -25,10 +25,10 @@ const obtenerClasePorId = async (req, res = express.response) => {
     }
 };
 
-const obtenerTemporadaPorId = async (req, res = express.response) => {
-    const { temporada } = req.params;
+const obtenerCategoriaPorId = async (req, res = express.response) => {
+    const { categoria } = req.params;
     try {
-        const clase = await claseConnection.getClaseTemporada(temporada);
+        const clase = await claseConnection.getClaseCategoria(categoria);
         if (clase) {
             res.status(200).json(clase);
         } else {
@@ -75,7 +75,7 @@ const eliminarClase = async (req, res = express.response) => {
 module.exports = {
     obtenerClases,
     obtenerClasePorId,
-    obtenerTemporadaPorId,
+    obtenerCategoriaPorId,
     crearClase,
     actualizarClase,
     eliminarClase

@@ -13,6 +13,7 @@ export class ClaseService {
   private baseUrl : string = environment.baseUrl
   private urAllClases : string = this.baseUrl+'/clases'
 
+  
   allClases(): Observable<Array<Clase> | undefined> {
     return this.http.get<Clase>(this.urAllClases).pipe(
       catchError((error) =>{
@@ -22,7 +23,7 @@ export class ClaseService {
   }
 
   searchClaseById(id:any): Observable<Array<Clase> | undefined> {
-    return this.http.post<Clase>(this.urAllClases,id,{withCredentials:false}).pipe(
+    return this.http.get<Clase>(this.urAllClases,id).pipe(
       catchError((error) =>{
         return of(error)
       })

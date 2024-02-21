@@ -20,6 +20,7 @@ export class ClaseComponent implements OnInit {
   arrClases: Array<Clase> = [];
   searchValue: string = ''
   whatSearch: string = ''
+  selectedClase: Clase = { id: 0, categoria: '' };
 
   constructor(private service: ClaseService, private router: Router) {
     this.clase = {};
@@ -51,8 +52,9 @@ export class ClaseComponent implements OnInit {
 
   
   edit(clase: Clase) {
-    // Lógica para editar la clase
+    this.selectedClase = clase;
   }
+  
   
   deleteClase(id:any){
     this.alert.show = false;
@@ -79,16 +81,22 @@ export class ClaseComponent implements OnInit {
     });
   }
   
+  actualizar() {
+    this.service.updateClase(this.clase).subscribe({
+      next: (clase: any | undefined) => {
+        console.log(clase)
+        this.clase = clase
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
 
   /*prepareEdit(clase: any): void {
     this.currentNombre = clase.id;
     this.currentCategoria = clase.categoria;
     this.isEditing = true;
-  }
-
-  saveChanges(): void {
-    // Implementa la lógica para guardar los cambios
-    // Por ejemplo, puedes hacer una petición HTTP para actualizar los datos en el servidor
   }
 
   agregarClase(temporada: string): void {

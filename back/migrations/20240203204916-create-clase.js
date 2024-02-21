@@ -21,10 +21,6 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
-      },
-      temporada: {
-        allowNull: false,
-        type: Sequelize.STRING
       }
     });
   },
