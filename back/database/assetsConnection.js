@@ -30,6 +30,33 @@ class AssetsModel {
 
   }
 
+  getAssetsByArrIds = async (arrId) => {
+    let resultado = [];
+    let rtnAssets = [];
+    try {
+      conexion.conectar();
+      for (let i =  0; i < arrId.length; i++) {
+        resultado = await models.Assets.findOne({
+          attributes: ["ruta"],
+          where: {
+            id: arrId[i],
+          },
+        });
+        if (resultado) {
+          rtnAssets.push(resultado);
+        } else {
+          throw new Error("Asset not found");
+        }
+      }
+      conexion.desconectar();
+    } catch (error) {
+      throw error;
+    } finally {
+      return rtnAssets;
+    }
+  };
+  
+
   getAssetsOfUser = async (userId) => {
     let resultado = [];
     try{

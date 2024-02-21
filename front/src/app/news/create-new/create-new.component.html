@@ -1,0 +1,9 @@
+
+<h1>Bienvenido redactor</h1>
+<label for="">Titulo</label>
+<input type="text" pInputText [(ngModel)]="news!!.title" />
+<label for="">Noticia</label>
+<input type="text" pInputText [(ngModel)]="news!!.body" />
+
+
+<app-dialog id="btnUpdate" [nameBtn]="'Crear noticia'" [header]="'Alerta'" [message]="'¿Estás seguro de que quiere realizar esta acción? Va a crear una nueva noticia'" (eventEmiter)="createNew($event)"></app-dialog>

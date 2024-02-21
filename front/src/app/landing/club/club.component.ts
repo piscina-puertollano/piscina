@@ -57,26 +57,12 @@ export class ClubComponent implements OnInit{
       next: (club: Club | undefined) => {
         console.log('llego',club)
         let i = 0
-        while( club?.assets?.length != undefined && club?.assets?.length>=i){
-          this.landingService.showAssets(club?.assets?.[i]).subscribe({
-            next: (ruta: Asset | undefined) => {
-              console.log(ruta)
-              this.images?.push(ruta!)
-            },
-            error: (err) => {
-              console.log(err);
-            },
-          });
-          i++
-        }
-        this.club = club
+        this.images = club?.fotos
+        this.responsiveOptions = club?.fotos
       },
       error: (err) => {
         console.log(err);
       },
     });
   }
-
-
-
 }

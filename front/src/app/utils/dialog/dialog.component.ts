@@ -12,7 +12,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
   providers: [ConfirmationService, MessageService]
 })
 export class DialogComponent {
-
+  @Input() icon = 'pi pi-check'
   @Input() header = ''
   @Input() message = ''
   @Input() nameBtn = ''

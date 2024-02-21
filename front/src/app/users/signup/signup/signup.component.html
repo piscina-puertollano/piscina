@@ -12,17 +12,22 @@
     </div>
     <label for="name">Nombre</label>
     <input type="text" id="name" pInputText required [(ngModel)]="user.firstName">
+
     <label for="lastName">Apellidos</label>
-    <input type="text" id="lastName" pInputText required autocomplete [(ngModel)]="user.lastName">
+    <input type="text" id="lastName" pInputText required  [(ngModel)]="user.lastName">
     
     <label for="email">email</label>
-    <input type="email" id="email" required pInputText autocomplete [(ngModel)]="user.email">
+    <input type="email" id="email" required pInputText  [(ngModel)]="user.email">
     
     <label for="idSocio">Número de socio</label>
-    <input type="number" id="idSocio" required pInputText autocomplete [(ngModel)]="user.idSocio">
+    <input type="number" id="idSocio"  pInputText  [(ngModel)]="user.idSocio">
+   
+    <label for="">Dirección</label>
+    <input type="number" id="idSocio" required pInputText autocomplete [(ngModel)]="user">
+
+    <label for="">Teléfono</label>
+    <input type="number" id="idSocio" required pInputText autocomplete [(ngModel)]="user">
+
     
-    <label for="pass">password</label>
-    <input type="password" id="pass" required pInputText autocomplete [(ngModel)]="user.password">
     <p-button label="Crear usuario" (click)="signup()" severity="success"></p-button>
-    
 </div>
