@@ -6,6 +6,15 @@ module.exports = (sequelize, DataTypes) => {
   class TutorUser extends Model {
 
     static associate(models) {
+      this.belongsTo(models.Users, {
+        foreignKey: 'id_tutor',
+        as: 'tutor'
+      });
+
+      this.belongsTo(models.Users, {
+        foreignKey: 'id_socio',
+        as: 'socio'
+      });
     }
   }
   TutorUser.init({
@@ -14,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'TutorUser',
+    tableName:'tuto_users'
   });
   return TutorUser;
 };

@@ -1,0 +1,19 @@
+<div id="tabla-container">
+  <h2>Tabla Dinámica</h2>
+  <table>
+    <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Edad</th>
+      <th>País</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let dato of datos">
+      <td>{{ dato.nombre }}</td>
+      <td>{{ dato.edad }}</td>
+      <td>{{ dato.pais }}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

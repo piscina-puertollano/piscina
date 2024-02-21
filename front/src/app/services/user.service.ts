@@ -32,8 +32,8 @@ export class UserService {
     )
   }
 
-  searchUserById(email:any): Observable<Array<User> | undefined> {
-    return this.http.post<User>(this.urSearch,email,{withCredentials:false}).pipe(
+  searchUserById(id:any): Observable<Array<User> | undefined> {
+    return this.http.post<User>(this.urSearch,id,{withCredentials:false}).pipe(
       catchError((error) =>{
         return of(error)
       })
@@ -57,6 +57,14 @@ export class UserService {
   }
   updateUser(user:User): Observable<Array<User> | undefined> {
     return this.http.put<User>(this.urlShowUser, user).pipe(
+      catchError((error) =>{
+        return of(error)
+      })
+    )
+  }
+
+  deleteUser(userId: string): Observable<Array<User> | undefined> {
+    return this.http.delete<User>(this.urlShowUser+userId).pipe(
       catchError((error) =>{
         return of(error)
       })
