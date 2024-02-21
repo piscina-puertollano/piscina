@@ -30,13 +30,15 @@ export class ClaseService {
     )
   }
 
-  updateClase(Clase:Clase): Observable<Array<Clase> | undefined> {
-    return this.http.put<Clase>(this.urAllClases, Clase).pipe(
-      catchError((error) =>{
-        return of(error)
+  updateClase(id: number, Clase: Clase): Observable<Clase | undefined> {
+    const url = `${this.urAllClases}/${id}`;
+    return this.http.put<Clase>(url, Clase).pipe(
+      catchError((error) => {
+        return of(error);
       })
-    )
+    );
   }
+  
 
   deleteclase(claseId: string): Observable<Array<Clase> | undefined> {
     const apiUrl = `${this.urAllClases}/${claseId}`;

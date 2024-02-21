@@ -82,17 +82,24 @@ export class ClaseComponent implements OnInit {
   }
   
   actualizar() {
-    this.service.updateClase(this.clase).subscribe({
-      next: (clase: any | undefined) => {
-        console.log(clase)
-        this.clase = clase
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
+    if (this.selectedClase && this.selectedClase.id !== undefined) {
+      this.service.updateClase(this.selectedClase.id, this.selectedClase).subscribe({
+        next: (clase: Clase | undefined) => {
+          if (clase) {
+            console.log(clase);
+            this.selectedClase = clase;
+          }
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    } else {
+      console.error('Clase o ID de la clase no definidos');
+    }
   }
-
+  
+  
   /*prepareEdit(clase: any): void {
     this.currentNombre = clase.id;
     this.currentCategoria = clase.categoria;
