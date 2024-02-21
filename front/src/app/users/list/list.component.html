@@ -6,8 +6,7 @@
         <div id="addUser">
             <p-toolbar styleClass="mb-4 gap-2">
                 <ng-template pTemplate="right">
-                    <button pButton pRipple label="Agregar nuevo usuario" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()" >
-                    </button>
+                    <app-modal-signup></app-modal-signup>
                 </ng-template>
             </p-toolbar>
         </div>
@@ -52,8 +51,8 @@
                 <td>{{ user.lastName}}</td>
                 <td>{{ user.email }}</td>
                 <td>
-                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"></button> 
-                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"></button>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="openDialog(user.id)"></button> 
+                    <app-dialog id="btnUpdate" [icon]="'pi pi-trash'" [header]="'Alerta'" [message]="'¿Estás seguro de que quiere realizar esta acción? Va a eliminar un usuario'" (eventEmiter)="deleteUser($event,user.id)"></app-dialog>
                 </td>
             </tr>
         </ng-template>
@@ -63,69 +62,9 @@
         </ng-template>
     </p-table>
 </div>
-
-<p-dialog [(visible)]="userDialog" [style]="{ width: '450px' }" header="user Details" [modal]="true" styleClass="p-fluid">
-    <ng-template pTemplate="content">
-        
-        <div class="field">
-            <label for="name">Name</label>
-            <input type="text" pInputText id="name" [(ngModel)]="user!!.firstName" required autofocus />
-            @if (submitted && !user!!.firstName) {
-                <small class="p-error">Name is required.</small>
-            }
-        </div>
-        <div class="field">
-            <label for="description">Apellidos</label>
-            <textarea id="description" pInputTextarea [(ngModel)]="user!!.lastName" required rows="3" cols="20"></textarea>
-        </div>
-        
-        <!-- <div class="field">
-            <label for="inventoryStatus">Inventory Status</label>
-            <p-dropdown [(ngModel)]="user.inventoryStatus" inputId="inventoryStatus" [options]="statuses">
-                <ng-template pTemplate="selectedItem">
-                    <p-tag [value]="user.inventoryStatus.toUpperCase()" [severity]="getSeverity(user.inventoryStatus.toUpperCase())"></p-tag>
-                </ng-template>
-                <ng-template let-option pTemplate="item">
-                    <p-tag [value]="option.label" [severity]="getSeverity(option.label)"></p-tag>
-                </ng-template>
-            </p-dropdown>
-        </div> -->
-        
-        <div class="field">
-            <label class="mb-3">Category</label>
-            <div class="formgrid grid">
-                <div class="field-radiobutton col-6">
-                    <p-radioButton id="category1" name="category" value="Accessories" [(ngModel)]="user!!.firstName"></p-radioButton>
-                    <label for="category1">Accessories</label>
-                </div>
-                <div class="field-radiobutton col-6">
-                    <p-radioButton id="category2" name="category" value="Clothing" [(ngModel)]="user!!.lastName"></p-radioButton>
-                    <label for="category2">Clothing</label>
-                </div>
-                <div class="field-radiobutton col-6">
-                    <p-radioButton id="category3" name="category" value="Electronics" [(ngModel)]="user!!.email"></p-radioButton>
-                    <label for="category3">Electronics</label>
-                </div>
-            </div>
-        </div>
-        
-        <!-- <div class="formgrid grid">
-            <div class="field col">
-                <label for="price">Price</label>
-                <p-inputNumber id="price" [(ngModel)]="user.price" mode="currency" currency="USD" locale="en-US"></p-inputNumber>
-            </div>
-            <div class="field col">
-                <label for="quantity">Quantity</label>
-                <p-inputNumber id="quantity" [(ngModel)]="user.quantity"></p-inputNumber>
-            </div>
-        </div> -->
-    </ng-template>
-    
-    <ng-template pTemplate="footer">
-        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-        <!-- <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveuser()"></button> -->
-    </ng-template>
-</p-dialog>
-
-<p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
 </section>
+
+
+<div class="card flex justify-content-center">
+    <p-toast></p-toast>
+</div>

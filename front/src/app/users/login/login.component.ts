@@ -33,6 +33,7 @@ export class LoginComponent {
         } else {
           localStorage.clear()
           localStorage.setItem('user', JSON.stringify(user));
+          this.router.navigateByUrl('/edit')
         }
       },
       error: (err) => {

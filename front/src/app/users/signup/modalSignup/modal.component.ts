@@ -7,7 +7,7 @@ import { ToastModule } from 'primeng/toast';
 
 
 @Component({
-  selector: 'app-modal',
+  selector: 'app-modal-signup',
   standalone: true,
   imports: [ButtonModule, ToastModule],
   templateUrl: './modal.component.html',
@@ -15,7 +15,7 @@ import { ToastModule } from 'primeng/toast';
   providers: [DialogService, MessageService]
 
 })
-export class ModalComponent implements OnDestroy{
+export class ModalSignupComponent implements OnDestroy{
 
       
   constructor(public dialogService: DialogService, public messageService: MessageService) {}
@@ -34,14 +34,9 @@ export class ModalComponent implements OnDestroy{
     });
 
     this.ref.onClose.subscribe((data: any) => {
-        console.log('se ha cerrado')
-        this.messageService.add({ severity: 'info', summary: 'Maximized', detail: `maximized:` });
+        this.messageService.add({ severity: 'warn', summary: 'Maximized', detail: `No se ha creado el usuario` });
     });
 
-    this.ref.onMaximize.subscribe((value) => {
-        
-        this.messageService.add({ severity: 'info', summary: 'Maximized', detail: `maximized: ${value.maximized}` });
-    });
 }
 
   ngOnDestroy() {
