@@ -10,14 +10,36 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      categoria:{
-        allowNull: false,
-        type: Sequelize.STRING
+
+      nombre: { // Campo para el nombre de la clase
+        type: Sequelize.STRING,
+        allowNull: false // Puedes cambiar esto a true si quieres permitir valores nulos
       },
+
+      categoria_id: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'categorias',
+          key: 'id',
+        },
+      },
+     
+      hora_inicio: {
+        type: Sequelize.TIME,
+        allowNull: false
+      },
+
+      hora_fin: {
+        type: Sequelize.TIME,
+        allowNull: false 
+      },
+      
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
       },
+      
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
