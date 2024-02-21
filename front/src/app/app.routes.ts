@@ -7,9 +7,13 @@ import { ListComponent } from './users/list/list.component';
 import { ClubComponent } from './landing/club/club.component';
 import { ClubEditComponent } from './editor/club/club.component';
 import { ContactComponent } from './landing/contact/contact.component';
+import { ListNewsComponent } from './news/list/list.component';
+import { CreateNewComponent } from './news/create-new/create-new.component';
 
 export const routes: Routes = [
   {path: '', component: ClubComponent },
+  {path: 'news', component: ListNewsComponent },
+  {path: 'create-new', component: CreateNewComponent },
   {path: 'contact', component: ContactComponent },
   {path: 'login', component: LoginComponent },
   {path: 'users', component: ListComponent },
