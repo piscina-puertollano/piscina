@@ -22,21 +22,14 @@
             </section>
         }
 
-        @for(image of images; track image){
-        }
         @if(club.tag=='galeria'){
-            <li style="background-color: red; z-index: 1000;">{{images}}</li>
+            <!-- <li style="background-color: red; z-index: 1000;">
+                @for(image of images; track image){
+                    <img src="{{image.ruta}}" alt="" srcset="">
+                }
+            </li> -->
 
-            <!-- <p-galleria [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
-                <ng-template pTemplate="item" let-item>
-                    <img [src]="item.itemImageSrc" style="width: 100%;" />
-                </ng-template>
-                <ng-template pTemplate="thumbnail" let-item>
-                    <div class="grid grid-nogutter justify-content-center">
-                        <img [src]="item.thumbnailImageSrc" />
-                    </div>
-                </ng-template>
-            </p-galleria> -->
+
         }
     }
 </section>

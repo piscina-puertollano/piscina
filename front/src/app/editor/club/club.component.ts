@@ -11,6 +11,7 @@ import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
+import { TableModule } from 'primeng/table';
 
 @Component({
   selector: 'app-club-edit',
@@ -23,7 +24,8 @@ import { AvatarGroupModule } from 'primeng/avatargroup';
     DialogComponent,
     ToastModule,
     ToolbarModule,
-    AvatarModule
+    AvatarModule,
+    TableModule
   ],
 
   templateUrl: './club.component.html',
@@ -34,6 +36,7 @@ export class ClubEditComponent implements OnInit {
   text: string | undefined;
   title: string | undefined;
   directiva: Estructura[] | undefined;
+  fotos = []
 
   club?: Club;
 
