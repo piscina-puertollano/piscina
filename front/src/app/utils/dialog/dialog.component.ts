@@ -22,6 +22,7 @@ export class DialogComponent {
 
     confirm() {
         this.confirmationService.confirm({
+
             header: this.header,
             message: this.message,
             acceptIcon: 'pi pi-check mr-2',

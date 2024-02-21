@@ -1,3 +1,6 @@
+/**
+ * author: Marina Laguna
+ */
 'use strict';
 const {
   Model
@@ -10,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      
     }
   }
   recursosEntrenamiento.init({
@@ -20,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true
     },
-    entrenamiento_id: DataTypes.INTEGER,
+    idEntrenamiento: DataTypes.INTEGER,
     asset_id: DataTypes.INTEGER
   }, {
     sequelize,

@@ -1,0 +1,11 @@
+<h2>Modificar Entrenamiento</h2>
+
+<form>
+  <label for="nombre">Nombre</label>
+  <input [(ngModel)]="entrenamiento.nombre" name="nombre" type="text">
+
+  <label for="descripcion">Descripcion</label>
+  <textarea [(ngModel)]="entrenamiento.descripcion" name="descripcion"></textarea>
+
+  <button (click)="updateEntrenamiento()">Modificar Entrenamiento</button>
+</form>
