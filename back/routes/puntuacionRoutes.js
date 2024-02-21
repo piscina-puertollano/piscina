@@ -1,3 +1,6 @@
+/**
+ * author: Marina Laguna
+ */
 const { Router } = require('express');
 const controlador = require('../controllers/puntuacionController');
 const router = Router();

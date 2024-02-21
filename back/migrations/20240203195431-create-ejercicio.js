@@ -5,25 +5,42 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('recursosEntrenamientos', {
+    await queryInterface.createTable('ejercicio', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      idEntrenamiento: {
+      idCalentamiento: {
         type: Sequelize.DataTypes.INTEGER,
         references: {
           model: {
-            tableName: 'entrenamientos'
+            tableName: 'calentamiento'
           },
           key: 'id'
         },
         allowNull: false
       },
-      asset_id: {
-        type: Sequelize.INTEGER
+      idPrincipal: {
+        type: Sequelize.DataTypes.INTEGER,
+        references: {
+          model: {
+            tableName: 'principal'
+          },
+          key: 'id'
+        },
+        allowNull: false
+      },
+      idRelax: {
+        type: Sequelize.DataTypes.INTEGER,
+        references: {
+          model: {
+            tableName: 'relax'
+          },
+          key: 'id'
+        },
+        allowNull: false
       },
       createdAt: {
         allowNull: false,
@@ -36,6 +53,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('recursosEntrenamientos');
+    await queryInterface.dropTable('ejercicio');
   }
 };
