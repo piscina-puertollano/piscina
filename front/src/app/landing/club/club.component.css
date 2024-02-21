@@ -1,9 +1,13 @@
 #landing{
-    position: absolute;
-    top: 60%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    max-width: 80%;
+    position: relative;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    margin-top: 50px;
+    max-width: 50%;
+
 }
 
 h1{
