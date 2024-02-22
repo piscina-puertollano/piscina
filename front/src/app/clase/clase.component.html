@@ -1,19 +1,58 @@
-<div id="tabla-container">
-  <h2>Tabla Dinámica</h2>
-  <table>
-    <thead>
-    <tr>
-      <th>Nombre</th>
-      <th>Edad</th>
-      <th>País</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let dato of datos">
-      <td>{{ dato.nombre }}</td>
-      <td>{{ dato.edad }}</td>
-      <td>{{ dato.pais }}</td>
-    </tr>
-    </tbody>
-  </table>
-</div>
+<h1>Temporadas de las clases</h1>
+<section>
+  <div>
+    <table>
+      <thead>
+        <th>ID</th>
+        <th>Temporada</th>
+        <th>Acciones</th>
+      </thead>
+      <tbody>
+        @for (att of arrClases; track att.id) {
+        <tr>
+          <td>
+            <label>{{ att.id }}</label>
+          </td>
+          <td>
+            <label>{{ att.temporada }}</label>
+          </td>
+          <td>
+            <button
+              pButton
+              type="button"
+              class="pi pi-pencil"
+              (click)="edit(att)"
+            ></button>
+            <button
+              pButton
+              type="button"
+              class="pi pi-trash"
+              (click)="deleteClase(att.id)"
+            ></button>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+    <div class="row">
+      <input
+        type="number"
+        pInputText [(ngModel)]="clase.id"
+        name="txtid"
+        id="txtid"
+        disabled
+      />
+      <output>Temporada</output>
+      <input
+        type="text"
+        pInputText [(ngModel)]="clase.temporada"
+        name="txtTemporada"
+        id="txtTemporada"
+      />
+      <div>
+        <p-button (click)="actualizar()">Actualizar Datos</p-button>
+        <p-button (click)="agregarClase()">Agregar Temporada</p-button>
+      </div>
+    </div>
+  </div>
+</section>
