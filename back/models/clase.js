@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     nombre: {
-      type: DataTypes.TIME,
+      type: DataTypes.STRING,
       allowNull: false
     },
     hora_inicio: {
@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     hora_fin: {
-      type: DataTypes.DATE,
+      type: DataTypes.TIME,
       allowNull: false
     },
     createdAt: {
@@ -45,7 +45,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
-    modelName: 'Clase',
+    modelName: 'clase',
     tableName: 'clase'
   });
 
