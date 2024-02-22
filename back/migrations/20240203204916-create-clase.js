@@ -10,7 +10,11 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      temporada:{
+      id_categoria:{
+        allowNull: false,
+        type: Sequelize.STRING
+      },
+      nombre: {
         allowNull: false,
         type: Sequelize.STRING
       },
@@ -22,10 +26,6 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       },
-      temporada: {
-        allowNull: false,
-        type: Sequelize.STRING
-      }
     });
   },
   async down(queryInterface, Sequelize) {
