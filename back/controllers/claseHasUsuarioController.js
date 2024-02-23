@@ -15,7 +15,7 @@ const obtenerClases = async (req, res = express.response) => {
 const obtenerClasePorId = async (req, res = express.response) => {
     const { id } = req.params;
     try {
-        const clase = await claseConnection.getClaseHasUsuarioById(id); // Cambio aquí
+        const clase = await claseConnection.getClaseHasUsuarioById(id); 
         if (clase) {
             res.status(200).json(clase);
         } else {
@@ -29,7 +29,7 @@ const obtenerClasePorId = async (req, res = express.response) => {
 
 const crearClase = async (req, res = express.response) => {
     try {
-        const resultado = await claseConnection.insertClase(req.body); // Cambio aquí
+        const resultado = await claseConnection.insertClase(req.body);
         if (resultado ===  1) {
             res.status(201).json({ mensaje: 'Clase creada correctamente' });
         } else {
@@ -43,7 +43,7 @@ const crearClase = async (req, res = express.response) => {
 const actualizarClase = async (req, res = express.response) => {
     const { id } = req.params;
     try {
-        await claseConnection.updateClase(id, req.body); // Cambio aquí
+        await claseConnection.updateClase(id, req.body); 
         res.status(200).json({ mensaje: 'Clase actualizada correctamente' });
     } catch (error) {
         res.status(500).json({ mensaje: 'Error al actualizar la clase', error: error });
@@ -53,7 +53,7 @@ const actualizarClase = async (req, res = express.response) => {
 const eliminarClase = async (req, res = express.response) => {
     const { id } = req.params;
     try {
-        await claseConnection.deleteClase(id); // Cambio aquí
+        await claseConnection.deleteClase(id);
         res.status(200).json({ mensaje: 'Clase eliminada correctamente' });
     } catch (error) {
         res.status(500).json({ mensaje: 'Error al eliminar la clase', error: error });
