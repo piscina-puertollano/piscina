@@ -22,8 +22,8 @@ export class ClaseComponent implements OnInit {
   arrClases: Array<Clase> = [];
   searchValue: string = '';
   whatSearch: string = '';
-  selectedClase: Clase = { id: 0, temporada: '' };
-  nuevaClase: Clase = { temporada: ''};
+  selectedClase: Clase = { id: 0, id_categoria: 0, nombre: '', hora_inicio: '', hora_fin: '' };
+  nuevaClase: Clase = { nombre: ''};
 
   constructor(private service: ClaseService, private router: Router) {
     this.clase = {};
@@ -35,8 +35,8 @@ export class ClaseComponent implements OnInit {
   }
 
   agregarClase() {
-    this.nuevaClase.temporada = this.clase.temporada
-    console.log(this.nuevaClase)
+    this.nuevaClase.nombre = this.clase.nombre
+   // console.log(this.nuevaClase)
     this.service.agregarClase(this.nuevaClase).subscribe({
       next: (nuevaClase: Clase) => {
         console.log('Clase agregada exitosamente:', nuevaClase);
