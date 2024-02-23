@@ -3,7 +3,6 @@
   <div>
     <table>
       <thead>
-        <th>ID</th>
         <th>Categoria</th>
         <th>Dia</th>
         <th>Horario</th>
@@ -12,7 +11,7 @@
       <tbody>
         @for (att of arrClases; track att.id) {
         <tr>
-          <td>
+          <td style="display: none;">
             <label>{{ att.id }}</label>
           </td>
           <td>
