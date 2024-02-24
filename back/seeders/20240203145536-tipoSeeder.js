@@ -5,15 +5,15 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     await queryInterface.bulkInsert('tipo', [{
       nombre: 'calentamiento',
-      descripcion: '400m (75m crol + 25 Estilo)',
+      descripcion: 'El propósito principal del calentamiento es aumentar la temperatura corporal, mejorar la circulación sanguínea, flexibilizar los músculos y articulaciones, y activar el sistema cardiovascular.',
     },
     {
       nombre: 'principal',
-      descripcion: '100m espalda suave, 2x50 Punto muerto de mariposa con respiración frontal /30”, 6x300m Nado continuo (6 brazadas fuertes cada 50m y  mirar tres veces cada 50m al frente / 45”), 3x200m Aeróbico medio a ritmo con Palas + Aletas /1”',
+      descripcion: 'Durante el ejercicio principal, se suelen realizar movimientos y actividades más desafiantes, con una mayor intensidad y enfoque en la carga de trabajo específica para lograr los beneficios deseados.',
     },
     {
       nombre: 'relax',
-      descripcion: '200m'
+      descripcion: 'La fase de relajación al final del entrenamiento, también conocida como enfriamiento, generalmente incluye ejercicios diseñados para reducir la frecuencia cardíaca, relajar los músculos y facilitar la transición del cuerpo de una actividad física intensa a un estado de reposo. '
     }
   ])
   },

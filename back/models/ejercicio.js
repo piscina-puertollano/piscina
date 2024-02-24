@@ -27,6 +27,7 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true
     },
     idTipo: DataTypes.INTEGER,
+    descripcion: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Ejercicio',
