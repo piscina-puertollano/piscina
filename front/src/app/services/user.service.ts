@@ -12,12 +12,21 @@ export class UserService {
   constructor(private http: HttpClient) { }
   private baseUrl : string = environment.baseUrl
   private urlLogin : string = this.baseUrl+'/login'
+  private urlSignup : string = this.baseUrl+'/user'
   private urSearch : string = this.baseUrl+'/search'
   private urAllUsers : string = this.baseUrl+'/users'
   private urlShowUser : string = this.baseUrl+'/user/'
 
   login(user:User): Observable<User | undefined> {
     return this.http.post<User>(this.urlLogin,user,{withCredentials:false}).pipe(
+      catchError((error) =>{
+        return of(error)
+      })
+    )
+  }
+
+  signup(user:User): Observable<User | undefined> {
+    return this.http.post<User>(this.urlSignup, user, {withCredentials:false}).pipe(
       catchError((error) =>{
         return of(error)
       })
