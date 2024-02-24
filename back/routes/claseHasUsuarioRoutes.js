@@ -1,11 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const ClaseController = require('../controllers/claseHasUsuarioController.js');
+const ClaseHasUsuarioController = require('../controllers/claseHasUsuarioController');
 
-router.get('/obtener/clases', ClaseController.obtenerClases);
-router.get('/obtener/clases/:id', ClaseController.obtenerClasePorId);
-router.post('/asignar/clase', ClaseController.crearClase);
-router.put('/clases/:id', ClaseController.actualizarClase);
-router.delete('/eliminar/usuario/:id', ClaseController.eliminarClase);
-
+// Rutas para ClaseHasUsuario
+router.get('/obtener/clases', ClaseHasUsuarioController.obtenerClasesHasUsuarios);
+router.post('/asignar/clase/usuario', ClaseHasUsuarioController.crearClaseHasUsuario);
+router.put('/actualizar/clase/usuario/:id', ClaseHasUsuarioController.actualizarClaseHasUsuario);
+router.delete('/eliminar/clase/usuario/:id', ClaseHasUsuarioController.eliminarClaseHasUsuario);
 module.exports = router;
