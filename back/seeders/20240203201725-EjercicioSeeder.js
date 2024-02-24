@@ -7,9 +7,7 @@
 module.exports = {
   async up (queryInterface, Sequelize) {
     await queryInterface.bulkInsert('ejercicio', [{
-      idCalentamiento: 1,
-      idPrincipal: 1,
-      idRelax: 1,
+      idTipo: 1,
       createdAt: new Date(),
       updatedAt: new Date()
     }])

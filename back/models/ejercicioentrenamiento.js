@@ -1,12 +1,9 @@
-/**
- * author: Marina Laguna
- */
 'use strict';
 const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Principal extends Model {
+  class EjercicioEntrenamiento extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -16,18 +13,19 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  Principal.init({
+  EjercicioEntrenamiento.init({
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
-    ejercicio: DataTypes.STRING
+    idEjercicio: DataTypes.STRING,
+    idEntrenamiento: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'Principal',
-    tableName: 'principal'
+    modelName: 'EjercicioEntrenamiento',
+    tableName: 'ejercicioEntrenamiento'
   });
-  return Principal;
+  return EjercicioEntrenamiento;
 };
