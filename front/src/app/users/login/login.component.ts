@@ -22,6 +22,13 @@ export class LoginComponent {
     this.user = {};
   }
 
+  onEnter(event:KeyboardEvent) {
+    console.log(event.key)
+    if (event.key == "Enter") {
+      this.login()
+    }
+  }
+
   validateForm(): boolean {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
     if (!emailRegex.test(this.user.email!)) {
