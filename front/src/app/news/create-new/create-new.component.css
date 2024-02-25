@@ -1,0 +1,22 @@
+h1{
+    text-align: center;
+}
+
+#editorNews{
+    position: relative;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    margin-top: 50px;
+    max-width: 70%;
+}
+
+
+#btnCreate{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 50px;
+}
