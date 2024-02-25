@@ -29,6 +29,10 @@ export class HeadersComponent implements OnInit {
                 routerLink: '/'
             },
             {
+                label: 'Noticias',
+                routerLink: '/news'
+            },
+            {
                 label: 'Actividad deportiva',
             },
             {

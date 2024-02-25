@@ -15,8 +15,10 @@ export const environment = {
     myProfile: '/my-profile',
     updateUser: '/user',
     showUser: '/user',
+    allUsers: '/users',
     login: '/login',
     asignSocio: '/user/asign',
     removeSocio: '/user/remove',
-    photo_profile_path:'photo_profile'
+    photo_profile_path:'photo_profile',
+    landing_path:'landing'
 };

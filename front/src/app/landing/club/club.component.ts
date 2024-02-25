@@ -5,6 +5,7 @@ import { GalleriaModule } from 'primeng/galleria';
 import { FileService } from '../../services/file.service';
 import { File } from '../../interfaces/upload';
 import { Image } from '../../interfaces/user';
+import { environment } from '../../../environments/environment.development';
 
 
 
@@ -95,7 +96,7 @@ export class ClubComponent implements OnInit{
     arrFotos.forEach((assetId:Image) => {
       let image:File = {
         id: assetId.ruta,
-        where: 'photo_profile'
+        where: environment.landing_path
       }
       this.fileService.showImage(image).subscribe({
         next: (asset: any | undefined) => {

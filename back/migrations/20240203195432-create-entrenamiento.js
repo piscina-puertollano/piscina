@@ -15,7 +15,7 @@ module.exports = {
       idEjercicio: {
         type: Sequelize.DataTypes.INTEGER,
         references: {
-          model: 'Ejercicio',
+          model: 'ejercicio',
           key: 'id'
         },
         allowNull: false
