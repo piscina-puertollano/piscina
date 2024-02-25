@@ -13,19 +13,10 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Ejercicio.hasOne(models.Calentamiento, {
-        foreignKey: 'id',
-        as: 'calentamiento'
+      Ejercicio.belongsTo(models.Tipo, {
+        foreignKey: 'idTipo',
       });
-      Ejercicio.hasOne(models.Principal, {
-        foreignKey: 'id',
-        as: 'principal'
-      });
-      Ejercicio.hasOne(models.Relax, {
-        foreignKey: 'id', 
-        as: 'relax'
-      });
-    }
+    }    
   }
   Ejercicio.init({
     id: {
@@ -34,9 +25,8 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true
     },
-    idCalentamiento: DataTypes.INTEGER,
-    idPrincipal: DataTypes.INTEGER,
-    idRelax: DataTypes.INTEGER,
+    idTipo: DataTypes.INTEGER,
+    descripcion: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Ejercicio',
