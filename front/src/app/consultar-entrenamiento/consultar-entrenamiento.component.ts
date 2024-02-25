@@ -6,6 +6,7 @@ import { Alert } from '../interfaces/alert';
 import { EntrenamientoService } from '../services/entrenamiento.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { Ejercicios } from '../interfaces/ejercicios';
 
 @Component({
   selector: 'app-consultar-entrenamiento',

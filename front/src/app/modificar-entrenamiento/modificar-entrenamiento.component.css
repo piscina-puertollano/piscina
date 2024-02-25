@@ -1,4 +1,5 @@
 textarea[name="descripcion"] {
     width:  80%; 
+    height: 60%;
     resize: vertical; 
 }
