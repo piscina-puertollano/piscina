@@ -1,5 +1,7 @@
 export class Clase {
     id?:number
-    temporada?:string
-
+    id_categoria?:number
+    nombre?:string
+    hora_inicio?:string
+    hora_fin?:string
 }

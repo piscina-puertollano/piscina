@@ -12,7 +12,9 @@ import { CreateNewComponent } from './news/create-new/create-new.component';
 import { ModificarEntrenamientoComponent } from './modificar-entrenamiento/modificar-entrenamiento.component';
 import { CrearEntrenamientoComponent } from './crear-entrenamiento/crear-entrenamiento.component';
 import { ProfileComponent } from './users/profile/profile.component';
+import { FaltasComponent } from './faltas/faltas.component';
 import { ConsultarEntrenamientoComponent } from './consultar-entrenamiento/consultar-entrenamiento.component';
+
 
 
 export const routes: Routes = [
@@ -29,4 +31,7 @@ export const routes: Routes = [
   {path: 'modificar-entrenamiento/:id', component: ModificarEntrenamientoComponent},
   {path: 'crear-entrenamiento', component: CrearEntrenamientoComponent},
   {path: 'consultar-entrenamiento/:id', component: ConsultarEntrenamientoComponent}
+  {path: 'crear-entrenamiento', component: CrearEntrenamientoComponent},
+  {path: 'faltas', component: FaltasComponent}
+
 ];
