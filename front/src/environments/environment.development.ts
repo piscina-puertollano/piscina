@@ -6,5 +6,17 @@ export const environment = {
     updateclub: '/club',
     showAsset: '/asset',
     showNews:'/news',
-    showNew:'/new'
+    showNew:'/new',
+    file:'/file',
+    rolTutor: 2,
+    showSocios: '/socios',
+    showSociosOfTutor: '/socios',
+    showRols: '/rols',
+    myProfile: '/my-profile',
+    updateUser: '/user',
+    showUser: '/user',
+    login: '/login',
+    asignSocio: '/user/asign',
+    removeSocio: '/user/remove',
+    photo_profile_path:'photo_profile'
 };
