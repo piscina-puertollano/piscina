@@ -53,26 +53,53 @@
           class="ql-clean" 
           aria-label="clean"> 
       </button> 
-        </span>        
-    </span>
-  </p-header>
+    </span>        
+</span>
+<span class="ql-table"></span>
+</p-header>
 </p-editor>
 
 </section>
 
-<section>
-  <p-table [value]="fotos" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template pTemplate="header">
+@if(fotos != null && fotos.length >= 1){
+
+  <section id="tableFotos">
+    <p-table [value]="fotos!" [tableStyle]="{ 'min-width': '10rem', 'max-width' : '50rem' }">
+      <ng-template pTemplate="header">
         <tr>
-            <th>Foto</th>
-            <th></th>
+          <th>Foto</th>
+          <th></th>
         </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-foto>
+      </ng-template>
+      <ng-template pTemplate="body" let-foto>
         <tr>
-            <td>{{ foto.ruta }}</td>
+          <td class="container">
+            <img src="{{ foto.image }}" alt="fotos disponibles" id="image" srcset="">
+            <app-dialog  [severity]="'danger'" id="btnUpdate" [nameBtn]="'Eliminar'" [header]="'Alerta'" [message]="' Va a eliminar esta imagen. ¿Estás seguro de que quiere realizar esta acción? '" (eventEmiter)="deleteImage($event, foto.ruta, foto.id)"></app-dialog>
+            
+          </td>
         </tr>
-    </ng-template>
-</p-table>
-</section>
-<app-dialog id="btnUpdate" [nameBtn]="'Actualizar'" [header]="'Alerta'" [message]="'¿Estás seguro de que quiere realizar esta acción? Va a editar esta página'" (eventEmiter)="update($event)"></app-dialog>
+      </ng-template>
+    </p-table>
+  </section>
+}@else {
+  <section id="tableFotos">
+    <p-table [value]="[]" [tableStyle]="{ 'min-width': '10rem', 'max-width' : '50rem' }">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Foto</th>
+          <th></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-foto>
+        <tr>
+          <td class="container">
+            No hay imagenes
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </section>
+}
+
+<app-dialog id="btnUpdate" [nameBtn]="'Actualizar'" [header]="'Alerta'" [message]="' ¿Estás seguro de que quiere realizar esta acción? Va a editar esta página'" (eventEmiter)="update($event)"></app-dialog>
