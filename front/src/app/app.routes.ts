@@ -12,6 +12,7 @@ import { CreateNewComponent } from './news/create-new/create-new.component';
 import { ModificarEntrenamientoComponent } from './modificar-entrenamiento/modificar-entrenamiento.component';
 import { CrearEntrenamientoComponent } from './crear-entrenamiento/crear-entrenamiento.component';
 import { ProfileComponent } from './users/profile/profile.component';
+import { ConsultarEntrenamientoComponent } from './consultar-entrenamiento/consultar-entrenamiento.component';
 
 
 export const routes: Routes = [
