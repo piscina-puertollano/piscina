@@ -1,3 +1,6 @@
+/**
+ * author: Marina Laguna
+ */
 'use strict';
 const {
   Model
@@ -10,7 +13,14 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Entrenamiento.belongsToMany(models.Ejercicio, {
+        through: models.EjercicioEntrenamiento,
+        foreignKey: 'idEntrenamiento', 
+      });
+  
+      Entrenamiento.hasMany(models.EjercicioEntrenamiento, {
+        foreignKey: 'idEntrenamiento',
+      });
     }
   }
   Entrenamiento.init({

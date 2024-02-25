@@ -1,3 +1,6 @@
+/**
+ * author: Marina Laguna
+ */
 'use strict';
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -8,6 +11,14 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
+      },
+      idEjercicio: {
+        type: Sequelize.DataTypes.INTEGER,
+        references: {
+          model: 'ejercicio',
+          key: 'id'
+        },
+        allowNull: false
       },
       nombre: {
         type: Sequelize.STRING

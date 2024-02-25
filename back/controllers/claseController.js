@@ -25,6 +25,20 @@ const obtenerClasePorId = async (req, res = express.response) => {
     }
 };
 
+const obtenerTemporadaPorId = async (req, res = express.response) => {
+    const { temporada } = req.params;
+    try {
+        const clase = await claseConnection.getClaseTemporada(temporada);
+        if (clase) {
+            res.status(200).json(clase);
+        } else {
+            res.status(404).json({ mensaje: 'Clase no encontrada' });
+        }
+    } catch (error) {
+        res.status(500).json({ mensaje: 'Error al obtener la clase por ID', error: error });
+    }
+};
+
 const crearClase = async (req, res = express.response) => {
     try {
         const resultado = await claseConnection.insertClase(req.body);
@@ -61,6 +75,7 @@ const eliminarClase = async (req, res = express.response) => {
 module.exports = {
     obtenerClases,
     obtenerClasePorId,
+    obtenerTemporadaPorId,
     crearClase,
     actualizarClase,
     eliminarClase

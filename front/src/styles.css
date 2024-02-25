@@ -2,7 +2,8 @@
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
 
-
+@import "../node_modules/quill/dist/quill.core.css";
+@import "../node_modules/quill/dist/quill.snow.css";
 
 @layer reset, primeng;
 
@@ -79,3 +80,13 @@ nav li a:hover {
         margin-right:  0;
     }
 }
+
+/* @font-face {
+    font-family: 'intel';
+    src: url('../assets/fonts/inter/Inter-VariableFont_slnt\,wght.ttf');
+}
+
+*{
+    font-family: 'intel' !important;
+} */
+

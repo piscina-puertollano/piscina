@@ -1,3 +1,6 @@
+/**
+ * author: Marina Laguna
+ */
 'use strict';
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -12,8 +15,15 @@ module.exports = {
       nota: {
         type: Sequelize.INTEGER
       },
-      entrenamiento_id: {
-        type: Sequelize.INTEGER
+      idEntrenamiento: {
+        type: Sequelize.DataTypes.INTEGER,
+        references: {
+          model: {
+            tableName: 'entrenamientos'
+          },
+          key: 'id'
+        },
+        allowNull: false
       },
       createdAt: {
         allowNull: false,

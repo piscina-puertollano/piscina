@@ -1,0 +1,69 @@
+<h1>Faltas de los alumnos</h1>
+<section>
+  <div>
+    <table>
+      <thead>
+        <th>Usuario</th>
+        <th>Clase</th>
+        <th>Acciones</th>
+      </thead>
+      <tbody>
+        @for (att of arrFaltas; track att.id) {
+        <tr>
+          <td style="display: none;">
+            <label>{{ att.id }}</label>
+          </td>
+          <td>
+            <label>{{att.id_usuario}}</label>
+          </td>
+          <td>
+            <label>{{ att.id_clase }}</label>
+          </td>
+          <td>
+            <button
+              pButton
+              type="button"
+              class="pi pi-pencil"
+              (click)="edit(att)"
+            ></button>
+            <button
+              pButton
+              type="button"
+              class="pi pi-trash"
+              (click)="deleteFaltas(att.id)"
+            ></button>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+    <div class="row">
+      <input
+        type="hidden"
+        pInputText [(ngModel)]="faltas.id"
+        name="txtid"
+        id="txtid"
+        disabled
+      />
+      <output>Categoria</output>
+      <input
+        type="number"
+        pInputText [(ngModel)]="faltas.id_clase"
+        name="txtid"
+        id="txtid"
+        disabled
+      />
+      <output>Nombre</output>
+      <input
+        type="text"
+        pInputText [(ngModel)]="faltas.id_usuario"
+        name="txtTemporada"
+        id="txtTemporada"
+      />
+      <div>
+        <p-button >Actualizar Datos</p-button>
+        <p-button >Agregar Temporada</p-button>
+      </div>
+    </div>
+  </div>
+</section>

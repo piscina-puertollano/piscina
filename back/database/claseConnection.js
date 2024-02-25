@@ -26,13 +26,12 @@ class ClaseConnection {
             clases = await models.clase.findAll();
             con.desconectar();
         } catch (error) {
-            console.error('Error en getClases:', error); // Agrega esta línea para registrar el error
-            throw error; // Asegúrate de volver a lanzar el error
+            console.error('Error en getClases:', error);
+            throw error;
         }
         return clases;
     };
-    
-
+   
     getClase = async (id) => {
         let clase;
         let con = new conexion();
@@ -48,6 +47,23 @@ class ClaseConnection {
         return clase;
     };
     
+    getClaseTemporada = async (temporada) => {
+        let clase;
+        let con = new conexion();
+        try {
+            await con.conectar();
+            clase = await models.clase.findAll({
+                where: {
+                  temporada: temporada
+        }});
+        } catch (error) {
+            console.error('Error en getClase:', error);
+            throw error;
+        } finally {
+            await con.desconectar();
+        }
+        return clase;
+    };
 
     insertClase = async (data) => {
         let resultado =  0;
