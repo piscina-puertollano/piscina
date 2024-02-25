@@ -26,5 +26,6 @@ export const routes: Routes = [
   {path: 'entrenamientos', component: EntrenamientoComponent},
   {path: 'edit', component: ClubEditComponent},
   {path: 'modificar-entrenamiento/:id', component: ModificarEntrenamientoComponent},
-  {path: 'crear-entrenamiento', component: CrearEntrenamientoComponent}
+  {path: 'crear-entrenamiento', component: CrearEntrenamientoComponent},
+  {path: 'consultar-entrenamiento/:id', component: ConsultarEntrenamientoComponent}
 ];
