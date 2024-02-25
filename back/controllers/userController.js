@@ -7,8 +7,21 @@ const { generarJWT } = require("../helpers/jwt");
 const conx = new Conexion();
 
 const showUser = (req, res = response) => {
+  let id = 0
+  try{
+    id = req.params.id
+    
+
+  }catch(err){
+    console.log(err)
+  }finally{
+    if(!id){
+      id = req.userId
+    }
+  }
+
   conx
-    .showUser(req.params.id)
+    .showUser(id)
     .then((msg) => {
       res.status(200).json(msg);
     })

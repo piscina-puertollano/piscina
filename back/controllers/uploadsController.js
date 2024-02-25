@@ -60,7 +60,7 @@ const showFile = async(req, res) => {
     const fileId = req.params.id
     const folder = req.body.folder;
 
-    if (fileId) {
+    if (fileId && folder) {
         const pathFile = path.join( __dirname, '../uploads', folder, fileId );
         console.log(pathFile);
         if ( fs.existsSync( pathFile ) ) {
