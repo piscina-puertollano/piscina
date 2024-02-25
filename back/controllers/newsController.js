@@ -32,6 +32,7 @@ const show = async (req, res) => {
 };
 
 const createNew = async (req, res) => {
+    req.body.id_user = req.userId;
     await conx.createNew(req.body).then(resNew=>{
       res.status(200).json(resNew);
     }).catch(err=>{

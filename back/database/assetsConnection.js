@@ -30,6 +30,30 @@ class AssetsModel {
 
   }
 
+  deleteByRuta =async(assetId)=>{
+    let resultado = [];
+    console.log(assetId)
+    try{
+        conexion.conectar();
+        resultado = await models.Assets.findOne({
+            attributes:["ruta"],
+            where: {
+                ruta: assetId,
+            },
+        });
+        resultado.destroy()
+        conexion.desconectar();
+        if (!resultado) {
+            throw new Error("Asset not found");
+          }
+    }catch(error){
+        throw error
+    }finally{
+        return resultado;
+    }
+
+  }
+
   getAssetsByArrIds = async (arrId) => {
     let resultado = [];
     let rtnAssets = [];

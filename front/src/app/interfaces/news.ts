@@ -7,10 +7,10 @@ export interface News {
 }
 
 export interface PostNews {
-    title:     string;
-    body:      string;
-    id_user:    number;
-    main_image: number;
+    title?:     string;
+    body?:      string;
+    id_user?:    number;
+    main_image?: number;
 }
 
 export interface Author {

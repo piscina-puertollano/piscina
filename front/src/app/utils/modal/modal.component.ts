@@ -1,9 +1,9 @@
 import { Component, OnDestroy } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { SignupComponent } from '../../user/signup/signup.component';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
+import { SignupComponent } from '../../users/signup/signup/signup.component';
 
 
 @Component({

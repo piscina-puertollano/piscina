@@ -13,7 +13,14 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      
+      Entrenamiento.belongsToMany(models.Ejercicio, {
+        through: models.EjercicioEntrenamiento,
+        foreignKey: 'idEntrenamiento', 
+      });
+  
+      Entrenamiento.hasMany(models.EjercicioEntrenamiento, {
+        foreignKey: 'idEntrenamiento',
+      });
     }
   }
   Entrenamiento.init({
@@ -23,7 +30,6 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true
     },
-    idEjercicio: DataTypes.INTEGER,
     nombre: DataTypes.STRING,
     descripcion: DataTypes.STRING
   }, {

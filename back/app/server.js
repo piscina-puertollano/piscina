@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+require('dotenv').config()
 const mongoose = require("mongoose");
 const { socketController } = require("../controllers/socketController");
 const { createNew } = require("../controllers/newsController");
@@ -10,6 +11,8 @@ const fileUpload = require('express-fileupload');
 class Server {
   constructor() {
     this.app = express();
+    this.middlewares();
+
     this.userRoutePath = "/api";
     this.userRouteClasesPath = "/api";
     this.eventosRoutePath = "/api/eventos";
@@ -17,8 +20,11 @@ class Server {
     this.noSociosRoutePath = "/api/noSocios";
     this.eventoUsuariosRoutePath = "/api/eventoUsuarios";
     this.apiFiles = "/api/file";
+    this.entrenamientoRoutePath = "/api/entrenamientos";
+    this.puntuacionRoutePath = "/api/puntuaciones";
+    this.ejercicioRoutePath = "/api/ejercicios";
+    this.tiposRoutePath = "/api/tiposEjercicios";
 
-    this.middlewares();
     
     this.serverExpress = require('http').createServer(this.app);
     this.serverWebSocket = require('http').createServer(this.app);
@@ -59,7 +65,10 @@ class Server {
   }
 
   middlewares() {
-    this.app.use(cors());
+    this.app.use(cors({
+      origin: process.env.FRONT_URL,
+      credentials: true,
+    }));
     this.app.use(express.json());
 
     this.app.use( fileUpload({
@@ -80,8 +89,10 @@ class Server {
     this.app.use(this.userRoutePath, require("../routes/clubRoutes"));
     this.app.use(this.userRoutePath, require("../routes/assetsRoutes"));
 
-    this.app.use(this.userRoutePath, require("../routes/entrenamientosRoutes"));
-    this.app.use(this.userRoutePath, require("../routes/puntuacionRoutes"));
+    this.app.use(this.entrenamientoRoutePath, require("../routes/entrenamientosRoutes"));
+    this.app.use(this.puntuacionRoutePath, require("../routes/puntuacionRoutes"));
+    this.app.use(this.ejercicioRoutePath, require('../routes/ejerciciosRoutes'));
+    this.app.use(this.tiposRoutePath, require("../routes/tiposRoutes"));
 
     this.app.use(this.eventosRoutePath, require("../routes/eventoRoutes"));
     this.app.use(
@@ -92,12 +103,7 @@ class Server {
     this.app.use(
       this.eventoUsuariosRoutePath,
       require("../routes/eventoUsuarioRoutes")
-    );
-    
-    this.app.use(this.userRoutePath, require('../routes/userRoutes'));
-    this.app.use(this.userRoutePath, require('../routes/entrenamientosRoutes'));
-    this.app.use(this.userRoutePath, require('../routes/puntuacionRoutes'));
-    this.app.use(this.userRoutePath, require('../routes/ejerciciosRoutes'))
+    ); 
   }
 
   sockets() {

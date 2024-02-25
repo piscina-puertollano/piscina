@@ -34,7 +34,8 @@ export class ModalSignupComponent implements OnDestroy{
     });
 
     this.ref.onClose.subscribe((data: any) => {
-        this.messageService.add({ severity: 'warn', summary: 'Maximized', detail: `No se ha creado el usuario` });
+        console.log(data);
+        this.messageService.add({ severity: 'warn', summary: 'Advertencia', detail: 'No se ha creado el usuario' });
     });
 
 }

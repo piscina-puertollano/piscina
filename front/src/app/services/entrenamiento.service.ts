@@ -1,3 +1,6 @@
+/**
+ * author: Marina Laguna
+ */
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
@@ -11,11 +14,11 @@ export class EntrenamientoService {
 
   constructor(private http: HttpClient) { }
   private baseUrl : string = environment.baseUrl
-  private urlListarEntrenamientos : string = this.baseUrl + '/listar-entrenamientos'
-  private urlUpdateEntrenamiento : string = this.baseUrl + '/actualizar-entrenamiento'
-  private urlgetEntrenamientoId : string = this.baseUrl + '/listar-entrenamiento'
-  private urldeleteEntrenamiento: string = this.baseUrl + '/eliminar-entrenamiento';
-  private urlInsertEntrenamiento: string = this.baseUrl + '/crear-entrenamiento'
+  private urlListarEntrenamientos : string = this.baseUrl + '/entrenamientos/';
+  private urlUpdateEntrenamiento : string = this.baseUrl + '/entrenamientos';
+  private urlgetEntrenamientoId : string = this.baseUrl + '/entrenamientos';
+  private urldeleteEntrenamiento: string = this.baseUrl + '/entrenamientos';
+  private urlInsertEntrenamiento: string = this.baseUrl + '/entrenamientos/crear-entrenamiento';
 
   getEntrenamientos(): Observable<Array<Entrenamiento> | undefined> {
     return this.http.get<any[]>(this.urlListarEntrenamientos);

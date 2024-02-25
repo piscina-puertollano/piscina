@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { LandingService } from '../../services/landing.service';
 import { Asset, Club } from '../../interfaces/landing';
 import { GalleriaModule } from 'primeng/galleria';
+import { FileService } from '../../services/file.service';
+import { File } from '../../interfaces/upload';
+import { Image } from '../../interfaces/user';
+import { environment } from '../../../environments/environment.development';
 
 
 
@@ -15,11 +19,34 @@ import { GalleriaModule } from 'primeng/galleria';
 export class ClubComponent implements OnInit{
   club?:Club
   arrClub?:Array<Club>
-  images?: Asset[];
+  images: Array<any> = [];
+  arrFotos?: Array<any>;
+
+  position: string = 'bottom';
+
+  showIndicatorsOnItem: boolean = false;
+  positionOptions = [
+    {
+        label: 'Bottom',
+        value: 'bottom'
+    },
+    {
+        label: 'Top',
+        value: 'top'
+    },
+    {
+        label: 'Left',
+        value: 'left'
+    },
+    {
+        label: 'Right',
+        value: 'right'
+    }
+];
     
   responsiveOptions: any[] | undefined;
 
-  constructor(private landingService: LandingService){}
+  constructor(private landingService: LandingService, private fileService: FileService){}
 
   ngOnInit(): void {
     this.showGalery()
@@ -55,14 +82,30 @@ export class ClubComponent implements OnInit{
   showGalery() {
     this.landingService.showSection('galeria').subscribe({
       next: (club: Club | undefined) => {
-        console.log('llego',club)
-        let i = 0
-        this.images = club?.fotos
+        this.arrFotos = club?.fotos
         this.responsiveOptions = club?.fotos
+        this.showImages(club?.fotos!)
       },
       error: (err) => {
         console.log(err);
       },
     });
+  }
+
+  showImages(arrFotos:Array<any>) {
+    arrFotos.forEach((assetId:Image) => {
+      let image:File = {
+        id: assetId.ruta,
+        where: environment.landing_path
+      }
+      this.fileService.showImage(image).subscribe({
+        next: (asset: any | undefined) => {
+          this.images!.push({ruta: assetId.ruta, image: URL.createObjectURL(asset)})
+          console.log(this.images)
+        },error: (err) => {
+          console.log(err)
+        }
+      })
+    })
   }
 }

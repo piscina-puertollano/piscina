@@ -1,16 +1,16 @@
 <section id="getUser">
-    <h1 id="title" class="m-0">Gestión de usuarios</h1>
     <div class="card">
+        <h1 id="title" class="m-0">Gestión de usuarios</h1>
         <p-toast></p-toast>
 
-        <div id="addUser">
-            <p-toolbar styleClass="mb-4 gap-2">
+        <div id="addUser" >
+            <p-toolbar styleClass="mb-4 gap-2" >
                 <ng-template pTemplate="right">
                     <app-modal-signup></app-modal-signup>
                 </ng-template>
             </p-toolbar>
         </div>
-        
+
         <p-table
         id="table"
         #dt
@@ -46,14 +46,20 @@
         
         <ng-template pTemplate="body" let-user>
             <tr>
-                <td> <img src="{{ user.image.ruta}}" width="50px"  alt="" srcset=""> </td>
+                <td> 
+                @for(image of arrPhotoProfile; track image.id){
+                    @if(image.id == user.image.ruta){
+                        <img src="{{image.image}}" id="imageProfile" width="50px"  alt="" srcset=""> 
+                    }
+                    }
+                </td>
                 <td>{{ user.firstName }}</td>
                 <td>{{ user.lastName}}</td>
                 <td>{{ user.email }}</td>
                 <td>
-                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="openDialog(user.id)"></button> 
-                    <app-dialog id="btnUpdate" [icon]="'pi pi-trash'" [header]="'Alerta'" [message]="'¿Estás seguro de que quiere realizar esta acción? Va a eliminar un usuario'" (eventEmiter)="deleteUser($event,user.id)"></app-dialog>
-                </td>
+                    <button pButton pRipple id="btnMargin" icon="pi pi-pencil" class="p-button-rounded p-button-success m-2" (click)="openDialog(user.id)"></button> 
+                    <app-dialog  [icon]="'pi pi-trash'" [severity]="'danger'" [header]="'Alerta'" [message]="'¿Estás seguro de que quiere realizar esta acción? Va a eliminar un usuario'" (eventEmiter)="deleteUser($event,user.id)"></app-dialog>
+                    </td>
             </tr>
         </ng-template>
         
@@ -62,6 +68,7 @@
         </ng-template>
     </p-table>
 </div>
+
 </section>
 
 

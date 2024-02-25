@@ -12,35 +12,18 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      idCalentamiento: {
+      idTipo: {
         type: Sequelize.DataTypes.INTEGER,
         references: {
           model: {
-            tableName: 'calentamiento'
+            tableName: 'tipo'
           },
           key: 'id'
         },
         allowNull: false
       },
-      idPrincipal: {
-        type: Sequelize.DataTypes.INTEGER,
-        references: {
-          model: {
-            tableName: 'principal'
-          },
-          key: 'id'
-        },
-        allowNull: false
-      },
-      idRelax: {
-        type: Sequelize.DataTypes.INTEGER,
-        references: {
-          model: {
-            tableName: 'relax'
-          },
-          key: 'id'
-        },
-        allowNull: false
+      descripcion: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,

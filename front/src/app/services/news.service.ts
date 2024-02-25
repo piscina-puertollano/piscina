@@ -28,7 +28,7 @@ export class NewsService {
   }
 
   createNew(news:PostNews): Observable<News | undefined> {
-    return this.http.post<PostNews>(this.urlCreate, news,{withCredentials:false}).pipe(
+    return this.http.post<PostNews>(this.urlCreate, news, {withCredentials: true}).pipe(
       catchError((error) =>{
         return of(error)
       })
