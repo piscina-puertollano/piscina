@@ -28,4 +28,13 @@ export class FaltasService {
       })
     );
   }
+
+  deleteFaltas(faltaId: string): Observable<Array<Faltas> | undefined> {
+    const apiUrl = `${this.urlAsignarFaltas}/${faltaId}`;
+    return this.http.delete<Faltas>(apiUrl).pipe(
+      catchError((error) =>{
+        return of(error)
+      })
+    )
+  }
 }
