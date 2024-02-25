@@ -5,7 +5,7 @@
     position: absolute;
     width:  99%;
     height:  90vh;
-    background-image: url('../../../../assets/background/waves.svg');
+    background-image: url('../../../assets/background/waves.svg');
     background-size: cover;
     background-position: center;
 }
