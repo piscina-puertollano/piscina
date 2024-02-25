@@ -20,6 +20,7 @@ class Server {
     this.entrenamientoRoutePath = "/api/entrenamientos";
     this.puntuacionRoutePath = "/api/puntuaciones";
     this.ejercicioRoutePath = "/api/ejercicios";
+    this.tiposRoutePath = "/api/tiposEjercicios";
 
     this.middlewares();
     
@@ -83,7 +84,8 @@ class Server {
 
     this.app.use(this.entrenamientoRoutePath, require("../routes/entrenamientosRoutes"));
     this.app.use(this.puntuacionRoutePath, require("../routes/puntuacionRoutes"));
-    this.app.use(this.ejercicioRoutePath, require('../routes/ejerciciosRoutes'))
+    this.app.use(this.ejercicioRoutePath, require('../routes/ejerciciosRoutes'));
+    this.app.use(this.tiposRoutePath, require("../routes/tiposRoutes"));
 
     this.app.use(this.eventosRoutePath, require("../routes/eventoRoutes"));
     this.app.use(

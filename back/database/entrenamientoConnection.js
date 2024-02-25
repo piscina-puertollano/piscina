@@ -163,14 +163,12 @@ class entrenamientoConnection {
                 return;
             }
     
-            // Eliminar los ejercicios asociados al entrenamiento
             await models.EjercicioEntrenamiento.destroy({
                 where: {
                     idEntrenamiento: id,
                 },
             });
     
-            // Eliminar el entrenamiento
             await entrenamiento.destroy();
     
             console.log('Entrenamiento y ejercicios eliminados exitosamente.');
