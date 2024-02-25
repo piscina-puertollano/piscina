@@ -11,6 +11,7 @@ import { ListNewsComponent } from './news/list/list.component';
 import { CreateNewComponent } from './news/create-new/create-new.component';
 import { ModificarEntrenamientoComponent } from './modificar-entrenamiento/modificar-entrenamiento.component';
 import { CrearEntrenamientoComponent } from './crear-entrenamiento/crear-entrenamiento.component';
+import { FaltasComponent } from './faltas/faltas.component';
 
 
 export const routes: Routes = [
@@ -24,5 +25,7 @@ export const routes: Routes = [
   {path: 'entrenamientos', component: EntrenamientoComponent},
   {path: 'edit', component: ClubEditComponent},
   {path: 'modificar-entrenamiento/:id', component: ModificarEntrenamientoComponent},
-  {path: 'crear-entrenamiento', component: CrearEntrenamientoComponent}
+  {path: 'crear-entrenamiento', component: CrearEntrenamientoComponent},
+  {path: 'faltas', component: FaltasComponent}
+
 ];
