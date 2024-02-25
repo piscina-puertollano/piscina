@@ -24,6 +24,9 @@ import { ShowComponent } from '../ShowUser/show/show.component';
 import { firstValueFrom } from 'rxjs';
 import { SignupComponent } from '../signup/signup/signup.component';
 import { ModalSignupComponent } from '../signup/modalSignup/modal.component';
+import { File } from '../../interfaces/upload';
+import { FileService } from '../../services/file.service';
+import { environment } from '../../../environments/environment.development';
 
 @Component({
   selector: 'app-list',
@@ -53,6 +56,7 @@ import { ModalSignupComponent } from '../signup/modalSignup/modal.component';
 export class ListComponent implements OnInit {
   user?: User;
   arrUsers!: Array<User>;
+  arrPhotoProfile: Array<any> = [];
   searchValue: string = '';
   loading: boolean = true;
   selectUsers!: Array<User>;
@@ -66,7 +70,8 @@ export class ListComponent implements OnInit {
     private filterService: FilterService,
     private userService: UserService,
     public dialogService: DialogService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private fileService: FileService
   ) {}
 
   openDialog(id:number){
@@ -79,14 +84,13 @@ export class ListComponent implements OnInit {
 
         this.ref = this.dialogService.open(ShowComponent, { 
           header: 'Editar usuario',
+          modal: true,
+          breakpoints: {
+            '960px': '75vw',
+            '640px': '90vw'
+          },
           data:{
             user:user
-          }
-      });
-        
-        this.ref.onClose.subscribe((user: User ) => {
-          if (user) {
-              this.messageService.add({ severity: 'info', summary: 'Product Selected', detail: user.email });
           }
       });
       },
@@ -97,22 +101,13 @@ export class ListComponent implements OnInit {
     
   }
 
-
   createUSerDialog(id:number){
-
     this.ref = this.dialogService.open(SignupComponent, { 
       header: 'Editar usuario',
       data:{
         user:this.user
       }
-  });
-    
-    this.ref.onClose.subscribe((user: User ) => {
-      if (user) {
-          this.messageService.add({ severity: 'info', summary: 'Product Selected', detail: user.email });
-      }
-  });
-    
+  });    
   }
 
 
@@ -140,6 +135,8 @@ export class ListComponent implements OnInit {
       next: (user: any | undefined) => {
         console.log(user);
         this.arrUsers = user;
+        this.showImages()
+
       },
       error: (err) => {
         console.log(err);
@@ -158,6 +155,22 @@ export class ListComponent implements OnInit {
         console.log(err);
       },
     });
+  }
+
+  showImages() {
+    for(let user of this.arrUsers){
+      let image: File = {
+        id: user.image?.ruta,
+        where: environment.photo_profile_path
+      }
+
+      this.fileService.showImage(image).subscribe({
+        next: (image: any | undefined) => {
+          console.log(image);
+          this.arrPhotoProfile.push({id:user.image?.ruta, image: URL.createObjectURL(image)})
+        },
+      });
+    }
   }
 
   deleteUser(eventEmiter: Boolean, id:number){

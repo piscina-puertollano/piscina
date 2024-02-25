@@ -4,7 +4,7 @@ export interface Club {
     estructura?: Estructura[];
     history?: string;
     tag?:     string;
-    assets?:     Array<number>|undefined;
+    assets?:     Array<number>|any|undefined;
     order?:  string;
     fotos?:  Foto[];
 }

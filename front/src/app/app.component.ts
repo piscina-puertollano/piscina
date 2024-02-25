@@ -3,16 +3,17 @@ import { RouterOutlet } from '@angular/router';
 import { HeadersComponent } from './headers/headers.component';
 import { PrimeNGConfig } from 'primeng/api';
 import { SignupComponent } from './users/signup/signup/signup.component';
-import { ToolbarModule } from 'primeng/toolbar';
-import { AvatarModule } from 'primeng/avatar';
-import { AvatarGroupModule } from 'primeng/avatargroup';
-import {io} from 'socket.io-client';
+import { io } from 'socket.io-client';
 import { environment } from '../environments/environment.development';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeadersComponent, SignupComponent,ToolbarModule, AvatarModule, AvatarGroupModule],
+  imports: [
+    RouterOutlet,
+    HeadersComponent,
+    SignupComponent
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })

@@ -1,12 +1,11 @@
 const Conexion = require('../database/UserConnection');
 
-const exitUser = (id_user) => {
+const existUser = (id_user) => {
     console.log('llego')
     return new Promise((resolve, reject) => {
         const conx = new Conexion();
         conx.getUserById(id_user)
             .then(msg => {
-                console.log(msg)
                 console.log('Existe');
                 resolve(true);
             })
@@ -20,5 +19,5 @@ const exitUser = (id_user) => {
 };
 
 module.exports = {
-    exitUser
+    existUser
 }

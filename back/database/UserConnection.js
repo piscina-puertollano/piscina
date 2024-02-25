@@ -15,7 +15,7 @@ class UserModel {
       where: {
         email: email,
       },
-      attributes: ["id", "firstName", "lastName", "email"],
+      attributes: ["id", "firstName", "lastName", "email", "tlf", "domicilio", "corriente_pago","active"],
     });
     conexion.desconectar();
     if (!resultado) {
@@ -28,7 +28,7 @@ class UserModel {
     let resultado = [];
     conexion.conectar();
     resultado = await models.Users.findByPk(id_user,{
-      attributes: ["id", "firstName", "lastName", "email"],
+      attributes: ["id", "firstName", "lastName", "email", "tlf", "domicilio", "corriente_pago","active"],
     });
     conexion.desconectar();
     if (!resultado) {
@@ -58,15 +58,22 @@ class UserModel {
   showUser = async (userId) => {
     conexion.conectar();
     let resultado = await models.Users.findByPk(userId, {
-      attributes: ["id", "firstName", "lastName", "email"],
-      include: {
+      attributes: ["id", "firstName", "lastName", "email", "tlf", "domicilio", "corriente_pago","active"],
+      include: [
+        {
         model: models.Rol,
         as: "roles",
-        attributes: ["id"],
+        attributes: ["id", "name"],
         through: {
           attributes: [],
-        },
+        }
       },
+        {
+          model: models.Assets,
+          as: "image",
+          attributes: ["ruta"]
+        },
+    ]
     });
 
     if (!resultado) {
@@ -208,22 +215,70 @@ class UserModel {
     return listUsers;
   };
 
+  showSocios = async () => {
+    let listUsers = [];
+    try{
+      listUsers = await models.Users.findAll({
+        attributes: ["id", "firstName", "lastName", "email"],
+        include: 
+        {
+          model: models.Rol,
+          as: "roles",
+          attributes: [],
+          where:{
+            id: process.env.ID_ROL_SOCIO,
+          },
+          through: {
+            attributes: [],
+          }
+        },
+      })
+    }catch(err){
+      throw err;
+    }finally{
+      if(!listUsers){
+        throw new Error("Socios no encontrados");
+      }
+      return listUsers;
+    }
+
+  }
+
   asignUser = async (tutorId, socioId) => {
     let listUsers = 0;
     conexion.conectar();
 
     try {
-      listUsers = await models.TutorUser.create({
-        id_tutor: tutorId,
-        id_socio: socioId,
-      });
+      await models.TutorUser.destroy({where: {id_tutor: tutorId}})
+      if(socioId!=null){
+        listUsers = await models.TutorUser.create({
+          id_tutor: tutorId,
+          id_socio: socioId,
+        });
+      }
     } catch (error) {
+      console.log(error)
       throw error;
     } finally {
       conexion.desconectar();
       return listUsers;
     }
   };
+
+  removeSociosUser = async (userId) => {
+    let listUsers = 0;
+    conexion.conectar();
+
+    try {
+      await models.TutorUser.destroy({where: {id_tutor: userId}})
+    } catch (error) {
+      console.log(error);
+      throw error;
+    } finally {
+      conexion.desconectar();
+      return listUsers;
+    }
+  }
 
   showSociosOfTutor = async (idTutor) => {
     let resultado = [];
@@ -233,7 +288,7 @@ class UserModel {
         where: {
           id_tutor: idTutor,
         },
-        attributes: ["id_socio"],
+        attributes: [],
         include: [
           {
             model: models.Users,
@@ -243,11 +298,13 @@ class UserModel {
         ],
       });
     } catch (error) {
+      throw error
+    } finally {
+      conexion.desconectar();
       if (!resultado) {
         throw new Error("user not found");
       }
-    } finally {
-      conexion.desconectar();
+
       return resultado;
     }
   };
@@ -300,6 +357,24 @@ class UserModel {
       return resultado;
     }
   };
+
+  showRols = async () => { 
+    let resultado = [];
+    try{
+      conexion.conectar();
+      resultado = await models.Rol.findAll({
+        attributes: ["id", "name"],
+      });
+    }catch(err){
+      throw err;
+    }finally{
+      conexion.desconectar();
+      if (!resultado) {
+        throw new Error("Roles no encontrados");
+      }
+      return resultado;
+    }
+  }
 }
 
 module.exports = UserModel;
