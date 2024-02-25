@@ -32,7 +32,7 @@ module.exports = {
           desc: "Usuario que solo se encarga de redactar noticias",
         },
         {
-          id: process.env.ID_ROL_REDACTOR,
+          id: process.env.ID_ROL_WEBMASTER,
           name: "webmaster",
           desc: "Usuario que se encarga de la gestión de la web, editar la historia, la forma de contactar, y subir ficheros a eventos y a la parte de asambleas ",
         },
