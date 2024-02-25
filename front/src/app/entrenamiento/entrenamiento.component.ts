@@ -7,11 +7,22 @@ import { Entrenamiento } from '../interfaces/entrenamiento';
 import { Router, provideRouter } from '@angular/router';
 import { Alert } from '../interfaces/alert';
 import { AlertComponent } from '../utils/alert/alert.component';
+import { TooltipModule } from 'primeng/tooltip';
+import { ToolbarModule } from 'primeng/toolbar';
+import { InputTextModule } from 'primeng/inputtext';
+import { TableModule } from 'primeng/table';
+import { CurrencyPipe, DatePipe } from '@angular/common';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { FormsModule } from '@angular/forms';
+import { ModalComponent } from '../utils/modal/modal.component';
+import { ToastModule } from 'primeng/toast';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { DialogComponent } from '../utils/dialog/dialog.component';
 
 @Component({
   selector: 'app-entrenamiento',
   standalone: true,
-  imports: [AlertComponent],
+  imports: [AlertComponent, TooltipModule, ToolbarModule, InputTextModule, TableModule, DatePipe, CurrencyPipe, ProgressBarModule, FormsModule, ModalComponent, ToastModule, ConfirmDialogModule, DialogComponent],
   templateUrl: './entrenamiento.component.html',
   styleUrl: './entrenamiento.component.css'
 })
@@ -20,6 +31,8 @@ export class EntrenamientoComponent {
   entrenamiento: Entrenamiento;
   alert: Alert;
   arrEntrenamientos: Array<Entrenamiento> = [];
+  selectEntrenamientos!: Array<Entrenamiento>;
+  searchValue: string = ''
 
   constructor(private entrenamientoService: EntrenamientoService, private router: Router){
     this.entrenamiento = {};

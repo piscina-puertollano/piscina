@@ -1,23 +1,80 @@
-<h2>Entrenamientos</h2>
+<section>
+    <h1>Gestión de Entrenamientos</h1>
+    <div>
+        <div>
+            <p-toolbar>
+                <button (click)="navCrearEntre()">Crear un Nuevo Entrenamiento</button>
+            </p-toolbar>
+        </div>
+        
+        <table>
+            <thead>
+                <th>Entrenamiento</th>
+                <th>Descripción</th>
+            </thead>
+            <tbody>
+                @for (entrenamiento of arrEntrenamientos; track entrenamiento.nombre){
+                    <tr>
+                        <td>{{entrenamiento.nombre}}</td>
+                        <td>{{entrenamiento.descripcion}}</td>
+                        <td>
+                            <button (click)="consultarEntre(entrenamiento.id)">Consultar Entrenamiento</button>
+                            <br>
+                            <button >Modificar Entrenamiento</button>
+                            <br>
+                            <button >Eliminar Entrenamiento</button>                </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
 
-<button (click)="navCrearEntre()">Crear un Nuevo Entrenamiento</button>
-<table>
-    <thead>
-        <th>Entrenamiento</th>
-        <th>Descripción</th>
-    </thead>
-    <tbody>
-        @for (entrenamiento of arrEntrenamientos; track entrenamiento.nombre){
+        <p-table
+        id="table"
+        #dt
+        [value]="arrEntrenamientos"
+        [rows]="10"
+        [paginator]="true"
+        [globalFilterFields]="['firstName', 'lastName', 'email']"
+        [tableStyle]="{ 'min-width': '75rem' }"
+        [(selection)]="selectEntrenamientos"
+        [rowHover]="true"
+        dataKey="id"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [showCurrentPageReport]="true">
+        
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input [(ngModel)]="searchValue" pInputText type="text" (input)="dt.filterGlobal(searchValue, 'contains')" placeholder="Buscar..." />
+                </span>
+            </div>
+        </ng-template>
+        
+        <ng-template pTemplate="header">
             <tr>
-                <td>{{entrenamiento.nombre}}</td>
-                <td>{{entrenamiento.descripcion}}</td>
-                <td>
-                    <button (click)="consultarEntre(entrenamiento.id)">Consultar Entrenamiento</button>
-                    <br>
-                    <button (click)="navModificarEntre(entrenamiento.id)">Modificar Entrenamiento</button>
-                    <br>
-                    <button (click)="deleteEntrenamiento(entrenamiento)">Eliminar Entrenamiento</button>                </td>
+                <th pSortableColumn="firstName" style="min-width:10rem">Entrenamientos <p-sortIcon field="firstName"></p-sortIcon></th>
+                <th pSortableColumn="lastName">Descripcion <p-sortIcon field="lastName"></p-sortIcon></th>
+                <th>Acciones</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </ng-template>
+        
+        <ng-template pTemplate="body" let-user>
+            <tr>
+                <td>{{ entrenamiento.nombre }}</td>
+                <td>{{ entrenamiento.descripcion}}</td>
+                <td>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="navModificarEntre(entrenamiento.id)"></button> 
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteEntrenamiento(entrenamiento)"></button>
+                </td>
+            </tr>
+        </ng-template>
+        
+        <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">En total hay {{ arrEntrenamientos ? arrEntrenamientos.length : 0 }} Entrenamientos.</div>
+        </ng-template>
+    </p-table>
+    
+    </div>
+
+</section>
