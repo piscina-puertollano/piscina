@@ -1,9 +1,12 @@
+<!-- consultar-entrenamiento.component.html -->
 <h2>Consultar Entrenamiento</h2>
 
-<form>
-  <label for="nombre">Nombre</label>
-  <input [(ngModel)]="entrenamiento.nombre" name="nombre" type="text" disabled="true">
+<p>Nombre: {{ entrenamiento.nombre }}</p>
+<p>Descripción: {{ entrenamiento.descripcion }}</p>
 
-  <label for="descripcion">Descripcion</label>
-  <textarea [(ngModel)]="entrenamiento.descripcion" name="descripcion" disabled="true"></textarea>
-</form>
+<h3>Ejercicios del Entrenamiento</h3>
+<div *ngFor="let ejercicio of entrenamiento.EjercicioEntrenamientos">
+  <h4>Ejercicio {{ ejercicio.idEjercicio }}</h4>
+  <p>Tipo: {{ ejercicio.Ejercicio?.Tipo?.nombre }}</p>
+  <p>Descripción: {{ ejercicio.Ejercicio.descripcion }}</p>
+</div>

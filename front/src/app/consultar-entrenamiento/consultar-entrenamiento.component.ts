@@ -5,11 +5,12 @@ import { Entrenamiento } from '../interfaces/entrenamiento';
 import { Alert } from '../interfaces/alert';
 import { EntrenamientoService } from '../services/entrenamiento.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-consultar-entrenamiento',
   standalone: true,
-  imports: [AlertComponent, FormsModule],
+  imports: [AlertComponent, FormsModule, CommonModule],
   templateUrl: './consultar-entrenamiento.component.html',
   styleUrl: './consultar-entrenamiento.component.css'
 })

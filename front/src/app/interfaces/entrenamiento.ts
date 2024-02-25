@@ -1,3 +1,4 @@
+import { EjercicioEntrenamiento } from "./ejercicio-entrenamiento"
 import { Ejercicios } from "./ejercicios"
 
 /**
@@ -8,4 +9,5 @@ export interface Entrenamiento {
     nombre?:string
     descripcion?:string
     ejercicios?:Array<Ejercicios>
+    EjercicioEntrenamientos?: EjercicioEntrenamiento[];
 }
