@@ -7,9 +7,9 @@ const controller = require('../controllers/uploadsController');
 const router = Router();
 
 
-router.post( '/', validateFile, controller.cargarArchivo);
-router.get('/:id', controller.obtenerImagen)
+router.post( '/', validateFile, controller.uploadFile);
+router.post('/:id', controller.showFile)
 router.put('/:id', controller.actualizarImagen)
-router.delete('/:id', controller.borrarImagen)
+router.delete('/:id/:folder', controller.destroyFile)
 
 module.exports = router;
