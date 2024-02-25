@@ -51,7 +51,7 @@ h1{
     position: absolute;
     width:  99%;
     height:  90vh;
-    background-image: url('../../../../assets/background/c.png');
+    background-image: url('../../../assets/background/c.png');
     background-size: cover;
     background-position: center;
 }
