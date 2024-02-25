@@ -48,14 +48,14 @@ export class LoginComponent {
     if(this.validateForm()){
     this.userService.login(this.user).subscribe({
       next: (user: any | undefined) => {
-        if (user.status == 401) {
+        if (user.status >= 400) {
           this.showAlert= true
           this.message = [{ severity: 'error', summary: 'Error', detail: 'Credenciales inválidas', life:3000 }];
           
         } else {
           localStorage.clear()
           localStorage.setItem('user', JSON.stringify(user));
-          //this.router.navigateByUrl('/edit')
+          this.router.navigateByUrl('/my-profile')
         }
       },
       error: (err) => {

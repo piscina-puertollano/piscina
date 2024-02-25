@@ -55,3 +55,10 @@ h1{
     background-size: cover;
     background-position: center;
 }
+
+.alert{
+    position: fixed;
+    top:  20px;
+    right:  20px;
+    z-index:  1000;
+}
