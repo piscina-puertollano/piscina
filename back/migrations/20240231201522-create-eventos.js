@@ -10,15 +10,19 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       nombre: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       fecha: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       sede: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       idCategoria: {
+        allowNull: false,
         type: Sequelize.DataTypes.INTEGER,
         references: {
           model: {

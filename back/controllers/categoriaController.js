@@ -1,6 +1,8 @@
 const {response,request} = require('express');
 const Conexion = require('../database/categoriaConnection')
 const conx = new Conexion();
+const Conexion2 = require('../database/eventoConnection')
+const conx2 = new Conexion2();
 
 const categoriasGet = (req,res = response) => {
 
@@ -49,11 +51,17 @@ const categoriaUpdate = (req,res = response) => {
 
 const categoriaDelete = (req,res = response) => {
 
-    conx.deleteCategoria(req.params.id).then( msg => {
-        console.log('Categoria eliminada con exito')
-        res.status(200).json(msg)
+    conx2.deleteConIdCategoria(req.params.id).then( msg => {
+
+        conx.deleteCategoria(req.params.id).then( msg => {
+            console.log('Categoria eliminada con exito')
+            res.status(200).json(msg)
+        }).catch( err => {
+            console.log('No se a podido eliminar la categoria')
+            res.status(203).json(err)
+        })
     }).catch( err => {
-        console.log('No se a podido eliminar la categoria')
+        console.log('No se ha podido eliminar el evento ')
         res.status(203).json(err)
     })
 }

@@ -1,0 +1,16 @@
+<div>
+  <h1 class='campo'>Inserta el Evento</h1>
+  <form>
+    <input class='campo' type="text" placeholder="Nombre del Evento" [(ngModel)]="evento.nombre" name="nombreEvento">
+    <br>
+    <input class='campo' type="text" placeholder="Fecha" [(ngModel)]="evento.fecha" name="fechaEvento">
+    <br>
+    <input class='campo' type="text" placeholder="Sede" [(ngModel)]="evento.sede" name="sedeEvento">
+    <br>
+    <input class='campo' type="text" placeholder="Categoria(Mayusculas)" [(ngModel)]="evento.categoria" name="categoriaEvento">
+    <br>
+    <input class='campo' type="submit" value="Añadir" (click)="insertEvento()">
+  </form>
+  </div>
+
+
