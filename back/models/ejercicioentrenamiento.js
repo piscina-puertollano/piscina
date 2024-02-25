@@ -10,7 +10,12 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      EjercicioEntrenamiento.belongsTo(models.Ejercicio, { 
+        foreignKey: 'idEjercicio' 
+      });
+      EjercicioEntrenamiento.belongsTo(models.Ejercicio, { 
+        foreignKey: 'idEntrenamiento' 
+      });
     }
   }
   EjercicioEntrenamiento.init({
@@ -20,8 +25,20 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true
     },
-    idEjercicio: DataTypes.STRING,
-    idEntrenamiento: DataTypes.STRING
+    idEjercicio: {
+      type: DataTypes.INTEGER,
+      references: {
+        tableName: 'ejercicio',
+        key: 'id',
+      }
+    },
+    idEntrenamiento: {
+      type: DataTypes.INTEGER,
+      references: {
+        tableName: 'entrenamientos',
+        key: 'id',
+      }
+    },
   }, {
     sequelize,
     modelName: 'EjercicioEntrenamiento',

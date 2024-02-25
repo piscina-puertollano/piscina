@@ -15,7 +15,6 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Ejercicio.belongsTo(models.Tipo, {
         foreignKey: 'idTipo',
-        as: 'tipo'
       });
     }    
   }
