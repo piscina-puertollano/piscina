@@ -124,11 +124,76 @@ const tokenCanTrainer = (req, res, next) => {
     }
 }
 
+// El id_rol del entrenador es 5
+const tokenCanRedactor = (req, res, next) => {
+
+    let roles = req.uroles
+    let i = 0
+    let check = true
+    while(i<roles.length && check){
+        if(roles[i] === process.env.ID_ROL_REDACTOR) {
+            check = false
+        }
+        i++
+    }
+
+    if(!check){
+        next();
+    }else{
+        res.status(400).json({msg:'Token sin permisos'})
+    }
+}
+
+// El id_rol del entrenador es 6
+const tokenCanWebmaster = (req, res, next) => {
+
+    let roles = req.uroles
+    let i = 0
+    let check = true
+    while(i<roles.length && check){
+        if(roles[i] === process.env.ID_ROL_WEBMASTER) {
+            check = false
+        }
+        i++
+    }
+
+    if(!check){
+        next();
+    }else{
+        res.status(400).json({msg:'Token sin permisos'})
+    }
+}
+
+const tokenCanUserAuth = (req, res, next) => {
+
+    let roles = req.uroles
+    let i = 0
+    let check = true
+    console.log(roles)
+
+    while(i<roles.length && check){
+        if(roles[i] <= process.env.ID_ROL_WEBMASTER) {
+            check = false
+        }
+        i++
+    }
+
+
+    if(!check){
+        next();
+    }else{
+        res.status(400).json({msg:'Token sin permisos'})
+    }
+}
+
 module.exports = {
     statusUser,
     checkToken,
     tokenCanAdmin,
     tokenCanTutor,
     tokenCanSocio,
-    tokenCanTrainer
+    tokenCanTrainer,
+    tokenCanUserAuth,
+    tokenCanRedactor,
+    tokenCanWebmaster
 }
