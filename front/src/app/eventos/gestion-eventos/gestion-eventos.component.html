@@ -1,1 +1,59 @@
-<p>gestion-eventos works!</p>
+<h1>Gestión de eventos</h1>
+<section id="sectionEvento">
+    <button id="btnAdd" (click)="abrirModal()" >Agregar nuevo evento</button>
+    <button id="btnGestCategorias">Gestionar Categorias</button>
+</section>
+@if(alert.show){
+    <app-alert header="{{alert.header}}" message="{{alert.message}}" type="{{alert.type}}" ></app-alert>
+}
+<section>
+    <div>
+        <table>
+            <thead>
+                <th>ID evento</th>
+                <th>Nombre</th>
+            </thead>
+            <tbody>
+                @for (evento of eventos; track evento.id) {
+                <tr>
+                    <td>{{evento.id}}</td>
+                    <td>{{evento.nombre}}</td>
+                    <td>
+                        <i width="25px" style="margin-right:15px" (click)="getEvento(evento.id)" class="pi pi-eye"></i>
+                        <i width="25px" (click)="deleteEvento(evento.id)" class="pi pi-trash"></i>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <div class="contenedor-flex">
+           <div class="contenedor-flex-small"> 
+                <h4>id:</h4>
+                <p><input type="text"  class="evento" [(ngModel)]="evento.id" value="{{evento.id}}" disabled></p>
+            </div>
+            <div class="contenedor-flex-small">
+                <h4>Nombre:</h4>
+                <p><input type="text"  class="evento" [(ngModel)]="evento.nombre" value="{{evento.nombre}}"></p>
+            </div>
+            <div class="contenedor-flex-small">
+                <h4>Categoria:</h4>
+                <p><input type="text"  class="evento" [(ngModel)]="evento.categoria" value="{{evento.categoria}}"></p>
+            </div>
+        </div>
+        <div class="contenedor-flex">
+            <div class="contenedor-flex-small">
+                <h4>Fecha:</h4>
+                <p><input type="text"  class="evento" [(ngModel)]="evento.fecha" value="{{evento.fecha}}"></p>
+            </div>
+            <div class="contenedor-flex-small">
+                <h4>Sede:</h4>
+                <p><input type="text"  class="evento" [(ngModel)]="evento.sede" value="{{evento.sede}}"></p>
+            </div>
+            <div class="contenedor-flex-button">
+                <input type="submit" value="Guardar cambios" (click)="updateEvento()">
+            </div>
+        </div>
+    </div>
+</section>

@@ -15,7 +15,7 @@ class noSocioConnection{
         conx.conectar
         
         noSocios = await models.NoSocio.findAll({
-            attributes: ['id', 'nombre']
+            attributes: ['id', 'nombre', 'apellidos']
         })
         conx.desconectar
         return noSocios
