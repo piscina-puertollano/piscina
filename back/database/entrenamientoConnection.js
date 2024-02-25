@@ -114,27 +114,32 @@ class entrenamientoConnection {
     updateEntrenamiento = async (id, body) => {
         try {
             console.log('Conectando a la base de datos...');
-            await conexion.conectar();
-    
+            conexion.conectar();
+
             const entrenamiento = await models.Entrenamiento.findByPk(id);
-    
+
             if (!entrenamiento) {
                 throw new Error('Entrenamiento no encontrado');
             }
-    
+
             await entrenamiento.update({
                 nombre: body.nombre,
                 descripcion: body.descripcion,
             });
-            const idsEjercicios = body.ejercicios.map(ejercicio => ejercicio.idEjercicioEntrenamiento);
-            await models.EjercicioEntrenamiento.bulkUpdate(body.ejercicios, {
-                fields: ['descripcion', 'idTipo'],
-                where: {
-                    id: idsEjercicios, 
-                    idEntrenamiento: id,
-                },
-            });
-    
+
+            for (const ejercicio of body.ejercicios) {
+                await models.Ejercicio.update(
+                    {
+                        descripcion: ejercicio.descripcion,
+                        idTipo: ejercicio.idTipo,
+                    },
+                    {
+                        where: {
+                            id: ejercicio.id,
+                        },
+                    }
+                );
+            }
             console.log('Entrenamiento y ejercicios actualizados exitosamente.');
             return 'Éxito';
         } catch (error) {
@@ -142,24 +147,37 @@ class entrenamientoConnection {
             return error;
         } finally {
             console.log('Desconectando de la base de datos...');
-            await conexion.desconectar();
+            conexion.desconectar();
         }
     };
         
     deleteEntrenamiento = async (id) => {
-        let resultado;
-        conexion.conectar;
-
-        resultado = await models.Entrenamiento.findByPk(id);
-
-        if (!resultado) {
-            conexion.desconectar;
-            throw new Error('Entrenamiento no encontrado');
+        try {
+            // Buscar el entrenamiento con los ejercicios asociados
+            const entrenamiento = await models.Entrenamiento.findByPk(id, {
+                include: models.EjercicioEntrenamiento,
+            });
+    
+            if (!entrenamiento) {
+                console.log('Entrenamiento no encontrado.');
+                return;
+            }
+    
+            // Eliminar los ejercicios asociados al entrenamiento
+            await models.EjercicioEntrenamiento.destroy({
+                where: {
+                    idEntrenamiento: id,
+                },
+            });
+    
+            // Eliminar el entrenamiento
+            await entrenamiento.destroy();
+    
+            console.log('Entrenamiento y ejercicios eliminados exitosamente.');
+        } catch (error) {
+            console.error('Error al eliminar entrenamiento y ejercicios:', error);
         }
-
-        await resultado.destroy();
-        conexion.desconectar;
-    }
+    };
 }
 
 module.exports = entrenamientoConnection;

@@ -10,10 +10,11 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      EjercicioEntrenamiento.belongsTo(models.Ejercicio, { 
-        foreignKey: 'idEjercicio' 
+      EjercicioEntrenamiento.belongsTo(models.Ejercicio, {
+        foreignKey: 'idEjercicio'
       });
-      EjercicioEntrenamiento.belongsTo(models.Ejercicio, { 
+
+      EjercicioEntrenamiento.belongsTo(models.Entrenamiento, { 
         foreignKey: 'idEntrenamiento' 
       });
     }
@@ -28,14 +29,14 @@ module.exports = (sequelize, DataTypes) => {
     idEjercicio: {
       type: DataTypes.INTEGER,
       references: {
-        tableName: 'ejercicio',
+        model: 'Ejercicio',
         key: 'id',
       }
     },
     idEntrenamiento: {
       type: DataTypes.INTEGER,
       references: {
-        tableName: 'entrenamientos',
+        model: 'Entrenamiento',
         key: 'id',
       }
     },
