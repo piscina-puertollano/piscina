@@ -23,11 +23,14 @@
         }
 
         @if(club.tag=='galeria'){
-            <!-- <li style="background-color: red; z-index: 1000;">
+            <div class="galeria">
                 @for(image of images; track image){
-                    <img src="{{image.ruta}}" alt="" srcset="">
+                <div class="foto-actual">
+                        <img src="{{image.image}}" alt="" srcset="">
+                    </div>
                 }
-            </li> -->
+            </div>
+  
 
 
         }
