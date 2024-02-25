@@ -7,6 +7,8 @@ const clubSchema = new mongoose.Schema({
     estructura: {type: Object},
     tag: {type: String},
     order: {type: String},
+    assets: {type: Object},
+    fotos: {type: Object},
     ubicacion: {
         direccion: String,
         mapa: String
