@@ -1,6 +1,7 @@
 const path = require('path');
 const fs   = require('fs');
 const { subirArchivo } = require('../helpers/upload-files');
+const Conexion = require('../database/assetsConnection');
 
 
 const uploadFile = async(req, res) => {
@@ -41,6 +42,11 @@ const destroyFile = async(req, res ) => {
     console.log( pathImagen );
     if (fs.existsSync(pathImagen)) {
         fs.unlinkSync(pathImagen);
+        const conx = new Conexion()
+        console.log(fileId)
+        conx.deleteByRuta(fileId).then(asset => {
+            console.log(asset);
+        })
         res.status(200).json({ msg: "Borrado" });
     } else {
         res.status(404).json({ msg: "Archivo no encontrado" });
