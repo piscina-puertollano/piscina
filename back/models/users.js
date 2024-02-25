@@ -55,6 +55,7 @@ module.exports = (sequelize, DataTypes) => {
     born_date: DataTypes.DATE,
     domicilio: DataTypes.STRING,
     tlf: DataTypes.STRING,
+    active: DataTypes.BOOLEAN,
   }, {
     sequelize,
     modelName: 'Users',

@@ -1,7 +1,24 @@
 const bcrypt = require('bcrypt');
 const { verifyToken } = require('../helpers/jwt');
 const jwt = require('jsonwebtoken')
+const Conexion = require('../database/UserConnection');
 
+const statusUser = (req, res, next) => {
+    const conx = new Conexion();
+    conx.getUserByEmail(req.body.email)
+        .then(msg => {
+            if(msg.active == 1 ){
+                next();
+            }else{
+                res.status(400).json({msg:'Cuenta desactivada'})
+            }
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(400).json({msg:'usuario no encontrado', error: err})
+        });
+
+}
 
 const checkToken = (req, res, next) =>{
     const token = req.header('x-token');
@@ -108,6 +125,7 @@ const tokenCanTrainer = (req, res, next) => {
 }
 
 module.exports = {
+    statusUser,
     checkToken,
     tokenCanAdmin,
     tokenCanTutor,
