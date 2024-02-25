@@ -12,10 +12,11 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
   providers: [ConfirmationService, MessageService]
 })
 export class DialogComponent {
-  @Input() icon = 'pi pi-check'
+  @Input() icon = ''
   @Input() header = ''
   @Input() message = ''
   @Input() nameBtn = ''
+  @Input() severity = ''
   @Output() eventEmiter = new EventEmitter<Boolean>()
 
   constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
@@ -25,8 +26,8 @@ export class DialogComponent {
 
             header: this.header,
             message: this.message,
-            acceptIcon: 'pi pi-check mr-2',
-            rejectIcon: 'pi pi-times mr-2',
+            acceptIcon: 'pi pi-check m-2',
+            rejectIcon: 'pi pi-times m-2',
             rejectButtonStyleClass: 'p-button-sm',
             acceptButtonStyleClass: 'p-button-outlined p-button-sm',
             accept: () => {

@@ -15,7 +15,7 @@ export class UserService {
   private urlUpdate : string = this.baseUrl+environment.updateUser
   private urlSignup : string = this.baseUrl+environment.showUser
   private urSearch : string = this.baseUrl+'/search'
-  private urAllUsers : string = this.baseUrl+environment.showUser
+  private urAllUsers : string = this.baseUrl+environment.allUsers
   private urAllSocios: string = this.baseUrl+environment.showSocios
   private urlAsingSocio: string = this.baseUrl+environment.asignSocio
   private urlRemoveSocio: string = this.baseUrl+environment.removeSocio
@@ -64,7 +64,7 @@ export class UserService {
   }
 
   showUser(id:any): Observable<User | undefined> {
-    return this.http.get<User>(this.urlShowUser+id).pipe(
+    return this.http.get<User>(this.urlShowUser+'/'+id).pipe(
       catchError((error) =>{
         return of(error)
       })
