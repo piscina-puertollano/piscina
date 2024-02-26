@@ -37,7 +37,6 @@ router.get('/socios',[checkToken, tokenCanTutor], controlador.showSocios);
 router.get('/tutor/:idSocio',[checkToken, tokenCanSocio], controlador.showTutorsOfSocio);
 
 router.post('/user/asign',[checkToken, tokenCanAdmin], controlador.asignUser)
-router.post('/user/remove',[checkToken, tokenCanAdmin], controlador.deleteOldSocios)
 
 router.get('/rols',[checkToken, tokenCanAdmin], controlador.showRols)
 

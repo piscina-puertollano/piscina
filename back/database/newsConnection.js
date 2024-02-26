@@ -13,11 +13,11 @@ class NewsModel {
     try{
         conexion.conectar();
         resultado = await models.News.findAll({
-          attributes:["id", "title", "body"],
+          attributes:["id", "title"],
             include:[{
               model: models.Users,
               as: "author",
-              attributes: ["id","firstName", "lastName"]
+              attributes: []
           }, 
           {
             model: models.Assets,
@@ -33,6 +33,7 @@ class NewsModel {
             throw new Error("No hay noticias");
         }
     }catch(error){
+      console.log(error)
       throw error
     }finally{
       return resultado;

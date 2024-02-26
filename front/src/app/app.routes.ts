@@ -13,6 +13,7 @@ import { ModificarEntrenamientoComponent } from './modificar-entrenamiento/modif
 import { CrearEntrenamientoComponent } from './crear-entrenamiento/crear-entrenamiento.component';
 import { ProfileComponent } from './users/profile/profile.component';
 import { ConsultarEntrenamientoComponent } from './consultar-entrenamiento/consultar-entrenamiento.component';
+import { ShowNewComponent } from './news/show-new/show-new.component';
 
 
 export const routes: Routes = [
@@ -21,6 +22,7 @@ export const routes: Routes = [
   {path: 'users', component: ListComponent },
   {path: 'my-profile', component: ProfileComponent },
   {path: 'news', component: ListNewsComponent },
+  {path: 'new/:id', component: ShowNewComponent },
   {path: 'create-new', component: CreateNewComponent },
   {path: 'contact', component: ContactComponent },
   {path: 'clases', component: ClaseComponent},
