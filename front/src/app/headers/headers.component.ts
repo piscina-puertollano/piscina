@@ -59,12 +59,12 @@ export class HeadersComponent implements OnInit {
             });
             this.items.push({
                 label: 'Gestión de usuarios',
-                routerLink: '/usuarios'
+                routerLink: '/users'
             });
-            
+
             this.items.push({
                 label: 'Crear noticias',
-                routerLink: '/create-news'
+                routerLink: '/create-new'
             });
 
             this.items.push({
