@@ -8,16 +8,22 @@
         <th>Acciones</th>
       </thead>
       <tbody>
-        @for (att of arrFaltas; track att.id) {
+        @for (att of resultadoRelacion; track att.id) {
         <tr>
           <td style="display: none;">
             <label>{{ att.id }}</label>
           </td>
-          <td>
+          <td style="display: none;">
             <label>{{att.id_usuario}}</label>
           </td>
           <td>
+            <label>{{att.nombre_usuario}}</label>
+          </td>
+          <td style="display: none;">
             <label>{{ att.id_clase }}</label>
+          </td>
+          <td>
+            <label>{{ att.nombre_clase }}</label>
           </td>
           <td>
             <button
@@ -45,7 +51,7 @@
         id="txtid"
         disabled
       />
-      <output>Categoria</output>
+      <output>Clase</output>
       <input
         type="number"
         pInputText [(ngModel)]="faltas.id_clase"
@@ -53,7 +59,7 @@
         id="txtid"
         disabled
       />
-      <output>Nombre</output>
+      <output>Usuario   </output>
       <input
         type="text"
         pInputText [(ngModel)]="faltas.id_usuario"

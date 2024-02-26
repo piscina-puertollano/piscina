@@ -33,7 +33,7 @@ export class ClasehasusuarioService {
     );
   }
 
-  deleteFaltas(faltaId: string): Observable<Array<claseUsuario> | undefined> {
+  deleteRelacion(faltaId: string): Observable<Array<claseUsuario> | undefined> {
     const apiUrl = `${this.urlEliminarRelacion}/${faltaId}`;
     return this.http.delete<claseUsuario>(apiUrl).pipe(
       catchError((error) =>{

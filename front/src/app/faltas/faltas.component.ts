@@ -12,6 +12,7 @@ import { Clase } from '../interfaces/clase';
 import { FaltasService } from '../services/faltas.service';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
+import { UsuarioClaseFaltas } from '../interfaces/usuarioClaseFaltas';
 
 @Component({
   selector: 'app-faltas',
@@ -25,14 +26,20 @@ export class FaltasComponent implements OnInit {
   user: User;
   clase: Clase;
   alert: Alert;
+  relaciones: UsuarioClaseFaltas;
+  resultadoRelacion : Array<UsuarioClaseFaltas> = []
 
   arrFaltas: Array<Faltas> = [];
   arrUsers: Array<User> = [];
+  arrClase: Array<Clase> = [];
+  
+  
 
   constructor(private service: FaltasService, private UserService: UserService,  private ClaseService: ClaseService ,private router: Router) {
     this.user = {}
     this.clase = {}
     this.faltas = {};
+    this.relaciones = {};
     this.alert = new Alert();
   }
 
@@ -44,15 +51,28 @@ export class FaltasComponent implements OnInit {
 
   allFaltas() {
     this.service.allFaltas().subscribe({
-      next: (clase: any | undefined) => {
-        console.log(clase);
-        if (clase.status >= 400) {
+      next: (faltas: any | undefined) => {
+        console.log(faltas);
+        if (faltas.status >=   400) {
           this.alert.show = true;
           this.alert.header = 'Error';
-          this.alert.message =
-            'No se han podido cargar la informacion. Póngase en contacto con un adminsitrador.';
+          this.alert.message = 'No se han podido cargar la informacion. Póngase en contacto con un adminsitrador.';
         } else {
-          this.arrFaltas = clase;
+          this.arrFaltas = faltas;
+          for (let i =   0; i < this.arrFaltas.length; i++) {
+            const falta = this.arrFaltas[i];
+            const user = this.arrUsers.find(user => user.id === falta.id_usuario);
+            const clase = this.arrClase.find(clase => clase.id === falta.id_clase);
+            const relacion = {
+              id: falta.id,
+              id_usuario: user?.id,
+              nombre_usuario: user?.firstName,
+              id_clase: clase?.id, 
+              nombre_clase: clase?.nombre
+            };
+            this.resultadoRelacion[i] = relacion;
+          }
+          console.log(this.resultadoRelacion)
         }
       },
       error: (err) => {
@@ -60,6 +80,7 @@ export class FaltasComponent implements OnInit {
       },
     });
   }
+  
 
   allUsers() {
     this.UserService.allUsers().subscribe({
@@ -90,7 +111,7 @@ export class FaltasComponent implements OnInit {
           this.alert.message =
             'No se han podido cargar a los usuarios. Póngase en contacto con un adminsitrador.';
         } else {
-          this.arrUsers = clase
+          this.arrClase = clase
         }
       },
       error: (err) => {
