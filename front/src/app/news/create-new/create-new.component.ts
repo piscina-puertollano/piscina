@@ -37,11 +37,6 @@ export class CreateNewComponent {
     this.news = {};
   }
 
-  enviarMensaje() {
-    const messageToSend = 'Hola, amigo';
-    this.websocket.socket.emit('created-new', messageToSend);
-  }
-
   ngOnInit(): void {}
 
   validateNewsFields(): boolean {
@@ -73,7 +68,7 @@ export class CreateNewComponent {
   createNew(eventEmiter: Boolean) {
     if (this.validateNewsFields()) {
       if (eventEmiter) {
-        this.news!.main_image = 2;
+        this.news!.main_image = 16;
         this.newsService.createNew(this.news!!).subscribe({
           next: (news: any | undefined) => {
             setTimeout(() => {
@@ -84,8 +79,7 @@ export class CreateNewComponent {
                 life: 3000,
               });
             }, 1000);
-            this.enviarMensaje();
-            this.newsService.notificar();
+            this.websocket.createNew(news)
             console.log(news);
           },
           error: (err) => {

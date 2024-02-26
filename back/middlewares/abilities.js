@@ -46,7 +46,7 @@ const tokenCanAdmin = (req, res, next) => {
   let i = 0;
   let check = true;
   while (i < roles.length && check) {
-    if (roles[i] === process.env.ID_ROL_ADMIN) {
+    if (roles[i] == process.env.ID_ROL_ADMIN) {
       check = false;
     }
     i++;
@@ -65,7 +65,8 @@ const tokenCanTutor = (req, res, next) => {
   let i = 0;
   let check = true;
   while (i < roles.length && check) {
-    if (roles[i] === process.env.ID_ROL_TUTOR) {
+    if (roles[i] == process.env.ID_ROL_TUTOR || 
+      roles[i] == process.env.ID_ROL_ADMIN) {
       check = false;
     }
     i++;
@@ -84,7 +85,8 @@ const tokenCanSocio = (req, res, next) => {
   let i = 0;
   let check = true;
   while (i < roles.length && check) {
-    if (roles[i] === process.env.ID_ROL_SOCIO) {
+    if (roles[i] == process.env.ID_ROL_SOCIO||
+      roles[i] == process.env.ID_ROL_ADMIN) {
       check = false;
     }
     i++;
@@ -103,7 +105,7 @@ const tokenCanTrainer = (req, res, next) => {
   let i = 0;
   let check = true;
   while (i < roles.length && check) {
-    if (roles[i] === process.env.ID_ROL_TRAINER) {
+    if (roles[i] == process.env.ID_ROL_TRAINER) {
       check = false;
     }
     i++;
@@ -145,7 +147,9 @@ const tokenCanWebmaster = (req, res, next) => {
   let i = 0;
   let check = true;
   while (i < roles.length && check) {
-    if (roles[i] === process.env.ID_ROL_WEBMASTER) {
+    if (roles[i] == process.env.ID_ROL_WEBMASTER ||
+      roles[i] == process.env.ID_ROL_ADMIN
+      ) {
       check = false;
     }
     i++;
