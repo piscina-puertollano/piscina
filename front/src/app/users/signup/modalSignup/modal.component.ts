@@ -5,6 +5,10 @@ import { SignupComponent } from '../signup/signup.component';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 
+/**
+ * @author: badr
+ */
+
 
 @Component({
   selector: 'app-modal-signup',

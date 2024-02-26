@@ -4,6 +4,10 @@ import { environment } from '../../environments/environment.development';
 import { Observable, catchError, of } from 'rxjs';
 import { Role, SocioTutor, User, UserRol } from '../interfaces/user';
 
+/**
+ * @author: badr
+ */
+
 @Injectable({
   providedIn: 'root'
 })
@@ -56,7 +60,7 @@ export class UserService {
   }
 
   allUsers(): Observable<Array<User> | undefined> {
-    return this.http.get<User>(this.urAllUsers).pipe(
+    return this.http.get<User>(this.urAllUsers, {withCredentials: true}).pipe(
       catchError((error) =>{
         return of(error)
       })
@@ -64,14 +68,14 @@ export class UserService {
   }
 
   showUser(id:any): Observable<User | undefined> {
-    return this.http.get<User>(this.urlShowUser+'/'+id).pipe(
+    return this.http.get<User>(this.urlShowUser+'/'+id, {withCredentials: true}).pipe(
       catchError((error) =>{
         return of(error)
       })
     )
   }
   updateUser(user:User): Observable<User | undefined> {
-    return this.http.put<User>(this.urlShowUser, user).pipe(
+    return this.http.put<User>(this.urlShowUser, user, {withCredentials: true}).pipe(
       catchError((error) =>{
         return of(error)
       })
@@ -79,7 +83,7 @@ export class UserService {
   }
 
   deleteUser(userId: number): Observable<User | undefined> {
-    return this.http.delete<User>(this.urlShowUser+userId).pipe(
+    return this.http.delete<User>(this.urlShowUser+userId, {withCredentials: true}).pipe(
       catchError((error) =>{
         return of(error)
       })
@@ -87,7 +91,7 @@ export class UserService {
   }
 
   getAllSocios(): Observable<Array<User> | undefined> {
-    return this.http.get<User>(this.urAllSocios).pipe(
+    return this.http.get<User>(this.urAllSocios, {withCredentials: true}).pipe(
       catchError((error) =>{
         return of(error)
       }
@@ -95,7 +99,7 @@ export class UserService {
   }
 
   getAsignedSocios(userId: number): Observable<Array<User> | undefined> {
-    return this.http.get<User>(this.urlShowSociosOfTutor+'/'+userId).pipe(
+    return this.http.get<User>(this.urlShowSociosOfTutor+'/'+userId, {withCredentials: true}).pipe(
       catchError((error) =>{
         return of(error)
       }
@@ -103,7 +107,7 @@ export class UserService {
   }
 
   getAllRoles(): Observable<Array<Role> | undefined> {
-    return this.http.get<Role>(this.urlAllRols).pipe(
+    return this.http.get<Role>(this.urlAllRols, {withCredentials: true}).pipe(
       catchError((error) =>{
         return of(error)
       }
@@ -111,7 +115,7 @@ export class UserService {
   }
 
   asignSocio(socioTutor:SocioTutor): Observable<SocioTutor | undefined> {
-    return this.http.post<SocioTutor>(this.urlAsingSocio, socioTutor).pipe(
+    return this.http.post<SocioTutor>(this.urlAsingSocio, socioTutor, {withCredentials: true}).pipe(
       catchError((error) =>{
         return of(error)
       })

@@ -1,3 +1,7 @@
+/**
+ * @author: badr
+ */
+
 const socketController = (socket) => {
     console.log(`Cliente ${socket.id} conectado en ${process.env.WEBSOCKETPORT}`);
 
@@ -10,8 +14,7 @@ const socketController = (socket) => {
     });
 
     socket.on('create-new', (payload, callback) => {
-        console.log('llego')
-        callback({msg: "Mensaje recibido", id:"1A", fecha: new Date().getTime()});
+        callback({msg: "Mensaje recibido"});
         socket.broadcast.emit('created-new', payload);
     }); 
 

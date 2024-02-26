@@ -1,3 +1,7 @@
+/**
+ * @author: badr
+ */
+
 interface UploadEvent {
     originalEvent: Event;
     files: File[];

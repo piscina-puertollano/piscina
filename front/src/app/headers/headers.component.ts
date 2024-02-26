@@ -8,6 +8,10 @@ import { DialogModule } from 'primeng/dialog';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 
+/**
+ * @author: badr
+ */
+
 @Component({
   selector: 'app-headers',
   standalone: true,

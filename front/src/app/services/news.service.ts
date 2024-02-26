@@ -5,6 +5,10 @@ import { environment } from '../../environments/environment.development';
 import { News, PostNews } from '../interfaces/news';
 import { io } from 'socket.io-client';
 
+/**
+ * @author: badr
+ */
+
 @Injectable({
   providedIn: 'root'
 })
@@ -18,9 +22,18 @@ export class NewsService {
 
   urlIndex = environment.baseUrl+environment.showNews
   urlCreate = environment.baseUrl+environment.showNew
+  urlShow = environment.baseUrl+environment.showNew
 
   index(): Observable<Array<News> | undefined> {
     return this.http.get<News>(this.urlIndex,{withCredentials:false}).pipe(
+      catchError((error) =>{
+        return of(error)
+      })
+    )
+  }
+
+  show(id:number): Observable<News | undefined> {
+    return this.http.get<News>(this.urlShow+'/'+id,{withCredentials:false}).pipe(
       catchError((error) =>{
         return of(error)
       })

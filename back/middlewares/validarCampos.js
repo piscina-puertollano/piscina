@@ -1,4 +1,8 @@
+// Gonzalo Martinez Haro
 const { validationResult } = require('express-validator');
+/**
+ * @author: badr
+ */
 
 const validarCampos = ( req, res, next ) => {
     const errors = validationResult(req);

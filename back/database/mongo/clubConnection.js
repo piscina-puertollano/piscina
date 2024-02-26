@@ -1,4 +1,7 @@
 const clubModel = require("../../models/mongo/clubModel");
+/**
+ * @author: badr
+ */
 
 class ClubConnection{
 

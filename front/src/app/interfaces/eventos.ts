@@ -1,3 +1,4 @@
+// Gonzalo Martinez Haro
 export class Evento {
     id?: number;
     nombre?: string;

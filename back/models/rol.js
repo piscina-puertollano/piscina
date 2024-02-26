@@ -2,6 +2,11 @@
 const {
   Model
 } = require('sequelize');
+
+/**
+ * @author: badr
+ */
+
 module.exports = (sequelize, DataTypes) => {
   class Rol extends Model {
 

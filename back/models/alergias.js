@@ -1,4 +1,8 @@
 'use strict';
+/**
+ * @author: badr
+ */
+
 const {
   Model
 } = require('sequelize');

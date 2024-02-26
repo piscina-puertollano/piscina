@@ -5,6 +5,9 @@ const Conexion = require("./connection.js");
 
 const conexion = new Conexion();
 
+/**
+ * @author: badr
+ */
 class UserModel {
   constructor() {}
 
@@ -144,13 +147,16 @@ class UserModel {
     return upUser;
   };
 
-  updateRolsUser = async (userId, rolId) => {
-    console.log(userId);
-    console.log(rolId);
+  updateRolsUser = async (userId, arrRolsId) => {
     let upUsers = [];
     let updatedRoles = [];
-    conexion.conectar();
     try {
+      conexion.conectar();
+      /**
+       * Primero buscamos al usuario, para luego quitarle todos los roles.
+       * Y finalmente actualizarlos por los nuevos, insertandolos desde el array
+       * que nos viene como rolId
+       */
       upUsers = await models.UserRol.findAll({ where: { id_user: userId } });
 
       if (upUsers.length >= 1) {
@@ -159,24 +165,13 @@ class UserModel {
         }
       }
 
-      if (Array.isArray(rolId)) {
-        for (let rol of rolId) {
-          let newRole = await models.UserRol.create({
-            id_user: userId,
-            id_rol: rol.id,
-          });
-          updatedRoles.push(newRole);
-        }
-      } else {
-        console.log("entro");
+      for (let rol of arrRolsId) {
         let newRole = await models.UserRol.create({
           id_user: userId,
-          id_rol: rolId.id,
+          id_rol: rol.id,
         });
         updatedRoles.push(newRole);
       }
-
-      console.log(updatedRoles);
     } catch (error) {
       console.log(error);
       throw error;
@@ -249,13 +244,11 @@ class UserModel {
     conexion.conectar();
 
     try {
-      await models.TutorUser.destroy({where: {id_tutor: tutorId}})
-      if(socioId!=null){
-        listUsers = await models.TutorUser.create({
-          id_tutor: tutorId,
-          id_socio: socioId,
-        });
-      }
+      listUsers = await models.TutorUser.create({
+        id_tutor: tutorId,
+        id_socio: socioId,
+      });
+
     } catch (error) {
       console.log(error)
       throw error;
@@ -326,28 +319,6 @@ class UserModel {
           },
         ],
       });
-    } catch (error) {
-      if (!resultado) {
-        throw new Error("user not found");
-      }
-    } finally {
-      conexion.desconectar();
-      return resultado;
-    }
-  };
-
-  removeSocioOfTutor = async (tutorId, idSocio) => {
-    let resultado = [];
-    try {
-      conexion.conectar();
-      resultado = await models.TutorUser.findAll({
-        where: {
-            id_tutor: tutorId,
-            id_socio: idSocio
-        },
-        attributes: ["id_tutor"]
-      }); 
-      resultado.destroy();
     } catch (error) {
       if (!resultado) {
         throw new Error("user not found");
