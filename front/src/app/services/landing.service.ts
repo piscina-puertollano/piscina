@@ -45,7 +45,7 @@ export class LandingService {
   }
 
   updateClub(club:Club): Observable<Club | undefined> {
-    return this.http.put<Club>(this.urlUpdateClub+club._id,club,{withCredentials:false}).pipe(
+    return this.http.put<Club>(this.urlUpdateClub+club._id,club,{withCredentials:true}).pipe(
       catchError((error) =>{
         return of(error)
       })

@@ -72,7 +72,7 @@ export class CreateNewComponent {
   createNew(eventEmiter: Boolean) {
     if (this.validateNewsFields()) {
       if (eventEmiter) {
-        this.news!.main_image = 16;
+        this.news!.main_image = 11;
         this.newsService.createNew(this.news!!).subscribe({
           next: (news: any | undefined) => {
             setTimeout(() => {

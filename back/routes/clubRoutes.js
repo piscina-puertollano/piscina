@@ -8,8 +8,6 @@ const router = Router();
 router.get('/club',controlador.index );
 
 router.post('/show',[
-    checkToken,
-    tokenCanWebmaster,
     check('tag','El tag es obligatorio y no puede estár vacío').notEmpty(),
     validateFilds
 ]
