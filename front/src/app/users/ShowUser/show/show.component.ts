@@ -71,11 +71,22 @@ export class ShowComponent implements OnInit {
     });
   }
 
-  updateUser() {
-    this.asignSocio()
+  updateUser() {    
     this.userService.updateUser(this.user!).subscribe({
       next: (user: any | undefined) => {
-        this.asignSocio()
+        console.log(this.user!.roles)
+        let i = 0
+        let check = false
+        while (i < this.user!.roles!.length && !check) {
+          if (this.user!.roles![i].id == this.rolTutor) {
+
+            check = true
+           this.asignSocio()
+
+          }
+          i++
+        }
+    
         this.messageService.add({
           severity: 'success',
           summary: 'Operación completada',
@@ -92,6 +103,12 @@ export class ShowComponent implements OnInit {
   getAllSocios() {
     this.userService.getAllSocios().subscribe({
       next: (users: any | undefined) => {
+
+        for(let user of users){
+          if(user.id == this.user!.id){
+            users.splice(users.indexOf(user),1)
+          }
+        }
         console.log('all ',users);
         this.arrAllSocios = users;
       },
@@ -117,13 +134,13 @@ export class ShowComponent implements OnInit {
   }
 
   asignSocio() {
+    console.log('llego')
     let socioTutor:SocioTutor = {
       id_tutor:this.user!.id!,
       id_socio: this.arrAsignedSocios!
     }
     this.userService.asignSocio(socioTutor).subscribe({
       next: (user: any | undefined) => {
-        console.log('roles: ',user)
       },
       error: (error) => {
         console.log(error)

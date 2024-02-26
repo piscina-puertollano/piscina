@@ -171,7 +171,7 @@ class eventoConnection{
     updateEvento = async(id,body) => {
 
         let resultado
-        conx.conectar
+        conx.conectar()
         resultado = await models.Evento.findByPk(id)
         
         if (!resultado){

@@ -1,7 +1,7 @@
 const {Router } = require('express');
 const controlador = require('../controllers/userController');
 const { check } = require('express-validator');
-const { validateFilds } = require('../middlewares/validators');
+const { validateFilds, checkDiferenceAsign } = require('../middlewares/validators');
 const { statusUser, tokenCanAdmin, tokenCanUserAuth, checkToken, tokenCanRedactor, tokenCanTutor, tokenCanSocio } = require('../middlewares/abilities');
 const router = Router();
 
@@ -41,7 +41,7 @@ router.get('/socios',[checkToken, tokenCanTutor], controlador.showSocios);
 //obtener de un socio los tutores asociados
 router.get('/tutor/:idSocio',[checkToken, tokenCanSocio], controlador.showTutorsOfSocio);
 
-router.post('/user/asign',[checkToken, tokenCanAdmin], controlador.asignUser)
+router.post('/user/asign',[checkToken, tokenCanAdmin, checkDiferenceAsign], controlador.asignUser)
 
 router.get('/rols',[checkToken, tokenCanAdmin], controlador.showRols)
 
