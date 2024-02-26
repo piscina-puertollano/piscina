@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { Clase } from '../interfaces/clase';
 import { AlertComponent } from '../utils/alert/alert.component';
 import { InputTextModule } from 'primeng/inputtext';
+import moment from 'moment';
 
 @Component({
   selector: 'app-clase',
@@ -52,13 +53,19 @@ export class ClaseComponent implements OnInit {
     this.service.allClases().subscribe({
       next: (clase: any | undefined) => {
         console.log(clase);
-        if (clase.status >= 400) {
+        if (clase.status >=  400) {
           this.alert.show = true;
           this.alert.header = 'Error';
           this.alert.message =
             'No se han podido cargar la informacion. Póngase en contacto con un adminsitrador.';
         } else {
           this.arrClases = clase;
+          this.arrClases.forEach(claseItem => {
+            const horaInicio: moment.Moment = moment(claseItem.hora_inicio, "HH:mm:ss");
+            const horaFin: moment.Moment = moment(claseItem.hora_fin, "HH:mm:ss");
+            claseItem.hora_inicio = horaInicio.format("HH:mm")
+            claseItem.hora_fin = horaFin.format("HH:mm")
+          });
         }
       },
       error: (err) => {
@@ -66,6 +73,7 @@ export class ClaseComponent implements OnInit {
       },
     });
   }
+  
 
   edit(clase: Clase) {
     this.clase = clase

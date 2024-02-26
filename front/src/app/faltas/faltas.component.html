@@ -1,4 +1,6 @@
 <h1>Faltas de los alumnos</h1>
+
+<p-button >Registrar Faltas</p-button>
 <section>
   <div>
     <table>
@@ -62,13 +64,12 @@
       <output>Usuario   </output>
       <input
         type="text"
-        pInputText [(ngModel)]="faltas.id_usuario"
+        pInputText [(ngModel)]="faltas.id"
         name="txtTemporada"
         id="txtTemporada"
       />
       <div>
         <p-button >Actualizar Datos</p-button>
-        <p-button >Agregar Temporada</p-button>
       </div>
     </div>
   </div>

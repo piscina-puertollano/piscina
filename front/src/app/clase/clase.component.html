@@ -11,23 +11,24 @@
       <tbody>
         @for (att of arrClases; track att.id) {
         <tr>
-          <td style="display: none;">
+          <td style="display: none">
             <label>{{ att.id }}</label>
           </td>
           <td>
-            <label>{{att.id_categoria}}</label>
+            <label>{{ att.id_categoria }}</label>
           </td>
           <td>
             <label>{{ att.nombre }}</label>
           </td>
           <td>
-            <label>{{ att.hora_inicio}} - {{att.hora_fin}}</label>
+            <label>{{ att.hora_inicio}} - {{ att.hora_fin}}</label>
           </td>
           <td>
             <button
               pButton
+              style="margin-right:  15px"
               type="button"
-              class="pi pi-pencil"
+              class="pi pi-eye"
               (click)="edit(att)"
             ></button>
             <button
@@ -44,7 +45,8 @@
     <div class="row">
       <input
         type="hidden"
-        pInputText [(ngModel)]="clase.id"
+        pInputText
+        [(ngModel)]="clase.id"
         name="txtid"
         id="txtid"
         disabled
@@ -52,7 +54,8 @@
       <output>Categoria</output>
       <input
         type="number"
-        pInputText [(ngModel)]="clase.id"
+        pInputText
+        [(ngModel)]="clase.id"
         name="txtid"
         id="txtid"
         disabled
@@ -60,23 +63,26 @@
       <output>Nombre</output>
       <input
         type="text"
-        pInputText [(ngModel)]="clase.nombre"
+        pInputText
+        [(ngModel)]="clase.nombre"
         name="txtTemporada"
         id="txtTemporada"
       />
       <output>Hora inicio</output>
       <input
-        type="text"
-        pInputText [(ngModel)]="clase.hora_inicio"
-        name="txtTemporada"
-        id="txtTemporada"
+        type="time"
+        pInputText
+        [(ngModel)]="clase.hora_inicio"
+        name="txtHoraInicio"
+        id="txtHoraInicio"
       />
       <output>Hora fin</output>
       <input
-        type="text"
-        pInputText [(ngModel)]="clase.hora_fin"
-        name="txtTemporada"
-        id="txtTemporada"
+        type="time"
+        pInputText
+        [(ngModel)]="clase.hora_fin"
+        name="txtHoraFin"
+        id="txtHoraFin"
       />
       <div>
         <p-button (click)="actualizar()">Actualizar Datos</p-button>
