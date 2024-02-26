@@ -1,21 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeadersComponent } from './headers/headers.component';
-import { PrimeNGConfig } from 'primeng/api';
+import {
+  ConfirmationService,
+  MessageService,
+  PrimeNGConfig,
+} from 'primeng/api';
 import { SignupComponent } from './users/signup/signup/signup.component';
 import { io } from 'socket.io-client';
 import { environment } from '../environments/environment.development';
+import { WebsocketsService } from './services/websockets.service';
+import { ToastModule } from 'primeng/toast';
+
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [
-    RouterOutlet,
-    HeadersComponent,
-    SignupComponent
-  ],
+  imports: [RouterOutlet, HeadersComponent, SignupComponent, ToastModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
+  providers: [ConfirmationService, MessageService],
 })
 export class AppComponent implements OnInit {
   title = 'Club deportivo';
@@ -23,7 +27,11 @@ export class AppComponent implements OnInit {
 
   private socket: any;
 
-  constructor(private primengConfig: PrimeNGConfig) {}
+  constructor(
+    private primengConfig: PrimeNGConfig,
+    private websockets: WebsocketsService,
+    private messageService: MessageService
+  ) {}
 
   ngOnInit() {
     this.socket = io(environment.websocket);
@@ -36,8 +44,13 @@ export class AppComponent implements OnInit {
       console.log('Disconnected from server');
     });
 
-    this.socket.on('created-new', () => {
-      console.log('Disconnected from server');
+    this.socket.on('created-new', (payload: any) => {
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Hay una nueva noticia disponible',
+        detail: payload.title,
+      });
+      console.log(payload);
     });
 
     this.primengConfig.ripple = true;

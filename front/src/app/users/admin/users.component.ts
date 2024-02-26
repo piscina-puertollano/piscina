@@ -8,6 +8,10 @@ import { AlertComponent } from '../../utils/alert/alert.component';
 import { DialogComponent } from '../../utils/dialog/dialog.component';
 import {  ModalSignupComponent } from '../signup/modalSignup/modal.component';
 
+/**
+ * @author: badr
+ */
+
 @Component({
   selector: 'app-users',
   standalone: true,

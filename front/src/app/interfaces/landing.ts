@@ -1,3 +1,7 @@
+/**
+ * @author: badr
+ */
+
 export interface Club {
     _id?:     string;
     title?:   string;

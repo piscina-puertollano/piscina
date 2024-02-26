@@ -1,3 +1,4 @@
+// Gonzalo Martinez Haro
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
@@ -12,7 +13,7 @@ import { Categoria } from '../interfaces/categoria';
   
       constructor(private http: HttpClient) { }
       private baseUrl : string = environment.baseUrl
-      /*private urlGetsPostsCategorias : string = this.baseUrl + environment.getsPostCategorias
+      private urlGetsPostsCategorias : string = this.baseUrl + environment.getsPostCategorias
       private urlGetUpdateDeleteCategoria : string = this.baseUrl + environment.getUpdateDeleteCategorias
 
 
@@ -58,5 +59,5 @@ import { Categoria } from '../interfaces/categoria';
           })
         )
       }
-*/
+
   }

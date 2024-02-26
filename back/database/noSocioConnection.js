@@ -1,3 +1,4 @@
+// Gonzalo Martinez Haro
 require('dotenv').config()
 const { Sequelize, Op } = require('sequelize');
 const models = require('../models/index.js'); //Esto tiene acceso a todos los modelos.
@@ -15,7 +16,7 @@ class noSocioConnection{
         conx.conectar
         
         noSocios = await models.NoSocio.findAll({
-            attributes: ['id', 'nombre']
+            attributes: ['id', 'nombre', 'apellidos']
         })
         conx.desconectar
         return noSocios

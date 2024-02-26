@@ -3,6 +3,9 @@ import { Asset, Club } from '../interfaces/landing';
 import { Observable, catchError, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment.development';
+/**
+ * @author: badr
+ */
 
 @Injectable({
   providedIn: 'root'
@@ -42,7 +45,7 @@ export class LandingService {
   }
 
   updateClub(club:Club): Observable<Club | undefined> {
-    return this.http.put<Club>(this.urlUpdateClub+club._id,club,{withCredentials:false}).pipe(
+    return this.http.put<Club>(this.urlUpdateClub+club._id,club,{withCredentials:true}).pipe(
       catchError((error) =>{
         return of(error)
       })

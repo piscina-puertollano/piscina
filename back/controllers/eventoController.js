@@ -1,3 +1,4 @@
+// Gonzalo Martinez Haro
 const {response,request} = require('express');
 const Conexion = require('../database/eventoConnection')
 const conx = new Conexion();
@@ -18,8 +19,23 @@ const eventosGet = (req,res = response) => {
 
 }
 
+
+const eventosVisiblesGet = (req,res = response) => {
+
+    
+    conx.getEventosVisibles().then( msg => {
+        console.log('Listado de eventos correcto')
+        res.status(200).json(msg);
+    }).catch( err => {
+        console.log('No hay registros')
+        res.status(203).json(err)
+    })
+
+}
+
 const eventoGet = (req,res = response) => {
 
+    console.log('eventos')
     conx.getEvento(req.params.id).then( msg => {
         console.log('Evento obtenido correctamente')
         res.status(200).json(msg)
@@ -42,11 +58,12 @@ const eventoInsert = (req,res = response) => {
 
 const eventoUpdate = (req,res = response) => {
 
+    console.log(req.params.id,req.body)
     conx.updateEvento(req.params.id,req.body).then( msg => {
         console.log('Actualización del evento realizada')
         res.status(200).json(msg)
     }).catch( err => {
-        console.log('No se a podido actualizar el evento')
+        console.log('No se ha podido actualizar el evento')
         res.status(203).json(err)
     })
 }
@@ -81,6 +98,7 @@ const eventoDelete = (req,res = response) => {
 }
 
 module.exports = {
+    eventosVisiblesGet,
     eventosGet,
     eventoGet,
     eventoInsert,

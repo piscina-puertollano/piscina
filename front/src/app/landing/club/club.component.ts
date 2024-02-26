@@ -7,7 +7,9 @@ import { File } from '../../interfaces/upload';
 import { Image } from '../../interfaces/user';
 import { environment } from '../../../environments/environment.development';
 
-
+/**
+ * @author: badr
+ */
 
 @Component({
   selector: 'app-club',
@@ -93,6 +95,7 @@ export class ClubComponent implements OnInit{
   }
 
   showImages(arrFotos:Array<any>) {
+    console.log()
     arrFotos.forEach((assetId:Image) => {
       let image:File = {
         id: assetId.ruta,

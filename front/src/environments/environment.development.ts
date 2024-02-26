@@ -20,5 +20,14 @@ export const environment = {
     asignSocio: '/user/asign',
     removeSocio: '/user/remove',
     photo_profile_path:'photo_profile',
-    landing_path:'landing'
+    landing_path:'landing',
+    getsPostEvento: '/eventos',
+    getUpdateDeleteEvento: '/eventos/',
+    getsPostCategorias: '/categorias',
+    getUpdateDeleteCategorias: '/categorias/',
+    getsNoSocios: '/noSocios',
+    getPostUpdateDeleteNoSocios: '/noSocios/',
+    postEventoUsuario: '/eventoUsuarios',
+    getEventosVisibles: '/eventos/visibles'
+
 };

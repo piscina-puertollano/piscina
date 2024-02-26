@@ -1,5 +1,8 @@
 'use strict';
 /** @type {import('sequelize-cli').Migration} */
+/**
+ * @author: badr
+ */
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('user_accept_legal_texts', {

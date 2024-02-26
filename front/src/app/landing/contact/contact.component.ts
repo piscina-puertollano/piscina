@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 
+/**
+ * @author: badr
+ */
+
 @Component({
   selector: 'app-contact',
   standalone: true,
