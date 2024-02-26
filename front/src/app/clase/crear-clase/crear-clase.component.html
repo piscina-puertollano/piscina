@@ -1,0 +1,19 @@
+<h1>Crear nueva clase</h1>
+<div class="form-container">
+    <div class="form-group">
+      <output>Categoria</output>
+      <p-dropdown [options]="arrCategorias" [(ngModel)]="selectedCategoria" optionLabel="nombre" [showClear]="true" placeholder="Selecciona una categoría"></p-dropdown>
+    </div>
+    <div class="form-group">
+      <output>Nombre</output>
+      <input type="text" pInputText formControlName="nombre" id="txtTemporada" />
+    </div>
+    <div class="form-group">
+      <output>Hora inicio</output>
+      <input type="time" pInputText formControlName="horaInicio" id="txtHoraInicio" />
+    </div>
+    <div class="form-group">
+      <output>Hora fin</output>
+      <input type="time" pInputText formControlName="horaFin" id="txtHoraFin" />
+    </div>
+</div>

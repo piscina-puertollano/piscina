@@ -1,5 +1,5 @@
 import { ButtonModule } from 'primeng/button';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { TableModule} from 'primeng/table';
 import { Component, OnInit } from '@angular/core';
 import { ClaseService } from '../services/clase.service';
@@ -9,11 +9,10 @@ import { Clase } from '../interfaces/clase';
 import { AlertComponent } from '../utils/alert/alert.component';
 import { InputTextModule } from 'primeng/inputtext';
 import moment from 'moment';
-
 @Component({
   selector: 'app-clase',
   standalone: true,
-  imports: [TableModule, FormsModule, AlertComponent, ButtonModule, InputTextModule],
+  imports: [TableModule, FormsModule, AlertComponent, ButtonModule, InputTextModule, RouterLink],
   templateUrl: './clase.component.html',
   styleUrls: ['./clase.component.css'],
 })
@@ -24,7 +23,7 @@ export class ClaseComponent implements OnInit {
   searchValue: string = '';
   whatSearch: string = '';
   selectedClase: Clase = { id: 0, id_categoria: 0, nombre: '', hora_inicio: '', hora_fin: '' };
-  nuevaClase: Clase = { nombre: ''};
+ 
 
   constructor(private service: ClaseService, private router: Router) {
     this.clase = {};
@@ -33,20 +32,6 @@ export class ClaseComponent implements OnInit {
 
   ngOnInit(): void {
     this.allClases();
-  }
-
-  agregarClase() {
-    this.nuevaClase.nombre = this.clase.nombre
-   // console.log(this.nuevaClase)
-    this.service.agregarClase(this.nuevaClase).subscribe({
-      next: (nuevaClase: Clase) => {
-        console.log('Clase agregada exitosamente:', nuevaClase);
-        location.reload();
-      },
-      error: (err) => {
-        console.error('Error al agregar la clase:', err);
-      }
-    });
   }
   
   allClases() {

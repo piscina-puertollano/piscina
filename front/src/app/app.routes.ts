@@ -20,6 +20,7 @@ import { GestionEventosComponent } from './eventos/gestion-eventos/gestion-event
 import { GestionCategoriasComponent } from './eventos/gestion-categorias/gestion-categorias.component';
 import { EventoComponent } from './eventos/evento/evento.component';
 import { GestionarNoSociosComponent } from './eventos/gestionar-no-socios/gestionar-no-socios.component';
+import { CrearClaseComponent } from './clase/crear-clase/crear-clase.component';
 
 
 
@@ -33,6 +34,7 @@ export const routes: Routes = [
   {path: 'create-new', component: CreateNewComponent },
   {path: 'contact', component: ContactComponent },
   {path: 'clases', component: ClaseComponent},
+  {path: 'clases/crear', component: CrearClaseComponent},
   {path: 'entrenamientos', component: EntrenamientoComponent},
   {path: 'edit', component: ClubEditComponent},
   {path: 'modificar-entrenamiento/:id', component: ModificarEntrenamientoComponent},
