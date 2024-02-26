@@ -3,6 +3,9 @@ import { Asset, Club } from '../interfaces/landing';
 import { Observable, catchError, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment.development';
+/**
+ * @author: badr
+ */
 
 @Injectable({
   providedIn: 'root'

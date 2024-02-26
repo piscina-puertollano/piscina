@@ -5,6 +5,11 @@ const { validateFilds } = require('../middlewares/validators');
 const { statusUser, tokenCanAdmin, tokenCanUserAuth, checkToken, tokenCanRedactor, tokenCanTutor, tokenCanSocio } = require('../middlewares/abilities');
 const router = Router();
 
+/**
+ * @author: badr
+ */
+
+
 router.post('/login/', statusUser ,controlador.login );
 router.get('/user/:id', [checkToken, tokenCanAdmin] ,controlador.showUser );
 

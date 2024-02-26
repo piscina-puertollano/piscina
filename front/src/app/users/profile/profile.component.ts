@@ -13,6 +13,10 @@ import { File } from '../../interfaces/upload';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 
+/**
+ * @author: badr
+ */
+
 @Component({
   selector: 'app-profile',
   standalone: true,

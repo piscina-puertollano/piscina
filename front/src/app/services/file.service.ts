@@ -4,6 +4,10 @@ import { Observable, catchError, of } from 'rxjs';
 import { environment } from '../../environments/environment.development';
 import { File } from '../interfaces/upload';
 
+/**
+ * @author: badr
+ */
+
 @Injectable({
   providedIn: 'root'
 })

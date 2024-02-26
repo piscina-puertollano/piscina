@@ -7,7 +7,9 @@ import { File } from '../../interfaces/upload';
 import { Image } from '../../interfaces/user';
 import { environment } from '../../../environments/environment.development';
 
-
+/**
+ * @author: badr
+ */
 
 @Component({
   selector: 'app-club',

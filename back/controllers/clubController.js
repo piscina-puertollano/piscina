@@ -6,6 +6,10 @@ const ConexionAsset = require("../database/assetsConnection");
 
 const conx = new ClubConnection();
 
+/**
+ * @author: badr
+ */
+
 const index = async (req, res) => {
   try {
     let resClub = await conx.allSections();

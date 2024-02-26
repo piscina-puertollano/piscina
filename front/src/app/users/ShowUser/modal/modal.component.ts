@@ -5,6 +5,10 @@ import { ShowComponent } from '../show/show.component';
 import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
 
+/**
+ * @author: badr
+ */
+
 @Component({
   selector: 'app-modal',
   standalone: true,

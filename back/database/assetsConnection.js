@@ -5,6 +5,10 @@ const Conexion = require("./connection.js");
 
 const conexion = new Conexion();
 
+/**
+ * @author: badr
+ */
+
 class AssetsModel {
   constructor() {}
 

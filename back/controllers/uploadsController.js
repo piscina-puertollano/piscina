@@ -3,6 +3,9 @@ const fs   = require('fs');
 const { subirArchivo } = require('../helpers/upload-files');
 const Conexion = require('../database/assetsConnection');
 
+/**
+ * @author: badr
+ */
 
 const uploadFile = async(req, res) => {
     try {

@@ -14,6 +14,10 @@ import { File } from '../../../interfaces/upload';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 
+/**
+ * @author: badr
+ */
+
 @Component({
   selector: 'app-show-user',
   standalone: true,

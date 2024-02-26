@@ -7,6 +7,10 @@ import { File } from '../../interfaces/upload';
 import { FileService } from '../../services/file.service';
 import { RouterLink } from '@angular/router';
 
+/**
+ * @author: badr
+ */
+
 @Component({
   selector: 'app-list',
   standalone: true,

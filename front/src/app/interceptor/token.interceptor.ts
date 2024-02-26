@@ -1,5 +1,9 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 
+/**
+ * @author: badr
+ */
+
 export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
   let rtnRequest = req.clone()
   

@@ -1,5 +1,9 @@
 const Conexion = require('../database/UserConnection');
 
+/**
+ * @author: badr
+ */
+
 const existUser = (id_user) => {
     console.log('llego')
     return new Promise((resolve, reject) => {

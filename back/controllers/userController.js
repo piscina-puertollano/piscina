@@ -4,6 +4,10 @@ const bcrypt = require("bcrypt");
 const { generateRandPass } = require("../helpers/user");
 const { generarJWT } = require("../helpers/jwt");
 
+/**
+ * @author: badr
+ */
+
 const conx = new Conexion();
 
 /**

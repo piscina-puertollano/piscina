@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 import { io } from "socket.io-client";
 import { environment } from '../../environments/environment.development';
 
+/**
+ * @author: badr
+ */
+
 @Injectable({
   providedIn: 'root'
 })

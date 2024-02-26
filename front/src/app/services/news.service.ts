@@ -5,6 +5,10 @@ import { environment } from '../../environments/environment.development';
 import { News, PostNews } from '../interfaces/news';
 import { io } from 'socket.io-client';
 
+/**
+ * @author: badr
+ */
+
 @Injectable({
   providedIn: 'root'
 })
