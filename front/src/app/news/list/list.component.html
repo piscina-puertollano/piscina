@@ -1,7 +1,13 @@
-@for (newObj of arrNews; track $index) {
-    <p-card header="{{newObj.title}}">
-        @for(image of images; track image){
-            <img src="{{image.image}}" alt="" srcset="">
-        }
-    </p-card>
-}
+<div class="container">
+    @for (newObj of arrNews; track $index) {
+        <div class="p-card" routerLink='/new/{{newObj.id}}'>
+            <h3>{{newObj.title}}</h3>
+            @for(image of images; track image){
+                @if(image.ruta == newObj.new_image.ruta){
+                    <img src="{{image.image}}" alt="{{image.alt}}">
+                }
+
+            }
+        </div>
+    }
+</div>

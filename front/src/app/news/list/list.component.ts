@@ -5,11 +5,12 @@ import { CardModule } from 'primeng/card';
 import { Image } from '../../interfaces/user';
 import { File } from '../../interfaces/upload';
 import { FileService } from '../../services/file.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CardModule],
+  imports: [CardModule, RouterLink],
   templateUrl: './list.component.html',
   styleUrl: './list.component.css'
 })
@@ -29,10 +30,15 @@ export class ListNewsComponent implements OnInit {
     this.newsService.index().subscribe({
       next: (news: any | undefined) => {
         console.log(news)
+        this.arrImages = []
+        this.images = []
         this.arrNews = news
-        news.new_image.ruta.forEach((assetId:any) => {
-          this.arrImages?.push(assetId)
+        news.forEach((assetId:any) => {
+          if(assetId.new_image != null){
+            this.arrImages!.push(assetId.new_image)
+          }
         })
+        console.log(this.arrImages)
         this.showImages(this.arrImages!)
       },
       error: (err) => {
@@ -46,10 +52,11 @@ export class ListNewsComponent implements OnInit {
     arrFotos.forEach((assetId:Image) => {
       let image:File = {
         id: assetId.ruta,
-        where: 'photo_profile'
+        where: 'news'
       }
       this.fileService.showImage(image).subscribe({
         next: (asset: any | undefined) => {
+          console.log(asset)
           this.images!.push({ruta: assetId.ruta, image: URL.createObjectURL(asset)})
           console.log(this.images)
         },error: (err) => {

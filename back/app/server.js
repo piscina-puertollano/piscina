@@ -38,6 +38,7 @@ class Server {
 
     this.conectarMongoose();
     this.routes();
+    this.sockets()
   }
 
   conectarMongoose() {

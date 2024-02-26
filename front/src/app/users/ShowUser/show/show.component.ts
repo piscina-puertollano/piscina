@@ -11,14 +11,16 @@ import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { environment } from '../../../../environments/environment.development';
 import { File } from '../../../interfaces/upload';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-show-user',
   standalone: true,
-  imports: [FormsModule, InputTextModule, InputSwitchModule, ButtonModule, MultiSelectModule],
+  imports: [FormsModule, InputTextModule, InputSwitchModule, ButtonModule, MultiSelectModule, ToastModule],
   templateUrl: './show.component.html',
   styleUrl: './show.component.css',
-  providers: [DialogService]
+  providers: [DialogService, MessageService]
 })
 export class ShowComponent implements OnInit {
   user?: User;
@@ -37,7 +39,8 @@ export class ShowComponent implements OnInit {
     public dialogService: DialogService,
     public config: DynamicDialogConfig,
     private fileService: FileService,
-    private userService: UserService
+    private userService: UserService,
+    private messageService: MessageService
   ) {}
 
 
@@ -68,6 +71,12 @@ export class ShowComponent implements OnInit {
     this.asignSocio()
     this.userService.updateUser(this.user!).subscribe({
       next: (user: any | undefined) => {
+        this.asignSocio()
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Operación completada',
+          detail: 'Usuario actualizado',
+        })
         console.log(user);
       },
       error: (error) => {
