@@ -58,6 +58,16 @@ export class HeadersComponent implements OnInit {
                 routerLink: '/my-profile'
             });
             this.items.push({
+                label: 'Gestión de usuarios',
+                routerLink: '/usuarios'
+            });
+            
+            this.items.push({
+                label: 'Crear noticias',
+                routerLink: '/create-news'
+            });
+
+            this.items.push({
                 label: 'Logout',
                 command: () => {
                     this.authService.logout()
