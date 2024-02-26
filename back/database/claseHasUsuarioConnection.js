@@ -1,102 +1,87 @@
-require('dotenv').config();
-const { Sequelize } = require('sequelize');
-const models = require('../models/index.js');
-const conexion = require('./connection.js');
+require("dotenv").config();
+const { Sequelize, Model } = require("sequelize");
+const models = require("../models/index.js");
+const conexion = require("./connection.js");
 
-class ClaseConnection {
-    constructor() {
-        this.db = new Sequelize(process.env.DB_DEV, process.env.DB_USER, process.env.DB_PASSWORD, {
-            host: process.env.DB_HOST,
-            dialect: process.env.DB_DIALECT,
-            pool: {
-                max:  5,
-                min:  0,
-                acquire:  30000,
-                idle:  10000
-            },
-        });
+class ClaseHasUsuarioConnection {
+  getClasesHasUsuarios = async () => {
+    let clasesHasUsuarios = [];
+    try {
+      let con = new conexion();
+      con.conectar();
+      clasesHasUsuarios = models.clase_has_usuario.findAll();
+      con.desconectar();
+    } catch (error) {
+      console.error("Error al obtner los datos", error);
+      throw error;
     }
+    return clasesHasUsuarios;
+  };
 
-    getClases = async () => {
-        let clases = [];
-        try {
-            let con = new conexion();
-            await con.conectar();
-            clases = await models.clase.findAll();
-            await con.desconectar();
-        } catch (error) {
-            console.error('Error en getClases:', error);
-            throw error;
-        }
-        return clases;
-    };
-    
-    getClase = async (id) => {
-        let clase;
-        let con = new conexion();
-        try {
-            await con.conectar();
-            clase = await models.clase.findByPk(id);
-        } catch (error) {
-            console.error('Error en getClase:', error);
-            throw error;
-        } finally {
-            await con.desconectar();
-        }
-        return clase;
-    };
-    
-    insertClase = async (data) => {
-        let resultado =  0;
-        let con = new conexion();
-        try {
-            await con.conectar();
-            const nuevaClase = await models.clase.create(data);
-            resultado =  1;
-        } catch (error) {
-            console.error('Error en insertClase:', error);
-            throw error;
-        } finally {
-            await con.desconectar();
-        }
-        return resultado;
-    };
-    
-    updateClase = async (id, data) => {
-        let con = new conexion();
-        try {
-            await con.conectar();
-            const clase = await models.clase.findByPk(id);
-            if (!clase) {
-                console.error(`Clase with id ${id} not found.`);
-                throw new Error(`Clase with id ${id} not found.`);
-            }
-            await clase.update(data);
-        } catch (error) {
-            console.error('Error en updateClase:', error);
-            throw error;
-        } finally {
-            await con.desconectar();
-        }
-    };
-    
-    deleteClase = async (id) => {
-        let con = new conexion();
-        try {
-            await con.conectar();
-            const clase = await models.clase.findByPk(id);
-            if (!clase) {
-                console.error(`Clase with id ${id} not found.`);
-                throw new Error(`Clase with id ${id} not found.`);
-            }
-            await clase.destroy();
-        } catch (error) {
-            console.error('Error en deleteClase:', error);
-            throw error;
-        } finally {
-            await con.desconectar();
-        }
-    };
+  getClaseHasUsuario = async (id_usuario) => {
+    let claseHasUsuario;
+    let con = new conexion();
+    try {
+      con.conectar();
+      claseHasUsuario = models.clase_has_usuario.findOne({
+        where: {
+          id_usuario: id_usuario,
+        },
+        raw: true,
+      });
+      con.desconectar();
+    } catch (error) {
+      console.error("Error al obtener datos", error);
+      throw error;
+    }
+    return claseHasUsuario;
+  };
+
+  insertClaseHasUsuario = async (data) => {
+    let resultado = 0;
+    let con = new conexion();
+    try {
+      con.conectar();
+      const nuevoClaseHasUsuario = models.clase_has_usuario.create(data);
+      resultado = 1;
+      con.desconectar();
+    } catch (error) {
+      console.error("Error al insertar datos", error);
+    }
+    return resultado;
+  };
+
+  updateClaseHasUsuario = async (id, data) => {
+    let con = new conexion();
+    try {
+      con.conectar();
+      const claseHasUsuario = await models.clase_has_usuario.findByPk(id);
+      if (!claseHasUsuario) {
+        throw new Error(`Usuario con id ${id} no encontrado`);
+      }
+      await claseHasUsuario.update(data);
+      con.desconectar();
+    } catch (error) {
+      console.error("Error al actualizar", error);
+      throw error;
+    }
+  };
+
+  deleteClaseHasUsuario = async (id) => {
+    let con = new conexion();
+    try {
+      con.conectar();
+      const claseHasUsuario = await models.clase_has_usuario.findByPk(id);
+      if (!claseHasUsuario) {
+        throw new Error(`Usuario con id ${id} no encontrado`);
+      }
+     await claseHasUsuario.destroy();
+      con.desconectar();
+    } catch (error) {
+      console.error("Error al eliminar", error);
+      throw error;
+    }
+  };
 }
 
-module.exports = ClaseConnection;
+module.exports = ClaseHasUsuarioConnection;

@@ -14,11 +14,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   ClaseHasUsuario.init({
-    usuario_idusuario: DataTypes.INTEGER,
-    clase_idclase: DataTypes.INTEGER
+    id_usuario: DataTypes.INTEGER,
+    id_clase: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'clase_has_usuario',
+    tableName: 'clase_has_usuario'
   });
   return ClaseHasUsuario;
 };

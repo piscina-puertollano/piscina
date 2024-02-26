@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Faltas.init({
-    idfaltas: {
+    id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,

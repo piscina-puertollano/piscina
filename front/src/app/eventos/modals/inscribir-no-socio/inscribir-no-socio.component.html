@@ -1,0 +1,32 @@
+@if(!visible){
+    <h4>¿Eres Socio?</h4>
+    <div class="buttons-container">
+        <button (click)="redireccionarLogin()">SI</button>
+        <button (click)="mostrarFormulario()">NO</button>
+      </div>
+      
+}@else{
+    <h4>Introduce tus Datos</h4>
+    @if(alert.show){
+      <app-alert header="{{alert.header}}" message="{{alert.message}}" type={{alert.type}} ></app-alert>
+    }
+    <div>
+    <form>
+        <input class='campo' type="text" placeholder="Nombre del noSocio" [(ngModel)]="noSocio.nombre" name="nombreNoSocio">
+        <br>
+        <input class='campo' type="text" placeholder="Apellidos" [(ngModel)]="noSocio.apellidos" name="apellidosNoSocio">
+        <br>
+        <input class='campo' type="text" placeholder="Email" [(ngModel)]="noSocio.email" name="emailNoSocio">
+        <br>
+        <input class='campo' type="submit" value="Inscribir" (click)="insertNoSocio()">
+      </form>
+    </div>
+}
+
+
+
+
+
+
+
+

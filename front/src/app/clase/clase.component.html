@@ -3,18 +3,25 @@
   <div>
     <table>
       <thead>
-        <th>ID</th>
-        <th>Temporada</th>
+        <th>Categoria</th>
+        <th>Dia</th>
+        <th>Horario</th>
         <th>Acciones</th>
       </thead>
       <tbody>
         @for (att of arrClases; track att.id) {
         <tr>
-          <td>
+          <td style="display: none;">
             <label>{{ att.id }}</label>
           </td>
           <td>
-            <label>{{ att.temporada }}</label>
+            <label>{{att.id_categoria}}</label>
+          </td>
+          <td>
+            <label>{{ att.nombre }}</label>
+          </td>
+          <td>
+            <label>{{ att.hora_inicio}} - {{att.hora_fin}}</label>
           </td>
           <td>
             <button
@@ -36,16 +43,38 @@
     </table>
     <div class="row">
       <input
+        type="hidden"
+        pInputText [(ngModel)]="clase.id"
+        name="txtid"
+        id="txtid"
+        disabled
+      />
+      <output>Categoria</output>
+      <input
         type="number"
         pInputText [(ngModel)]="clase.id"
         name="txtid"
         id="txtid"
         disabled
       />
-      <output>Temporada</output>
+      <output>Nombre</output>
       <input
         type="text"
-        pInputText [(ngModel)]="clase.temporada"
+        pInputText [(ngModel)]="clase.nombre"
+        name="txtTemporada"
+        id="txtTemporada"
+      />
+      <output>Hora inicio</output>
+      <input
+        type="text"
+        pInputText [(ngModel)]="clase.hora_inicio"
+        name="txtTemporada"
+        id="txtTemporada"
+      />
+      <output>Hora fin</output>
+      <input
+        type="text"
+        pInputText [(ngModel)]="clase.hora_fin"
         name="txtTemporada"
         id="txtTemporada"
       />
