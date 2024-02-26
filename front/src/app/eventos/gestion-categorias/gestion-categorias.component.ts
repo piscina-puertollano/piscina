@@ -1,3 +1,4 @@
+// Gonzalo Martinez Haro
 import { Component, OnInit } from '@angular/core';
 import { Categoria } from '../../interfaces/categoria';
 import {CategoriaService} from '../../services/categoria.service';

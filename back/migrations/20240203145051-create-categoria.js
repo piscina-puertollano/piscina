@@ -1,3 +1,4 @@
+// Gonzalo Martinez Haro
 'use strict';
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {

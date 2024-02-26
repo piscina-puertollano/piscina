@@ -1,3 +1,4 @@
+// Gonzalo Martinez Haro
 import { Component, OnInit } from '@angular/core';
 import { Evento } from '../../interfaces/eventos';
 import { EventosService } from '../../services/evento.service';

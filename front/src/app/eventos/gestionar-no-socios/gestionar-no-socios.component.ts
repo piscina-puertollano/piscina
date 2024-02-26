@@ -1,3 +1,4 @@
+// Gonzalo Martinez Haro
 import { Component,OnInit } from '@angular/core';
 import { NoSocio } from '../../interfaces/noSocio';
 import { noSocioService } from '../../services/noSocio.service';
