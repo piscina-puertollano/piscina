@@ -1,3 +1,4 @@
+// Gonzalo Martinez Haro
 import { Component } from '@angular/core';
 import { Categoria } from '../../../interfaces/categoria';
 import { CategoriaService } from '../../../services/categoria.service';

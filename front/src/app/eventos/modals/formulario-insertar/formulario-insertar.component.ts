@@ -1,3 +1,4 @@
+// Gonzalo Martinez Haro
 import { Component } from '@angular/core';
 import { NgModule } from '@angular/core';
 import { ButtonModule } from 'primeng/button'; // Ejemplo de importación de un componente
