@@ -95,6 +95,7 @@ export class ClubComponent implements OnInit{
   }
 
   showImages(arrFotos:Array<any>) {
+    console.log()
     arrFotos.forEach((assetId:Image) => {
       let image:File = {
         id: assetId.ruta,

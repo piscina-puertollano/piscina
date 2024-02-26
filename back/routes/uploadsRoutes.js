@@ -11,7 +11,7 @@ const { checkToken } = require('../middlewares/abilities');
 const router = Router();
 
 
-router.post( '/', [checkToken,validateFile], controller.uploadFile);
+router.post( '/', [validateFile], controller.uploadFile);
 router.post('/:id', controller.showFile)
 router.put('/:id', [checkToken],controller.actualizarImagen)
 router.delete('/:id/:folder', [checkToken],controller.destroyFile)
