@@ -1,3 +1,4 @@
+// Gonzalo Martinez Haro
 const {response,request} = require('express');
 const Conexion = require('../database/noSocioConnection')
 const Conexion2 = require('../database/eventoNoSocioConnection')
