@@ -3,6 +3,9 @@
 const models = require('../models/index.js');
 
 /** @type {import('sequelize-cli').Migration} */
+/**
+ * @author: badr
+ */
 
 module.exports = {
  async up (queryInterface, Sequelize) {

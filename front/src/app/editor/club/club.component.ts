@@ -17,6 +17,10 @@ import { File } from '../../interfaces/upload';
 import { FileService } from '../../services/file.service';
 import { environment } from '../../../environments/environment.development';
 
+/**
+ * @author: badr
+ */
+
 @Component({
   selector: 'app-club-edit',
   standalone: true,

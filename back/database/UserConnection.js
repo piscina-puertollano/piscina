@@ -5,6 +5,9 @@ const Conexion = require("./connection.js");
 
 const conexion = new Conexion();
 
+/**
+ * @author: badr
+ */
 class UserModel {
   constructor() {}
 

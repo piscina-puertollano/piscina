@@ -8,6 +8,10 @@ import { ToastModule } from 'primeng/toast';
 import { UserService } from '../../../services/user.service';
 import { CheckboxModule } from 'primeng/checkbox';
 
+/**
+ * @author: badr
+ */
+
 @Component({
   selector: 'app-signup',
   standalone: true,

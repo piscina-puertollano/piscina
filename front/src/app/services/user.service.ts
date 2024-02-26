@@ -4,6 +4,10 @@ import { environment } from '../../environments/environment.development';
 import { Observable, catchError, of } from 'rxjs';
 import { Role, SocioTutor, User, UserRol } from '../interfaces/user';
 
+/**
+ * @author: badr
+ */
+
 @Injectable({
   providedIn: 'root'
 })

@@ -3,6 +3,10 @@ const newsConnection = require("../database/newsConnection");
 
 const conx = new newsConnection();
 
+/**
+ * @author: badr
+ */
+
 const index = async (req, res) => {
   try {
     let resNew = await conx.getAll();

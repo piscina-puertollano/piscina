@@ -1,4 +1,7 @@
 const mongoose = require('mongoose');
+/**
+ * @author: badr
+ */
 
 const contactSchema = new mongoose.Schema({
     id: { type: Number},

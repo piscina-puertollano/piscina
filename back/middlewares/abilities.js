@@ -3,6 +3,10 @@ const { verifyToken } = require("../helpers/jwt");
 const jwt = require("jsonwebtoken");
 const Conexion = require("../database/UserConnection");
 
+/**
+ * @author: badr
+ */
+
 const statusUser = (req, res, next) => {
   const conx = new Conexion();
   conx

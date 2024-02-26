@@ -4,6 +4,9 @@ const { validateFile } = require('../middlewares/check-files');
 const controller = require('../controllers/uploadsController');
 const { checkToken } = require('../middlewares/abilities');
 
+/**
+ * @author: badr
+ */
 
 const router = Router();
 

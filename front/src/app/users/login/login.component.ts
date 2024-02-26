@@ -6,6 +6,10 @@ import { Router } from '@angular/router';
 import { Messages, MessagesModule } from 'primeng/messages';
 import { Message } from 'primeng/api';
 
+/**
+ * @author: badr
+ */
+
 @Component({
   selector: 'app-login',
   standalone: true,

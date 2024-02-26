@@ -11,6 +11,10 @@ import { io } from 'socket.io-client';
 import { WebsocketsService } from '../../services/websockets.service';
 import { EditorModule } from 'primeng/editor';
 
+/**
+ * @author: badr
+ */
+
 @Component({
   selector: 'app-create-new',
   standalone: true,

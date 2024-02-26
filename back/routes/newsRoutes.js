@@ -7,6 +7,10 @@ const { getSocket } = require('../middlewares/sockets');
 const { checkToken, tokenCanRedactor } = require('../middlewares/abilities');
 const router = Router();
 
+/**
+ * @author: badr
+ */
+
 router.get('/news', controlador.index );
 router.get('/new/:id', controlador.show );
 router.put('/new/:id',[ checkToken, tokenCanRedactor] ,controlador.updateNew );

@@ -1,3 +1,7 @@
+/**
+ * @author: badr
+ */
+
 export interface User {
     id?:        number;
     idSocio?:   number;

@@ -5,6 +5,10 @@ import { NewsService } from '../../services/news.service';
 import { FileService } from '../../services/file.service';
 import { File } from '../../interfaces/upload';
 
+/**
+ * @author: badr
+ */
+
 @Component({
   selector: 'app-show-new',
   standalone: true,

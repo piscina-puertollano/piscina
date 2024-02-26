@@ -1,5 +1,8 @@
 const jwt = require('jsonwebtoken')
 
+/**
+ * @author: badr
+ */
 
 const generarJWT = (uid = '', roles) => {
     return jwt.sign({uid, roles}, process.env.SECRETORPRIVATEKEY, {
