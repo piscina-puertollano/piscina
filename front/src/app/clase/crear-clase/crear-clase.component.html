@@ -15,7 +15,10 @@
     <div class="form-group">
       <output>Hora fin</output>
       <input type="time" [(ngModel)]="horaFin" id="txtHoraFin"/>
-
+    </div>
+    <div class="form-group">
+      <output>Descripcion</output>
+      <textarea id="txtdescripcion" [(ngModel)]="descripcion"></textarea>
     </div>
     <p-button (click)="agregarClase()" routerLink="/clases">Crear clase</p-button>
 </div>

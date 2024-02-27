@@ -7,6 +7,7 @@
         <th>Categoria</th>
         <th>Dia</th>
         <th>Horario</th>
+        <th>Descripcion</th>
         <th>Acciones</th>
       </thead>
       <tbody>
@@ -23,6 +24,9 @@
           </td>
           <td>
             <label>{{ att.hora_inicio}} - {{ att.hora_fin}}</label>
+          </td>
+          <td>
+            <label>{{ att.descripcion}}</label>
           </td>
           <td>
             <button
@@ -84,6 +88,14 @@
         [(ngModel)]="clase.hora_fin"
         name="txtHoraFin"
         id="txtHoraFin"
+      />
+      <output>Descripcion</output>
+      <input
+        type="text"
+        pInputText
+        [(ngModel)]="clase.descripcion"
+        name="txtdescripcion"
+        id="txtdescripcion"
       />
       <div>
         <p-button (click)="actualizar()">Actualizar Datos</p-button>

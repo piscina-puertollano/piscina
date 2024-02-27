@@ -4,4 +4,5 @@ export interface Clase {
     nombre?:string
     hora_inicio?:string
     hora_fin?:string
+    descripcion?:string
 }

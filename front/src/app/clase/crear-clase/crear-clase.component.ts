@@ -24,6 +24,7 @@ export class CrearClaseComponent implements OnInit {
   dia: any;
   horaInicio: string = ''
   horaFin: string = ''
+  descripcion: string = ''
 
   arrClases: Clase[] = [];
 
@@ -78,7 +79,8 @@ export class CrearClaseComponent implements OnInit {
       id_categoria: this.categoriaSelecionada.id,
       nombre: this.dia.value,
       hora_inicio: this.horaInicio,
-      hora_fin: this.horaFin
+      hora_fin: this.horaFin,
+      descripcion: this.descripcion
     };
   
     this.service.agregarClase(nuevaClase).subscribe({
