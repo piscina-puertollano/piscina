@@ -1,5 +1,5 @@
 /**
- * author: Manuel García
+ * author: Manuel Garcia
  */
 export class claseUsuario {
     id?:number

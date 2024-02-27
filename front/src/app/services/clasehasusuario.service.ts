@@ -1,5 +1,5 @@
 /**
- * author: Manuel García
+ * author: Manuel Garcia
  */
 import { claseUsuario } from './../interfaces/claseUsuario';
 import { HttpClient } from '@angular/common/http';
