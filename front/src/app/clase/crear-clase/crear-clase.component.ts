@@ -1,3 +1,6 @@
+/**
+ * author: Manuel Garcia
+ */
 import { CategoriaService } from './../../services/categoria.service';
 import { Component, OnInit } from '@angular/core';
 import { Clase } from '../../interfaces/clase';

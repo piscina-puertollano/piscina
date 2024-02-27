@@ -1,3 +1,6 @@
+/**
+ * author: Manuel Garcia
+ */
 import { ClaseService } from './../services/clase.service';
 import { Component, OnInit } from '@angular/core';
 import { AlertComponent } from '../utils/alert/alert.component';

@@ -1,3 +1,6 @@
+/**
+ * author: Manuel García
+ */
 export class UsuarioClaseFaltas {
     id?:number
     id_usuario?:number

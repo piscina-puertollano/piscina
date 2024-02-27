@@ -1,3 +1,6 @@
+/**
+ * author: Manuel Garcia
+ */
 import { Component } from '@angular/core';
 
 @Component({

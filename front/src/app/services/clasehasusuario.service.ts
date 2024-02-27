@@ -1,3 +1,6 @@
+/**
+ * author: Manuel García
+ */
 import { claseUsuario } from './../interfaces/claseUsuario';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';

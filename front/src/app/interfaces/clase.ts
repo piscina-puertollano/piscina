@@ -1,3 +1,6 @@
+/**
+ * author: Manuel García
+ */
 export interface Clase {
     id?:number
     id_categoria?:number
