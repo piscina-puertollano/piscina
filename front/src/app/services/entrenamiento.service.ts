@@ -14,11 +14,11 @@ export class EntrenamientoService {
 
   constructor(private http: HttpClient) { }
   private baseUrl : string = environment.baseUrl
-  private urlListarEntrenamientos : string = this.baseUrl + '/entrenamientos/';
-  private urlUpdateEntrenamiento : string = this.baseUrl + '/entrenamientos';
-  private urlgetEntrenamientoId : string = this.baseUrl + '/entrenamientos';
-  private urldeleteEntrenamiento: string = this.baseUrl + '/entrenamientos';
-  private urlInsertEntrenamiento: string = this.baseUrl + '/entrenamientos/crear-entrenamiento';
+  private urlListarEntrenamientos : string = this.baseUrl + '/entrenamiento';
+  private urlUpdateEntrenamiento : string = this.baseUrl + '/ejercicioEntrenamiento';
+  private urlgetEntrenamientoId : string = this.baseUrl + '/ejercicioEntrenamiento';
+  private urldeleteEntrenamiento: string = this.baseUrl + '/ejercicioEntrenamiento';
+  private urlInsertEntrenamiento: string = this.baseUrl + '/ejercicioEntrenamiento/crear-entrenamiento';
 
   getEntrenamientos(): Observable<Array<Entrenamiento> | undefined> {
     return this.http.get<any[]>(this.urlListarEntrenamientos);

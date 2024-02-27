@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { AlertComponent } from '../utils/alert/alert.component';
+import { AlertComponent } from '../../utils/alert/alert.component';
 import { FormsModule } from '@angular/forms';
-import { Entrenamiento } from '../interfaces/entrenamiento';
-import { Alert } from '../interfaces/alert';
-import { EntrenamientoService } from '../services/entrenamiento.service';
+import { Entrenamiento } from '../../interfaces/entrenamiento';
+import { Alert } from '../../interfaces/alert';
+import { EntrenamientoService } from '../../services/entrenamiento.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Ejercicios } from '../interfaces/ejercicios';
+import { Ejercicios } from '../../interfaces/ejercicios';
 
 @Component({
   selector: 'app-consultar-entrenamiento',

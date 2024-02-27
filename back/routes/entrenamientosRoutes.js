@@ -6,9 +6,5 @@ const controlador = require('../controllers/entrenamientoController');
 const router = Router();
 
 router.get('/', controlador.entrenamientosGet);
-router.get('/:id', controlador.entrenamientoGetId);
-router.post('/crear-entrenamiento', controlador.entrenamientoInsert);
-router.put('/:id', controlador.entrenamientoUpdate);
-router.delete('/:id', controlador.entrenamientoDelete);
 
 module.exports = router;

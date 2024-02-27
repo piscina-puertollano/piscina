@@ -1,12 +1,12 @@
 /**
- * author: Marina Laguna
+ * @author: Marina Laguna
  */
 import { Component } from '@angular/core';
-import { EntrenamientoService } from '../services/entrenamiento.service';
-import { Entrenamiento } from '../interfaces/entrenamiento';
+import { EntrenamientoService } from '../../services/entrenamiento.service';
+import { Entrenamiento } from '../../interfaces/entrenamiento';
 import { Router, provideRouter } from '@angular/router';
-import { Alert } from '../interfaces/alert';
-import { AlertComponent } from '../utils/alert/alert.component';
+import { Alert } from '../../interfaces/alert';
+import { AlertComponent } from '../../utils/alert/alert.component';
 import { TooltipModule } from 'primeng/tooltip';
 import { ToolbarModule } from 'primeng/toolbar';
 import { InputTextModule } from 'primeng/inputtext';
@@ -14,15 +14,20 @@ import { TableModule } from 'primeng/table';
 import { CommonModule, CurrencyPipe, DatePipe } from '@angular/common';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { FormsModule } from '@angular/forms';
-import { ModalComponent } from '../utils/modal/modal.component';
+import { ModalComponent } from '../../utils/modal/modal.component';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { DialogComponent } from '../utils/dialog/dialog.component';
+import { DialogComponent } from '../../utils/dialog/dialog.component';
+import { ModalCrearEntreComponent } from '../modal-crear-entre/modal-crear-entre.component';
 
 @Component({
   selector: 'app-entrenamiento',
   standalone: true,
-  imports: [AlertComponent, TooltipModule, ToolbarModule, InputTextModule, TableModule, DatePipe, CurrencyPipe, ProgressBarModule, FormsModule, ModalComponent, ToastModule, ConfirmDialogModule, DialogComponent],
+  imports: [
+    AlertComponent, TooltipModule, ToolbarModule, InputTextModule, 
+    TableModule, DatePipe, CurrencyPipe, ProgressBarModule, FormsModule, 
+    ModalCrearEntreComponent, ToastModule, ConfirmDialogModule, DialogComponent
+  ],
   templateUrl: './entrenamiento.component.html',
   styleUrl: './entrenamiento.component.css'
 })

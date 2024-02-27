@@ -3,7 +3,7 @@
  */
 const {response,request} = require('express');
 const Conexion = require('../database/puntuacionConnection');
-const ConexionEntrenamiento = require('../database/entrenamientoConnection');
+const ConexionEntrenamiento = require('../database/ejercicioEntrenamientoConnection');
 const AsignacionController = require('./asignarEntrenamientoController');
 const conexion = new Conexion();
 const conexionEntrenamiento = new ConexionEntrenamiento();
