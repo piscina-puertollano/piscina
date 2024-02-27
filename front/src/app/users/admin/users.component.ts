@@ -6,12 +6,16 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AlertComponent } from '../../utils/alert/alert.component';
 import { DialogComponent } from '../../utils/dialog/dialog.component';
-import { ModalComponent } from '../signup/modalSignup/modal.component';
+import {  ModalSignupComponent } from '../signup/modalSignup/modal.component';
+
+/**
+ * @author: badr
+ */
 
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [FormsModule, AlertComponent, DialogComponent, ModalComponent],
+  imports: [FormsModule, AlertComponent, DialogComponent, ModalSignupComponent],
   templateUrl: './users.component.html',
   styleUrl: './users.component.css'
 })

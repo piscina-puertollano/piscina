@@ -5,6 +5,9 @@ const Conexion = require("./connection.js");
 
 const conexion = new Conexion();
 
+/**
+ * @author: badr
+ */
 class UserModel {
   constructor() {}
 
@@ -15,7 +18,7 @@ class UserModel {
       where: {
         email: email,
       },
-      attributes: ["id", "firstName", "lastName", "email"],
+      attributes: ["id", "firstName", "lastName", "email", "tlf", "domicilio", "corriente_pago","active"],
     });
     conexion.desconectar();
     if (!resultado) {
@@ -28,7 +31,7 @@ class UserModel {
     let resultado = [];
     conexion.conectar();
     resultado = await models.Users.findByPk(id_user,{
-      attributes: ["id", "firstName", "lastName", "email"],
+      attributes: ["id", "firstName", "lastName", "email", "tlf", "domicilio", "corriente_pago","active"],
     });
     conexion.desconectar();
     if (!resultado) {
@@ -58,15 +61,22 @@ class UserModel {
   showUser = async (userId) => {
     conexion.conectar();
     let resultado = await models.Users.findByPk(userId, {
-      attributes: ["id", "firstName", "lastName", "email"],
-      include: {
+      attributes: ["id", "firstName", "lastName", "email", "tlf", "domicilio", "corriente_pago","active"],
+      include: [
+        {
         model: models.Rol,
         as: "roles",
-        attributes: ["id"],
+        attributes: ["id", "name"],
         through: {
           attributes: [],
-        },
+        }
       },
+        {
+          model: models.Assets,
+          as: "image",
+          attributes: ["ruta"]
+        },
+    ]
     });
 
     if (!resultado) {
@@ -137,13 +147,16 @@ class UserModel {
     return upUser;
   };
 
-  updateRolsUser = async (userId, rolId) => {
-    console.log(userId);
-    console.log(rolId);
+  updateRolsUser = async (userId, arrRolsId) => {
     let upUsers = [];
     let updatedRoles = [];
-    conexion.conectar();
     try {
+      conexion.conectar();
+      /**
+       * Primero buscamos al usuario, para luego quitarle todos los roles.
+       * Y finalmente actualizarlos por los nuevos, insertandolos desde el array
+       * que nos viene como rolId
+       */
       upUsers = await models.UserRol.findAll({ where: { id_user: userId } });
 
       if (upUsers.length >= 1) {
@@ -152,24 +165,13 @@ class UserModel {
         }
       }
 
-      if (Array.isArray(rolId)) {
-        for (let rol of rolId) {
-          let newRole = await models.UserRol.create({
-            id_user: userId,
-            id_rol: rol.id,
-          });
-          updatedRoles.push(newRole);
-        }
-      } else {
-        console.log("entro");
+      for (let rol of arrRolsId) {
         let newRole = await models.UserRol.create({
           id_user: userId,
-          id_rol: rolId.id,
+          id_rol: rol.id,
         });
         updatedRoles.push(newRole);
       }
-
-      console.log(updatedRoles);
     } catch (error) {
       console.log(error);
       throw error;
@@ -208,6 +210,35 @@ class UserModel {
     return listUsers;
   };
 
+  showSocios = async () => {
+    let listUsers = [];
+    try{
+      listUsers = await models.Users.findAll({
+        attributes: ["id", "firstName", "lastName", "email"],
+        include: 
+        {
+          model: models.Rol,
+          as: "roles",
+          attributes: [],
+          where:{
+            id: process.env.ID_ROL_SOCIO,
+          },
+          through: {
+            attributes: [],
+          }
+        },
+      })
+    }catch(err){
+      throw err;
+    }finally{
+      if(!listUsers){
+        throw new Error("Socios no encontrados");
+      }
+      return listUsers;
+    }
+
+  }
+
   asignUser = async (tutorId, socioId) => {
     let listUsers = 0;
     conexion.conectar();
@@ -217,13 +248,30 @@ class UserModel {
         id_tutor: tutorId,
         id_socio: socioId,
       });
+
     } catch (error) {
+      console.log(error)
       throw error;
     } finally {
       conexion.desconectar();
       return listUsers;
     }
   };
+
+  removeSociosUser = async (userId) => {
+    let listUsers = 0;
+    conexion.conectar();
+
+    try {
+      await models.TutorUser.destroy({where: {id_tutor: userId}})
+    } catch (error) {
+      console.log(error);
+      throw error;
+    } finally {
+      conexion.desconectar();
+      return listUsers;
+    }
+  }
 
   showSociosOfTutor = async (idTutor) => {
     let resultado = [];
@@ -233,7 +281,7 @@ class UserModel {
         where: {
           id_tutor: idTutor,
         },
-        attributes: ["id_socio"],
+        attributes: [],
         include: [
           {
             model: models.Users,
@@ -243,11 +291,13 @@ class UserModel {
         ],
       });
     } catch (error) {
+      throw error
+    } finally {
+      conexion.desconectar();
       if (!resultado) {
         throw new Error("user not found");
       }
-    } finally {
-      conexion.desconectar();
+
       return resultado;
     }
   };
@@ -279,27 +329,23 @@ class UserModel {
     }
   };
 
-  removeSocioOfTutor = async (tutorId, idSocio) => {
+  showRols = async () => { 
     let resultado = [];
-    try {
+    try{
       conexion.conectar();
-      resultado = await models.TutorUser.findAll({
-        where: {
-            id_tutor: tutorId,
-            id_socio: idSocio
-        },
-        attributes: ["id_tutor"]
-      }); 
-      resultado.destroy();
-    } catch (error) {
-      if (!resultado) {
-        throw new Error("user not found");
-      }
-    } finally {
+      resultado = await models.Rol.findAll({
+        attributes: ["id", "name"],
+      });
+    }catch(err){
+      throw err;
+    }finally{
       conexion.desconectar();
+      if (!resultado) {
+        throw new Error("Roles no encontrados");
+      }
       return resultado;
     }
-  };
+  }
 }
 
 module.exports = UserModel;

@@ -2,34 +2,47 @@ const {Router } = require('express');
 const controlador = require('../controllers/userController');
 const { check } = require('express-validator');
 const { validateFilds } = require('../middlewares/validators');
+const { statusUser, tokenCanAdmin, tokenCanUserAuth, checkToken, tokenCanRedactor, tokenCanTutor, tokenCanSocio } = require('../middlewares/abilities');
 const router = Router();
 
-router.post('/login/', controlador.login );
-router.get('/user/:id', controlador.showUser );
+/**
+ * @author: badr
+ */
+
+
+router.post('/login/', statusUser ,controlador.login );
+router.get('/user/:id', [checkToken, tokenCanAdmin] ,controlador.showUser );
+
+router.get('/my-profile', [checkToken, tokenCanUserAuth], controlador.showUser );
+
 router.delete('/user/:id', controlador.deleteUser );
 
 router.post('/user/', [
+    checkToken,
+    tokenCanAdmin,
     check('firstName', 'El nombre es obligatorio').notEmpty(),
     check('lastName', 'Los apellido son obligatorios').notEmpty(),
     check('email', 'El email es obligatorio').notEmpty(),
     check('email', 'No es un email válido').isEmail(),
-    check('password', 'La contraseña no puede estar vacía').notEmpty(),
     validateFilds
 ],controlador.newUser );
 
 
-router.put('/user/', controlador.updateUser );
-router.get('/users/', controlador.index);
+router.put('/user/', [checkToken, tokenCanAdmin],controlador.updateUser );
+router.get('/users/', [checkToken, tokenCanAdmin], controlador.index);
 router.post('/forget-pass/', controlador.forgetPass);
-router.post('/search', controlador.getUserByValue);
+router.post('/search', [checkToken, tokenCanAdmin], controlador.getUserByValue);
 
 //obtener los socios asociados a un tutor
-router.get('/socios/:idTutor', controlador.showSociosOfTutor);
+router.get('/socios/:idTutor',[checkToken, tokenCanAdmin], controlador.showSociosOfTutor);
+
+router.get('/socios',[checkToken, tokenCanTutor], controlador.showSocios);
 
 //obtener de un socio los tutores asociados
-router.get('/tutor/:idSocio', controlador.showTutorsOfSocio);
+router.get('/tutor/:idSocio',[checkToken, tokenCanSocio], controlador.showTutorsOfSocio);
 
-router.post('/asign', controlador.asignUser)
-router.post('/remove', controlador.deleteOldSocios)
+router.post('/user/asign',[checkToken, tokenCanAdmin], controlador.asignUser)
+
+router.get('/rols',[checkToken, tokenCanAdmin], controlador.showRols)
 
 module.exports = router;

@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+require('dotenv').config()
 const mongoose = require("mongoose");
 const { socketController } = require("../controllers/socketController");
 const { createNew } = require("../controllers/newsController");
@@ -10,6 +11,8 @@ const fileUpload = require('express-fileupload');
 class Server {
   constructor() {
     this.app = express();
+    this.middlewares();
+
     this.userRoutePath = "/api";
     this.userRouteClasesPath = "/api";
     this.eventosRoutePath = "/api/eventos";
@@ -22,7 +25,6 @@ class Server {
     this.ejercicioRoutePath = "/api/ejercicios";
     this.tiposRoutePath = "/api/tiposEjercicios";
 
-    this.middlewares();
     
     this.serverExpress = require('http').createServer(this.app);
     this.serverWebSocket = require('http').createServer(this.app);
@@ -36,6 +38,7 @@ class Server {
 
     this.conectarMongoose();
     this.routes();
+    this.sockets()
   }
 
   conectarMongoose() {
@@ -63,7 +66,10 @@ class Server {
   }
 
   middlewares() {
-    this.app.use(cors());
+    this.app.use(cors({
+      origin: process.env.FRONT_URL,
+      credentials: true,
+    }));
     this.app.use(express.json());
 
     this.app.use( fileUpload({
@@ -75,6 +81,8 @@ class Server {
 
   routes() {
     this.app.use(this.userRouteClasesPath, require("../routes/claseRoutes"));
+    this.app.use(this.userRouteClasesPath, require("../routes/faltasRoutes"));
+    this.app.use(this.userRouteClasesPath, require("../routes/claseHasUsuarioRoutes"));
 
     this.app.use(this.apiFiles, require("../routes/uploadsRoutes"));
     this.app.use(this.userRoutePath, require("../routes/userRoutes"));

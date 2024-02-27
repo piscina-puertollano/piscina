@@ -1,0 +1,47 @@
+<!-- // Gonzalo Martinez Haro-->
+<h1>Gestión de Categorias</h1>
+<section id="sectionCategoria">
+    <button id="btnAdd" (click)="abrirModal()">Agregar nueva categoria</button>
+    <button id="btnGestEventos">Gestionar Eventos</button>
+</section>
+@if(alert.show){
+    <app-alert header="{{alert.header}}" message="{{alert.message}}" type="danger" ></app-alert>
+}
+<section>
+    <div>
+        <table>
+            <thead>
+                <th>ID categoria</th>
+                <th>Nombre</th>
+            </thead>
+            <tbody>
+                @for (categoria of categorias; track categoria.id) {
+                <tr>
+                    <td>{{categoria.id}}</td>
+                    <td>{{categoria.nombre}}</td>
+                    <td>
+                        <i width="25px" style="margin-right:15px" class="pi pi-eye" (click)="getCategoria(categoria.id)"></i>
+                        <i width="25px" (click)="deleteCategoria(categoria.id)" class="pi pi-trash"></i>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <div class="contenedor-flex">
+            <div class="contenedor-flex-small"> 
+                <h4>id:</h4>
+                <p><input type="text"  class="categoria" [(ngModel)]="categoria.id" value="{{categoria.id}}" disabled></p>
+            </div> 
+            <div class="contenedor-flex-small">
+                <h4>Nombre:</h4>
+                <p><input type="text"  class="categoria" [(ngModel)]="categoria.nombre" value="{{categoria.nombre}}"></p>
+            </div>
+        </div>
+        <div class="contenedor-flex"></div>
+            <div class="contenedor-flex-button">
+                <input type="submit" value="Guardar cambios" (click)="updateCategoria()">
+            </div>
+        </div>
+</section>

@@ -4,11 +4,33 @@ const bcrypt = require("bcrypt");
 const { generateRandPass } = require("../helpers/user");
 const { generarJWT } = require("../helpers/jwt");
 
+/**
+ * @author: badr
+ */
+
+const conx = new Conexion();
+
+/**
+ *
+ * Esta función es compartida por dos rutas,
+ * se intenta obtener el id del usuario de la petición por el params,
+ * si no se encuentra, se intenta obtener el id del usuario de la petición por el body,
+ * el try catch hace su magia.
+ *  */
 const showUser = (req, res = response) => {
-  const conx = new Conexion();
+  let id = 0;
+  try {
+    id = req.params.id;
+  } catch (err) {
+    console.log(err);
+  } finally {
+    if (!id) {
+      id = req.userId;
+    }
+  }
 
   conx
-    .showUser(req.params.id)
+    .showUser(id)
     .then((msg) => {
       res.status(200).json(msg);
     })
@@ -18,7 +40,6 @@ const showUser = (req, res = response) => {
 };
 
 const getUserByValue = (req, res = response) => {
-  const conx = new Conexion();
   let value = req.body.email;
   if (value == null) {
     value = req.body.id;
@@ -39,7 +60,6 @@ const getUserByValue = (req, res = response) => {
 
 const login = (req, res) => {
   let email = req.body.email;
-  const conx = new Conexion();
   let storedHash = "";
 
   conx
@@ -51,6 +71,7 @@ const login = (req, res) => {
         }
         conx.showRolUser(msg.id).then((roles) => {
           let arrRoles = [];
+
           roles.forEach((element) => {
             if (element.id_rol != null) {
               arrRoles.push(element.id_rol);
@@ -58,6 +79,7 @@ const login = (req, res) => {
           });
 
           let token = generarJWT(msg.id, arrRoles);
+
           res.status(200).json({
             user: msg,
             token,
@@ -70,10 +92,8 @@ const login = (req, res) => {
     });
 };
 const newUser = async (req, res) => {
-  const conx = new Conexion();
-  let pass = req.body.password;
-
-  req.body.password = await bcrypt.hash(pass, 10);
+  let randPass = generateRandPass();
+  req.body.password = await bcrypt.hash(randPass, 10);
 
   conx
     .registrarUsuario(req.body)
@@ -87,7 +107,6 @@ const newUser = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-  const conx = new Conexion();
   let pass = req.body.password;
 
   if (pass != null) {
@@ -98,8 +117,24 @@ const updateUser = async (req, res) => {
     await conx
       .updateRolsUser(req.body.id, req.body.roles)
       .then((msg) => {
-        // console.log(msg)
-        // res.status(200).json(msg)
+        let check = false
+        let i = 0;
+        while(req.body.roles.length>i && !check){
+          if(req.body.roles[i]==process.env.ID_ROL_TUTOR){
+            check=true;
+          }
+          i++
+        }
+        if (!check) {
+          conx
+            .removeSociosUser(req.body.id)
+            .then((rtnMsg) => {
+              console.log(rtnMsg);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -118,7 +153,6 @@ const updateUser = async (req, res) => {
 };
 
 const forgetPass = async (req, res) => {
-  const conx = new Conexion();
   let email = req.body.email;
   let pass = generateRandPass();
   let newPassword = { password: await bcrypt.hash(pass, 10) };
@@ -138,13 +172,11 @@ const forgetPass = async (req, res) => {
     })
     .catch((error) => {
       console.log(error);
-      res.status(404).json({ msg: "User not found" });
+      res.status(404).json({ msg: "Usuario no encontrado" });
     });
 };
 
 const index = async (req, res) => {
-  const conx = new Conexion();
-
   conx
     .indexUsers()
     .then((msg) => {
@@ -157,8 +189,6 @@ const index = async (req, res) => {
 };
 
 const deleteUser = async (req, res) => {
-  const conx = new Conexion();
-
   conx
     .deleteUser(req.params.id)
     .then((msg) => {
@@ -170,13 +200,38 @@ const deleteUser = async (req, res) => {
     });
 };
 
-const showSociosOfTutor = async (req, res) => {
-  const conx = new Conexion();
+//---------------------_Gestion_Socios_----------------------------
 
+const showSocios = async (req, res) => {
+  conx
+    .showSocios()
+    .then((msg) => {
+      res.status(200).json(msg);
+    })
+    .catch((error) => {
+      console.log(error);
+      res
+        .status(400)
+        .json({ msg: "No se han encontrado socios", error: error });
+    });
+};
+
+const showSociosOfTutor = async (req, res) => {
   conx
     .showSociosOfTutor(req.params.idTutor)
     .then((msg) => {
-      res.status(200).json(msg);
+      let arrSocios = [];
+      msg.forEach((element) => {
+        let rtnSocio = {
+          id: element.socio.id,
+          firstName: element.socio.firstName,
+          lastName: element.socio.lastName,
+          email: element.socio.email,
+        };
+        arrSocios.push(rtnSocio);
+      });
+
+      res.status(200).json(arrSocios);
     })
     .catch((error) => {
       console.log(error);
@@ -185,8 +240,6 @@ const showSociosOfTutor = async (req, res) => {
 };
 
 const showTutorsOfSocio = async (req, res) => {
-  const conx = new Conexion();
-
   conx
     .showTutorsOfSocio(req.params.idSocio)
     .then((msg) => {
@@ -199,75 +252,62 @@ const showTutorsOfSocio = async (req, res) => {
 };
 
 const asignUser = async (req, res) => {
-
-    let arrSocios = [];
-
-  const tutorId = req.body.id_tutor;
-  const socioId = req.body.id_socio;
-
-  if (Array.isArray(socioId)) {
-    let i = 0;
-      while (socioId.length > i) {
-        await setUserToTutor(tutorId, socioId[i], arrSocios)
-        i++;
-      }
-    } else {
-        await setUserToTutor(tutorId, socioId, arrSocios)
-    }
-    if(arrSocios.length>=1){
-      res.status(201).json(arrSocios);
-    }else{
-      res.status(401).json({msg:"El usuario ya está asociado o no existe"});
-    }
-};
-
-
-const setUserToTutor = async (tutorId, socioId, arrSocios) =>{
-    const conx = new Conexion();
-  await  conx.asignUser(tutorId, socioId)
-    .then((msg) => {
-        arrSocios.push(msg);
-        console.log(arrSocios)
-    })
-    .catch((error) => {
-        res.status(400).json(error);
-    });
-}
-
-const deleteOldSocios = async (tutorId, socioId, arrSocios) =>{
-    const conx = new Conexion();
-  await  conx.removeSocioOfTutor(tutorId, socioId)
-    .then((msg) => {
-        arrSocios.push(msg);
-    })
-    .catch((error) => {
-        res.status(400).json(error);
-    });
-}
-
-
-const deleteUserToTutor = async (req, res) =>{
   let arrSocios = [];
 
   const tutorId = req.body.id_tutor;
   const socioId = req.body.id_socio;
+  
+  await  conx.removeSociosUser(tutorId).then((msg) => {
+    console.log(msg);
+  });
 
   if (Array.isArray(socioId)) {
-    let i = 0;
-      while (socioId.length > i) {
-        await deleteOldSocios(tutorId, socioId[i], arrSocios)
-        i++;
-      }
-    } else {
-        await deleteOldSocios(tutorId, socioId, arrSocios)
+    for (const socio of socioId) {
+      await setUserToTutor(tutorId, socio.id, arrSocios);
     }
-    if(arrSocios.length>=1){
-      res.status(201).json(arrSocios);
-    }else{
-      res.status(401).json({msg:"El usuario ya está asociado o no existe"});
-    }
-}
+  } else {
+    await setUserToTutor(tutorId, socioId.id, arrSocios);
+  }
 
+  if (arrSocios.length == socioId.length) {
+    res.status(201).json({ msg: "Socios actualizados", socios: arrSocios });
+  } else {
+    res.status(401).json({ msg: "El usuario ya está asociado o no existe" });
+  }
+
+};
+
+const setUserToTutor = async (tutorId, socioId, arrSocios) => {
+  await conx
+    .asignUser(tutorId, socioId)
+    .then((msg) => {
+      arrSocios.push(msg);
+      console.log(msg.dataValues);
+    })
+    .catch((error) => {
+      res.status(400).json(error);
+    });
+};
+
+//---------------------------------------------------------
+
+/**
+ * Esta función debería ir al controlador de rolController,
+ * pero como no vamos a tener lo que es un CRUD de roles,
+ * y los roles que hay son los que se quedan, no voy a hacer
+ * un controlador para una sola función, es por eso que meto aquí
+ * la función de mostrar roles en usuarios.
+ */
+const showRols = async (req, res) => {
+  conx
+    .showRols()
+    .then((msg) => {
+      res.status(200).json(msg);
+    })
+    .catch((error) => {
+      res.status(400).json({ msg: "Roles no encontrados", error: error });
+    });
+};
 
 module.exports = {
   newUser,
@@ -281,5 +321,6 @@ module.exports = {
   showSociosOfTutor,
   showTutorsOfSocio,
   asignUser,
-  deleteOldSocios
+  showSocios,
+  showRols,
 };

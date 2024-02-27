@@ -3,6 +3,10 @@ const newsConnection = require("../database/newsConnection");
 
 const conx = new newsConnection();
 
+/**
+ * @author: badr
+ */
+
 const index = async (req, res) => {
   try {
     let resNew = await conx.getAll();
@@ -13,7 +17,7 @@ const index = async (req, res) => {
       res.status(400).json({ msg: "No se han encontrado noticias" });
     }
   } catch (err) {
-    res.status(400).json({ error: err });
+    res.status(400).json({ error: 'Ha ocurrido un error' });
   }
 };
 
@@ -32,6 +36,7 @@ const show = async (req, res) => {
 };
 
 const createNew = async (req, res) => {
+    req.body.id_user = req.userId;
     await conx.createNew(req.body).then(resNew=>{
       res.status(200).json(resNew);
     }).catch(err=>{

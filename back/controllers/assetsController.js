@@ -1,6 +1,10 @@
 const { response, request } = require("express");
 const Conexion = require("../database/assetsConnection");
 
+/**
+ * @author: badr
+ */
+
 const showAssetsUser = (req, res = response) => {
   const conx = new Conexion();
 

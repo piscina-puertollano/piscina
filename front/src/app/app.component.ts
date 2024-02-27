@@ -1,27 +1,58 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeadersComponent } from './headers/headers.component';
-import { PrimeNGConfig } from 'primeng/api';
-import { ModalComponent } from './users/signup/modalSignup/modal.component';
+import {
+  ConfirmationService,
+  MessageService,
+  PrimeNGConfig,
+} from 'primeng/api';
 import { SignupComponent } from './users/signup/signup/signup.component';
-import { ToolbarModule } from 'primeng/toolbar';
-import { AvatarModule } from 'primeng/avatar';
-import { AvatarGroupModule } from 'primeng/avatargroup';
+import { io } from 'socket.io-client';
+import { environment } from '../environments/environment.development';
+import { WebsocketsService } from './services/websockets.service';
+import { ToastModule } from 'primeng/toast';
+
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeadersComponent, ModalComponent, SignupComponent,ToolbarModule, AvatarModule, AvatarGroupModule],
+  imports: [RouterOutlet, HeadersComponent, SignupComponent, ToastModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
+  providers: [ConfirmationService, MessageService],
 })
 export class AppComponent implements OnInit {
   title = 'Club deportivo';
   isLogged = false;
 
-  constructor(private primengConfig: PrimeNGConfig) {}
+  private socket: any;
+
+  constructor(
+    private primengConfig: PrimeNGConfig,
+    private websockets: WebsocketsService,
+    private messageService: MessageService
+  ) {}
 
   ngOnInit() {
+    this.socket = io(environment.websocket);
+
+    this.socket.on('connect', () => {
+      console.log('Connected to server');
+    });
+
+    this.socket.on('disconnect', () => {
+      console.log('Disconnected from server');
+    });
+
+    this.socket.on('created-new', (payload: any) => {
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Hay una nueva noticia disponible',
+        detail: payload.title,
+      });
+      console.log(payload);
+    });
+
     this.primengConfig.ripple = true;
 
     this.primengConfig.zIndex = {

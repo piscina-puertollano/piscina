@@ -1,26 +1,31 @@
 const path = require('path');
 const fs   = require('fs');
 const { subirArchivo } = require('../helpers/upload-files');
+const Conexion = require('../database/assetsConnection');
 
+/**
+ * @author: badr
+ */
 
-const cargarArchivo = async(req, res) => {
-
+const uploadFile = async(req, res) => {
     try {
+        const folder = req.header('folder')
+        if(!folder){
+            res.status(404).json("La carpeta de destino no está definida");
+            return;
+        }
         
         if(!req.files || Object.keys(req.files).length === 0){
-            res.status(404).send("No hay archivos para subir");
+            res.status(404).json("No hay archivos para subir");
             return;
         }
 
         if(!req.files.archivo){
-            res.status(404).send("No hay archivos para subir");
+            res.status(404).json("No hay archivos para subir");
             return;
         }
 
-        console.log("Archivos que vienen en req.files:",req.files);
-
-
-        const nombre = await subirArchivo( req.files, undefined, 'imgs' );
+        const nombre = await subirArchivo( req.files, undefined, folder );
         res.json({ nombre });
 
 
@@ -31,13 +36,20 @@ const cargarArchivo = async(req, res) => {
 }
 
 
-const borrarImagen = async(req, res ) => {
-    const  idborrado = req.params.id;
-    const extension = 'jpg';
-    const pathImagen = path.join( __dirname, '../uploads', 'imgs', idborrado + '.' + extension );
+const destroyFile = async(req, res ) => {
+
+    const  fileId = req.params.id;
+    const folder = req.params.folder;
+
+    const pathImagen = path.join( __dirname, '../uploads', folder, fileId);
     console.log( pathImagen );
     if (fs.existsSync(pathImagen)) {
         fs.unlinkSync(pathImagen);
+        const conx = new Conexion()
+        console.log(fileId)
+        conx.deleteByRuta(fileId).then(asset => {
+            console.log(asset);
+        })
         res.status(200).json({ msg: "Borrado" });
     } else {
         res.status(404).json({ msg: "Archivo no encontrado" });
@@ -50,27 +62,28 @@ const actualizarImagen = async(req, res ) => {
 }
 
 
-const obtenerImagen = async(req, res) => {
+const showFile = async(req, res) => {
 
     console.log(req.params.id);
 
-    const nombreArchivo = req.params.id + '.jpg'; 
-    if (nombreArchivo) {
-        const pathImagen = path.join( __dirname, '../uploads', 'imgs', nombreArchivo );
-        console.log(pathImagen);
-        if ( fs.existsSync( pathImagen ) ) {
-            return res.sendFile( pathImagen )
+    const fileId = req.params.id
+    const folder = req.body.folder;
+
+    if (fileId && folder) {
+        const pathFile = path.join( __dirname, '../uploads', folder, fileId );
+        console.log(pathFile);
+        if ( fs.existsSync( pathFile ) ) {
+            return res.sendFile( pathFile )
         }
     }
-    const pathImagen = path.join( __dirname, '../assets/no-image.jpg');
-    res.sendFile( pathImagen );
+    const pathFile = path.join( __dirname, '../uploads/no-image.jpg');
+    res.sendFile( pathFile );
 }
 
 
-
 module.exports = {
-    cargarArchivo,
+    uploadFile,
     actualizarImagen,
-    obtenerImagen,
-    borrarImagen
+    showFile,
+    destroyFile
 }

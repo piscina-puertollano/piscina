@@ -1,8 +1,14 @@
 const { response, request } = require("express");
 const ClubConnection = require("../database/mongo/clubConnection");
 const clubModel = require("../models/mongo/clubModel");
+const { showAsset } = require("./assetsController");
+const ConexionAsset = require("../database/assetsConnection");
 
 const conx = new ClubConnection();
+
+/**
+ * @author: badr
+ */
 
 const index = async (req, res) => {
   try {
@@ -22,7 +28,15 @@ const showClub = async (req, res) => {
     try {
       let resClub = await conx.showByTag(req.body.tag);
       if (resClub != 0) {
-        res.status(200).json(resClub);
+        if(resClub.assets != null && resClub.assets.length >= 1){
+          const assetsCon = new ConexionAsset()
+
+          resClub.fotos = await assetsCon.getAssetsByArrIds(resClub.assets)
+          res.status(200).json(resClub);
+
+        }else{
+          res.status(200).json(resClub);
+        }
       } else {
         res.status(400).json({ msg: "No se han encontrado registros" });
       }

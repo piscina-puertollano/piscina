@@ -1,4 +1,7 @@
 const mongoose = require('mongoose');
+/**
+ * @author: badr
+ */
 
 const clubSchema = new mongoose.Schema({
     id: { type: Number},
@@ -7,6 +10,8 @@ const clubSchema = new mongoose.Schema({
     estructura: {type: Object},
     tag: {type: String},
     order: {type: String},
+    assets: {type: Object},
+    fotos: {type: Object},
     ubicacion: {
         direccion: String,
         mapa: String

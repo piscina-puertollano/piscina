@@ -3,6 +3,10 @@ const ContactConnection = require("../database/mongo/contactConnection");
 
 const conx = new ContactConnection();
 
+/**
+ * @author: badr
+ */
+
 const index = async (req, res) => {
   try {
     let resContact = await conx.allSections();

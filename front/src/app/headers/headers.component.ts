@@ -3,41 +3,81 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { MenubarModule } from 'primeng/menubar';
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
+
+/**
+ * @author: badr
+ */
 
 @Component({
   selector: 'app-headers',
   standalone: true,
-  imports: [MenubarModule],
+  imports: [MenubarModule, ButtonModule, DialogModule],
   templateUrl: './headers.component.html',
   styleUrl: './headers.component.css'
 })
 export class HeadersComponent implements OnInit {
 
     items: MenuItem[] | undefined;
+    visible: boolean = false;
+
+    constructor(private authService: AuthService, private route: Router) {}
 
     ngOnInit() {
         this.items = [
             {
                 label: 'Nuestro club',
-                // icon: 'pi pi-fw pi-file',
+                routerLink: '/'
+            },
+            {
+                label: 'Noticias',
+                routerLink: '/news'
             },
             {
                 label: 'Actividad deportiva',
-                // icon: 'pi pi-fw pi-pencil',
             },
             {
                 label: 'Master',
-                // icon: 'pi pi-fw pi-user',
             },
             {
                 label: 'Contacto',
-                // icon: 'pi pi-fw pi-calendar',
+                routerLink: '/contact'
             },
             {
                 label: 'Enlaces',
-                // icon: 'pi pi-fw pi-power-off'
+                routerLink: '/edit'
             }
         ];
+    
+        if (this.authService.isLoggedIn()) {
+            this.items.push({
+                label: 'Mi perfil',
+                routerLink: '/my-profile'
+            });
+            this.items.push({
+                label: 'Logout',
+                command: () => {
+                    this.authService.logout()
+                    this.route.navigate(['/login'])
+                }
+            });
+        } else {
+            this.items.push({
+                label: 'Área privada',
+                routerLink: '/login'
+            });
+        }
+    }
+
+    showDialog() {
+        this.visible = true;
+    }
+
+    closeDialog() {
+        this.visible = false;
     }
 }
 

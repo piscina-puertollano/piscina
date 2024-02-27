@@ -5,6 +5,10 @@ const Conexion = require("./connection.js");
 
 const conexion = new Conexion();
 
+/**
+ * @author: badr
+ */
+
 class AssetsModel {
   constructor() {}
 
@@ -29,6 +33,57 @@ class AssetsModel {
     }
 
   }
+
+  deleteByRuta =async(assetId)=>{
+    let resultado = [];
+    console.log(assetId)
+    try{
+        conexion.conectar();
+        resultado = await models.Assets.findOne({
+            attributes:["ruta"],
+            where: {
+                ruta: assetId,
+            },
+        });
+        resultado.destroy()
+        conexion.desconectar();
+        if (!resultado) {
+            throw new Error("Asset not found");
+          }
+    }catch(error){
+        throw error
+    }finally{
+        return resultado;
+    }
+
+  }
+
+  getAssetsByArrIds = async (arrId) => {
+    let resultado = [];
+    let rtnAssets = [];
+    try {
+      conexion.conectar();
+      for (let i =  0; i < arrId.length; i++) {
+        resultado = await models.Assets.findOne({
+          attributes: ["ruta"],
+          where: {
+            id: arrId[i],
+          },
+        });
+        if (resultado) {
+          rtnAssets.push(resultado);
+        } else {
+          throw new Error("Asset not found");
+        }
+      }
+      conexion.desconectar();
+    } catch (error) {
+      throw error;
+    } finally {
+      return rtnAssets;
+    }
+  };
+  
 
   getAssetsOfUser = async (userId) => {
     let resultado = [];

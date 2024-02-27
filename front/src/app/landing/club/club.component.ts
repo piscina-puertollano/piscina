@@ -2,8 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { LandingService } from '../../services/landing.service';
 import { Asset, Club } from '../../interfaces/landing';
 import { GalleriaModule } from 'primeng/galleria';
+import { FileService } from '../../services/file.service';
+import { File } from '../../interfaces/upload';
+import { Image } from '../../interfaces/user';
+import { environment } from '../../../environments/environment.development';
 
-
+/**
+ * @author: badr
+ */
 
 @Component({
   selector: 'app-club',
@@ -15,11 +21,34 @@ import { GalleriaModule } from 'primeng/galleria';
 export class ClubComponent implements OnInit{
   club?:Club
   arrClub?:Array<Club>
-  images?: Asset[];
+  images: Array<any> = [];
+  arrFotos?: Array<any>;
+
+  position: string = 'bottom';
+
+  showIndicatorsOnItem: boolean = false;
+  positionOptions = [
+    {
+        label: 'Bottom',
+        value: 'bottom'
+    },
+    {
+        label: 'Top',
+        value: 'top'
+    },
+    {
+        label: 'Left',
+        value: 'left'
+    },
+    {
+        label: 'Right',
+        value: 'right'
+    }
+];
     
   responsiveOptions: any[] | undefined;
 
-  constructor(private landingService: LandingService){}
+  constructor(private landingService: LandingService, private fileService: FileService){}
 
   ngOnInit(): void {
     this.showGalery()
@@ -55,21 +84,9 @@ export class ClubComponent implements OnInit{
   showGalery() {
     this.landingService.showSection('galeria').subscribe({
       next: (club: Club | undefined) => {
-        console.log('llego',club)
-        let i = 0
-        while( club?.assets?.length != undefined && club?.assets?.length>=i){
-          this.landingService.showAssets(club?.assets?.[i]).subscribe({
-            next: (ruta: Asset | undefined) => {
-              console.log(ruta)
-              this.images?.push(ruta!)
-            },
-            error: (err) => {
-              console.log(err);
-            },
-          });
-          i++
-        }
-        this.club = club
+        this.arrFotos = club?.fotos
+        this.responsiveOptions = club?.fotos
+        this.showImages(club?.fotos!)
       },
       error: (err) => {
         console.log(err);
@@ -77,6 +94,21 @@ export class ClubComponent implements OnInit{
     });
   }
 
-
-
+  showImages(arrFotos:Array<any>) {
+    console.log()
+    arrFotos.forEach((assetId:Image) => {
+      let image:File = {
+        id: assetId.ruta,
+        where: environment.landing_path
+      }
+      this.fileService.showImage(image).subscribe({
+        next: (asset: any | undefined) => {
+          this.images!.push({ruta: assetId.ruta, image: URL.createObjectURL(asset)})
+          console.log(this.images)
+        },error: (err) => {
+          console.log(err)
+        }
+      })
+    })
+  }
 }
