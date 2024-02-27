@@ -1,16 +1,20 @@
+/* Estilos base de la tabla */
 table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
 }
+
 th, td {
   border: 1px solid #dddddd;
   padding: 8px;
   text-align: left;
 }
+
 th {
   background-color: #f2f2f2;
 }
+
 /* Estilos para el contenedor */
 #tabla-container {
   width: 80%;
@@ -21,16 +25,22 @@ th {
   background-color: #f9f9f9;
 }
 
-.row {
-  display: flex;
-  align-items: center;
-}
-
-.row > * {
-  margin-right: 10px;
-}
-
-.row input,
-.row output {
-  margin-right: 20px;
+/* Estilos para dispositivos con ancho máximo de 600px */
+@media only screen and (max-width: 600px) {
+  #tabla-container {
+    width: 95%;
+    padding: 10px;
+  }
+  .row {
+    flex-direction: column;
+  }
+  .row > * {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+  .row input,
+  .row output {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
 }
