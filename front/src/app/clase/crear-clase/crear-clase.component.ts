@@ -2,7 +2,7 @@ import { CategoriaService } from './../../services/categoria.service';
 import { Component, OnInit } from '@angular/core';
 import { Clase } from '../../interfaces/clase';
 import { Alert } from '../../interfaces/alert';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ClaseService } from '../../services/clase.service';
 import { Categoria } from '../../interfaces/categoria';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -12,7 +12,7 @@ import { ButtonModule } from 'primeng/button';
 @Component({
   selector: 'app-crear-clase',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, DropdownModule, ButtonModule],
+  imports: [FormsModule, ReactiveFormsModule, DropdownModule, ButtonModule, RouterLink],
   templateUrl: './crear-clase.component.html',
   styleUrl: './crear-clase.component.css',
 })
