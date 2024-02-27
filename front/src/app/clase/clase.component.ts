@@ -17,7 +17,7 @@ import moment from 'moment';
   styleUrls: ['./clase.component.css'],
 })
 export class ClaseComponent implements OnInit {
-  clase: Clase = new Clase();
+  clase: Clase;
   alert: Alert;
   arrClases: Array<Clase> = [];
   searchValue: string = '';

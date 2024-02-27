@@ -12,11 +12,17 @@
     display: block;
     margin-bottom: 5px;
   }
-  .form-group input[type="number"],
-  .form-group input[type="text"],
   .form-group input[type="time"] {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
+    width:  100%;
+    padding:  8px;
+    border:  1px solid #ccc;
+    border-radius:  5px;
+}
+
+
+  :host ::ng-deep .p-dropdown {
+    width:  100%;
+    padding:  8px;
+    border:  1px solid #ccc;
+    border-radius:  5px;
+}

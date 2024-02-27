@@ -5,27 +5,48 @@ import { Alert } from '../../interfaces/alert';
 import { Router } from '@angular/router';
 import { ClaseService } from '../../services/clase.service';
 import { Categoria } from '../../interfaces/categoria';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-crear-clase',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, DropdownModule],
+  imports: [FormsModule, ReactiveFormsModule, DropdownModule, ButtonModule],
   templateUrl: './crear-clase.component.html',
-  styleUrl: './crear-clase.component.css'
+  styleUrl: './crear-clase.component.css',
 })
-export class CrearClaseComponent implements OnInit{
-  clase: Clase = new Clase();
-  nuevaClase: Clase = { nombre: ''};
+export class CrearClaseComponent implements OnInit {
+  clase: Clase;
   alert: Alert;
+ 
+  categoriaSelecionada: Categoria = new Categoria();
+  dia: any;
+  horaInicio: string = ''
+  horaFin: string = ''
 
+  arrClases: Clase[] = [];
+
+  diasSemana = [
+    { label: 'Lunes', value: 'Lunes' },
+    { label: 'Martes', value: 'Martes' },
+    { label: 'Miércoles', value: 'Miercoles' },
+    { label: 'Jueves', value: 'Jueves' },
+    { label: 'Viernes', value: 'Viernes' },
+  ];
   arrCategorias: Array<Categoria> = [];
-  selectedCategoria: Categoria  = new Categoria();
+  selectedCategoria: Categoria = new Categoria();
+  
 
-  constructor(private service: ClaseService, private CategoriaService: CategoriaService, private router: Router) {
+  constructor(
+    private service: ClaseService,
+    private CategoriaService: CategoriaService,
+    private router: Router
+  ) {
     this.clase = {};
     this.alert = new Alert();
+    this.horaFin = ''
+    this.horaInicio = ''
   }
 
   ngOnInit(): void {
@@ -36,13 +57,13 @@ export class CrearClaseComponent implements OnInit{
     this.CategoriaService.getCategorias().subscribe({
       next: (categoria: any | undefined) => {
         console.log(categoria);
-        if (categoria.status >=  400) {
+        if (categoria.status >= 400) {
           this.alert.show = true;
           this.alert.header = 'Error';
           this.alert.message =
             'No se han podido cargar la informacion. Póngase en contacto con un administrador.';
         } else {
-          this.arrCategorias = categoria; 
+          this.arrCategorias = categoria;
         }
       },
       error: (err) => {
@@ -52,16 +73,33 @@ export class CrearClaseComponent implements OnInit{
   }
 
   agregarClase() {
-    this.nuevaClase.nombre = this.clase.nombre
-    console.log(this.nuevaClase)
-    this.service.agregarClase(this.nuevaClase).subscribe({
-      next: (nuevaClase: Clase) => {
-        console.log('Clase agregada exitosamente:', nuevaClase);
-        location.reload();
+    console.log(this.horaInicio)
+    let nuevaClase = {
+      id_categoria: this.categoriaSelecionada.id,
+      nombre: this.dia.value,
+      hora_inicio: this.horaInicio,
+      hora_fin: this.horaFin
+    };
+  
+    this.service.agregarClase(nuevaClase).subscribe({
+      next: (resultado: any) => {
+        console.log(resultado);
+        if (resultado.status >=  400) {
+          this.alert.show = true;
+          this.alert.header = 'Error';
+          this.alert.message =
+            'No se ha podido insertar la nueva categoría. Póngase en contacto con un administrador.';
+        } else {
+          this.allCategorias();
+        }
       },
       error: (err) => {
-        console.error('Error al agregar la clase:', err);
-      }
+        console.log(err);
+        this.alert.show = true;
+        this.alert.header = 'Error';
+        this.alert.message =
+          'Ha ocurrido un error al intentar insertar la nueva categoría. Por favor, intente de nuevo más tarde.';
+      },
     });
-  }
+  }  
 }

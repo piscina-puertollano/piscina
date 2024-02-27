@@ -1,4 +1,4 @@
-export class Clase {
+export interface Clase {
     id?:number
     id_categoria?:number
     nombre?:string
