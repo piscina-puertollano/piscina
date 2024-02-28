@@ -16,6 +16,7 @@ export const environment = {
     updateUser: '/user',
     showUser: '/user',
     allUsers: '/users',
+    allUsersFaltas: '/obtener/usuarios',
     login: '/login',
     asignSocio: '/user/asign',
     removeSocio: '/user/remove',

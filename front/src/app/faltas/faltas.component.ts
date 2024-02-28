@@ -13,14 +13,14 @@ import { Faltas } from '../interfaces/faltas';
 import { User } from '../interfaces/user';
 import { Clase } from '../interfaces/clase';
 import { FaltasService } from '../services/faltas.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { UsuarioClaseFaltas } from '../interfaces/usuarioClaseFaltas';
 
 @Component({
   selector: 'app-faltas',
   standalone: true,
-  imports: [TableModule, FormsModule, AlertComponent, ButtonModule, InputTextModule],
+  imports: [TableModule, FormsModule, AlertComponent, ButtonModule, InputTextModule, RouterLink],
   templateUrl: './faltas.component.html',
   styleUrl: './faltas.component.css'
 })
@@ -49,7 +49,6 @@ export class FaltasComponent implements OnInit {
   ngOnInit(): void {
     this.allClases();
     this.allUsers();
-    this.allFaltas();
   }
 
   allFaltas() {
@@ -86,7 +85,7 @@ export class FaltasComponent implements OnInit {
   
 
   allUsers() {
-    this.UserService.allUsers().subscribe({
+    this.UserService.allUsersFaltas().subscribe({
       next: (user: any | undefined) => {
         console.log(user)
         if (user.status >= 400) {
@@ -96,6 +95,7 @@ export class FaltasComponent implements OnInit {
             'No se han podido cargar a los usuarios. Póngase en contacto con un adminsitrador.';
         } else {
           this.arrUsers = user
+          this.allFaltas()
         }
       },
       error: (err) => {

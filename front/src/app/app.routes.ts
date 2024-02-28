@@ -1,3 +1,4 @@
+import { CrearFaltasComponent } from './faltas/crear-faltas/crear-faltas.component';
 import { Routes } from '@angular/router';
 import { LoginComponent } from './users/login/login.component';
 import { UsersComponent } from './users/admin/users.component';
@@ -42,6 +43,7 @@ export const routes: Routes = [
   {path: 'consultar-entrenamiento/:id', component: ConsultarEntrenamientoComponent},
   {path: 'crear-entrenamiento', component: CrearEntrenamientoComponent},
   {path: 'faltas', component: FaltasComponent},
+  {path: 'faltas/crear', component: CrearFaltasComponent},
   {path: 'listaEventos', component: ListaEventosComponent },
   {path: 'gestionEventos', component: GestionEventosComponent },
   {path: 'gestionCategorias', component: GestionCategoriasComponent},
