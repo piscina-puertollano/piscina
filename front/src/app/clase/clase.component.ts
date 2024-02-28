@@ -11,11 +11,13 @@ import { FormsModule } from '@angular/forms';
 import { Clase } from '../interfaces/clase';
 import { AlertComponent } from '../utils/alert/alert.component';
 import { InputTextModule } from 'primeng/inputtext';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { DialogModule } from 'primeng/dialog';
 import moment from 'moment';
 @Component({
   selector: 'app-clase',
   standalone: true,
-  imports: [TableModule, FormsModule, AlertComponent, ButtonModule, InputTextModule, RouterLink],
+  imports: [TableModule, FormsModule, AlertComponent, ButtonModule, InputTextModule, DialogModule, RouterLink, InputTextareaModule],
   templateUrl: './clase.component.html',
   styleUrls: ['./clase.component.css'],
 })
@@ -26,15 +28,15 @@ export class ClaseComponent implements OnInit {
   searchValue: string = '';
   whatSearch: string = '';
   selectedClase: Clase = { id: 0, id_categoria: 0, nombre: '', hora_inicio: '', hora_fin: '' };
+  displayDialog: boolean = false; // Declaración de la propiedad
  
-
   constructor(private service: ClaseService, private router: Router) {
-    this.clase = {};
-    this.alert = new Alert();
+     this.clase = {};
+     this.alert = new Alert();
   }
-
+ 
   ngOnInit(): void {
-    this.allClases();
+     this.allClases();
   }
   
   allClases() {
@@ -64,9 +66,10 @@ export class ClaseComponent implements OnInit {
   
 
   edit(clase: Clase) {
-    this.clase = clase
-    console.log(clase)
-  }
+    this.clase = clase;
+    this.displayDialog = true;
+    console.log(clase);
+ }
 
   deleteClase(id: any) {
     this.alert.show = false;

@@ -54,7 +54,6 @@ export class FaltasComponent implements OnInit {
   allFaltas() {
     this.service.allFaltas().subscribe({
       next: (faltas: any | undefined) => {
-        console.log(faltas);
         if (faltas.status >=   400) {
           this.alert.show = true;
           this.alert.header = 'Error';
@@ -87,7 +86,6 @@ export class FaltasComponent implements OnInit {
   allUsers() {
     this.UserService.allUsersFaltas().subscribe({
       next: (user: any | undefined) => {
-        console.log(user)
         if (user.status >= 400) {
           this.alert.show = true;
           this.alert.header = 'Error';
@@ -107,7 +105,6 @@ export class FaltasComponent implements OnInit {
   allClases() {
     this.ClaseService.allClases().subscribe({
       next: (clase: any | undefined) => {
-        console.log(clase)
         if (clase.status >= 400) {
           this.alert.show = true;
           this.alert.header = 'Error';
