@@ -41,18 +41,7 @@ app-modal {
   border-radius: 20%;
 }
 
-#addUser {
-  margin-bottom: 25px;
-}
 
 #btnMargin{
     margin-bottom: 10px;
-}
-
-#imageProfile{
-  max-height: 300px;
-  border-radius: 50%;
-  object-fit: cover;
-  aspect-ratio: 1;
-  box-shadow: 7px 9px 25px -16px rgba(0,0,0,1);
 }

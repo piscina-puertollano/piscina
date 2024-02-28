@@ -14,10 +14,14 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { DialogModule } from 'primeng/dialog';
 import moment from 'moment';
+import { ToastModule } from 'primeng/toast';
+import { Categoria } from '../interfaces/categoria';
+import { CategoriaService } from '../services/categoria.service';
+import { DropdownModule } from 'primeng/dropdown';
 @Component({
   selector: 'app-clase',
   standalone: true,
-  imports: [TableModule, FormsModule, AlertComponent, ButtonModule, InputTextModule, DialogModule, RouterLink, InputTextareaModule],
+  imports: [TableModule, FormsModule, AlertComponent, ToastModule, DropdownModule, ButtonModule, InputTextModule, DialogModule, RouterLink, InputTextareaModule],
   templateUrl: './clase.component.html',
   styleUrls: ['./clase.component.css'],
 })
@@ -28,17 +32,99 @@ export class ClaseComponent implements OnInit {
   searchValue: string = '';
   whatSearch: string = '';
   selectedClase: Clase = { id: 0, id_categoria: 0, nombre: '', hora_inicio: '', hora_fin: '' };
-  displayDialog: boolean = false; // Declaración de la propiedad
+  displayDialog: boolean = false;
+  displayDialogCrear: boolean = false;
+  claseCrear: Clase = { id: 0, id_categoria: 0, nombre: '', hora_inicio: '', hora_fin: '', descripcion: '' };
  
-  constructor(private service: ClaseService, private router: Router) {
+  categoriaSelecionada: Categoria = new Categoria();
+  dia: any;
+  horaInicio: string = ''
+  horaFin: string = ''
+  descripcion: string = ''
+
+  diasSemana = [
+    { label: 'Lunes', value: 'Lunes' },
+    { label: 'Martes', value: 'Martes' },
+    { label: 'Miércoles', value: 'Miercoles' },
+    { label: 'Jueves', value: 'Jueves' },
+    { label: 'Viernes', value: 'Viernes' },
+  ];
+  arrCategorias: Array<Categoria> = [];
+  selectedCategoria: Categoria = new Categoria();
+  
+ 
+  abrirModalCrear() {
+     this.displayDialogCrear = true;
+  }
+ 
+  crearClase() {
+     this.displayDialogCrear = false;
+  }
+  constructor(private service: ClaseService, private CategoriaService: CategoriaService, private router: Router) {
      this.clase = {};
+     this.horaFin = ''
+     this.horaInicio = ''
+     this.allCategorias();
+     
      this.alert = new Alert();
   }
  
   ngOnInit(): void {
      this.allClases();
   }
+
+  allCategorias() {
+    this.CategoriaService.getCategorias().subscribe({
+      next: (categoria: any | undefined) => {
+        console.log(categoria);
+        if (categoria.status >= 400) {
+          this.alert.show = true;
+          this.alert.header = 'Error';
+          this.alert.message =
+            'No se han podido cargar la informacion. Póngase en contacto con un administrador.';
+        } else {
+          this.arrCategorias = categoria;
+        }
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }   
+
+  agregarClase() {
+    console.log(this.horaInicio)
+    let nuevaClase = {
+      id_categoria: this.categoriaSelecionada.id,
+      nombre: this.dia.value,
+      hora_inicio: this.horaInicio,
+      hora_fin: this.horaFin,
+      descripcion: this.descripcion
+    };
   
+    this.service.agregarClase(nuevaClase).subscribe({
+      next: (resultado: any) => {
+        console.log(resultado);
+        if (resultado.status >=  400) {
+          this.alert.show = true;
+          this.alert.header = 'Error';
+          this.alert.message =
+            'No se ha podido insertar la nueva categoría. Póngase en contacto con un administrador.';
+        } else {
+          this.allCategorias();
+          location.reload();
+        }
+      },
+      error: (err) => {
+        console.log(err);
+        this.alert.show = true;
+        this.alert.header = 'Error';
+        this.alert.message =
+          'Ha ocurrido un error al intentar insertar la nueva categoría. Por favor, intente de nuevo más tarde.';
+      },
+    });
+  }  
+
   allClases() {
     this.service.allClases().subscribe({
       next: (clase: any | undefined) => {
