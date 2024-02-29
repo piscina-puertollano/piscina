@@ -1,5 +1,5 @@
 /**
- * author: Marina Laguna
+ * @author: Marina Laguna
  */
 require('dotenv').config()
 const { Sequelize } = require('sequelize');
