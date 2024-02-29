@@ -24,6 +24,10 @@ module.exports = {
           model: 'clase',
           key: 'id'
         }
+      },
+      fecha: {
+        allowNull: false,
+        type: Sequelize.DATE,
       }
     });
   },

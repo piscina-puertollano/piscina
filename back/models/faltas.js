@@ -46,8 +46,12 @@ module.exports = (sequelize, DataTypes) => {
         model: 'clase',  
         key: 'idclase'
       }
+    },
+    fecha: {
+      allowNull: false,
+      type: DataTypes.DATE,
     }
-    // No se necesitan campos 'createdAt' y 'updatedAt' ya que Sequelize los busca por defecto
+    
   }, {
     sequelize,
     modelName: 'faltas',

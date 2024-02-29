@@ -7,4 +7,5 @@ export class UsuarioClaseFaltas {
     nombre_usuario?:string
     id_clase?:number
     nombre_clase?:string
+    fecha?:string
 }
