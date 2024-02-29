@@ -1,20 +1,23 @@
 /**
- * author: Marina Laguna
+ * @author: Marina Laguna
  */
-import { Component } from '@angular/core';
-import { EntrenamientoService } from '../services/entrenamiento.service';
-import { Entrenamiento } from '../interfaces/entrenamiento';
-import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { Ejercicios } from '../interfaces/ejercicios';
 import { CommonModule } from '@angular/common';
-import { EjerciciosService } from '../services/ejercicios.service';
-import { TiposEjercicios } from '../interfaces/tipos-ejercicios';
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ToastModule } from 'primeng/toast';
+import { Ejercicios } from '../../interfaces/ejercicios';
+import { Entrenamiento } from '../../interfaces/entrenamiento';
+import { TiposEjercicios } from '../../interfaces/tipos-ejercicios';
+import { EjerciciosService } from '../../services/ejercicios.service';
+import { EntrenamientoService } from '../../services/entrenamiento.service';
 
 @Component({
   selector: 'app-crear-entrenamiento',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [
+    FormsModule, CommonModule, ToastModule
+  ],
   templateUrl: './crear-entrenamiento.component.html',
   styleUrls: ['./crear-entrenamiento.component.css']
 })
@@ -24,8 +27,6 @@ export class CrearEntrenamientoComponent {
   nuevoEjercicio: Ejercicios = { descripcion: '', idTipo:  0 };
 
   constructor(private entrenamientoService: EntrenamientoService,private ejerciciosService: EjerciciosService, private router: Router) {
-    this.entrenamiento = { nombre: '', descripcion: '', ejercicios: [] };
-    this.cargarTiposEjercicio();
   }
 
   insertEntrenamiento() {

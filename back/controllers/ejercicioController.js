@@ -1,5 +1,5 @@
 /**
- * author: Marina Laguna
+ * @author: Marina Laguna
  */
 const {response,request} = require('express');
 const Conexion = require('../database/ejercicioConnection')

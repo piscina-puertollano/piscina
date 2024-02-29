@@ -5,8 +5,8 @@
 <p>Descripción: {{ entrenamiento.descripcion }}</p>
 
 <h3>Ejercicios del Entrenamiento</h3>
-<div *ngFor="let ejercicio of entrenamiento.EjercicioEntrenamientos">
+@for (ejercicio of entrenamiento.EjercicioEntrenamientos; track ejercicio){
   <h4>Ejercicio {{ ejercicio.idEjercicio }}</h4>
  <!-- <p>Tipo: {{ ejercicio.Ejercicio?.Tipo?.nombre }}</p> -->
   <p>Descripción: {{ ejercicio.Ejercicio.descripcion }}</p>
-</div>
+}
