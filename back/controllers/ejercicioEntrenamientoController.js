@@ -11,7 +11,6 @@ const entrenamientosGet = (req, res = response) => {
     }).catch( err => {
         res.status(203).json({ message: 'Error al obtener todos los entrenamientos.', error: err });
     })
-
 }
 
 const entrenamientoGetId = (req, res = response) => {
