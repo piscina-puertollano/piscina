@@ -1,13 +1,15 @@
-import { Component } from '@angular/core';
-import { AlertComponent } from '../../utils/alert/alert.component';
-import { FormsModule } from '@angular/forms';
-import { Entrenamiento } from '../../interfaces/entrenamiento';
-import { Alert } from '../../interfaces/alert';
-import { EntrenamientoService } from '../../services/entrenamiento.service';
-import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Ejercicios } from '../../interfaces/ejercicios';
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Alert } from '../../interfaces/alert';
+import { Entrenamiento } from '../../interfaces/entrenamiento';
+import { EntrenamientoService } from '../../services/entrenamiento.service';
+import { AlertComponent } from '../../utils/alert/alert.component';
 
+/**
+ * @author Marina Laguna
+ */
 @Component({
   selector: 'app-consultar-entrenamiento',
   standalone: true,

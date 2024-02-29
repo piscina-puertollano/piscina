@@ -5,6 +5,9 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ToastModule } from 'primeng/toast';
 import { CrearEntrenamientoComponent } from '../crear-entrenamiento/crear-entrenamiento.component';
 
+/**
+ * @author Marina Laguna
+ */
 @Component({
   selector: 'app-modal-crear-entre',
   standalone: true,

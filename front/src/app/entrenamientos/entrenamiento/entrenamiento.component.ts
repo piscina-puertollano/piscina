@@ -4,21 +4,23 @@
 import { Component } from '@angular/core';
 import { EntrenamientoService } from '../../services/entrenamiento.service';
 import { Entrenamiento } from '../../interfaces/entrenamiento';
-import { Router, provideRouter } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Alert } from '../../interfaces/alert';
 import { AlertComponent } from '../../utils/alert/alert.component';
 import { TooltipModule } from 'primeng/tooltip';
 import { ToolbarModule } from 'primeng/toolbar';
 import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
-import { CommonModule, CurrencyPipe, DatePipe } from '@angular/common';
+import { CurrencyPipe, DatePipe } from '@angular/common';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { FormsModule } from '@angular/forms';
-import { ModalComponent } from '../../utils/modal/modal.component';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogComponent } from '../../utils/dialog/dialog.component';
 import { ModalCrearEntreComponent } from '../modal-crear-entre/modal-crear-entre.component';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { ModificarEntrenamientoComponent } from '../modificar-entrenamiento/modificar-entrenamiento.component';
+import { DialogModule } from 'primeng/dialog';
 
 @Component({
   selector: 'app-entrenamiento',
@@ -26,10 +28,12 @@ import { ModalCrearEntreComponent } from '../modal-crear-entre/modal-crear-entre
   imports: [
     AlertComponent, TooltipModule, ToolbarModule, InputTextModule, 
     TableModule, DatePipe, CurrencyPipe, ProgressBarModule, FormsModule, 
-    ModalCrearEntreComponent, ToastModule, ConfirmDialogModule, DialogComponent
+    ModalCrearEntreComponent, ToastModule, ConfirmDialogModule, DialogComponent,
+    DialogModule, ModificarEntrenamientoComponent
   ],
   templateUrl: './entrenamiento.component.html',
-  styleUrl: './entrenamiento.component.css'
+  styleUrl: './entrenamiento.component.css',
+  providers: [DialogService]
 })
 
 export class EntrenamientoComponent {
@@ -37,9 +41,12 @@ export class EntrenamientoComponent {
   alert: Alert;
   arrEntrenamientos: Array<Entrenamiento> = [];
   selectEntrenamientos!: Array<Entrenamiento>;
-  searchValue: string = ''
+  searchValue: string = '';
+  test?: Entrenamiento;
 
-  constructor(private entrenamientoService: EntrenamientoService, private router: Router){
+  ref: DynamicDialogRef | undefined;
+
+  constructor(private entrenamientoService: EntrenamientoService, private router: Router, private route: ActivatedRoute, public dialogService: DialogService){
     this.entrenamiento = {};
     this.alert = new Alert();
   }
@@ -47,6 +54,35 @@ export class EntrenamientoComponent {
   ngOnInit(): void {
     this.listarEntrenamientos()
   }
+
+  openDialog(id?: number) {
+    if (typeof id === 'number') {
+       this.entrenamientoService.getEntrenamientoId({ id: id }).subscribe({
+         next: (entrenamiento: any | undefined) => {
+           if (entrenamiento && entrenamiento.id) {
+             this.ref = this.dialogService.open(ModificarEntrenamientoComponent, {
+               header: 'Editar Entrenamiento',
+               modal: true,
+               breakpoints: {
+                 '960px': '75vw',
+                 '640px': '90vw'
+               },
+               data: {
+                 entrenamiento: entrenamiento
+               }
+             });
+           } else {
+             console.error('No se pudo obtener el entrenamiento con el ID proporcionado o el entrenamiento no tiene un ID definido.');
+           }
+         },
+         error: (err) => {
+           console.log(err);
+         }
+       });
+    } else {
+       console.error('El ID del entrenamiento no se pasó como parámetro.');
+    }
+   }
 
   listarEntrenamientos() {
     this.entrenamientoService.getEntrenamientos().subscribe({
@@ -79,18 +115,6 @@ export class EntrenamientoComponent {
         console.error('Error al eliminar el entrenamiento:', err);
       }
     });
-  }
-
-  navModificarEntre(id?: number): void {
-    if (typeof id === 'number'){
-      this.router.navigate(['/modificar-entrenamiento', id]);
-    } else {
-      console.error('Id no válido: ', id)
-    }
-  }
-
-  navCrearEntre(){
-    this.router.navigate(['crear-entrenamiento']);
   }
 
   consultarEntre(id?: number): void{

@@ -1,78 +1,76 @@
-/**
- * author: Marina Laguna
- */
-import { Component } from '@angular/core';
-import { Entrenamiento } from '../../interfaces/entrenamiento';
-import { Alert } from '../../interfaces/alert';
-import { EntrenamientoService } from '../../services/entrenamiento.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AlertComponent } from '../../utils/alert/alert.component';
-import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { EjerciciosService } from '../../services/ejercicios.service';
-import { Ejercicios } from '../../interfaces/ejercicios';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Alert } from '../../interfaces/alert';
+import { Entrenamiento } from '../../interfaces/entrenamiento';
 import { TiposEjercicios } from '../../interfaces/tipos-ejercicios';
+import { EjerciciosService } from '../../services/ejercicios.service';
+import { EntrenamientoService } from '../../services/entrenamiento.service';
+import { AlertComponent } from '../../utils/alert/alert.component';
 
 @Component({
-  selector: 'app-modificar-entrenamiento',
-  standalone: true,
-  imports: [AlertComponent, FormsModule, CommonModule],
-  templateUrl: './modificar-entrenamiento.component.html',
-  styleUrl: './modificar-entrenamiento.component.css'
+ selector: 'app-modificar-entrenamiento',
+ standalone: true,
+ imports: [AlertComponent, FormsModule, CommonModule],
+ templateUrl: './modificar-entrenamiento.component.html',
+ styleUrls: ['./modificar-entrenamiento.component.css']
 })
-export class ModificarEntrenamientoComponent {
-  entrenamiento: Entrenamiento;
-  alert: Alert;
-  arrEntrenamientos: Array<Entrenamiento> = [];
-  tiposEjercicios: TiposEjercicios[] = [];
+export class ModificarEntrenamientoComponent implements OnInit {
+ alert: Alert;
+ arrEntrenamientos: Array<Entrenamiento> = [];
+ tiposEjercicios: TiposEjercicios[] = [];
+ @Input() entrenamiento: Entrenamiento;
 
-  constructor(private entrenamientoService: EntrenamientoService, private ejerciciosService: EjerciciosService,private router: Router, private route: ActivatedRoute){
-    this.entrenamiento = {};
+ constructor(private entrenamientoService: EntrenamientoService, private ejerciciosService: EjerciciosService, private router: Router, private route: ActivatedRoute) {
     this.alert = new Alert();
-  }
+    this.entrenamiento = {};
+ }
 
-  ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      const entrenamientoId = params['id']; 
-      this.entrenamiento.id = entrenamientoId;
+ ngOnInit(): void {
+    console.log('Datos del entrenamiento', this.entrenamiento);
+    console.log(this.entrenamiento.id);
+    if (this.entrenamiento && this.entrenamiento.id) {
       this.getEntrenamiento();
-    });
+    } else {
+      console.error('El entrenamiento o su ID no se proporcionó correctamente.');
+    }
 
     this.ejerciciosService.getTiposEjercicios().subscribe(tipos => {
       console.log('Tipos de ejercicios:', tipos);
       if (Array.isArray(tipos)) {
-        // Extraer la propiedad `Tipo` de cada `Ejercicio`, excluir `undefined`, y asegurarse de que el resultado sea tratado como `TiposEjercicios[]`
         this.tiposEjercicios = tipos.map(ejercicio => ejercicio.Tipo).filter(tipo => tipo !== undefined) as TiposEjercicios[];
       } else {
         console.error('Los tipos de ejercicios recibidos no son un array:', tipos);
-        this.tiposEjercicios = []; // Inicializar como un array vacío si `tipos` es undefined
+        this.tiposEjercicios = [];
       }
     });
-  }
+ }
 
-  updateEntrenamiento(){
+ updateEntrenamiento() {
     this.entrenamientoService.updateEntrenamientos(this.entrenamiento).subscribe({
       next: (entrenamiento: any | undefined) => {
         this.entrenamiento = entrenamiento;
         this.router.navigate(['/entrenamientos']);
       },
       error: (err) => {
-        console.log(err)
+        console.log(err);
       }
-    })
-  }
+    });
+ }
 
-  getEntrenamiento() {
+ getEntrenamiento() {
     this.entrenamientoService.getEntrenamientoId({ id: this.entrenamiento.id }).subscribe({
       next: (response: any) => {
-        console.log('Datos del entrenamiento:', response)
+        console.log(this.entrenamiento.id);
+        console.log('Datos del entrenamiento:', response);
         if (response && !Array.isArray(response)) {
-          this.entrenamiento = response; 
+          this.entrenamiento = response;
         } else {
           this.alert.show = true;
           this.alert.header = 'Error';
           this.alert.message = 'Entrenamiento no encontrado';
-          this.entrenamiento = {}; 
+          this.entrenamiento = {};
         }
       },
       error: (err) => {
@@ -82,10 +80,10 @@ export class ModificarEntrenamientoComponent {
         this.alert.message = 'Ha ocurrido un error al intentar obtener el entrenamiento';
       }
     });
-  }
+ }
 
-  getNombreTipoEjercicio(idTipo: number): string {
-  const tipo = this.tiposEjercicios.find(tipo => tipo.id === idTipo);
-  return tipo && tipo.hasOwnProperty('nombre') ? tipo.nombre : '';
-}
+ getNombreTipoEjercicio(idTipo: number): string {
+    const tipo = this.tiposEjercicios.find(tipo => tipo.id === idTipo);
+    return tipo && tipo.hasOwnProperty('nombre') ? tipo.nombre : '';
+ }
 }

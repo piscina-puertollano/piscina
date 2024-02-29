@@ -51,8 +51,7 @@
                 <td>{{ entrenamiento.descripcion}}</td>
                 <td>
                     <button pButton pRipple icon="pi pi-info" (click)="consultarEntre(entrenamiento.id)"></button>
-                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="navModificarEntre(entrenamiento.id)"></button> 
-                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteEntrenamiento(entrenamiento)"></button>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="openDialog(entrenamiento.id)"></button>                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteEntrenamiento(entrenamiento)"></button>
                 </td>
             </tr>
         }

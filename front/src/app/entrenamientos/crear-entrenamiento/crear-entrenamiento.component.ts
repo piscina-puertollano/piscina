@@ -1,17 +1,16 @@
 /**
  * @author: Marina Laguna
  */
-import { Component } from '@angular/core';
-import { EntrenamientoService } from '../../services/entrenamiento.service';
-import { Entrenamiento } from '../../interfaces/entrenamiento';
-import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { Ejercicios } from '../../interfaces/ejercicios';
 import { CommonModule } from '@angular/common';
-import { EjerciciosService } from '../../services/ejercicios.service';
-import { TiposEjercicios } from '../../interfaces/tipos-ejercicios';
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastModule } from 'primeng/toast';
-import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { Ejercicios } from '../../interfaces/ejercicios';
+import { Entrenamiento } from '../../interfaces/entrenamiento';
+import { TiposEjercicios } from '../../interfaces/tipos-ejercicios';
+import { EjerciciosService } from '../../services/ejercicios.service';
+import { EntrenamientoService } from '../../services/entrenamiento.service';
 
 @Component({
   selector: 'app-crear-entrenamiento',
