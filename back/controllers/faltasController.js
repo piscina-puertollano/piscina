@@ -1,3 +1,4 @@
+/* Manuel Garcia */
 const express = require('express');
 const FaltasConnection= require('../database/faltasConnection');
 const faltasConnection= new FaltasConnection();

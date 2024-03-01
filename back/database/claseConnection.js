@@ -1,3 +1,4 @@
+/* Manuel Garcia */
 require('dotenv').config();
 const { Sequelize, Model } = require('sequelize');
 const models = require('../models/index.js')

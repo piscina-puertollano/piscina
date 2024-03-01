@@ -1,3 +1,4 @@
+//Manuel Garcia
 const express = require("express");
 const ClaseHasUsuarioConnection = require("../database/claseHasUsuarioConnection");
 const claseHasUsuarioConnection = new ClaseHasUsuarioConnection();

@@ -18,6 +18,7 @@ import { UserService } from '../services/user.service';
 import { UsuarioClaseFaltas } from '../interfaces/usuarioClaseFaltas';
 import moment from 'moment';
 import { DialogModule } from 'primeng/dialog';
+import {DropdownModule} from 'primeng/dropdown';
 
 @Component({
   selector: 'app-faltas',
@@ -28,6 +29,7 @@ import { DialogModule } from 'primeng/dialog';
     AlertComponent,
     ButtonModule,
     InputTextModule,
+    DropdownModule,
     RouterLink,
     DialogModule,
   ],
@@ -55,10 +57,20 @@ export class FaltasComponent implements OnInit {
 
   displayAddModal: boolean = false;
   newFaltas = {
-    nombre_usuario: '',
+    nombre_dia: '',
     nombre_clase: '',
     fecha: '',
   };
+
+  listaClases:any
+
+  diasSemana = [
+    { label: 'Lunes', value: 'Lunes' },
+    { label: 'Martes', value: 'Martes' },
+    { label: 'Miércoles', value: 'Miercoles' },
+    { label: 'Jueves', value: 'Jueves' },
+    { label: 'Viernes', value: 'Viernes' },
+  ];
 
   constructor(
     private service: FaltasService,
@@ -159,21 +171,32 @@ export class FaltasComponent implements OnInit {
 
   allClases() {
     this.ClaseService.allClases().subscribe({
-      next: (clase: any | undefined) => {
-        if (clase.status >= 400) {
-          this.alert.show = true;
-          this.alert.header = 'Error';
-          this.alert.message =
-            'No se han podido cargar a los usuarios. Póngase en contacto con un adminsitrador.';
-        } else {
-          this.arrClase = clase;
-        }
-      },
-      error: (err) => {
-        console.log(err);
-      },
+       next: (clase: any | undefined) => {
+         if (clase.status >= 400) {
+           this.alert.show = true;
+           this.alert.header = 'Error';
+           this.alert.message = 'No se han podido cargar a los usuarios. Póngase en contacto con un adminsitrador.';
+         } else {
+           this.arrClase = clase;
+           this.listaClases = [];
+           for (let i = 0; i < this.arrClase.length; i++) {
+            const horaInicio: moment.Moment = moment(this.arrClase[i].hora_inicio, "HH:mm:ss");
+            let claseSeleccionada = {
+               label: horaInicio.format("HH:mm"),
+               value: this.arrClase[i].id
+             };
+             // Agregar el nuevo objeto a listaClases usando push()
+             this.listaClases.push(claseSeleccionada);
+           }
+         }
+       },
+       error: (err) => {
+         console.log(err);
+       },
     });
-  }
+   }
+   
+   
 
   edit(faltas: Faltas) {
     this.faltas = faltas;

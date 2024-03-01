@@ -91,29 +91,25 @@
     >
       <p-header>Añadir Nueva Falta</p-header>
       <div class="form-group">
-        <label for="newFaltasUsuario">Alumno</label>
-        <select
-          [(ngModel)]="newFaltas.nombre_usuario"
-          name="newFaltasUsuario"
-          id="newFaltasUsuario"
-        >
-          <!-- Opciones del select de alumno aquí -->
-        </select>
-        <label for="newFaltasClase">Clase</label>
-        <select
+        <label for="newFaltasUsuario">Hora de la clase</label>
+        <br />
+        <p-dropdown
           [(ngModel)]="newFaltas.nombre_clase"
-          name="newFaltasClase"
-          id="newFaltasClase"
+          name="listaClases"
+          id="listaClases"
+          [options]="listaClases"
         >
-          <!-- Opciones del select de clase aquí -->
-        </select>
-        <label for="newFaltasFecha">Fecha</label>
-        <input
-          type="date"
-          [(ngModel)]="newFaltas.fecha"
-          name="newFaltasFecha"
-          id="newFaltasFecha"
-        />
+        </p-dropdown>
+        <br />
+        <label for="listaClase">Dia de la clase</label>
+        <br />
+        <p-dropdown
+          [(ngModel)]="newFaltas.nombre_dia"
+          name="listaClase"
+          id="listaClase"
+          [options]="diasSemana"
+        >
+        </p-dropdown>
       </div>
       <p-footer>
         <button
