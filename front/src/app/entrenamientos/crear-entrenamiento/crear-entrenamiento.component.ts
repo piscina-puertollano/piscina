@@ -23,6 +23,7 @@ import { EntrenamientoService } from '../../services/entrenamiento.service';
 })
 export class CrearEntrenamientoComponent {
   entrenamiento: Entrenamiento = { nombre: '', descripcion: '', ejercicios: [] };
+  tipo: TiposEjercicios = {id: 0, nombre: '', descripcion:''}
   tiposEjercicios: TiposEjercicios[] = [];
   nuevoEjercicio: Ejercicios = { descripcion: '', idTipo:  0 };
 
@@ -31,7 +32,7 @@ export class CrearEntrenamientoComponent {
 
   insertEntrenamiento() {
     this.entrenamientoService.insertEntrenamiento(this.entrenamiento).subscribe({
-      next: (newEntrenamiento: Entrenamiento) => {
+      next: (nuevoEntrenamiento: Entrenamiento) => {
         this.router.navigate(['/entrenamientos']);
       },
       error: (err) => {
@@ -53,6 +54,6 @@ export class CrearEntrenamientoComponent {
       this.entrenamiento.ejercicios = [];
     }
     this.entrenamiento.ejercicios.push(this.nuevoEjercicio);
-    this.nuevoEjercicio = { descripcion: '', idTipo:  0 }; // Resetear el nuevo ejercicio
+    this.nuevoEjercicio = { descripcion: '', idTipo:  0 };
   }
 }

@@ -145,8 +145,13 @@ class ejercicioEntrenamientoConnection {
     deleteEntrenamiento = async (id) => {
         try {
             const entrenamiento = await models.Entrenamiento.findByPk(id, {
-                include: models.EjercicioEntrenamiento,
+                include: [{
+                    model: models.EjercicioEntrenamiento,
+                    include: models.Ejercicio
+                }],
             });
+
+            console.log(entrenamiento)
     
             if (!entrenamiento) {
                 console.log('Entrenamiento no encontrado.');

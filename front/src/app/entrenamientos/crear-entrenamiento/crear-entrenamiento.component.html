@@ -7,16 +7,18 @@
 
     <h4>Ejercicios del Entrenamiento</h4>
 
-    <div *ngFor="let ejercicio of entrenamiento.ejercicios; let i = index">
-        <label for="ejercicioDescripcion{{i}}">Descripción del ejercicio {{ i +   1 }}</label>
-        <input [(ngModel)]="ejercicio.descripcion" name="ejercicioDescripcion{{i}}" type="text" required>
-        <label for="ejercicioIdTipo{{i}}">Tipo de ejercicio {{ i +   1 }}</label>
-        <select [(ngModel)]="ejercicio.idTipo" name="ejercicioIdTipo{{i}}" required>
-            <option *ngFor="let tipo of tiposEjercicios" [value]="tipo.id">{{ tipo.nombre }}</option>
-        </select>
-    </div>
-
+    @for (ejercicio of entrenamiento.ejercicios; track $index) {
+        <div>
+            <label>Descripción del ejercicio {{ $index + 1 }}</label>
+            <input [(ngModel)]="ejercicio.descripcion" name="ejercicioDescripcion{{$index}}" type="text" required>
+            <label>Tipo de ejercicio {{ $index + 1 }}</label>
+            <select [(ngModel)]="ejercicio.idTipo" name="ejercicioIdTipo{{$index}}" required>
+                @for (tipo of tiposEjercicios; track $index) {}
+                <option [value]="tipo.id">{{tipo.nombre }}</option>
+            </select>
+        </div>
+    }
+    
     <button (click)="agregarEjercicio()">Añadir Ejercicio</button>
-
     <button (click)="insertEntrenamiento()">Crear Entrenamiento</button>
 </section>

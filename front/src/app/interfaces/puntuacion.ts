@@ -3,6 +3,6 @@
  */
 export interface Puntuacion {
     id?: number
-    nota: number
-    idEntrenamiento: number
+    nota?: number
+    idEntrenamiento?: number
 }
