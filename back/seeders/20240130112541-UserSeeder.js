@@ -72,7 +72,21 @@ module.exports = {
         password: await bcrypt.hash('1234', 10),
         createdAt: new Date(),
         updatedAt: new Date()
-      }
+      },
+      {
+        id:5,
+        firstName:'entrenador',
+        lastName: 'entrenador',
+        photo_profile: 4,
+        email: 'entrenador@piscina.com',
+        num_socio: null,
+        corriente_pago:1,
+        born_date: new Date('2000-01-01'),
+        domicilio: '403691.30310115 4282638.6555873',
+        password: await bcrypt.hash('1234', 10),
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
     ], {});
   },
   async down (queryInterface, Sequelize) {

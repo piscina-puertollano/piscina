@@ -68,21 +68,21 @@ class ejercicioEntrenamientoConnection {
         try {
             conexion.conectar();
     
-            const ejerciciosInsertados = [];
-    
-            for (const ejercicio of body.ejercicios) {
-                const nuevoEjercicio = await models.Ejercicio.create({
-                    descripcion: ejercicio.descripcion,
-                    idTipo: ejercicio.idTipo
-                });
-    
-                ejerciciosInsertados.push(nuevoEjercicio);
-            }
-    
             const nuevoEntrenamiento = await models.Entrenamiento.create({
                 nombre: body.nombre,
                 descripcion: body.descripcion
             });
+    
+            const ejerciciosInsertados = [];
+    
+            for (const ejercicio of body.ejercicios) {
+                const nuevoEjercicio = await models.Ejercicio.findOrCreate({
+                    where: { descripcion: ejercicio.descripcion, idTipo: ejercicio.idTipo },
+                    defaults: { descripcion: ejercicio.descripcion, idTipo: ejercicio.idTipo }
+                });
+    
+                ejerciciosInsertados.push(nuevoEjercicio[0]); // Guarda el ejercicio creado o encontrado
+            }
     
             const asociacionesEjercicios = ejerciciosInsertados.map(ejercicio => ({
                 idEntrenamiento: nuevoEntrenamiento.id,
@@ -91,14 +91,16 @@ class ejercicioEntrenamientoConnection {
     
             await models.EjercicioEntrenamiento.bulkCreate(asociacionesEjercicios);
     
+    
             resultado = 1;
             return resultado;
         } catch (error) {
-            return error;
+            console.error('Error durante la inserción:', error);
+            throw error;
         } finally {
             conexion.desconectar();
         }
-    };  
+    };
 
     updateEntrenamiento = async (id, body) => {
         try {

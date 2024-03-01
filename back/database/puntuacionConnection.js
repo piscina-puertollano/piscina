@@ -15,7 +15,7 @@ class puntuacionConnection{
         conexion.conectar;
         
         puntuaciones = await models.Puntuacion.findAll({
-            attributes: ['id', 'nota', 'entrenamiento_id']
+            attributes: ['id', 'nota', 'idEntrenamiento']
         });
         conexion.desconectar;
         return puntuaciones;

@@ -1,5 +1,5 @@
 /**
- * @author: Marina Laguna
+ * @author Marina Laguna
  */
 const {response,request} = require('express');
 const Conexion = require('../database/puntuacionConnection');
@@ -14,7 +14,6 @@ const puntuacionesGet = (req, res = response) => {
     }).catch( err => {
         res.status(203).json({ message: 'Error al obtener todas las puntuaciones.', error: err });
     })
-
 }
 
 const puntuacionGetId = (req, res = response) => {
@@ -36,20 +35,19 @@ const puntuacionInsert = async (req, res = response) => {
         }
 
         if (nota < 5) {
-            if (idEntrenamientoExistente(idEntrenamiento)) {
+            if (await idEntrenamientoExistente(idEntrenamiento)) {
                 const msg = await conexion.insertPuntuacion(req.body);
-                res.status(200).json({ message: msg, data: req.body });
                 await AsignacionController.asignarEntrenamiento(req, res);
+                return res.status(200).json({ message: 'Puntuacion creada correctamente con su asignacion.', data: req.body });
             } else {
-                res.status(203).json({ message: 'El idEntrenamiento no es válido' });
+                return res.status(203).json({ message: 'El idEntrenamiento no es válido' });
             }
         } else {
             const msg = await conexion.insertPuntuacion(req.body);
-            res.status(200).json({ message: msg, data: { nota, userId } });
+            return res.status(200).json({ message: 'Puntuacion creada correctamente.', data: { nota, userId, idEntrenamiento } });
         }
     } catch (error) {
         console.error(error);
-
         if (!res.headersSent) {
             return res.status(500).json({ error: 'Error en el servidor' });
         }
