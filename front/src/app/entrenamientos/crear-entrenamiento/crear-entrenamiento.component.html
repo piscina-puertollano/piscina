@@ -1,14 +1,15 @@
-<section id="crearEntrenamiento">   
-    <label for="nombre">Nombre del Entrenamiento</label>
-    <input [(ngModel)]="entrenamiento.nombre" name="nombre" type="text" required>
-    <br>
-    <label for="descripcion">Descripcion del Entrenamiento</label>
-    <textarea [(ngModel)]="entrenamiento.descripcion" name="descripcion" required></textarea>
-
+<section id="crearEntrenamiento">
+    <div class="input-container">
+        <label for="nombre">Nombre del Entrenamiento</label>
+        <input [(ngModel)]="entrenamiento.nombre" name="nombre" type="text" required>
+    </div>
+    <div class="input-container">
+        <label for="descripcion">Descripcion del Entrenamiento</label>
+        <textarea [(ngModel)]="entrenamiento.descripcion" name="descripcion" required></textarea>
+    </div>
     <h4>Ejercicios del Entrenamiento</h4>
-
     @for (ejercicio of entrenamiento.ejercicios; track $index) {
-        <div>
+        <div class="input-container">
             <label>Descripción del ejercicio {{ $index + 1 }}</label>
             <input [(ngModel)]="ejercicio.descripcion" name="ejercicioDescripcion{{$index}}" type="text" required>
             <label>Tipo de ejercicio {{ $index + 1 }}</label>

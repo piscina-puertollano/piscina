@@ -12,6 +12,7 @@
  -->                </ng-template>
             </p-toolbar>
         </div>
+        <br>
  
         <p-table
         id="table"
@@ -44,14 +45,15 @@
             </tr>
         </ng-template>
         
-        <ng-template pTemplate="body" let-user>
+        <ng-template pTemplate="body" let-entrenamiento>
             @for (entrenamiento of arrEntrenamientos; track entrenamiento.nombre){
             <tr>
                 <td>{{ entrenamiento.nombre }}</td>
                 <td>{{ entrenamiento.descripcion}}</td>
                 <td>
                     <button pButton pRipple icon="pi pi-info" (click)="consultarEntre(entrenamiento.id)"></button>
-                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="openDialog(entrenamiento.id)"></button>                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteEntrenamiento(entrenamiento)"></button>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="openDialog(entrenamiento.id)"></button>                    
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deleteEntrenamiento(entrenamiento)"></button>
                 </td>
             </tr>
         }

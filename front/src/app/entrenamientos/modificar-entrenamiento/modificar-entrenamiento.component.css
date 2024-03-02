@@ -1,5 +1,41 @@
-textarea[name="descripcion"] {
-    width:  80%; 
-    height: 60%;
-    resize: vertical; 
-}
+
+ form {
+   display: flex;
+   flex-direction: column;
+   margin-top: 3rem;
+ }
+
+ label {
+   margin-top: 1rem;
+   margin-bottom: 0.5rem;
+   display: block;
+   text-align: left;
+   width: 20%;
+   margin-right: 0.5rem;
+ }
+
+ input, textarea {
+   width: 70%;
+   padding: 0.5rem;
+   margin-bottom: 1rem;
+ }
+
+ button {
+   margin-top: 1rem;
+   padding: 0.5rem 1rem;
+   font-size: 1rem;
+   border: none;
+   border-radius: 0.25rem;
+   background-color: #1957e7;
+   color: white;
+   cursor: pointer;
+ }
+
+ button:hover {
+   background-color: #0b286e;
+ }
+
+ .error {
+   color: red;
+   font-size: 0.8rem;
+ }
