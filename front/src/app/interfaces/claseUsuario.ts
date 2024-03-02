@@ -2,6 +2,6 @@
  * author: Manuel Garcia
  */
 export class claseUsuario {
-    id?:number
-    nombre?:string
+    id_usuario?:number
+    id_clase?:number
 }
