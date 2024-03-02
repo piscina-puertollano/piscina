@@ -26,7 +26,7 @@ class puntuacionConnection{
                 include: [{
                     model: models.Users,
                     as: 'user', 
-                    attributes: ['id', 'firstName'] 
+                    attributes: ['id', 'firstName', 'lastname', 'photo_profile'] 
                 }]
             });
     
