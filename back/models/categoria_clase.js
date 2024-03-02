@@ -17,12 +17,11 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   categoria_clase.init({
-    firstName: DataTypes.INTEGER,
     nombre: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'categoria_clase',
-    tableName: 'categoria_clase'
+    tableName: 'categoria_clases'
   });
   return categoria_clase;
 };
