@@ -8,6 +8,13 @@ const AsignacionController = require('./asignarEntrenamientoController');
 const conexion = new Conexion();
 const conexionEntrenamiento = new ConexionEntrenamiento();
 
+const sociosGet = (req, res = response) => {
+    conexion.getSocios().then(msg => {
+        res.status(200).json(msg);
+    }).catch( err => {
+        res.status(203).json({ message: 'Error al obtener los usuarios que son socios.', error: err});
+    })
+}
 const puntuacionesGet = (req, res = response) => {
     conexion.getpuntuaciones().then( msg => {
         res.status(200).json(msg);
@@ -81,6 +88,7 @@ const puntuacionDelete = (req, res = response) => {
 };
 
 module.exports = {
+    sociosGet,
     puntuacionesGet,
     puntuacionGetId,
     puntuacionInsert,

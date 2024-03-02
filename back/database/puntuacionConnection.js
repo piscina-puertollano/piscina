@@ -10,6 +10,36 @@ const conexion = new Conexion()
 class puntuacionConnection{
     constructor() {}
 
+    getSocios = async () => {
+        try {
+            conexion.conectar();
+            const rolSocio = await models.Rol.findOne({
+                where: { name: 'socio' } 
+            });
+    
+            if (!rolSocio) {
+                throw new Error('No se encontró el rol de socio');
+            }
+    
+            const userRoles = await models.UserRol.findAll({
+                where: { id_rol: rolSocio.id },
+                include: [{
+                    model: models.Users,
+                    as: 'user', 
+                    attributes: ['id', 'firstName'] 
+                }]
+            });
+    
+           const socios = userRoles.map(userRole => userRole.user); 
+    
+            conexion.desconectar();
+            return socios;
+        } catch (error) {
+            console.error('Error al obtener los socios:', error);
+            throw error;
+        }
+    };
+
     getpuntuaciones = async() => {
         let puntuaciones = [];
         conexion.conectar;
