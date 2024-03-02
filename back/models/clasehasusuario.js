@@ -14,12 +14,18 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   ClaseHasUsuario.init({
-    id_usuario: DataTypes.INTEGER,
+    id_usuario: {
+       type: DataTypes.INTEGER,
+       allowNull: false,
+       primaryKey: true, // Indica que id_usuario es la clave primaria
+    },
     id_clase: DataTypes.INTEGER
-  }, {
+   }, {
     sequelize,
     modelName: 'clase_has_usuario',
-    tableName: 'clase_has_usuario'
-  });
+    tableName: 'clase_has_usuario',
+    timestamps: false
+   });
+   
   return ClaseHasUsuario;
 };
