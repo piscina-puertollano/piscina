@@ -23,21 +23,19 @@ export class ModalCrearEntreComponent {
   show() {
     this.ref = this.dialogService.open(CrearEntrenamientoComponent, {
       header: 'Nuevo entrenamiento',
-      width: '50w',
+      width: '65%',
       contentStyle: { overflow: 'auto' },
       breakpoints: {
-        '960px': '75w',
+        '90px': '90w',
         '640px': '90w',
       }
     });
 
     this.ref.onClose.subscribe((data: any) => {
-      console.log('se ha cerrado');
-      this.messageService.add({ severity: 'info', summary: 'Maximized', detail: 'maximized:'});
+      this.messageService.add({ severity: 'warn', summary: 'Advertencia', detail: 'No se ha creado el entrenamiento' });
     });
 
     this.ref.onMaximize.subscribe((value) => {
-      console.log('se ha maximizado');
       this.messageService.add({ severity: 'info', summary: 'Maximized', detail: `maximized: ${value.Maximized}`});
     });
   }

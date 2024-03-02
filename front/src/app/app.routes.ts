@@ -20,6 +20,7 @@ import { GestionEventosComponent } from './eventos/gestion-eventos/gestion-event
 import { GestionCategoriasComponent } from './eventos/gestion-categorias/gestion-categorias.component';
 import { EventoComponent } from './eventos/evento/evento.component';
 import { GestionarNoSociosComponent } from './eventos/gestionar-no-socios/gestionar-no-socios.component';
+import { PuntuacionComponent } from './puntuaciones/puntuacion/puntuacion.component';
 
 export const routes: Routes = [
   {path: '', component: ClubComponent },
@@ -33,8 +34,6 @@ export const routes: Routes = [
   {path: 'clases', component: ClaseComponent},
   {path: 'entrenamientos', component: EntrenamientoComponent},
   {path: 'edit', component: ClubEditComponent},
-  {path: 'modificar-entrenamiento/:id', component: ModificarEntrenamientoComponent},
-  {path: 'crear-entrenamiento', component: CrearEntrenamientoComponent},
   {path: 'consultar-entrenamiento/:id', component: ConsultarEntrenamientoComponent},
   {path: 'faltas', component: FaltasComponent},
   {path: 'listaEventos', component: ListaEventosComponent },
@@ -42,7 +41,7 @@ export const routes: Routes = [
   {path: 'gestionCategorias', component: GestionCategoriasComponent},
   {path: 'descEvento/:id', component: EventoComponent},
   {path: 'gestionNoSocios', component: GestionarNoSociosComponent},
-
+  {path: 'puntuaciones', component: PuntuacionComponent},
 
 
 ];

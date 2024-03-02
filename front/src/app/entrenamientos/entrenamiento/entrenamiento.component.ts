@@ -21,6 +21,7 @@ import { ModalCrearEntreComponent } from '../modal-crear-entre/modal-crear-entre
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ModificarEntrenamientoComponent } from '../modificar-entrenamiento/modificar-entrenamiento.component';
 import { DialogModule } from 'primeng/dialog';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-entrenamiento',
@@ -46,7 +47,7 @@ export class EntrenamientoComponent {
 
   ref: DynamicDialogRef | undefined;
 
-  constructor(private entrenamientoService: EntrenamientoService, private router: Router, private route: ActivatedRoute, public dialogService: DialogService){
+  constructor(private authService: AuthService, private entrenamientoService: EntrenamientoService, private router: Router, private route: ActivatedRoute, public dialogService: DialogService){
     this.entrenamiento = {};
     this.alert = new Alert();
   }
