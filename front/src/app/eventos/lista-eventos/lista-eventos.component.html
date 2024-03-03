@@ -2,18 +2,20 @@
 <h2>Lista de Eventos</h2>
 <div class="eventos-container">
   @for(evento of eventos; track evento.id){
-    <div class="card">
-        <div class="card-header">
-            <h3>{{ evento.nombre }}</h3>
-        </div>
-      <div class="card-body">
-        <p>Fecha: {{ evento.fecha }}</p>
-        <p>Sede: {{ evento.sede }}</p>
-        <p>Categoría: {{ evento.categoria }}</p>
-      </div>
-      <div>
-        <i width="25px" style="margin-right:15px" class="pi pi-info-circle" (click)="descEvento(evento.id)"></i>
-      </div>
-    </div>
+    <p-card header={{evento.nombre}} subheader="{{evento.categoria?.nombre}}" [style]="{ width: '360px' }">
+      <ng-template pTemplate="header">
+        @if(evento.privado){
+          <img alt="Card" src="../../../assets/listaEventos/foto4.png" />
+        }@else{
+          <img alt="Card" src="../../../assets/listaEventos/foto3.png" />
+        }
+      
+      </ng-template>
+        <p>Fecha:{{evento.fecha}}</p>
+        <p>Sede:{{evento.sede}}</p>
+      <ng-template pTemplate="footer">
+          <p-button label="Info" icon="pi pi-info-circle"  (click)="descEvento(evento.id)"></p-button>
+      </ng-template>
+  </p-card>
   }
 </div>

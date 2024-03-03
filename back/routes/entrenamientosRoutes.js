@@ -1,14 +1,11 @@
 /**
- * author: Marina Laguna
+ * @author Marina Laguna
  */
 const { Router } = require('express');
 const controlador = require('../controllers/entrenamientoController');
+const { checkToken, tokenCanTrainer } = require('../middlewares/abilities');
 const router = Router();
 
-router.get('/', controlador.entrenamientosGet);
-router.get('/:id', controlador.entrenamientoGetId);
-router.post('/crear-entrenamiento', controlador.entrenamientoInsert);
-router.put('/:id', controlador.entrenamientoUpdate);
-router.delete('/:id', controlador.entrenamientoDelete);
+router.get('/', [checkToken, tokenCanTrainer], controlador.entrenamientosGet);
 
 module.exports = router;

@@ -1,3 +1,6 @@
+/**
+ * author: Manuel Garcia
+ */
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, of } from 'rxjs';
@@ -12,7 +15,7 @@ export class ClaseService {
   private urAllClases : string = this.baseUrl+'/clases'
 
   agregarClase(nuevaClase: Clase): Observable<Clase> {
-    return this.http.post<Clase>(this.urAllClases, nuevaClase).pipe(
+    return this.http.post<Clase>(this.urAllClases, nuevaClase,{withCredentials: true} ).pipe(
       catchError(error => {
         console.error('Error al agregar la clase', error);
         return of(error);
@@ -21,7 +24,7 @@ export class ClaseService {
   }
 
   allClases(): Observable<Array<Clase> | undefined> {
-    return this.http.get<Clase>(this.urAllClases).pipe(
+    return this.http.get<Clase>(this.urAllClases, {withCredentials: true}).pipe(
       catchError((error) =>{
         return of(error)
       })
@@ -36,7 +39,7 @@ export class ClaseService {
   }
   updateClase(id: number, Clase: Clase): Observable<Clase | undefined> {
     const url = `${this.urAllClases}/${id}`;
-    return this.http.put<Clase>(url, Clase).pipe(
+    return this.http.put<Clase>(url, Clase, {withCredentials: true}).pipe(
       catchError((error) => {
         return of(error);
       })
@@ -45,7 +48,7 @@ export class ClaseService {
   
   deleteclase(claseId: string): Observable<Array<Clase> | undefined> {
     const apiUrl = `${this.urAllClases}/${claseId}`;
-    return this.http.delete<Clase>(apiUrl).pipe(
+    return this.http.delete<Clase>(apiUrl, {withCredentials: true}).pipe(
       catchError((error) =>{
         return of(error)
       })

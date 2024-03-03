@@ -47,4 +47,18 @@ export class FileService {
       })
     )
   }
+
+
+
+showPdf(pdf: File):Observable<Blob|undefined> {
+  console.log(this.url+'/'+pdf.id)
+  return this.http.post(this.url+'/'+pdf.id,{folder:pdf.where},{responseType: 'blob'}).pipe(
+    catchError((error) =>{
+      return of(error)
+    })
+  )
+}
+
+
+
 }

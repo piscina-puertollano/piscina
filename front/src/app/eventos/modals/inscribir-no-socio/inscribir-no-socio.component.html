@@ -1,30 +1,42 @@
 <!--// Gonzalo Martinez Haro-->
-@if(!visible){
-    <h4>¿Eres Socio?</h4>
-    <div class="buttons-container">
-        <button (click)="redireccionarLogin()">SI</button>
-        <button (click)="mostrarFormulario()">NO</button>
+<div class="form-container">
+  <div>
+      <p-toast></p-toast>
+
+      <div class="card flex justify-content-center">
+          <p-toast></p-toast>
+          
+          <!-- Condición de visibilidad -->
+          @if(!visible){
+              <h4>¿Eres Socio?</h4>
+              <div class="buttons-container">
+                  <p-button label="SI" (click)="redireccionarLogin()" class="p-button-success"></p-button>
+                  <p-button label="NO" (click)="mostrarFormulario()" class="p-button-secondary"></p-button>
+              </div>
+          
+          
+        }@else{
+              <h4>Introduce tus Datos</h4>
+              @if(alert.show){
+                  <app-alert header="{{alert.header}}" message="{{alert.message}}" type={{alert.type}} ></app-alert>
+              }
+              <form>
+                  <label for="nombreNoSocio">Nombre</label>
+                  <input type="text" id="nombreNoSocio" pInputText required [(ngModel)]="noSocio.nombre" name="nombreNoSocio">
+
+                  <label for="apellidosNoSocio">Apellidos</label>
+                  <input type="text" id="apellidosNoSocio" pInputText required [(ngModel)]="noSocio.apellidos" name="apellidosNoSocio">
+                  
+                  <label for="emailNoSocio">Email</label>
+                  <input type="email" id="emailNoSocio" pInputText required [(ngModel)]="noSocio.email" name="emailNoSocio">
+                  
+                  <p-button label="Inscribir" (click)="insertNoSocio()" severity="success"></p-button>
+              </form>
+            }
+          
       </div>
-      
-}@else{
-    <h4>Introduce tus Datos</h4>
-    @if(alert.show){
-      <app-alert header="{{alert.header}}" message="{{alert.message}}" type={{alert.type}} ></app-alert>
-    }
-    <div>
-    <form>
-        <input class='campo' type="text" placeholder="Nombre del noSocio" [(ngModel)]="noSocio.nombre" name="nombreNoSocio">
-        <br>
-        <input class='campo' type="text" placeholder="Apellidos" [(ngModel)]="noSocio.apellidos" name="apellidosNoSocio">
-        <br>
-        <input class='campo' type="text" placeholder="Email" [(ngModel)]="noSocio.email" name="emailNoSocio">
-        <br>
-        <input class='campo' type="submit" value="Inscribir" (click)="insertNoSocio()">
-      </form>
-    </div>
-}
-
-
+  </div>
+</div>
 
 
 

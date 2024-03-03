@@ -35,6 +35,13 @@ module.exports = {
     ruta:'b1cdad2f-2f8b-451e-ab61-eba06844ea8b.jpg',
     createdAt: new Date(),
     updatedAt: new Date()
+  },
+  {
+    id:5,
+    public:false,
+    ruta:'01295ddb-674f-46ab-b73a-74153d97b587.pdf',
+    createdAt: new Date(),
+    updatedAt: new Date()
   }
     
   ], {});

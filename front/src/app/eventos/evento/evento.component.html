@@ -1,18 +1,45 @@
 <!-- // Gonzalo Martinez Haro-->
-<h1>{{evento.nombre}}</h1>
-@if(alert.show){
-    <app-alert header="{{alert.header}}" message="{{alert.message}}" type={{alert.type}} ></app-alert>
-}
-<div>
-  <p>Fecha: {{evento.fecha}}</p>
-  <p>Sede: {{evento.sede}}</p>
-  <p>Categoria: {{evento.categoria}}</p>
-  <p>"descripcion"</p>
-  <p>"privado o no"</p>
-  <p>"resultados"</p>
-  <button (click)="comprobarPrivado()">Inscribirme</button>
+<div class="container">
+
+  <div class="header">
+      <h1>{{evento.nombre}}</h1>
+      @if(alert.show){
+          <app-alert header="{{alert.header}}" message="{{alert.message}}" type={{alert.type}}></app-alert>
+        }
+  </div>
+
+  <div class="content">
+      <div class="form-datos">
+          <div class="field">
+              <label>Fecha:</label>
+              <p>{{evento.fecha}}</p>
+          </div>
+          <div class="field">
+              <label>Sede:</label>
+              <p>{{evento.sede}}</p>
+          </div>
+          <div class="field">
+              <label>Categoría:</label>
+              <p>{{evento.categoria?.nombre}}</p>
+          </div>
+          <div class="field">
+              <label>Acceso:</label>
+              <p>{{evento.privado ? 'Privado' : 'Público'}}</p>
+          </div>
+          <div class="field-desc">
+              <label>Descripción:</label>
+              <p class="descripcion">{{evento.desc}}</p>
+          </div>
+          <div class="field-button">
+              <p-button label="Inscribirme" (click)="comprobarPrivado()" severity="success"></p-button>
+          </div>
+      </div>
+  </div>
+  @if(evento.pdf != null){
+  <div class="field">
+    <label>Resultados:</label>
+    </div>
+  <ngx-extended-pdf-viewer [src]="resultado.pdf" height="700px" [showToolbar]="false" [textLayer]="true"></ngx-extended-pdf-viewer>
+    }
 </div>
-<pdf-viewer [src]="'assets/archivo.pdf'" [render-text]="true" [original-size]="false" style="width: 100%; height: 100vh"></pdf-viewer>
-
-
 

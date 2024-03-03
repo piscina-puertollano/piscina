@@ -1,5 +1,5 @@
 /**
- * author: Marina Laguna
+ * @author Marina Laguna
  */
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
@@ -17,6 +17,6 @@ export class EjerciciosService {
   private urlListarTiposEjercicios: string = this.baseUrl + '/tiposEjercicios/';
 
   getTiposEjercicios(): Observable<Array<Ejercicios> |undefined> {
-    return this.http.get<any[]>(this.urlListarTiposEjercicios);
+    return this.http.get<any[]>(this.urlListarTiposEjercicios, {withCredentials:true});
   }
 }

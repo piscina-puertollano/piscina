@@ -47,6 +47,11 @@ module.exports = (sequelize, DataTypes) => {
           foreignKey: 'id_user',
           as: 'news'
         });
+
+        Users.hasMany(models.PuntuacionUsuario, {
+          foreignKey: 'id_user',
+          as: 'puntuacionesUsuario'
+        });
      }
   }
   Users.init({

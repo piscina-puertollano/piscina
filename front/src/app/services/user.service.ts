@@ -20,6 +20,7 @@ export class UserService {
   private urlSignup : string = this.baseUrl+environment.showUser
   private urSearch : string = this.baseUrl+'/search'
   private urAllUsers : string = this.baseUrl+environment.allUsers
+  private urAllUsersFaltas : string = this.baseUrl+environment.allUsersFaltas
   private urAllSocios: string = this.baseUrl+environment.showSocios
   private urlAsingSocio: string = this.baseUrl+environment.asignSocio
   private urlRemoveSocio: string = this.baseUrl+environment.removeSocio
@@ -62,6 +63,14 @@ export class UserService {
 
   allUsers(): Observable<Array<User> | undefined> {
     return this.http.get<User>(this.urAllUsers, {withCredentials: true}).pipe(
+      catchError((error) =>{
+        return of(error)
+      })
+    )
+  }
+
+  allUsersFaltas(): Observable<Array<User> | undefined> {
+    return this.http.get<User>(this.urAllUsersFaltas, {withCredentials: true}).pipe(
       catchError((error) =>{
         return of(error)
       })

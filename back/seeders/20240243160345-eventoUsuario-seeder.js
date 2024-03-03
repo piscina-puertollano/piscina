@@ -5,7 +5,7 @@
 module.exports = {
   async up (queryInterface, Sequelize) {
     
-    await queryInterface.bulkInsert('eventosUsuarios', [{
+    await queryInterface.bulkInsert(process.env.TABLE_EVENTO_USUARIO, [{
       idUsuario: 1,
       idEvento: 1,
       createdAt: new Date(),

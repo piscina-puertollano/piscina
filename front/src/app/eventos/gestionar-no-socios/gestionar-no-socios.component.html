@@ -1,56 +1,70 @@
 <!-- // Gonzalo Martinez Haro-->
-<h1>Gestión de No Socios</h1>
+<section id="gestionNoSocios">
+    <div class="card">
+        <h1 id="title" class="m-0">Gestión de No Socios</h1>
+        <p-toast></p-toast>
 
-@if(alert.show){
-    <app-alert header="{{alert.header}}" message="{{alert.message}}" type="{{alert.type}}" ></app-alert>
-}
-<section>
-    <div>
-        <table>
-            <thead>
+        <div id="addNoSocio">
+            <p-toolbar styleClass="mb-4 gap-2">
+                <ng-template pTemplate="right">
+                    <button id="btnGestCategorias" pButton pRipple label="Borrar todos" class="p-button-success"></button>
+                </ng-template>
+            </p-toolbar>
+        </div>
+
+        <p-table
+        id="tableNoSocios"
+        #dt
+        [value]="noSocios"
+        [rows]="10"
+        [paginator]="true"
+        [globalFilterFields]="['nombre', 'apellidos', 'email']"
+        [tableStyle]="{ 'min-width': '75rem' }"
+        [(selection)]="selectNoSocios"
+        [rowHover]="true"
+        dataKey="id"
+        currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} entradas"
+        [showCurrentPageReport]="true">
+
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input [(ngModel)]="searchValue" pInputText type="text" (input)="dt.filterGlobal(searchValue, 'contains')" placeholder="Buscar..." />
+                </span>
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="header">
+            <tr>
                 <th>ID</th>
-                <th>Nombre</th>
-                <th>Apellidos</th>
-            </thead>
-            <tbody>
-                @for (noSocio of noSocios; track noSocio.id) {
-                <tr>
-                    <td>{{noSocio.id}}</td>
-                    <td>{{noSocio.nombre}}</td>
-                    <td>{{noSocio.apellidos}}</td>
-                    <td>
-                        <i width="25px" style="margin-right:15px" (click)="getNoSocio(noSocio.id)" class="pi pi-eye"></i>
-                        <i width="25px" (click)="deleteNoSocio(noSocio.id)" class="pi pi-trash"></i>
-                    </td>
-                </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-    <div>
-        <div class="contenedor-flex">
-           <div class="contenedor-flex-small"> 
-                <h4>id:</h4>
-                <p><input type="text"  class="noSocio" [(ngModel)]="noSocio.id" value="{{noSocio.id}}" disabled></p>
-            </div>
-            <div class="contenedor-flex-small">
-                <h4>Nombre:</h4>
-                <p><input type="text"  class="noSocio" [(ngModel)]="noSocio.nombre" value="{{noSocio.nombre}}"></p>
-            </div>
-            <div class="contenedor-flex-small">
-                <h4>Apellidos:</h4>
-                <p><input type="text"  class="noSocio" [(ngModel)]="noSocio.apellidos" value="{{noSocio.apellidos}}"></p>
-            </div>
-        </div>
-        <div class="contenedor-flex">
-            <div class="contenedor-flex-small">
-                <h4>Correo:</h4>
-                <p><input type="text"  class="noSocio" [(ngModel)]="noSocio.email" value="{{noSocio.email}}"></p>
-            </div>
-            <div class="contenedor-flex-button">
-                <input type="submit" (click)="updateNoSocio()" value="Guardar cambios">
-            </div>
-        </div>
+                <th pSortableColumn="nombre">Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
+                <th pSortableColumn="apellidos">Apellidos <p-sortIcon field="apellidos"></p-sortIcon></th>
+                <th pSortableColumn="email">Correo <p-sortIcon field="email"></p-sortIcon></th>
+                <th>Acciones</th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-noSocio>
+            <tr>
+                <td>{{ noSocio.id }}</td>
+                <td>{{ noSocio.nombre }}</td>
+                <td>{{ noSocio.apellidos }}</td>
+                <td>{{ noSocio.email }}</td>
+                <td>
+                    <button pButton pRipple icon="pi pi-eye" class="p-button-rounded p-button-info m-2" (click)="getNoSocio(noSocio.id)"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-2" (click)="deleteNoSocio(noSocio.id)"></button>
+                </td>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">En total hay {{ noSocios ? noSocios.length : 0 }} No Socios.</div>
+        </ng-template>
+        </p-table>
     </div>
 </section>
 
+<div class="card flex justify-content-center">
+    <p-toast></p-toast>
+</div>
