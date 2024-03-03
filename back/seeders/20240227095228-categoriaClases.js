@@ -4,7 +4,7 @@
 module.exports = {
   async up (queryInterface, Sequelize) {
    
-    await queryInterface.bulkInsert('categoria_clases', [{
+    await queryInterface.bulkInsert(process.env.TABLE_CATEGORIA_CLASES, [{
       nombre: 'Infantil',
       createdAt: new Date(),
       updatedAt: new Date()
