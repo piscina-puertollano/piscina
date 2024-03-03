@@ -2,13 +2,8 @@
 const {
   Model
 } = require('sequelize');
-
-/**
- * @author: badr
- */
-
 module.exports = (sequelize, DataTypes) => {
-  class CommentsNews extends Model {
+  class respond_comment extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -18,12 +13,13 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  CommentsNews.init({
-    id_new: DataTypes.INTEGER,
+  respond_comment.init({
+    respond_to: DataTypes.INTEGER,
     id_comment: DataTypes.INTEGER
   }, {
     sequelize,
-    modelName: 'CommentsNews',
+    modelName: 'respond_comment',
+    tableName: process.env.TABLE_COMMENTS_RESPOND
   });
-  return CommentsNews;
+  return respond_comment;
 };

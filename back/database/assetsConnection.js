@@ -34,18 +34,32 @@ class AssetsModel {
 
   }
 
+  saveAsset = async (asset) =>{
+    let resultado = [];
+    try{
+        conexion.conectar();
+        resultado = await models.Assets.create(asset);
+        conexion.desconectar();
+      }catch(error){
+        throw error
+      }finally{
+      if (!resultado) {
+          throw new Error("user not found");
+        }
+        return resultado;
+    }
+  }
+
   deleteByRuta =async(assetId)=>{
     let resultado = [];
     console.log(assetId)
     try{
         conexion.conectar();
-        resultado = await models.Assets.findOne({
-            attributes:["ruta"],
-            where: {
-                ruta: assetId,
-            },
+        resultado = await models.Assets.destroy({
+          where: {
+            ruta: assetId
+          },
         });
-        resultado.destroy()
         conexion.desconectar();
         if (!resultado) {
             throw new Error("Asset not found");
@@ -84,6 +98,8 @@ class AssetsModel {
     }
   };
   
+
+  //-------------------------User_Assets---------------------------
 
   getAssetsOfUser = async (userId) => {
     let resultado = [];

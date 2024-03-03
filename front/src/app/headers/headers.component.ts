@@ -54,17 +54,12 @@ export class HeadersComponent implements OnInit {
     
         if (this.authService.isLoggedIn()) {
             this.items.push({
+                label: 'Home',
+                routerLink: '/home'
+            });
+            this.items.push({
                 label: 'Mi perfil',
                 routerLink: '/my-profile'
-            });
-            this.items.push({
-                label: 'Gestión de usuarios',
-                routerLink: '/users'
-            });
-
-            this.items.push({
-                label: 'Crear noticias',
-                routerLink: '/create-new'
             });
 
             this.items.push({

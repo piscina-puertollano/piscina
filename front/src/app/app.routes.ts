@@ -20,18 +20,24 @@ import { GestionEventosComponent } from './eventos/gestion-eventos/gestion-event
 import { GestionCategoriasComponent } from './eventos/gestion-categorias/gestion-categorias.component';
 import { EventoComponent } from './eventos/evento/evento.component';
 import { GestionarNoSociosComponent } from './eventos/gestionar-no-socios/gestionar-no-socios.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { AdminSociosComponent } from './users/admin-socios/admin-socios.component';
+import { AdminComponent } from './news/admin/admin.component';
+import { EditNewComponent } from './news/edit-new/edit-new.component';
 import { PuntuacionComponent } from './puntuaciones/puntuacion/puntuacion.component';
 import { AsignarClasesUsuariosComponent } from './asignar-clases-usuarios/asignar-clases-usuarios.component';
-
-
 import { ExamplePdfViewerComponent } from './example-pdf-viewer/example-pdf-viewer.component';
 
 export const routes: Routes = [
   {path: '', component: ClubComponent },
+  {path: 'home', component: DashboardComponent },
   {path: 'login', component: LoginComponent },
   {path: 'users', component: ListComponent },
+  {path: 'admin-socios', component: AdminSociosComponent },
   {path: 'my-profile', component: ProfileComponent },
   {path: 'news', component: ListNewsComponent },
+  {path: 'list-news', component: AdminComponent },
+  {path: 'edit-new/:id', component: EditNewComponent },
   {path: 'new/:id', component: ShowNewComponent },
   {path: 'create-new', component: CreateNewComponent },
   {path: 'contact', component: ContactComponent },

@@ -3,7 +3,7 @@ import { LandingService } from '../../services/landing.service';
 import { Asset, Club } from '../../interfaces/landing';
 import { GalleriaModule } from 'primeng/galleria';
 import { FileService } from '../../services/file.service';
-import { File } from '../../interfaces/upload';
+import { Files } from '../../interfaces/upload';
 import { Image } from '../../interfaces/user';
 import { environment } from '../../../environments/environment.development';
 
@@ -97,7 +97,7 @@ export class ClubComponent implements OnInit{
   showImages(arrFotos:Array<any>) {
     console.log()
     arrFotos.forEach((assetId:Image) => {
-      let image:File = {
+      let image:Files = {
         id: assetId.ruta,
         where: environment.landing_path
       }

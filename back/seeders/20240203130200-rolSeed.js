@@ -8,7 +8,7 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.bulkInsert(
-      "rols",
+      process.env.TABLE_ROLS,
       [
         {
           id: process.env.ID_ROL_ADMIN,
@@ -46,6 +46,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete("rols", null, {});
+    await queryInterface.bulkDelete(process.env.TABLE_ROLS, null, {});
   },
 };

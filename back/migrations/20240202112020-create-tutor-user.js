@@ -6,7 +6,7 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('tuto_users', {
+    await queryInterface.createTable(process.env.TABLE_TUTORS, {
       id_tutor: {
         allowNull: false,
         autoIncrement: false,
@@ -14,7 +14,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         references:{
           model: {
-            tableName: 'users'          
+            tableName: process.env.TABLE_USERS          
           },
           key: 'id'
         }
@@ -26,7 +26,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         references:{
           model: {
-            tableName: 'users'          
+            tableName: process.env.TABLE_USERS          
           },
           key: 'id'
         }
@@ -42,6 +42,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('tuto_users');
+    await queryInterface.dropTable(process.env.TABLE_TUTORS);
   }
 };

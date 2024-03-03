@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { Observable, catchError, of } from 'rxjs';
-import { Role, SocioTutor, User, UserRol } from '../interfaces/user';
+import { Alergias, Role, Socio, SocioTutor, User, UserRol } from '../interfaces/user';
 
 /**
  * @author: badr
@@ -27,6 +27,7 @@ export class UserService {
   private urlShowUser : string = this.baseUrl+environment.showUser
   private urlShowSociosOfTutor : string = this.baseUrl+environment.showSociosOfTutor
   private urlAllRols: string = this.baseUrl+environment.showRols
+  private urlAllAlergias: string = this.baseUrl+environment.getAllAlergias
 
   login(user:User): Observable<User | undefined> {
     return this.http.post<User>(this.urlLogin,user,{withCredentials:false}).pipe(
@@ -37,7 +38,7 @@ export class UserService {
   }
 
   signup(user:User): Observable<User | undefined> {
-    return this.http.post<User>(this.urlSignup, user, {withCredentials:false}).pipe(
+    return this.http.post<User>(this.urlSignup, user, {withCredentials:true}).pipe(
       catchError((error) =>{
         return of(error)
       })
@@ -107,8 +108,8 @@ export class UserService {
     ))
   }
 
-  getAsignedSocios(userId: number): Observable<Array<User> | undefined> {
-    return this.http.get<User>(this.urlShowSociosOfTutor+'/'+userId, {withCredentials: true}).pipe(
+  getAsignedSocios(userId: number): Observable<Array<Socio> | undefined> {
+    return this.http.get<Socio>(this.urlShowSociosOfTutor+'/'+userId, {withCredentials: true}).pipe(
       catchError((error) =>{
         return of(error)
       }
@@ -125,6 +126,22 @@ export class UserService {
 
   asignSocio(socioTutor:SocioTutor): Observable<SocioTutor | undefined> {
     return this.http.post<SocioTutor>(this.urlAsingSocio, socioTutor, {withCredentials: true}).pipe(
+      catchError((error) =>{
+        return of(error)
+      })
+    )
+  }
+
+  getAlergias():Observable<Array<Alergias> | undefined> {
+    return this.http.get<Array<Alergias>>(this.urlAllAlergias, {withCredentials: true}).pipe(
+      catchError((error) =>{
+        return of(error)
+      })
+    )
+  }
+
+  getAlergiasOfUser(id:number):Observable<Array<Alergias> | undefined> {
+    return this.http.get<Array<Alergias>>(this.urlAllAlergias+'/'+id, {withCredentials: true}).pipe(
       catchError((error) =>{
         return of(error)
       })

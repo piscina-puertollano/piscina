@@ -3,12 +3,16 @@ const fs   = require('fs');
 const { subirArchivo } = require('../helpers/upload-files');
 const Conexion = require('../database/assetsConnection');
 
+const conx = new Conexion();
+
 /**
  * @author: badr
  */
 
 const uploadFile = async(req, res) => {
+    console.log('llego')
     try {
+
         const folder = req.header('folder')
         if(!folder){
             res.status(404).json("La carpeta de destino no está definida");
@@ -20,13 +24,14 @@ const uploadFile = async(req, res) => {
             return;
         }
 
-        if(!req.files.archivo){
-            res.status(404).json("No hay archivos para subir");
-            return;
-        }
-
         const nombre = await subirArchivo( req.files, undefined, folder );
-        res.json({ nombre });
+
+        const saved = await conx.saveAsset({ruta: nombre})
+
+        res.status(200).json({ 
+            id: saved.id,
+            ruta: nombre,
+         });
 
 
     } catch (msg) {
@@ -41,15 +46,17 @@ const destroyFile = async(req, res ) => {
     const  fileId = req.params.id;
     const folder = req.params.folder;
 
-    const pathImagen = path.join( __dirname, '../uploads', folder, fileId);
-    console.log( pathImagen );
-    if (fs.existsSync(pathImagen)) {
-        fs.unlinkSync(pathImagen);
-        const conx = new Conexion()
-        console.log(fileId)
-        conx.deleteByRuta(fileId).then(asset => {
-            console.log(asset);
-        })
+    if(fileId == null){
+        res.status(404).json({ msg: "Archivo no encontrado" });
+        return;
+    }
+    const pathFile = path.join( __dirname, '../uploads', folder, fileId);
+    console.log( pathFile );
+    if (fs.existsSync(pathFile)) {
+        fs.unlinkSync(pathFile);
+        
+        await conx.deleteByRuta(fileId)
+
         res.status(200).json({ msg: "Borrado" });
     } else {
         res.status(404).json({ msg: "Archivo no encontrado" });

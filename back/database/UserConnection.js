@@ -286,8 +286,13 @@ class UserModel {
           {
             model: models.Users,
             as: "socio",
-            attributes: ["id", "firstName", "lastName", "email"],
-          },
+            attributes: ["id", "firstName", "lastName", "email", "photo_profile"],
+            include: {
+              model: models.Assets,
+              as: "image",
+              attributes: ["ruta"] 
+            }
+          }
         ],
       });
     } catch (error) {
