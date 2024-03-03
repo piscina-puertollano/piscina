@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class user_accept_legal_text extends Model {
+  class respond_comment extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -13,13 +13,13 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  user_accept_legal_text.init({
-    id_user: DataTypes.INTEGER,
-    id_legal_text: DataTypes.INTEGER
+  respond_comment.init({
+    respond_to: DataTypes.INTEGER,
+    id_comment: DataTypes.INTEGER
   }, {
     sequelize,
-    modelName: 'user_accept_legal_text',
-    tableName:process.env.TABLE_USER_ACCEPT_LEGAL_TEXTS,
+    modelName: 'respond_comment',
+    tableName: process.env.TABLE_COMMENTS_RESPOND
   });
-  return user_accept_legal_text;
+  return respond_comment;
 };

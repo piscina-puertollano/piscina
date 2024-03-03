@@ -20,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Escaparate',
+    tableName: process.env.TABLE_ESCAPARATE
   });
   return Escaparate;
 };

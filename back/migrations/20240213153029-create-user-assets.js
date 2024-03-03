@@ -2,14 +2,14 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('user_assets', {
+    await queryInterface.createTable(process.env.TABLE_USER_ASSETS, {
       id_user: {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.INTEGER,
         references:{
           model: {
-            tableName: 'users'   
+            tableName: process.env.TABLE_USERS   
           },
           key: 'id'
         }
@@ -20,7 +20,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         references:{
           model: {
-            tableName: 'assets'   
+            tableName: process.env.TABLE_ASSETS   
           },
           key: 'id'
         }
@@ -40,6 +40,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('user_assets');
+    await queryInterface.dropTable(process.env.TABLE_USER_ASSETS);
   }
 };

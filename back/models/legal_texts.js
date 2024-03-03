@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'legal_texts',
+    tableName: process.env.TABLE_TEXT_LEGAL
   });
   return legal_texts;
 };

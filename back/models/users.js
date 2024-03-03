@@ -64,7 +64,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Users',
-    tableName: 'users',
+    tableName: process.env.TABLE_USERS,
   });
   return Users;
 };
