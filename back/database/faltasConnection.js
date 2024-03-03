@@ -1,22 +1,11 @@
+/* Manuel Garcia */
+
 require('dotenv').config();
 const { Sequelize, Model } = require('sequelize');
 const models = require('../models/index.js');
 const conexion = require('./connection.js');
 
 class FaltasConnection {
-
-    constructor() {
-        this.db = new Sequelize(process.env.DB_DEV, process.env.DB_USER, process.env.DB_PASSWORD, {
-            host: process.env.DB_HOST,
-            dialect: process.env.DB_DIALECT,
-            pool: {
-                max:  5,
-                min:  0,
-                acquire:  30000,
-                idle:  10000
-            },
-        });
-    }
 
     getFaltas = async () => {
         let faltas = [];
@@ -69,8 +58,8 @@ class FaltasConnection {
             await con.conectar();
             const falta = await models.faltas.findByPk(id);
             if (!falta) {
-                console.error(`Falta with id ${id} not found.`);
-                throw new Error(`Falta with id ${id} not found.`);
+                console.error(`Falta con id ${id} no encontrada.`);
+                throw new Error(`Falta con id ${id} no encontrada.`);
             }
             await falta.update(data);
             await con.desconectar();
@@ -86,9 +75,8 @@ class FaltasConnection {
             await con.conectar();
             const falta = await models.faltas.findByPk(id);
             if (!falta) {
-                console.error(`Falta with id ${id} not found.`);
-                throw new Error(`Falta with id ${id} not found.`);
-            }
+                console.error(`Falta con id ${id} no encontrada.`);
+                throw new Error(`Falta con id ${id} no encontrada.`);            }
             await falta.destroy();
             await con.desconectar();
         } catch (error) {

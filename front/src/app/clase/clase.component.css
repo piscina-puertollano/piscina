@@ -1,36 +1,47 @@
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 20px;
-}
-th, td {
-  border: 1px solid #dddddd;
-  padding: 8px;
-  text-align: left;
-}
-th {
-  background-color: #f2f2f2;
-}
-/* Estilos para el contenedor */
-#tabla-container {
-  width: 80%;
-  margin: 0 auto;
-  border: 2px solid #333;
-  padding: 20px;
-  border-radius: 10px;
-  background-color: #f9f9f9;
+i {
+  cursor: pointer;
 }
 
-.row {
+app-modal {
+  margin: 20px;
+  margin-right: 150px;
   display: flex;
+  justify-content: end;
   align-items: center;
 }
 
-.row > * {
-  margin-right: 10px;
+:host ::ng-deep .p-progressbar {
+  height: 0.5rem;
+  background-color: #d8dadc;
+}
+:host ::ng-deep .p-progressbar .p-progressbar-value {
+  background-color: #607d8b;
 }
 
-.row input,
-.row output {
-  margin-right: 20px;
+#getUser {
+  display: flex;
+  justify-content: center;
+}
+
+.card {
+  position: relative;
+  max-width: 80%;
+  min-width: 10%;
+  color-scheme: light dark !important;
+
+}
+
+
+#title{
+  text-align: center;
+  font-size: 2rem;
+}
+
+.test {
+  border-radius: 20%;
+}
+
+
+#btnMargin{
+    margin-bottom: 10px;
 }

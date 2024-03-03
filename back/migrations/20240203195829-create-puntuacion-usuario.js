@@ -1,11 +1,11 @@
 /**
- * author: Marina Laguna
+ * @author Marina Laguna
  */
 'use strict';
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('puntuacionUsuarios', {
+    await queryInterface.createTable(process.env.TABLE_PUNTUACIONES_USUARIO, {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -26,7 +26,7 @@ module.exports = {
         type: Sequelize.DataTypes.INTEGER,
         references: {
           model: {
-            tableName: 'puntuaciones'
+            tableName: process.env.TABLE_PUNTUACIONES
           },
           key: 'id'
         },
@@ -43,6 +43,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('puntuacionUsuarios');
+    await queryInterface.dropTable(process.env.TABLE_PUNTUACIONES_USUARIO);
   }
 };

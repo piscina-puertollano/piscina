@@ -54,18 +54,24 @@ class ClaseHasUsuarioConnection {
   updateClaseHasUsuario = async (id, data) => {
     let con = new conexion();
     try {
-      con.conectar();
-      const claseHasUsuario = await models.clase_has_usuario.findByPk(id);
-      if (!claseHasUsuario) {
-        throw new Error(`Usuario con id ${id} no encontrado`);
-      }
-      await claseHasUsuario.update(data);
-      con.desconectar();
+       con.conectar();
+       // Asumiendo que 'id' se refiere a 'id_usuario' o 'id_clase'
+       const claseHasUsuario = await models.clase_has_usuario.findOne({
+         where: {
+           id_usuario: id // O id_clase: id, dependiendo de cuál sea el identificador único
+         }
+       });
+       if (!claseHasUsuario) {
+         throw new Error(`ClaseHasUsuario con id ${id} no encontrado`);
+       }
+       await claseHasUsuario.update(data);
+       con.desconectar();
     } catch (error) {
-      console.error("Error al actualizar", error);
-      throw error;
+       console.error("Error al actualizar", error);
+       throw error;
     }
-  };
+   };
+   
 
   deleteClaseHasUsuario = async (id) => {
     let con = new conexion();

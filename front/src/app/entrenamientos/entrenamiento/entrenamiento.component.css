@@ -1,0 +1,24 @@
+.insertEntrenamiento {
+    background-color: #22c55e;
+    padding: 20px;
+    border-radius: 5px;
+    border: none;
+    font-family: 'Inter var'; 
+    font-size: 16px;
+    line-height: 1.5; 
+    color: white;
+    font-weight: bold;
+}
+
+#title{
+    text-align: center;
+    font-size: 2rem;
+}
+
+app-modal-crear-entre {
+    margin: 20px;
+    margin-right: 150px;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}

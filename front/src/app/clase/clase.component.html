@@ -1,87 +1,154 @@
-<h1>Temporadas de las clases</h1>
-<section>
+<div class="card">
+  <h1 id="title" class="m-0">Gestión de clases</h1>
+ </div>
+ <section>
   <div>
-    <table>
-      <thead>
-        <th>Categoria</th>
-        <th>Dia</th>
-        <th>Horario</th>
-        <th>Acciones</th>
-      </thead>
-      <tbody>
-        @for (att of arrClases; track att.id) {
-        <tr>
-          <td style="display: none;">
-            <label>{{ att.id }}</label>
-          </td>
-          <td>
-            <label>{{att.id_categoria}}</label>
-          </td>
-          <td>
-            <label>{{ att.nombre }}</label>
-          </td>
-          <td>
-            <label>{{ att.hora_inicio}} - {{att.hora_fin}}</label>
-          </td>
-          <td>
-            <button
-              pButton
-              type="button"
-              class="pi pi-pencil"
-              (click)="edit(att)"
-            ></button>
-            <button
-              pButton
-              type="button"
-              class="pi pi-trash"
-              (click)="deleteClase(att.id)"
-            ></button>
-          </td>
-        </tr>
-        }
-      </tbody>
-    </table>
-    <div class="row">
-      <input
-        type="hidden"
-        pInputText [(ngModel)]="clase.id"
-        name="txtid"
-        id="txtid"
-        disabled
-      />
-      <output>Categoria</output>
-      <input
-        type="number"
-        pInputText [(ngModel)]="clase.id"
-        name="txtid"
-        id="txtid"
-        disabled
-      />
-      <output>Nombre</output>
-      <input
-        type="text"
-        pInputText [(ngModel)]="clase.nombre"
-        name="txtTemporada"
-        id="txtTemporada"
-      />
-      <output>Hora inicio</output>
-      <input
-        type="text"
-        pInputText [(ngModel)]="clase.hora_inicio"
-        name="txtTemporada"
-        id="txtTemporada"
-      />
-      <output>Hora fin</output>
-      <input
-        type="text"
-        pInputText [(ngModel)]="clase.hora_fin"
-        name="txtTemporada"
-        id="txtTemporada"
-      />
-      <div>
-        <p-button (click)="actualizar()">Actualizar Datos</p-button>
-        <p-button (click)="agregarClase()">Agregar Temporada</p-button>
+     <p-table
+       id="clasesTable"
+       #dt
+       [value]="arrClases"
+       [rows]="10"
+       [paginator]="true"
+       [globalFilterFields]="[
+         'id_categoria',
+         'nombre',
+         'hora_inicio',
+         'hora_fin',
+         'descripcion'
+       ]"
+       [tableStyle]="{ 'min-width': '75rem' }"
+       [rowHover]="true"
+       dataKey="id"
+       currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+       [showCurrentPageReport]="true"
+     >
+       <ng-template pTemplate="caption">
+         <div class="flex align-items-center justify-content-between">
+           <span class="p-input-icon-left">
+             <i class="pi pi-search"></i>
+             <input
+               [(ngModel)]="searchValue"
+               pInputText
+               type="text"
+               (input)="dt.filterGlobal(searchValue, 'contains')"
+               placeholder="Buscar..."
+             />
+           </span>
+           <button
+               pButton
+               pRipple
+               icon="pi pi-user"
+               class="p-button-rounded"
+               (click)="abrirModalCrear()"
+             ></button>
+         </div>
+       </ng-template>
+ 
+       <ng-template pTemplate="header">
+         <tr>
+           <th>Categoria</th>
+           <th>Dia</th>
+           <th>Horario</th>
+           <th>Descripcion</th>
+           <th>Acciones</th>
+         </tr>
+       </ng-template>
+ 
+       <ng-template pTemplate="body" let-clase>
+         <tr>
+           <td>{{ clase.id_categoria }}</td>
+           <td>{{ clase.nombre }}</td>
+           <td>{{ clase.hora_inicio }} - {{ clase.hora_fin }}</td>
+           <td>{{ clase.descripcion }}</td>
+           <td>
+             <button
+               pButton
+               pRipple
+               icon="pi pi-pencil"
+               class="p-button-rounded p-button-success m-2"
+               (click)="edit(clase)"
+             ></button>
+             <button
+               pButton
+               pRipple
+               icon="pi pi-trash"
+               class="p-button-rounded p-button-danger m-2"
+               (click)="deleteClase(clase.id)"
+             ></button>
+           </td>
+         </tr>
+       </ng-template>
+ 
+       <ng-template pTemplate="summary">
+         <div class="flex align-items-center justify-content-between">
+           En total hay {{ arrClases ? arrClases.length : 0 }} Clases.
+         </div>
+       </ng-template>
+     </p-table>
+     <!-- Modal para insertar-->
+     <p-dialog header="Crear nueva clase" [(visible)]="displayDialogCrear" [style]="{width: '50vw'}" [modal]="true" [closable]="false">
+      <div class="form-container">
+         <div class="form-group">
+           <output>Categoria</output>
+           <p-dropdown [options]="arrCategorias" [(ngModel)]="categoriaSelecionada" optionLabel="nombre" [showClear]="true" placeholder="Selecciona una categoría"></p-dropdown>
+         </div>
+         <div class="form-group">
+           <output>Nombre</output>
+           <p-dropdown [options]="diasSemana" [(ngModel)]="dia" optionLabel="label" [showClear]="true" placeholder="Selecciona un día de la semana"></p-dropdown>
+         </div>
+         <div class="form-group">
+           <output>Hora inicio</output>
+           <input type="time" [(ngModel)]="horaInicio" id="txtHoraInicio" />  
+         </div>
+         <div class="form-group">
+           <output>Hora fin</output>
+           <input type="time" [(ngModel)]="horaFin" id="txtHoraFin"/>
+         </div>
+         <div class="form-group">
+           <output>Descripcion</output>
+           <textarea id="txtdescripcion" [(ngModel)]="descripcion"></textarea>
+         </div>
+         <p-button (click)="agregarClase()" routerLink="/clases">Crear clase</p-button>
+         <p-button (click)="displayDialogCrear = false" label="Cancelar"></p-button>
       </div>
-    </div>
+     </p-dialog>
+     
+     
+
+     <!--Modal para actualizar -->
+     <p-dialog header="Actualizar Clase" [(visible)]="displayDialog" [style]="{width: '50vw'}" [modal]="true" [closable]="false">
+       <div class="p-field">
+           <h3>{{ clase.nombre }}</h3>
+       </div>
+       <div class="p-field">
+           <label for="txtid">ID</label>
+           <input type="hidden" pInputText [(ngModel)]="clase.id" name="txtid" id="txtid" disabled />
+       </div>
+       <div class="p-field">
+           <label for="txtCategoria">Categoria</label>
+           <input type="number" pInputText [(ngModel)]="clase.id_categoria" name="txtCategoria" id="txtCategoria" />
+       </div>
+       <div class="p-field">
+           <label for="txtNombre">Nombre</label>
+           <input type="text" pInputText [(ngModel)]="clase.nombre" name="txtNombre" id="txtNombre" />
+       </div>
+       <div class="p-field">
+           <label for="txtHoraInicio">Hora de inicio</label>
+           <input type="time" pInputText [(ngModel)]="clase.hora_inicio" name="txtHoraInicio" id="txtHoraInicio" />
+       </div>
+       <div class="p-field">
+           <label for="txtHoraFin">Hora de fin</label>
+           <input type="time" pInputText [(ngModel)]="clase.hora_fin" name="txtHoraFin" id="txtHoraFin" />
+       </div>
+       <div class="p-field">
+           <label for="txtDescripcion">Descripcion</label>
+           <textarea rows="4" cols="35" pInputTextarea [(ngModel)]="clase.descripcion" name="txtDescripcion" id="txtDescripcion"></textarea>
+       </div>
+       <div>
+           <p-button (click)="actualizar()" label="Actualizar Datos"></p-button>
+           <p-button (click)="displayDialog = false" label="Cancelar"></p-button>
+       </div>
+     </p-dialog>
   </div>
-</section>
+ </section>
+ 

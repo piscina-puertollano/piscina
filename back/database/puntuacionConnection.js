@@ -1,5 +1,5 @@
 /**
- * author: Marina Laguna
+ * @author Marina Laguna
  */
 require('dotenv').config()
 const { Sequelize } = require('sequelize');
@@ -8,37 +8,125 @@ const Conexion = require('../database/connection')
 const conexion = new Conexion()
 
 class puntuacionConnection{
-    constructor() {
-        this.db = new Sequelize(process.env.DB_DEV, process.env.DB_USER, process.env.DB_PASSWORD, {
-            host: process.env.DB_HOST,
-            dialect:process.env.DB_DIALECT,
-            pool: {
-                max: 5,
-                min: 0,
-                acquire: 30000,
-                idle: 10000
-             },
-          });
-    }
+    constructor() {}
+
+    /* getSocios = async () => {
+        try {
+            conexion.conectar();
+            const rolSocio = await models.Rol.findOne({
+                where: { name: 'socio' } 
+            });
+    
+            if (!rolSocio) {
+                throw new Error('No se encontró el rol de socio');
+            }
+    
+            const userRoles = await models.UserRol.findAll({
+                where: { id_rol: rolSocio.id },
+                include: [{
+                    model: models.Users,
+                    as: 'user', 
+                    attributes: ['id', 'firstName', 'lastname', 'photo_profile'] 
+                }]
+            });
+    
+           const socios = userRoles.map(userRole => userRole.user); 
+    
+            conexion.desconectar();
+            return socios;
+        } catch (error) {
+            console.error('Error al obtener los socios:', error);
+            throw error;
+        }
+    }; */
+
+    getSocios = async () => {
+        try {
+            conexion.conectar();
+            const rolSocio = await models.Rol.findOne({
+                where: { name: 'socio' } 
+            });
+    
+            if (!rolSocio) {
+                throw new Error('No se encontró el rol de socio');
+            }
+    
+            const userRoles = await models.UserRol.findAll({
+                where: { id_rol: rolSocio.id },
+                include: [{
+                    model: models.Users,
+                    as: 'user',
+                    attributes: ['id', 'firstName', 'lastname', 'photo_profile'],
+                    include: [{
+                        model: models.PuntuacionUsuario,
+                        as: 'puntuacionesUsuario',
+                        attributes: ['idPuntuacion'],
+                        required: false,
+                        include: [{
+                            model: models.Puntuacion,
+                            as: 'puntuacion',
+                            attributes: ['id', 'nota'],
+                            required: false,
+                        }]
+                    }]
+                }]
+            });
+    
+            const socios = userRoles.map(userRole => {
+                const socio = userRole.user.get({ plain: true });
+                socio.puntuacionesUsuario = userRole.user.puntuacionesUsuario ? userRole.user.puntuacionesUsuario.map(puntuacionUsuario => {
+                    const { idPuntuacion } = puntuacionUsuario;
+                    const puntuacion = puntuacionUsuario.puntuacion ? puntuacionUsuario.puntuacion.get({ plain: true }) : null;
+                    return { idPuntuacion, ...puntuacion };
+                }) : [];
+                return socio;
+            });
+    
+            conexion.desconectar();
+            return socios;
+        } catch (error) {
+            console.error('Error al obtener los socios:', error);
+            throw error;
+        }
+    };
 
     getpuntuaciones = async() => {
         let puntuaciones = [];
         conexion.conectar;
         
         puntuaciones = await models.Puntuacion.findAll({
-            attributes: ['id', 'nota', 'entrenamiento_id']
+            attributes: ['id', 'nota', 'idEntrenamiento']
         });
         conexion.desconectar;
         return puntuaciones;
     }
 
     getPuntuacionId = async(id) => {
-        conexion.conectar;
-        let puntuacion = await models.Puntuacion.findByPk(id);
-
-        conexion.desconectar;
-        return puntuacion;
-    }
+        try {
+            conexion.conectar();
+            const puntuacionUsuario = await models.PuntuacionUsuario.findOne({
+                where: { id_user: id },
+                include: [{
+                    model: models.Puntuacion,
+                    as: 'puntuacion',
+                    attributes: ['id', 'nota']
+                }]
+            });
+    
+            if (puntuacionUsuario && puntuacionUsuario.puntuacion) {
+                const puntuacion = puntuacionUsuario.puntuacion.get({ plain: true });
+                conexion.desconectar();
+                return puntuacion;
+            } else {
+                conexion.desconectar();
+                return null;
+            }
+        } catch (error) {
+            console.error('Error al obtener la puntuación:', error);
+            conexion.desconectar();
+            throw error;
+        }
+    };
 
     insertPuntuacion = async(body) => {
         let resultado = 0;
