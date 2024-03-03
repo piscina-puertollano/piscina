@@ -14,8 +14,9 @@
             <input [(ngModel)]="ejercicio.descripcion" name="ejercicioDescripcion{{$index}}" type="text" required>
             <label>Tipo de ejercicio {{ $index + 1 }}</label>
             <select [(ngModel)]="ejercicio.idTipo" name="ejercicioIdTipo{{$index}}" required>
-                @for (tipo of tiposEjercicios; track $index) {}
-                <option [value]="tipo.id">{{tipo.nombre }}</option>
+                @for (tipo of tiposEjercicios; track $index) {
+                    <option [value]="tipo.id">{{tipo.nombre }}</option>
+                }
             </select>
         </div>
     }

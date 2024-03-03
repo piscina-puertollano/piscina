@@ -1,5 +1,5 @@
 /**
- * @author: Marina Laguna
+ * @author Marina Laguna
  */
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
@@ -11,6 +11,7 @@ import { Entrenamiento } from '../../interfaces/entrenamiento';
 import { TiposEjercicios } from '../../interfaces/tipos-ejercicios';
 import { EjerciciosService } from '../../services/ejercicios.service';
 import { EntrenamientoService } from '../../services/entrenamiento.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-crear-entrenamiento',
@@ -27,7 +28,11 @@ export class CrearEntrenamientoComponent {
   tiposEjercicios: TiposEjercicios[] = [];
   nuevoEjercicio: Ejercicios = { descripcion: '', idTipo:  0 };
 
-  constructor(private entrenamientoService: EntrenamientoService,private ejerciciosService: EjerciciosService, private router: Router) {
+  constructor(private authService: AuthService, private entrenamientoService: EntrenamientoService,private ejerciciosService: EjerciciosService, private router: Router) {
+  }
+
+  ngOnInit(){
+    this.cargarTiposEjercicio();
   }
 
   insertEntrenamiento() {

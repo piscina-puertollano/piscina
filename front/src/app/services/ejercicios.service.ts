@@ -17,6 +17,6 @@ export class EjerciciosService {
   private urlListarTiposEjercicios: string = this.baseUrl + '/tiposEjercicios/';
 
   getTiposEjercicios(): Observable<Array<Ejercicios> |undefined> {
-    return this.http.get<any[]>(this.urlListarTiposEjercicios);
+    return this.http.get<any[]>(this.urlListarTiposEjercicios, {withCredentials:true});
   }
 }
