@@ -3,7 +3,6 @@ const cors = require("cors");
 require('dotenv').config()
 const mongoose = require("mongoose");
 const { socketController } = require("../controllers/socketController");
-const { createNew } = require("../controllers/newsController");
 mongoose.set("strictQuery", false);
 const fileUpload = require('express-fileupload');
 
@@ -14,6 +13,7 @@ class Server {
     this.middlewares();
 
     this.userRoutePath = "/api";
+    this.commentsRoutePath = "/api";
     this.userRouteClasesPath = "/api";
     this.eventosRoutePath = "/api/eventos";
     this.categoriasRoutePath = "/api/categorias";
@@ -86,7 +86,9 @@ class Server {
 
     this.app.use(this.apiFiles, require("../routes/uploadsRoutes"));
     this.app.use(this.userRoutePath, require("../routes/userRoutes"));
+    this.app.use(this.userRoutePath, require("../routes/alergiasRoutes"));
     this.app.use(this.userRoutePath, require("../routes/newsRoutes"));
+    this.app.use(this.commentsRoutePath, require("../routes/commentsRoutes"));
     this.app.use(this.userRoutePath, require("../routes/clubRoutes"));
     this.app.use(this.userRoutePath, require("../routes/assetsRoutes"));
 
