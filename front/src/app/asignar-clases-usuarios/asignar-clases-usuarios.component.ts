@@ -32,6 +32,7 @@ import { asignacionClasesUsuario } from '../interfaces/asignacionClases';
     FormsModule,
     AlertComponent,
     ToastModule,
+    DialogModule,
     DropdownModule,
     ButtonModule,
     InputTextModule,
@@ -56,6 +57,8 @@ export class AsignarClasesUsuariosComponent implements OnInit {
 
   resultadoRelacion: asignacionClasesUsuario[] = [];
 
+  displayDialogCrear: boolean = false;
+
   constructor(
     private service: ClaseService,
     private UsuarioService: UserService,
@@ -71,7 +74,14 @@ export class AsignarClasesUsuariosComponent implements OnInit {
   ngOnInit(): void {
     this.allUsers();
     this.allClases();
+    this.alert = new Alert();
   }
+
+
+
+  cerrarModalCrear() {
+    this.displayDialogCrear = false;
+   }
 
   allUsers() {
     this.UsuarioService.allUsers().subscribe({
@@ -80,10 +90,10 @@ export class AsignarClasesUsuariosComponent implements OnInit {
           this.alert.show = true;
           this.alert.header = 'Error';
           this.alert.message =
-            'No se han podido cargar a los usuarios. Póngase en contacto con un adminsitrador.';
+            'No se han podido cargar a los usuarios.';
         } else {
           this.arrUsers = user;
-          this.allClases(); // Llamamos a allClases después de cargar usuarios
+          this.allClases(); 
         }
       },
       error: (err) => {
@@ -99,10 +109,10 @@ export class AsignarClasesUsuariosComponent implements OnInit {
           this.alert.show = true;
           this.alert.header = 'Error';
           this.alert.message =
-            'No se han podido cargar la informacion. Póngase en contacto con un adminsitrador.';
+            'No se han podido cargar la informacion.';
         } else {
           this.arrClases = clase;
-          this.allClasesUsuarios(); // Llamamos a allClasesUsuarios después de cargar clases
+          this.allClasesUsuarios();
         }
       },
       error: (err) => {
@@ -118,7 +128,7 @@ export class AsignarClasesUsuariosComponent implements OnInit {
           this.alert.show = true;
           this.alert.header = 'Error';
           this.alert.message =
-            'No se han podido cargar la informacion. Póngase en contacto con un administrador.';
+            'No se han podido cargar la informacion.';
         } else {
           this.arrClaseUsuario = categoria;
           this.resultadoRelacion = []; // Inicializamos el array resultadoRelacion
@@ -153,20 +163,21 @@ export class AsignarClasesUsuariosComponent implements OnInit {
   deleteRelacion(id: any) {
     this.ClasehasusuarioService.deleteRelacion(id).subscribe({
       next: () => {
-        // La operación de eliminación fue exitosa
         this.alert.show = true;
-        this.alert.header = 'Operación completada';
-        this.alert.message = 'Usuario eliminado correctamente';
+        this.alert.message = 'Usuario eliminado';
         location.reload();
       },
       error: (err) => {
-        // Hubo un error al intentar eliminar
         console.log(err);
         this.alert.show = true;
         this.alert.header = 'Error';
         this.alert.message =
-          'No se ha podido eliminar el usuario. Por favor, intente de nuevo.';
+          'No se ha podido eliminar el usuario. Intentalo de nuevo.';
       },
     });
   }
+
+  abrirModalCrear() {
+    this.displayDialogCrear = true;
+ }
 }
