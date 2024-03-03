@@ -1,16 +1,25 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
-import { User, Role, UserRol, SocioTutor } from '../../../interfaces/user';
-import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import {
+  User,
+  Role,
+  UserRol,
+  SocioTutor,
+  Alergias,
+} from '../../../interfaces/user';
+import {
+  DialogService,
+  DynamicDialogConfig,
+  DynamicDialogRef,
+} from 'primeng/dynamicdialog';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { FileService } from '../../../services/file.service';
 import { ButtonModule } from 'primeng/button';
 import { UserService } from '../../../services/user.service';
-import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { environment } from '../../../../environments/environment.development';
-import { File } from '../../../interfaces/upload';
+import { Files } from '../../../interfaces/upload';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 
@@ -21,21 +30,33 @@ import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-show-user',
   standalone: true,
-  imports: [FormsModule, InputTextModule, InputSwitchModule, ButtonModule, MultiSelectModule, ToastModule],
+  imports: [
+    FormsModule,
+    InputTextModule,
+    InputSwitchModule,
+    ButtonModule,
+    MultiSelectModule,
+    ToastModule,
+  ],
   templateUrl: './show.component.html',
   styleUrl: './show.component.css',
-  providers: [DialogService, MessageService]
+  providers: [DialogService, MessageService],
 })
 export class ShowComponent implements OnInit {
   user?: User;
   image?: any;
-  rolTutor = environment.rolTutor
+  rolTutor = environment.rolTutor;
 
-  arrRoles?:Role[]
+  arrRoles?: Role[];
+  arrAlergias?: Alergias[];
+  arrAlergiasUser?: Alergias[];
 
-  arrAllSocios?: User[]
-  arrAsignedSocios?: User[]
-  arrDeselectedSocios?: SocioTutor[]
+  newAlergia?: string;
+  showAlergia: boolean = false;
+
+  arrAllSocios?: User[];
+  arrAsignedSocios?: User[];
+
   @Output() updateUSer = new EventEmitter<User>();
   ref: DynamicDialogRef | undefined;
 
@@ -47,52 +68,46 @@ export class ShowComponent implements OnInit {
     private messageService: MessageService
   ) {}
 
-
-
   ngOnInit() {
     this.user = this.config.data.user;
     this.getAllSocios();
     this.getAsignedSocios();
-    this.showRols()
+    this.showAlergias();
+    this.showRols();
+    this.alergiasOfUser(this.user?.id);
     this.showImage(this.user!.image!.ruta);
-    console.log(this.config);
   }
 
   showImage(id: string) {
-    let image: File = {
+    let image: Files = {
       id: id,
-      where: environment.photo_profile_path
-    }
+      where: environment.photo_profile_path,
+    };
     this.fileService.showImage(image).subscribe({
       next: (image: any | undefined) => {
-        console.log(image);
         this.image = URL.createObjectURL(image);
       },
     });
   }
 
-  updateUser() {    
+  updateUser() {
     this.userService.updateUser(this.user!).subscribe({
       next: (user: any | undefined) => {
-        console.log(this.user!.roles)
-        let i = 0
-        let check = false
+        let i = 0;
+        let check = false;
         while (i < this.user!.roles!.length && !check) {
           if (this.user!.roles![i].id == this.rolTutor) {
-
-            check = true
-           this.asignSocio()
-
+            check = true;
+            this.asignSocio();
           }
-          i++
+          i++;
         }
-    
+
         this.messageService.add({
           severity: 'success',
           summary: 'Operación completada',
           detail: 'Usuario actualizado',
-        })
-        console.log(user);
+        });
       },
       error: (error) => {
         console.log(error);
@@ -103,13 +118,11 @@ export class ShowComponent implements OnInit {
   getAllSocios() {
     this.userService.getAllSocios().subscribe({
       next: (users: any | undefined) => {
-
-        for(let user of users){
-          if(user.id == this.user!.id){
-            users.splice(users.indexOf(user),1)
+        for (let user of users) {
+          if (user.id == this.user!.id) {
+            users.splice(users.indexOf(user), 1);
           }
         }
-        console.log('all ',users);
         this.arrAllSocios = users;
       },
     });
@@ -118,13 +131,12 @@ export class ShowComponent implements OnInit {
   getAsignedSocios() {
     this.userService.getAsignedSocios(this.user!.id!).subscribe({
       next: (users: any | undefined) => {
-        console.log('asigned ',users)
         this.arrAsignedSocios = users;
       },
     });
   }
 
-  showRols(){
+  showRols() {
     this.userService.getAllRoles().subscribe({
       next: (roles: any | undefined) => {
         console.log(roles)
@@ -134,20 +146,35 @@ export class ShowComponent implements OnInit {
   }
 
   asignSocio() {
-    console.log('llego')
-    let socioTutor:SocioTutor = {
-      id_tutor:this.user!.id!,
-      id_socio: this.arrAsignedSocios!
-    }
+    let socioTutor: SocioTutor = {
+      id_tutor: this.user!.id!,
+      id_socio: this.arrAsignedSocios!,
+    };
     this.userService.asignSocio(socioTutor).subscribe({
-      next: (user: any | undefined) => {
-      },
+      next: (user: any | undefined) => {},
       error: (error) => {
-        console.log(error)
-      }
-    })
+        console.log(error);
+      },
+    });
+  }
+
+  showAlergias() {
+    this.userService.getAlergias().subscribe({
+      next: (alergias: Array<Alergias> | undefined) => {
+        console.log(alergias)
+        this.arrAlergias = alergias;
+      },
+    });
+  }
+
+  alergiasOfUser(id: any) {
+    this.userService.getAlergiasOfUser(id).subscribe({
+      next: (alergias: Array<Alergias> | undefined) => {
+        this.arrAlergiasUser  = []
+
+      },
+    });
   }
 
 
 }
-

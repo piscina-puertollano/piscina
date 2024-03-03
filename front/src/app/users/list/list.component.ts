@@ -24,7 +24,7 @@ import { ShowComponent } from '../ShowUser/show/show.component';
 import { firstValueFrom } from 'rxjs';
 import { SignupComponent } from '../signup/signup/signup.component';
 import { ModalSignupComponent } from '../signup/modalSignup/modal.component';
-import { File } from '../../interfaces/upload';
+import { Files } from '../../interfaces/upload';
 import { FileService } from '../../services/file.service';
 import { environment } from '../../../environments/environment.development';
 
@@ -86,7 +86,7 @@ export class ListComponent implements OnInit {
         console.log(user);
         this.test = user;
 
-        this.ref = this.dialogService.open(ShowComponent, { 
+        this.ref = this.dialogService.open(ShowComponent, {
           header: 'Editar usuario',
           modal: true,
           breakpoints: {
@@ -102,16 +102,18 @@ export class ListComponent implements OnInit {
         console.log(err);
       },
     });
-    
   }
 
-  createUSerDialog(id:number){
+  createUSerDialog(){
     this.ref = this.dialogService.open(SignupComponent, { 
       header: 'Editar usuario',
       data:{
         user:this.user
       }
   });    
+    this.ref.onClose.subscribe((user: any) => {
+      this.allUsers()
+    })
   }
 
 
@@ -163,14 +165,14 @@ export class ListComponent implements OnInit {
 
   showImages() {
     for(let user of this.arrUsers){
-      let image: File = {
+      let image: Files = {
         id: user.image?.ruta,
         where: environment.photo_profile_path
       }
 
       this.fileService.showImage(image).subscribe({
         next: (image: any | undefined) => {
-          console.log(image);
+
           this.arrPhotoProfile.push({id:user.image?.ruta, image: URL.createObjectURL(image)})
         },
       });
@@ -181,7 +183,6 @@ export class ListComponent implements OnInit {
     if(eventEmiter){
       this.userService.deleteUser(id).subscribe({
         next: (user: any | undefined) => {
-          console.log(user);
           this.user = user;
         },
         error: (err) => {
@@ -197,7 +198,6 @@ export class ListComponent implements OnInit {
     if (event) {
       this.userService.updateUser(this.user!).subscribe({
         next: (user: any | undefined) => {
-          console.log(user);
           this.user = user;
         },
         error: (err) => {

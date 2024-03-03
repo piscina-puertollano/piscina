@@ -9,7 +9,7 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { FileService } from '../../services/file.service';
 import { environment } from '../../../environments/environment.development';
-import { File } from '../../interfaces/upload';
+import { Files } from '../../interfaces/upload';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 
@@ -61,7 +61,7 @@ export class ProfileComponent implements OnInit {
   }
 
   showImage(id: string) {
-    let image: File = {
+    let image: Files = {
       id: id,
       where: environment.photo_profile_path,
     };

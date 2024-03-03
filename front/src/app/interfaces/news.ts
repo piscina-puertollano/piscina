@@ -27,3 +27,13 @@ export interface Author {
 export interface NewImage {
     ruta: string;
 }
+
+export interface Comment {
+    id:         number;
+    comment:    string;
+    id_new:     number;
+    author:     string;
+    respond_to: null;
+    createdAt:  string;
+    updatedAt:  string;
+}

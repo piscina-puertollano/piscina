@@ -1,24 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Comment, News } from '../../interfaces/news';
 import { NewsService } from '../../services/news.service';
-import { FileService } from '../../services/file.service';
-import { Files } from '../../interfaces/upload';
 import { CommentsService } from '../../services/comments.service';
-import { PanelModule } from 'primeng/panel';
-
-/**
- * @author: badr
- */
+import { FileService } from '../../services/file.service';
+import { News } from '../../interfaces/news';
+import { Files } from '../../interfaces/upload';
 
 @Component({
-  selector: 'app-show-new',
+  selector: 'app-edit-new',
   standalone: true,
-  imports: [PanelModule],
-  templateUrl: './show-new.component.html',
-  styleUrl: './show-new.component.css',
+  imports: [],
+  templateUrl: './edit-new.component.html',
+  styleUrl: './edit-new.component.css'
 })
-export class ShowNewComponent implements OnInit {
+export class EditNewComponent implements OnInit {
   id = 0;
   news?: News;
   image: any;
