@@ -24,7 +24,7 @@ import { ModificarPuntuacionComponent } from '../modificar-puntuacion/modificar-
 import { FilterService, MessageService } from 'primeng/api';
 import { UserService } from '../../services/user.service';
 import { FileService } from '../../services/file.service';
-import { Puntuacion } from '../../interfaces/puntuacion';
+import { Puntuacion, Socio } from '../../interfaces/puntuacion';
 import { environment } from '../../../environments/environment.development';
 import { AuthService } from '../../services/auth.service';
 
@@ -70,16 +70,23 @@ export class PuntuacionComponent {
     table.clear();
   }
 
-  socios(){
+  socios() {
     this.puntuacionService.getSocios().subscribe({
-      next: (user: any | undefined) => {
-        console.log(user)
-        this.arrSocio = user;
+      next: (users: any[]) => {
+        this.arrSocio = users.map((user: User) => {
+          const socio: Socio = { ...user };
+          if (user.puntuacionesUsuario && user.puntuacionesUsuario.length > 0) {
+            socio.nota = user.puntuacionesUsuario[0].nota;
+          } else {
+            socio.nota = null;
+          }
+          return socio;
+        });
       },
       error: (err) => {
         console.log(err);
       }
-    })
+    });
   }
 
   showImages() {

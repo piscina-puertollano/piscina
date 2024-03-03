@@ -10,7 +10,7 @@ const conexion = new Conexion()
 class puntuacionConnection{
     constructor() {}
 
-    getSocios = async () => {
+    /* getSocios = async () => {
         try {
             conexion.conectar();
             const rolSocio = await models.Rol.findOne({
@@ -31,6 +31,56 @@ class puntuacionConnection{
             });
     
            const socios = userRoles.map(userRole => userRole.user); 
+    
+            conexion.desconectar();
+            return socios;
+        } catch (error) {
+            console.error('Error al obtener los socios:', error);
+            throw error;
+        }
+    }; */
+
+    getSocios = async () => {
+        try {
+            conexion.conectar();
+            const rolSocio = await models.Rol.findOne({
+                where: { name: 'socio' } 
+            });
+    
+            if (!rolSocio) {
+                throw new Error('No se encontró el rol de socio');
+            }
+    
+            const userRoles = await models.UserRol.findAll({
+                where: { id_rol: rolSocio.id },
+                include: [{
+                    model: models.Users,
+                    as: 'user',
+                    attributes: ['id', 'firstName', 'lastname', 'photo_profile'],
+                    include: [{
+                        model: models.PuntuacionUsuario,
+                        as: 'puntuacionesUsuario',
+                        attributes: ['idPuntuacion'],
+                        required: false,
+                        include: [{
+                            model: models.Puntuacion,
+                            as: 'puntuacion',
+                            attributes: ['id', 'nota'],
+                            required: false,
+                        }]
+                    }]
+                }]
+            });
+    
+            const socios = userRoles.map(userRole => {
+                const socio = userRole.user.get({ plain: true });
+                socio.puntuacionesUsuario = userRole.user.puntuacionesUsuario ? userRole.user.puntuacionesUsuario.map(puntuacionUsuario => {
+                    const { idPuntuacion } = puntuacionUsuario;
+                    const puntuacion = puntuacionUsuario.puntuacion ? puntuacionUsuario.puntuacion.get({ plain: true }) : null;
+                    return { idPuntuacion, ...puntuacion };
+                }) : [];
+                return socio;
+            });
     
             conexion.desconectar();
             return socios;

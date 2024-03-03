@@ -1,3 +1,5 @@
+import { User } from "./user";
+
 /**
  * @author Marina Laguna
  */
@@ -6,3 +8,7 @@ export interface Puntuacion {
     nota?: number
     idEntrenamiento?: number
 }
+
+export interface Socio extends User {
+    nota?: number | null;
+  }

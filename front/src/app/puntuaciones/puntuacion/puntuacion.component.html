@@ -10,7 +10,7 @@
         [value]="arrSocio"
         [rows]="10"
         [paginator]="true"
-        [globalFilterFields]="['Foto', 'Nombre', 'Apellido']"
+        [globalFilterFields]="['Foto', 'Nombre', 'Apellido', 'Calificacion']"
         [tableStyle]="selectSocio"
         [rowHover]="true"
         datakey="id"
@@ -31,6 +31,7 @@
                 <th pSortableColumn="photo_profile">Foto de perfil</th>
                 <th pSortableColumn="firstName" style="min-width:10rem">Nombre <p-sortIcon field="firstName"></p-sortIcon></th>
                 <th pSortableColumn="lastName">Apellido<p-sortIcon field="lastName"></p-sortIcon></th>
+                <th pSortableColumn="nota">Calificación</th>
                 <th>Acciones</th>
             </tr>
         </ng-template>
@@ -46,6 +47,13 @@
                 </td> 
                 <td>{{ user.firstName }}</td>
                 <td>{{ user.lastname }}</td>
+                <td>
+                    @if (user.puntuacionesUsuario && user.puntuacionesUsuario.length > 0){
+                        {{user.puntuacionesUsuario[0].nota}}
+                    }@else{
+                        <p>No tiene calificación</p>
+                    }
+                </td>
                 <td>
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"></button>
                 </td>
