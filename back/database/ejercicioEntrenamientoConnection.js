@@ -18,7 +18,7 @@ class ejercicioEntrenamientoConnection {
                 attributes: ['id', 'nombre', 'descripcion'],
                 include: [{
                     model: models.EjercicioEntrenamiento,
-                    attributes: ['idEjercicio'],
+                    attributes: ['ejercicioId'],
                     include: [{
                         model: models.Ejercicio,
                         attributes: ['idTipo', 'descripcion'],
@@ -44,7 +44,7 @@ class ejercicioEntrenamientoConnection {
                 attributes: ['id', 'nombre', 'descripcion'],
                 include: [{
                     model: models.EjercicioEntrenamiento,
-                    attributes: ['idEjercicio'],
+                    attributes: ['ejercicioId'],
                     include: [{
                         model: models.Ejercicio,
                         attributes: ['idTipo', 'descripcion'],
@@ -81,7 +81,7 @@ class ejercicioEntrenamientoConnection {
                     defaults: { descripcion: ejercicio.descripcion, idTipo: ejercicio.idTipo }
                 });
     
-                ejerciciosInsertados.push(nuevoEjercicio[0]); // Guarda el ejercicio creado o encontrado
+                ejerciciosInsertados.push(nuevoEjercicio[0]);
             }
     
             const asociacionesEjercicios = ejerciciosInsertados.map(ejercicio => ({

@@ -9,7 +9,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      idEjercicio: {
+      ejercicioId: {
         type: Sequelize.DataTypes.INTEGER,
         references: {
           model: {

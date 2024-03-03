@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       EjercicioEntrenamiento.belongsTo(models.Ejercicio, {
-        foreignKey: 'idEjercicio'
+        foreignKey: 'ejercicioId'
       });
 
       EjercicioEntrenamiento.belongsTo(models.Entrenamiento, { 
@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true
     },
-    idEjercicio: {
+    ejercicioId: {
       type: DataTypes.INTEGER,
       references: {
         model: 'Ejercicio',
