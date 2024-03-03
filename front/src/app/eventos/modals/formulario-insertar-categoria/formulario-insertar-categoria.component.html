@@ -1,9 +1,18 @@
 <!--// Gonzalo Martinez Haro-->
-<div>
-    <h1 class='campo'>Inserta la Categoria</h1>
-    <form>
-      <input class='campo' type="text" placeholder="Nombre del Categoria" [(ngModel)]="categoria.nombre" name="nombreCategoria">
-      <br>
-      <input class='campo' type="submit" value="Añadir" (click)="insertCategoria()">
-    </form>
-    </div>
+<div class="form-container">
+  <div>
+      <p-toast></p-toast>
+
+      <div class="card flex justify-content-center">
+          <p-toast></p-toast>
+          
+          <h1>Inserta la Categoría</h1>
+          
+              <label for="nombreCategoria">Nombre de la Categoría</label>
+              <input type="text" id="nombreCategoria" pInputText required [(ngModel)]="categoria.nombre" name="nombreCategoria">
+
+              <button label="Añadir" (click)="insertCategoria()" pButton pRipple label="Agregar categoría" class="p-button-success"></button>
+          
+      </div>
+  </div>
+</div>

@@ -21,6 +21,8 @@ import { GestionCategoriasComponent } from './eventos/gestion-categorias/gestion
 import { EventoComponent } from './eventos/evento/evento.component';
 import { GestionarNoSociosComponent } from './eventos/gestionar-no-socios/gestionar-no-socios.component';
 
+import { ExamplePdfViewerComponent } from './example-pdf-viewer/example-pdf-viewer.component';
+
 export const routes: Routes = [
   {path: '', component: ClubComponent },
   {path: 'login', component: LoginComponent },
@@ -43,6 +45,8 @@ export const routes: Routes = [
   {path: 'gestionCategorias', component: GestionCategoriasComponent},
   {path: 'descEvento/:id', component: EventoComponent},
   {path: 'gestionNoSocios', component: GestionarNoSociosComponent},
+
+  {path: 'pdf', component: ExamplePdfViewerComponent},
 
 
 

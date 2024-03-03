@@ -8,12 +8,14 @@ import { noSocioService } from '../../../services/noSocio.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DialogService } from 'primeng/dynamicdialog';
 import { DynamicDialogConfig } from 'primeng/dynamicdialog';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
 
 
 @Component({
   selector: 'app-inscribir-no-socio',
   standalone: true,
-  imports: [FormsModule, AlertComponent,],
+  imports: [FormsModule, AlertComponent,ToastModule,ButtonModule],
   templateUrl: './inscribir-no-socio.component.html',
   styleUrl: './inscribir-no-socio.component.css'
 })

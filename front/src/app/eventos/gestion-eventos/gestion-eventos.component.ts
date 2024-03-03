@@ -1,19 +1,57 @@
 // Gonzalo Martinez Haro
 import { Component, OnInit } from '@angular/core';
+import { Table, TableModule } from 'primeng/table';
+import { ProgressBarModule } from 'primeng/progressbar';
+import {
+  ConfirmationService,
+  FilterService,
+  MessageService,
+} from 'primeng/api';
+import { TooltipModule } from 'primeng/tooltip';
+import { CurrencyPipe, DatePipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { ToastModule } from 'primeng/toast';
+import { ToolbarModule } from 'primeng/toolbar';
+import { FileUploadModule } from 'primeng/fileupload';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { DialogModule } from 'primeng/dialog';
+import { DialogComponent } from '../../utils/dialog/dialog.component';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { InputTextModule } from 'primeng/inputtext';
+import { firstValueFrom } from 'rxjs';
+import { File } from '../../interfaces/upload';
+import { FileService } from '../../services/file.service';
+import { environment } from '../../../environments/environment.development';
+import { FormularioInsertarComponent } from '../modals/formulario-insertar-evento/formulario-insertar.component';
+import { FormularioModificarEventoComponent } from '../modals/formulario-modificar-evento/formulario-modificar-evento.component';
 import { Evento } from '../../interfaces/eventos';
 import { EventosService } from '../../services/evento.service';
-import { Router } from '@angular/router';
+
 import { Alert } from '../../interfaces/alert';
-import { AlertComponent } from '../../utils/alert/alert.component';
-import { FormsModule } from '@angular/forms';
-import { FormularioInsertarComponent } from '../modals/formulario-insertar/formulario-insertar.component';
-import { DialogService } from 'primeng/dynamicdialog';
+
+
 
 
 @Component({
   selector: 'app-gestion-eventos',
   standalone: true,
-  imports: [FormsModule, AlertComponent,FormularioInsertarComponent],
+  imports: [
+    InputTextModule,
+    TableModule,
+    DatePipe,
+    CurrencyPipe,
+    ProgressBarModule,
+    FormsModule,
+    TooltipModule,
+    ToastModule,
+    ToolbarModule,
+    FileUploadModule,
+    ConfirmDialogModule,
+    DialogModule,
+    DialogComponent,
+    FormularioInsertarComponent
+    
+  ],
   templateUrl: './gestion-eventos.component.html',
   styleUrl: './gestion-eventos.component.css',
   providers:[FormularioInsertarComponent,DialogService]
@@ -23,9 +61,11 @@ export class GestionEventosComponent implements OnInit{
   alert: Alert;
   evento: Evento;
   eventos: Array<Evento> = []
-  
+  selectEventos!: Array<Evento>;
+  searchValue: string = '';
+  ref: DynamicDialogRef | undefined;
 
-  constructor(private eventosService: EventosService, private router: Router,private dialogService: DialogService) {
+  constructor(private eventosService: EventosService,private dialogService: DialogService) {
     this.evento = {};
     this.alert = new Alert();
   }
@@ -58,8 +98,21 @@ export class GestionEventosComponent implements OnInit{
   getEvento(id:any) {
     this.eventosService.getEvento(id).subscribe({
       next: (evento: any | undefined) => {
-        this.evento = evento
-        console.log(evento)
+        this.evento = evento;
+        console.log(evento);
+        this.evento = evento;
+
+        this.ref = this.dialogService.open(FormularioModificarEventoComponent, { 
+          header: 'Editar evento',
+          modal: true,
+          breakpoints: {
+            '960px': '75vw',
+            '640px': '90vw'
+          },
+          data:{
+            evento:evento
+          }
+      });
       },
       error: (err) => {
         console.log(err);
@@ -119,13 +172,18 @@ export class GestionEventosComponent implements OnInit{
   }
 
 
-  abrirModal() {
+  abrirModalInsert() {
     this.dialogService.open(FormularioInsertarComponent,{
       header: 'Añadir Evento',
-      width: '70%',
-      contentStyle: { 'max-height': '500px', overflow: 'auto' },
+      width: '50vw',
+      contentStyle: { overflow: 'auto' },
+      breakpoints: {
+          '960px': '75vw',
+          '640px': '90vw'
+      }
     });
   }
 
-
+  
+  
 }

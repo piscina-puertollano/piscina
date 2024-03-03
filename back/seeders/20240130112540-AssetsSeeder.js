@@ -35,6 +35,13 @@ module.exports = {
     ruta:'https://fastly.picsum.photos/id/460/200/200.jpg?hmac=hL3I5G2p0p6vDGPyV9hergug-KipbUJVxqnnGIEBXg4',
     createdAt: new Date(),
     updatedAt: new Date()
+  },
+  {
+    id:5,
+    public:false,
+    ruta:'01295ddb-674f-46ab-b73a-74153d97b587.pdf',
+    createdAt: new Date(),
+    updatedAt: new Date()
   }
     
   ], {});

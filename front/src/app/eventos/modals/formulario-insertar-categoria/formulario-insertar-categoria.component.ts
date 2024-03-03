@@ -5,11 +5,13 @@ import { CategoriaService } from '../../../services/categoria.service';
 import { FormsModule } from '@angular/forms';
 import { AlertComponent } from '../../../utils/alert/alert.component';
 import { DialogModule } from 'primeng/dialog';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button'; 
 
 @Component({
   selector: 'app-formulario-insertar-categoria',
   standalone: true,
-  imports: [FormsModule, AlertComponent,DialogModule],
+  imports: [FormsModule, AlertComponent,DialogModule,ToastModule,ButtonModule],
   templateUrl: './formulario-insertar-categoria.component.html',
   styleUrl: './formulario-insertar-categoria.component.css'
 })
