@@ -19,16 +19,21 @@ import { ListComponent } from './users/list/list.component';
 import { LoginComponent } from './users/login/login.component';
 import { ProfileComponent } from './users/profile/profile.component';
 import { AsignarClasesUsuariosComponent } from './asignar-clases-usuarios/asignar-clases-usuarios.component';
-
-
 import { ExamplePdfViewerComponent } from './example-pdf-viewer/example-pdf-viewer.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { AdminComponent } from './news/admin/admin.component';
+import { EditNewComponent } from './news/edit-new/edit-new.component';
 
 export const routes: Routes = [
   {path: '', component: ClubComponent },
+  {path: 'home', component: DashboardComponent },
   {path: 'login', component: LoginComponent },
   {path: 'users', component: ListComponent },
+  {path: 'admin-socios', component: AdminComponent },
   {path: 'my-profile', component: ProfileComponent },
   {path: 'news', component: ListNewsComponent },
+  {path: 'list-news', component: AdminComponent },
+  {path: 'edit-new/:id', component: EditNewComponent },
   {path: 'new/:id', component: ShowNewComponent },
   {path: 'create-new', component: CreateNewComponent },
   {path: 'contact', component: ContactComponent },

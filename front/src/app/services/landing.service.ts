@@ -18,6 +18,7 @@ export class LandingService {
   urlAsset = environment.baseUrl + environment.showAsset+'/'
   urlUpdateClub =  environment.baseUrl+environment.indexClub+'/'
   urlIndex = environment.baseUrl+environment.updateclub
+  urlContact = environment.baseUrl+environment.indexContact
   
   index(): Observable<Club | undefined> {
     return this.http.get<Club>(this.urlIndex,{withCredentials:false}).pipe(
@@ -35,7 +36,6 @@ export class LandingService {
     )
   }
 
-
   showAssets(id:number): Observable<Asset | undefined> {
     return this.http.get<Asset>(this.urlAsset+id,{withCredentials:false}).pipe(
       catchError((error) =>{
@@ -46,6 +46,14 @@ export class LandingService {
 
   updateClub(club:Club): Observable<Club | undefined> {
     return this.http.put<Club>(this.urlUpdateClub+club._id,club,{withCredentials:true}).pipe(
+      catchError((error) =>{
+        return of(error)
+      })
+    )
+  }
+
+  getContact(): Observable<Club | undefined> {
+    return this.http.get<Club>(this.urlIndex, {withCredentials:false}).pipe(
       catchError((error) =>{
         return of(error)
       })

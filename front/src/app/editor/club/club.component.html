@@ -74,8 +74,9 @@
       <ng-template pTemplate="body" let-foto>
         <tr>
           <td class="container">
-            <img src="{{ foto.image }}" alt="fotos disponibles" id="image" srcset="">
-            <app-dialog  [severity]="'danger'" id="btnUpdate" [nameBtn]="'Eliminar'" [header]="'Alerta'" [message]="' Va a eliminar esta imagen. ¿Estás seguro de que quiere realizar esta acción? '" (eventEmiter)="deleteImage($event, foto.ruta, foto.id)"></app-dialog>
+            <p-image [styleClass]="'image'" src="{{ foto.image }}" alt="fotos disponibles"   width="250" [preview]="true"></p-image>
+              <!-- <img src="{{ foto.image }}" alt="fotos disponibles" id="image" srcset=""> -->
+              <app-dialog  [severity]="'danger'" id="btnUpdate" [nameBtn]="'Eliminar'" [header]="'Alerta'" [message]="' Va a eliminar esta imagen. ¿Estás seguro de que quiere realizar esta acción? '" (eventEmiter)="deleteImage($event, foto.ruta, foto.id)"></app-dialog>
             
           </td>
         </tr>
@@ -83,23 +84,13 @@
     </p-table>
   </section>
 }@else {
-  <section id="tableFotos">
-    <p-table [value]="[]" [tableStyle]="{ 'min-width': '10rem', 'max-width' : '50rem' }">
-      <ng-template pTemplate="header">
-        <tr>
-          <th>Foto</th>
-          <th></th>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-foto>
-        <tr>
-          <td class="container">
-            No hay imagenes
-          </td>
-        </tr>
-      </ng-template>
-    </p-table>
-  </section>
+  <h4 id="tableFotos">{{noText}}</h4>
 }
+
+<div id="tableFotos" class="card flex justify-content-center">
+  <p-toast></p-toast>
+  <p-fileUpload name="" [chooseLabel]="'Selecionar imagenes'" [uploadLabel]="'Subir'"  [cancelLabel]="'Cancelar'"  [customUpload]="true" (uploadHandler)="onUpload($event)" [multiple]="true" accept="image/*">
+  </p-fileUpload>
+</div>
 
 <app-dialog id="btnUpdate" [nameBtn]="'Actualizar'" [header]="'Alerta'" [message]="' ¿Estás seguro de que quiere realizar esta acción? Va a editar esta página'" (eventEmiter)="update($event)"></app-dialog>

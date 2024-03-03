@@ -8,7 +8,7 @@
 module.exports = {
   async up (queryInterface, Sequelize) {
 
-    await queryInterface.bulkInsert('news', [
+    await queryInterface.bulkInsert(process.env.TABLE_NEWS, [
       {
       id:1,
       title:'Nueva página!!',
@@ -23,6 +23,6 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-      await queryInterface.bulkDelete('news', null, {});
+      await queryInterface.bulkDelete(process.env.TABLE_NEWS, null, {});
   }
 };

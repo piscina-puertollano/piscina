@@ -8,14 +8,7 @@ const bcrypt = require('bcrypt');
 module.exports = {
   async up (queryInterface, Sequelize) {
 
-    /**
-     *     num_socio: DataTypes.STRING,
-    corriente_pago: DataTypes.BOOLEAN,
-    born_date: DataTypes.DATE,
-    domicilio: DataTypes.STRING,
-    tlf: DataTypes.STRING,
-     */
-      await queryInterface.bulkInsert('users', [
+      await queryInterface.bulkInsert(process.env.TABLE_USERS, [
         {
           id:1,
         firstName:'admin',
@@ -35,7 +28,7 @@ module.exports = {
           id:2,
           firstName:'prueba',
           lastName: 'tutor',
-        photo_profile: 4,
+        photo_profile: 2,
         email: 'tutor@piscina.com',
         password: await bcrypt.hash('1234', 10),
         num_socio: null,
@@ -91,6 +84,6 @@ module.exports = {
   },
   async down (queryInterface, Sequelize) {
 
-     await queryInterface.bulkDelete('users', null, {});
+     await queryInterface.bulkDelete(process.env.TABLE_USERS, null, {});
   }
 };

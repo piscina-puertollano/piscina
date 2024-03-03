@@ -30,6 +30,14 @@ export const environment = {
     getsNoSocios: '/noSocios',
     getPostUpdateDeleteNoSocios: '/noSocios/',
     postEventoUsuario: '/eventoUsuarios',
-    getEventosVisibles: '/eventos/visibles'
-
+    getEventosVisibles: '/eventos/visibles',
+    getComments: '/comments',
+    rol_admin : 1,
+    rol_redactor : 4,
+    rol_tutor: 2,
+    admin_card_image: '../../assets/cards-dashboard/_f85fcebc-e26f-4c23-97a8-7eefbbd9524c.jpg',
+    redactor_card_image: '../../assets/cards-dashboard/_86275f07-3393-436b-bd61-2750bf845a4c.jpg',
+    tutor_card_image: '../../assets/cards-dashboard/istockphoto-1345951925-640x640.jpg',
+    indexContact: '/contact',
+    getAllAlergias: '/alergias'
 };

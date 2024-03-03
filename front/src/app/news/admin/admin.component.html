@@ -1,0 +1,64 @@
+<section id="getUser">
+    <div class="card">
+        <h1 id="title" class="m-0">Gestión de Noticias</h1>
+        <p-toast></p-toast>
+
+        <p-table
+        id="table"
+        #dt
+        [value]="arrNews!"
+        [rows]="10"
+        [paginator]="true"
+        [globalFilterFields]="['title']"
+        [tableStyle]="{ 'min-width': '75rem' }"
+        [(selection)]="searchValue"
+        [rowHover]="true"
+        dataKey="id"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [showCurrentPageReport]="true">
+        
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input [(ngModel)]="news" pInputText type="text" (input)="dt.filterGlobal(searchValue, 'contains')" placeholder="Buscar..." />
+                </span>
+            </div>
+        </ng-template>
+        
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Foto</th>
+                <th pSortableColumn="title" style="min-width:10rem">titulo<p-sortIcon field="title"></p-sortIcon></th>
+                <th>Acciones</th>
+            </tr>
+        </ng-template>
+        
+        <ng-template pTemplate="body" let-noticia>
+            <tr>
+                <td> 
+                @for(image of images; track image.id){
+                    <img src="{{image.image}}" id="imageProfile" width="50px"  alt="" srcset=""> 
+                }
+                </td>
+                <td>{{ noticia.title }}</td>
+
+                <td>
+                    <button pButton pRipple id="btnMargin" icon="pi pi-pencil" class="p-button-rounded p-button-success m-2" routerLink="/new/{{noticia.id}}"></button> 
+                    <app-dialog  [icon]="'pi pi-trash'" [severity]="'danger'" [header]="'Alerta'" [message]="'¿Estás seguro de que quiere realizar esta acción? Va a eliminar un usuario'" (eventEmiter)="deleteNew($event,noticia.id)"></app-dialog>
+                </td>
+            </tr>
+        </ng-template>
+        
+        <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">En total hay {{ news ? news.length : 0 }} Noticias.</div>
+        </ng-template>
+    </p-table>
+</div>
+
+</section>
+
+
+<div class="card flex justify-content-center">
+    <p-toast></p-toast>
+</div>

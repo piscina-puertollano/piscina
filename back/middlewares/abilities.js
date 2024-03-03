@@ -1,5 +1,3 @@
-const bcrypt = require("bcrypt");
-const { verifyToken } = require("../helpers/jwt");
 const jwt = require("jsonwebtoken");
 const Conexion = require("../database/UserConnection");
 
@@ -103,6 +101,27 @@ const tokenCanSocio = (req, res, next) => {
   }
 };
 
+const tokenCanTutorOrSocio = (req, res, next) => {
+  let roles = req.uroles;
+  let i = 0;
+  let check = true;
+  while (i < roles.length && check) {
+    if (roles[i] == process.env.ID_ROL_SOCIO||
+      roles[i] == process.env.ID_ROL_TUTOR ||
+      roles[i] == process.env.ID_ROL_ADMIN
+      ) {
+      check = false;
+    }
+    i++;
+  }
+
+  if (!check) {
+    next();
+  } else {
+    res.status(400).json({ msg: "Token sin permisos" });
+  }
+};
+
 // El id_rol del entrenador es 4
 const tokenCanTrainer = (req, res, next) => {
   let roles = req.uroles;
@@ -192,6 +211,7 @@ module.exports = {
   tokenCanAdmin,
   tokenCanTutor,
   tokenCanSocio,
+  tokenCanTutorOrSocio,
   tokenCanTrainer,
   tokenCanUserAuth,
   tokenCanRedactor,

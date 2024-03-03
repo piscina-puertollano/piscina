@@ -59,7 +59,7 @@ export class LoginComponent {
         } else {
           localStorage.clear()
           localStorage.setItem('user', JSON.stringify(user));
-          this.router.navigateByUrl('/my-profile')
+          this.router.navigateByUrl('/home')
         }
       },
       error: (err) => {

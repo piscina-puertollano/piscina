@@ -39,3 +39,17 @@ export interface SocioTutor {
     id_tutor: number;
     id_socio: any;
 }
+
+export interface Socio {
+    id:            number;
+    firstName:     string;
+    lastName:      string;
+    email:         string;
+    photo_profile: string;
+}
+
+export interface Alergias {
+    id:   number;
+    name: string;
+}
+

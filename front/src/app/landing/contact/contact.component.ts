@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { LandingService } from '../../services/landing.service';
 
 /**
  * @author: badr
@@ -11,6 +12,13 @@ import { Component } from '@angular/core';
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.css'
 })
-export class ContactComponent {
+export class ContactComponent implements OnInit{
+
+
+  constructor(private landingService: LandingService){}
+
+  ngOnInit(): void {
+      
+  }
 
 }
