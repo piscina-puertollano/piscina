@@ -6,7 +6,7 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('user_rols', {
+    await queryInterface.createTable(process.env.TABLE_USER_ROLS, {
       id_user: {
         primaryKey: true,
         type: Sequelize.INTEGER,
@@ -23,7 +23,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         references:{
           model: {
-            tableName: 'rols'          
+            tableName: process.env.TABLE_ROLS
           },
           key: 'id'
         },
@@ -40,6 +40,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('user_rols');
+    await queryInterface.dropTable(process.env.TABLE_USER_ROLS);
   }
 };

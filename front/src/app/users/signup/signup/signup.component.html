@@ -8,6 +8,18 @@
             
         </div>
     </div>
+
+    <label for="">Roles</label>
+    <p-multiSelect [options]="arrRoles!" [(ngModel)]="this.user!.roles" optionLabel="name"></p-multiSelect>
+
+
+    @for(rol of this.user!.roles; track rol.id){
+        @if(rol.id == rolTutor){
+            <label for="">Socios a cargo</label>
+            <p-multiSelect [options]="arrAllSocios" [filter]="true"  [(ngModel)]="arrAsignedSocios" optionLabel="email"  placeholder="Seleccionar socios"></p-multiSelect>
+        }
+    }
+    
     <label for="name">Nombre</label>
     <input type="text" id="name" pInputText required [(ngModel)]="user!.firstName">
 
@@ -24,7 +36,7 @@
     <input type="number" id="idSocio" required pInputText [(ngModel)]="user!.domicilio">
 
     <label for="">Teléfono</label>
-    <input type="number" id="idSocio" required pInputText  [(ngModel)]="user!.idSocio">
+    <input type="number" id="idSocio" required pInputText  [(ngModel)]="user!.tlf">
 
     <p-button label="Foto de perfil">
         <input type="file" (click)="signup()" severity="success">  

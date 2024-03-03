@@ -48,10 +48,19 @@ export class NewsService {
     )
   }
 
+  deleteNew(id:number): Observable<News | undefined> {
+    return this.http.delete<News>(this.urlShow+'/'+id, {withCredentials: true}).pipe(
+      catchError((error) =>{
+        return of(error)
+      })
+    )
+  }
+
   notificar(){
-    console.log('funca')
     this.socket.emit('create-new', 'prueba')
   }
+
+
 
   
 }

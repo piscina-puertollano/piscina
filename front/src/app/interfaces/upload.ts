@@ -4,10 +4,10 @@
 
 interface UploadEvent {
     originalEvent: Event;
-    files: File[];
+    files: Files[];
 }
 
-export interface File {
+export interface Files {
     id?: string;
     where?: string;
 }

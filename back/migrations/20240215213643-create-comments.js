@@ -6,7 +6,7 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('comments', {
+    await queryInterface.createTable(process.env.TABLE_COMMENTS, {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -16,11 +16,20 @@ module.exports = {
       comment: {
         type: Sequelize.TEXT
       },
-      respond_to: {
+      id_new:{
         type: Sequelize.INTEGER,
         references:{
           model: {
-            tableName: 'users'          
+            tableName: process.env.TABLE_NEWS
+          },
+          key: 'id'
+        }
+      },
+      author: {
+        type: Sequelize.INTEGER,
+        references:{
+          model: {
+            tableName: process.env.TABLE_USERS
           },
           key: 'id'
         }
@@ -36,6 +45,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('comments');
+    await queryInterface.dropTable(process.env.TABLE_COMMENTS);
   }
 };

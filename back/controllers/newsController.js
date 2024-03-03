@@ -17,6 +17,7 @@ const index = async (req, res) => {
       res.status(400).json({ msg: "No se han encontrado noticias" });
     }
   } catch (err) {
+    console.log(err)
     res.status(400).json({ error: 'Ha ocurrido un error' });
   }
 };

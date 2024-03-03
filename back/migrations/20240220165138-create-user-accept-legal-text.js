@@ -5,7 +5,7 @@
  */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('user_accept_legal_texts', {
+    await queryInterface.createTable(process.env.TABLE_ACCEPT_TEXT_LEGAL, {
       id_user: {
         primaryKey: true,
         type: Sequelize.INTEGER,
@@ -32,6 +32,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('user_accept_legal_texts');
+    await queryInterface.dropTable(process.env.TABLE_ACCEPT_TEXT_LEGAL);
   }
 };

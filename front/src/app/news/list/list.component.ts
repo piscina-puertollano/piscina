@@ -3,7 +3,7 @@ import { NewsService } from '../../services/news.service';
 import { News } from '../../interfaces/news';
 import { CardModule } from 'primeng/card';
 import { Image } from '../../interfaces/user';
-import { File } from '../../interfaces/upload';
+import { Files } from '../../interfaces/upload';
 import { FileService } from '../../services/file.service';
 import { RouterLink } from '@angular/router';
 
@@ -54,7 +54,7 @@ export class ListNewsComponent implements OnInit {
 
   showImages(arrFotos:Array<any>) {
     arrFotos.forEach((assetId:Image) => {
-      let image:File = {
+      let image:Files = {
         id: assetId.ruta,
         where: 'news'
       }
