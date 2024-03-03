@@ -46,7 +46,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'EjercicioEntrenamiento',
-    tableName: 'ejercicioEntrenamiento'
+    tableName: process.env.TABLE_EJERCICIO_ENTRENAMIENTOS
   });
   return EjercicioEntrenamiento;
 };

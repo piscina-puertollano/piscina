@@ -56,6 +56,9 @@
                 </td>
                 <td>
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="openDialog(user.id, user.puntuacionesUsuario && user.puntuacionesUsuario.length > 0)"></button>
+                    @if(user.puntuacionesUsuario && user.puntuacionesUsuario.length > 0 && user.puntuacionesUsuario < 5){
+                        <button pButton>Asignar Entrenamiento</button>
+                    }
                 </td>
             </tr>
         </ng-template>

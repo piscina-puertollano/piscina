@@ -6,7 +6,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.bulkInsert('ejercicioEntrenamiento', [{
+    await queryInterface.bulkInsert(process.env.TABLE_EJERCICIO_ENTRENAMIENTO, [{
       ejercicioId: 1,
       idEntrenamiento: 1,
       createdAt: new Date(),

@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'PuntuacionUsuario',
-    tableName: 'puntuacionUsuarios'
+    tableName: process.env.TABLE_PUNTUACIONES_USUARIO
   });
   return PuntuacionUsuario;
 };

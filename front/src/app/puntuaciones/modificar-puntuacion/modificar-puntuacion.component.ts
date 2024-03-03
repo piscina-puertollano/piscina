@@ -6,6 +6,7 @@ import { Alert } from '../../interfaces/alert';
 import { Puntuacion } from '../../interfaces/puntuacion';
 import { PuntuacionService } from '../../services/puntuacion.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 
 /**
  * @author Marina Laguna
@@ -20,13 +21,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 export class ModificarPuntuacionComponent implements OnInit {
   alert: Alert;
-  puntuacion!: Puntuacion;
+  @Input() puntuacion!: Puntuacion;
 
-  constructor(private puntuacionService: PuntuacionService, private router: Router, private route: ActivatedRoute){
+  constructor(private puntuacionService: PuntuacionService, private router: Router, private route: ActivatedRoute, public config: DynamicDialogConfig){
     this.alert = new Alert();
+
   }
 
   ngOnInit(): void {
+    this.puntuacion = this.config.data.puntuacion
     if (this.puntuacion) {
       console.log('Datos de la puntuacion', this.puntuacion);
     } else {
@@ -54,5 +57,5 @@ export class ModificarPuntuacionComponent implements OnInit {
         this.alert.message = 'Error al actualizar la puntuación: ' + error.message;
       }
     });
- }
+  }
 }

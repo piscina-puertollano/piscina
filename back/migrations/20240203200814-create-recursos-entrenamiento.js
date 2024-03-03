@@ -5,7 +5,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('recursosEntrenamientos', {
+    await queryInterface.createTable(process.env.TABLE_RECURSOS_ENTRENAMIENTO, {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -16,7 +16,7 @@ module.exports = {
         type: Sequelize.DataTypes.INTEGER,
         references: {
           model: {
-            tableName: 'entrenamientos'
+            tableName: process.env.TABLE_ENTRENAMIENTOS
           },
           key: 'id'
         },
@@ -36,6 +36,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('recursosEntrenamientos');
+    await queryInterface.dropTable(proces.env.TABLE_RECURSOS_ENTRENAMIENTO);
   }
 };
