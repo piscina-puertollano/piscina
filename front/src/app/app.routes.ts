@@ -15,11 +15,14 @@ import { ProfileComponent } from './users/profile/profile.component';
 import { FaltasComponent } from './faltas/faltas.component';
 import { ConsultarEntrenamientoComponent } from './consultar-entrenamiento/consultar-entrenamiento.component';
 import { ShowNewComponent } from './news/show-new/show-new.component';
-import { ListaEventosComponent } from './eventos/lista-eventos/lista-eventos.component'
+import { ListaEventosComponent } from './eventos/lista-eventos/lista-eventos.component';
 import { GestionEventosComponent } from './eventos/gestion-eventos/gestion-eventos.component';
 import { GestionCategoriasComponent } from './eventos/gestion-categorias/gestion-categorias.component';
 import { EventoComponent } from './eventos/evento/evento.component';
 import { GestionarNoSociosComponent } from './eventos/gestionar-no-socios/gestionar-no-socios.component';
+import { AsignarClasesUsuariosComponent } from './asignar-clases-usuarios/asignar-clases-usuarios.component';
+
+
 
 export const routes: Routes = [
   {path: '', component: ClubComponent },
@@ -38,6 +41,7 @@ export const routes: Routes = [
   {path: 'consultar-entrenamiento/:id', component: ConsultarEntrenamientoComponent},
   {path: 'crear-entrenamiento', component: CrearEntrenamientoComponent},
   {path: 'faltas', component: FaltasComponent},
+  {path: 'asignar/clases', component: AsignarClasesUsuariosComponent},
   {path: 'listaEventos', component: ListaEventosComponent },
   {path: 'gestionEventos', component: GestionEventosComponent },
   {path: 'gestionCategorias', component: GestionCategoriasComponent},

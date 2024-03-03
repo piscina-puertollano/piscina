@@ -1,3 +1,6 @@
+/**
+ * author: Manuel Garcia
+ */
 import { claseUsuario } from './../interfaces/claseUsuario';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -33,7 +36,7 @@ export class ClasehasusuarioService {
     );
   }
 
-  deleteFaltas(faltaId: string): Observable<Array<claseUsuario> | undefined> {
+  deleteRelacion(faltaId: string): Observable<Array<claseUsuario> | undefined> {
     const apiUrl = `${this.urlEliminarRelacion}/${faltaId}`;
     return this.http.delete<claseUsuario>(apiUrl).pipe(
       catchError((error) =>{

@@ -1,9 +1,10 @@
+//Manuel Garcia
 "use strict";
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("clase", {
+    await queryInterface.createTable(process.env.TABLE_CLASES, {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -26,6 +27,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.TIME,
       },
+      descripcion: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
@@ -37,6 +42,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("clase");
+    await queryInterface.dropTable(process.env.TABLE_CLASES);
   },
 };
