@@ -10,7 +10,9 @@ const conx = new Conexion();
  */
 
 const uploadFile = async(req, res) => {
+    console.log('llego')
     try {
+
         const folder = req.header('folder')
         if(!folder){
             res.status(404).json("La carpeta de destino no está definida");
@@ -44,6 +46,10 @@ const destroyFile = async(req, res ) => {
     const  fileId = req.params.id;
     const folder = req.params.folder;
 
+    if(fileId == null){
+        res.status(404).json({ msg: "Archivo no encontrado" });
+        return;
+    }
     const pathFile = path.join( __dirname, '../uploads', folder, fileId);
     console.log( pathFile );
     if (fs.existsSync(pathFile)) {
