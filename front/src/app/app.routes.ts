@@ -18,6 +18,7 @@ import { PuntuacionComponent } from './puntuaciones/puntuacion/puntuacion.compon
 import { ListComponent } from './users/list/list.component';
 import { LoginComponent } from './users/login/login.component';
 import { ProfileComponent } from './users/profile/profile.component';
+import { AsignarClasesUsuariosComponent } from './asignar-clases-usuarios/asignar-clases-usuarios.component';
 
 
 export const routes: Routes = [
@@ -40,5 +41,6 @@ export const routes: Routes = [
   {path: 'events/:id', component: EventoComponent},
   {path: 'non-member-management', component: GestionarNoSociosComponent},
   {path: 'scores', component: PuntuacionComponent},
+  {path: 'assign-class', component: AsignarClasesUsuariosComponent},
 
 ];
