@@ -19,7 +19,6 @@ import { User } from '../../interfaces/user';
 import { PuntuacionService } from '../../services/puntuacion.service';
 import { AlertComponent } from '../../utils/alert/alert.component';
 import { DialogComponent } from '../../utils/dialog/dialog.component';
-import { ModalCrearPuntuacionComponent } from '../modal-crear-puntuacion/modal-crear-puntuacion.component';
 import { ModificarPuntuacionComponent } from '../modificar-puntuacion/modificar-puntuacion.component';
 import { FilterService, MessageService } from 'primeng/api';
 import { UserService } from '../../services/user.service';
@@ -27,6 +26,7 @@ import { FileService } from '../../services/file.service';
 import { Puntuacion, Socio } from '../../interfaces/puntuacion';
 import { environment } from '../../../environments/environment.development';
 import { AuthService } from '../../services/auth.service';
+import { CrearPuntuacionComponent } from '../crear-puntuacion/crear-puntuacion.component';
 
 @Component({
   selector: 'app-puntuacion',
@@ -34,7 +34,7 @@ import { AuthService } from '../../services/auth.service';
   imports: [
     AlertComponent, TooltipModule, ToolbarModule, InputTextModule, 
     TableModule, DatePipe, CurrencyPipe, ProgressBarModule, FormsModule,
-    ModalCrearPuntuacionComponent, ToastModule, ConfirmDialogModule, DialogComponent,
+    ToastModule, ConfirmDialogModule, DialogComponent,
     DialogModule, ModificarPuntuacionComponent
   ],
   templateUrl: './puntuacion.component.html',
@@ -53,14 +53,51 @@ export class PuntuacionComponent {
   test?: Puntuacion;
 
   ref: DynamicDialogRef | undefined;
+  dialog: any;
 
   constructor(private authService: AuthService, private filterService: FilterService, private puntuacionService: PuntuacionService, public dialogService: DialogService, private messageService: MessageService, private fileService: FileService){
   }
 
-  /* openDialog(id: number){
-      console.log("FUncion para poner puntuacion al socio")
-  } */
-
+  openDialog(id: number, tienePuntuacion: boolean) {
+    if (typeof id === 'number') {
+       if (tienePuntuacion) {
+         this.puntuacionService.getPuntuacionId({id}).subscribe(
+           (puntuacion: Puntuacion[] | undefined) => {
+             console.log(puntuacion);
+             if (puntuacion) {
+               this.ref = this.dialogService.open(ModificarPuntuacionComponent, {
+                 header: 'Modificación de Calificación',
+                 modal: true,
+                 breakpoints: {
+                   '960px': '75vw',
+                   '640px': '90vw'
+                 },
+                 data: {
+                   puntuacion: puntuacion, 
+                   socioId: id
+                 }
+               });
+             }
+           },
+           (error) => {
+             console.error('Error al obtener la puntuación:', error);
+           }
+         );
+       } else {
+         this.ref = this.dialogService.open(CrearPuntuacionComponent, {
+           header: 'Nueva Calificación',
+           modal: true,
+           breakpoints: {
+             '960px': '75vw',
+             '640px': '90vw'
+           },
+           data: {
+             socioId: id
+           }
+         });
+       }
+    }
+   }
   ngOnInit() {
     this.loading = false;
     this.socios();

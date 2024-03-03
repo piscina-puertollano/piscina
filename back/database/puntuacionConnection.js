@@ -102,12 +102,31 @@ class puntuacionConnection{
     }
 
     getPuntuacionId = async(id) => {
-        conexion.conectar;
-        let puntuacion = await models.Puntuacion.findByPk(id);
-
-        conexion.desconectar;
-        return puntuacion;
-    }
+        try {
+            conexion.conectar();
+            const puntuacionUsuario = await models.PuntuacionUsuario.findOne({
+                where: { id_user: id },
+                include: [{
+                    model: models.Puntuacion,
+                    as: 'puntuacion',
+                    attributes: ['id', 'nota']
+                }]
+            });
+    
+            if (puntuacionUsuario && puntuacionUsuario.puntuacion) {
+                const puntuacion = puntuacionUsuario.puntuacion.get({ plain: true });
+                conexion.desconectar();
+                return puntuacion;
+            } else {
+                conexion.desconectar();
+                return null;
+            }
+        } catch (error) {
+            console.error('Error al obtener la puntuación:', error);
+            conexion.desconectar();
+            throw error;
+        }
+    };
 
     insertPuntuacion = async(body) => {
         let resultado = 0;

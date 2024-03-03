@@ -23,7 +23,7 @@ export class PuntuacionService {
 
   getPuntuacionId(puntuacion: Puntuacion): Observable<Array<Puntuacion> | undefined>{
     const url = `${this.urlGetPuntuacionId}/${puntuacion.id}`;
-    return this.http.get<any[]>(url, {withCredentials:true});
+    return this.http.get<Array<Puntuacion> | undefined>(url, {withCredentials:true});
   }
 
   getSocios(): Observable<any[]> {
