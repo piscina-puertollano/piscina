@@ -34,7 +34,7 @@ router.post('/forget-pass/', controlador.forgetPass);
 router.post('/search', [checkToken, tokenCanAdmin], controlador.getUserByValue);
 
 //obtener los socios asociados a un tutor
-router.get('/socios/:idTutor',[checkToken, tokenCanAdmin], controlador.showSociosOfTutor);
+router.get('/socios/:idTutor',[checkToken, tokenCanTutor], controlador.showSociosOfTutor);
 
 router.get('/socios',[checkToken, tokenCanTutor], controlador.showSocios);
 

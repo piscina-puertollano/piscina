@@ -55,13 +55,11 @@ class AssetsModel {
     console.log(assetId)
     try{
         conexion.conectar();
-        resultado = await models.Assets.findOne({
-            attributes:["ruta"],
-            where: {
-                ruta: assetId,
-            },
+        resultado = await models.Assets.destroy({
+          where: {
+            ruta: assetId
+          },
         });
-        resultado.destroy()
         conexion.desconectar();
         if (!resultado) {
             throw new Error("Asset not found");

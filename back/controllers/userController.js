@@ -227,6 +227,7 @@ const showSociosOfTutor = async (req, res) => {
           firstName: element.socio.firstName,
           lastName: element.socio.lastName,
           email: element.socio.email,
+          photo_profile: element.socio.image.ruta
         };
         arrSocios.push(rtnSocio);
       });
