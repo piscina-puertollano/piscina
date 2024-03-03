@@ -51,7 +51,7 @@ export class ModificarEntrenamientoComponent implements OnInit {
     this.entrenamientoService.updateEntrenamientos(this.entrenamiento).subscribe({
       next: (entrenamiento: any | undefined) => {
         this.entrenamiento = entrenamiento;
-        this.router.navigate(['/entrenamientos']);
+        this.router.navigate(['/training']);
       },
       error: (err) => {
         console.log(err);
