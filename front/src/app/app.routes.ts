@@ -15,12 +15,14 @@ import { ProfileComponent } from './users/profile/profile.component';
 import { FaltasComponent } from './faltas/faltas.component';
 import { ConsultarEntrenamientoComponent } from './entrenamientos/consultar-entrenamiento/consultar-entrenamiento.component';
 import { ShowNewComponent } from './news/show-new/show-new.component';
-import { ListaEventosComponent } from './eventos/lista-eventos/lista-eventos.component'
+import { ListaEventosComponent } from './eventos/lista-eventos/lista-eventos.component';
 import { GestionEventosComponent } from './eventos/gestion-eventos/gestion-eventos.component';
 import { GestionCategoriasComponent } from './eventos/gestion-categorias/gestion-categorias.component';
 import { EventoComponent } from './eventos/evento/evento.component';
 import { GestionarNoSociosComponent } from './eventos/gestionar-no-socios/gestionar-no-socios.component';
 import { PuntuacionComponent } from './puntuaciones/puntuacion/puntuacion.component';
+import { AsignarClasesUsuariosComponent } from './asignar-clases-usuarios/asignar-clases-usuarios.component';
+
 
 export const routes: Routes = [
   {path: '', component: ClubComponent },
@@ -42,6 +44,5 @@ export const routes: Routes = [
   {path: 'events/:id', component: EventoComponent},
   {path: 'non-member-management', component: GestionarNoSociosComponent},
   {path: 'scores', component: PuntuacionComponent},
-
 
 ];

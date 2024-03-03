@@ -1,3 +1,4 @@
+/* Manuel Garcia */
 const express = require('express');
 const ClaseConnection = require('../database/claseConnection');
 const claseConnection = new ClaseConnection();

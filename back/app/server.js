@@ -84,6 +84,7 @@ class Server {
     this.app.use(this.userRouteClasesPath, require("../routes/claseRoutes"));
     this.app.use(this.userRouteClasesPath, require("../routes/faltasRoutes"));
     this.app.use(this.userRouteClasesPath, require("../routes/claseHasUsuarioRoutes"));
+    this.app.use(this.userRouteClasesPath, require("../routes/categoriaClaseRoutes"));
 
     this.app.use(this.apiFiles, require("../routes/uploadsRoutes"));
     this.app.use(this.userRoutePath, require("../routes/userRoutes"));
