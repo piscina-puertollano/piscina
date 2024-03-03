@@ -1,3 +1,4 @@
+// Manuel Garcia
 'use strict';
 const {
   Model
@@ -26,8 +27,8 @@ module.exports = (sequelize, DataTypes) => {
     id_clase: DataTypes.INTEGER
    }, {
     sequelize,
-    modelName: 'clase_has_usuario',
-    tableName: 'clase_has_usuario',
+    modelName: process.env.TABLE_CLASE_USUARIO,
+    tableName: process.env.TABLE_CLASE_USUARIO,
     timestamps: false
    });
    

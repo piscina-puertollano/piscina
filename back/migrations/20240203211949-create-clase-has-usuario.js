@@ -1,8 +1,9 @@
+//Manuel Garcia
 'use strict';
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('clase_has_usuario', {
+    await queryInterface.createTable(process.env.TABLE_CLASE_USUARIO, {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -28,6 +29,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('clase_has_usuario');
+    await queryInterface.dropTable(process.env.TABLE_CLASE_USUARIO);
   }
 };

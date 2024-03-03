@@ -1,3 +1,4 @@
+//Manuel Garcia
 'use strict';
 const {
   Model
@@ -12,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       this.hasMany(models.Evento, {
         foreignKey: 'id_categoria',
-        as: 'clase'
+        as: process.env.TABLE_CLASES
       });
     }
   }
@@ -21,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'categoria_clase',
-    tableName: 'categoria_clases'
+    tableName: process.env.TABLE_CATEGORIA_CLASES
   });
   return categoria_clase;
 };
