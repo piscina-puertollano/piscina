@@ -99,15 +99,9 @@ class Server {
     this.app.use(this.tiposRoutePath, require("../routes/tiposRoutes"));
 
     this.app.use(this.eventosRoutePath, require("../routes/eventoRoutes"));
-    this.app.use(
-      this.categoriasRoutePath,
-      require("../routes/categoriaRoutes")
-    );
+    this.app.use(this.categoriasRoutePath,require("../routes/categoriaRoutes"));
     this.app.use(this.noSociosRoutePath, require("../routes/noSocioRoutes"));
-    this.app.use(
-      this.eventoUsuariosRoutePath,
-      require("../routes/eventoUsuarioRoutes")
-    ); 
+    this.app.use(this.eventoUsuariosRoutePath,require("../routes/eventoUsuarioRoutes")); 
   }
 
   sockets() {

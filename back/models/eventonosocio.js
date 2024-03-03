@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'EventoNoSocio',
-    tableName: 'eventoNoSocios'
+    tableName: process.env.TABLE_EVENTO_NOSOCIO
   });
   return EventoNoSocio;
 };

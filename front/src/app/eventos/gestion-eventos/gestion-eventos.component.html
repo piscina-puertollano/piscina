@@ -1,60 +1,75 @@
 <!-- // Gonzalo Martinez Haro-->
-<h1>Gestión de eventos</h1>
-<section id="sectionEvento">
-    <button id="btnAdd" (click)="abrirModal()" >Agregar nuevo evento</button>
-    <button id="btnGestCategorias">Gestionar Categorias</button>
-</section>
-@if(alert.show){
-    <app-alert header="{{alert.header}}" message="{{alert.message}}" type="{{alert.type}}" ></app-alert>
-}
-<section>
-    <div>
-        <table>
-            <thead>
+<section id="gestionEvento">
+    <div class="card">
+        <h1 id="title" class="m-0">Gestión de eventos</h1>
+        <p-toast></p-toast>
+
+        <div id="addEvento">
+            <p-toolbar styleClass="mb-4 gap-2">
+                <ng-template pTemplate="right">
+                    <button id="btnAdd" (click)="abrirModalInsert()" pButton pRipple label="Agregar nuevo evento" class="p-button-success" icon="pi pi-plus"></button>
+                    <button id="btnGestCategorias" pButton pRipple label="Gestionar Categorias" class="p-button-success"></button>
+                </ng-template>
+            </p-toolbar>
+        </div>
+
+        <p-table
+        id="tableEventos"
+        #dt
+        [value]="eventos"
+        [rows]="10"
+        [paginator]="true"
+        [globalFilterFields]="['nombre', 'fecha', 'sede', 'categoria']"
+        [tableStyle]="{ 'min-width': '75rem' }"
+        [(selection)]="selectEventos"
+        [rowHover]="true"
+        dataKey="id"
+        currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} entradas"
+        [showCurrentPageReport]="true">
+
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input [(ngModel)]="searchValue" pInputText type="text" (input)="dt.filterGlobal(searchValue, 'contains')" placeholder="Buscar..." />
+                </span>
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="header">
+            <tr>
                 <th>ID evento</th>
-                <th>Nombre</th>
-            </thead>
-            <tbody>
-                @for (evento of eventos; track evento.id) {
-                <tr>
-                    <td>{{evento.id}}</td>
-                    <td>{{evento.nombre}}</td>
-                    <td>
-                        <i width="25px" style="margin-right:15px" (click)="getEvento(evento.id)" class="pi pi-eye"></i>
-                        <i width="25px" (click)="deleteEvento(evento.id)" class="pi pi-trash"></i>
-                    </td>
-                </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-    <div>
-        <div class="contenedor-flex">
-           <div class="contenedor-flex-small"> 
-                <h4>id:</h4>
-                <p><input type="text"  class="evento" [(ngModel)]="evento.id" value="{{evento.id}}" disabled></p>
-            </div>
-            <div class="contenedor-flex-small">
-                <h4>Nombre:</h4>
-                <p><input type="text"  class="evento" [(ngModel)]="evento.nombre" value="{{evento.nombre}}"></p>
-            </div>
-            <div class="contenedor-flex-small">
-                <h4>Categoria:</h4>
-                <p><input type="text"  class="evento" [(ngModel)]="evento.categoria" value="{{evento.categoria}}"></p>
-            </div>
-        </div>
-        <div class="contenedor-flex">
-            <div class="contenedor-flex-small">
-                <h4>Fecha:</h4>
-                <p><input type="text"  class="evento" [(ngModel)]="evento.fecha" value="{{evento.fecha}}"></p>
-            </div>
-            <div class="contenedor-flex-small">
-                <h4>Sede:</h4>
-                <p><input type="text"  class="evento" [(ngModel)]="evento.sede" value="{{evento.sede}}"></p>
-            </div>
-            <div class="contenedor-flex-button">
-                <input type="submit" value="Guardar cambios" (click)="updateEvento()">
-            </div>
-        </div>
+                <th pSortableColumn="nombre">Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
+                <th pSortableColumn="fecha">Fecha <p-sortIcon field="fecha"></p-sortIcon></th>
+                <th pSortableColumn="sede">Sede <p-sortIcon field="sede"></p-sortIcon></th>
+                <th pSortableColumn="categoria">Categoría <p-sortIcon field="categoria"></p-sortIcon></th>
+                <th>Acciones</th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-evento>
+            <tr>
+                <td>{{ evento.id }}</td>
+                <td>{{ evento.nombre }}</td>
+                <td>{{ evento.fecha }}</td>
+                <td>{{ evento.sede }}</td>
+                <td>{{ evento.categoria?.nombre }}</td>
+                <td>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success m-2 m-2" (click)="getEvento(evento.id)"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-2" (click)="deleteEvento(evento.id)"></button>
+                </td>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">En total hay {{ eventos ? eventos.length : 0 }} Eventos.</div>
+        </ng-template>
+        </p-table>
     </div>
 </section>
+
+<div class="card flex justify-content-center">
+    <p-toast></p-toast>
+</div>
+
+

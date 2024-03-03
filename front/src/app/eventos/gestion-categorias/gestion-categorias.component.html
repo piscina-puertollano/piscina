@@ -1,47 +1,68 @@
 <!-- // Gonzalo Martinez Haro-->
-<h1>Gestión de Categorias</h1>
-<section id="sectionCategoria">
-    <button id="btnAdd" (click)="abrirModal()">Agregar nueva categoria</button>
-    <button id="btnGestEventos">Gestionar Eventos</button>
-</section>
-@if(alert.show){
-    <app-alert header="{{alert.header}}" message="{{alert.message}}" type="danger" ></app-alert>
-}
-<section>
-    <div>
-        <table>
-            <thead>
-                <th>ID categoria</th>
-                <th>Nombre</th>
-            </thead>
-            <tbody>
-                @for (categoria of categorias; track categoria.id) {
-                <tr>
-                    <td>{{categoria.id}}</td>
-                    <td>{{categoria.nombre}}</td>
-                    <td>
-                        <i width="25px" style="margin-right:15px" class="pi pi-eye" (click)="getCategoria(categoria.id)"></i>
-                        <i width="25px" (click)="deleteCategoria(categoria.id)" class="pi pi-trash"></i>
-                    </td>
-                </tr>
-                }
-            </tbody>
-        </table>
+<!-- // Gonzalo Martinez Haro-->
+<section id="gestionCategoria">
+    <div class="card">
+        <h1 id="title" class="m-0">Gestión de Categorías</h1>
+        <p-toast></p-toast>
+
+        <div id="addCategoria">
+            <p-toolbar styleClass="mb-4 gap-2">
+                <ng-template pTemplate="right">
+                    <button id="btnAdd" (click)="abrirModal()" pButton pRipple label="Agregar nueva categoría" class="p-button-success"></button>
+                    <button id="btnGestEventos" pButton pRipple label="Gestionar Eventos" class="p-button-success"></button>
+                </ng-template>
+            </p-toolbar>
+        </div>
+
+        <p-table
+        id="tableCategorias"
+        #dt
+        [value]="categorias"
+        [rows]="10"
+        [paginator]="true"
+        [globalFilterFields]="['nombre']"
+        [tableStyle]="{ 'min-width': '75rem' }"
+        [(selection)]="selectCategorias"
+        [rowHover]="true"
+        dataKey="id"
+        currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} entradas"
+        [showCurrentPageReport]="true">
+
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input [(ngModel)]="searchValue" pInputText type="text" (input)="dt.filterGlobal(searchValue, 'contains')" placeholder="Buscar..." />
+                </span>
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th>ID categoría</th>
+                <th pSortableColumn="nombre">Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
+                <th>Acciones</th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-categoria>
+            <tr>
+                <td>{{ categoria.id }}</td>
+                <td>{{ categoria.nombre }}</td>
+                <td>
+                    <button pButton pRipple icon="pi pi-eye" class="p-button-rounded p-button-info m-2" (click)="getCategoria(categoria.id)"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-2" (click)="deleteCategoria(categoria.id)"></button>
+                </td>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">En total hay {{ categorias ? categorias.length : 0 }} Categorías.</div>
+        </ng-template>
+        </p-table>
     </div>
-    <div>
-        <div class="contenedor-flex">
-            <div class="contenedor-flex-small"> 
-                <h4>id:</h4>
-                <p><input type="text"  class="categoria" [(ngModel)]="categoria.id" value="{{categoria.id}}" disabled></p>
-            </div> 
-            <div class="contenedor-flex-small">
-                <h4>Nombre:</h4>
-                <p><input type="text"  class="categoria" [(ngModel)]="categoria.nombre" value="{{categoria.nombre}}"></p>
-            </div>
-        </div>
-        <div class="contenedor-flex"></div>
-            <div class="contenedor-flex-button">
-                <input type="submit" value="Guardar cambios" (click)="updateCategoria()">
-            </div>
-        </div>
 </section>
+
+<div class="card flex justify-content-center">
+    <p-toast></p-toast>
+</div>

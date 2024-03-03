@@ -22,6 +22,7 @@ export const environment = {
     removeSocio: '/user/remove',
     photo_profile_path:'photo_profile',
     landing_path:'landing',
+    events_path:'events',
     getsPostEvento: '/eventos',
     getUpdateDeleteEvento: '/eventos/',
     getsPostCategorias: '/categorias',

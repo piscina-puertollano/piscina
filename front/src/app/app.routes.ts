@@ -21,6 +21,8 @@ import { ProfileComponent } from './users/profile/profile.component';
 import { AsignarClasesUsuariosComponent } from './asignar-clases-usuarios/asignar-clases-usuarios.component';
 
 
+import { ExamplePdfViewerComponent } from './example-pdf-viewer/example-pdf-viewer.component';
+
 export const routes: Routes = [
   {path: '', component: ClubComponent },
   {path: 'login', component: LoginComponent },
@@ -42,5 +44,9 @@ export const routes: Routes = [
   {path: 'non-member-management', component: GestionarNoSociosComponent},
   {path: 'scores', component: PuntuacionComponent},
   {path: 'assign-class', component: AsignarClasesUsuariosComponent},
+  {path: 'pdf', component: ExamplePdfViewerComponent},
+
+
 
 ];
+

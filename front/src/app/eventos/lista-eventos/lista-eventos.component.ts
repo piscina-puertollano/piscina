@@ -6,11 +6,13 @@ import { Router } from '@angular/router';
 import { Alert } from '../../interfaces/alert';
 import { AlertComponent } from '../../utils/alert/alert.component';
 import { FormsModule } from '@angular/forms';
+import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-lista-eventos',
   standalone: true,
-  imports: [FormsModule, AlertComponent],
+  imports: [FormsModule, AlertComponent, CardModule,ButtonModule],
   templateUrl: './lista-eventos.component.html',
   styleUrl: './lista-eventos.component.css'
 })
@@ -44,6 +46,7 @@ export class ListaEventosComponent implements OnInit{
             'No se han podido cargar a los eventos.';
         } else {
           this.eventos = evento
+          console.log(evento.categoria)
         }
       },
       error: (err) => {
