@@ -1,5 +1,5 @@
 // Gonzalo Martinez Haro
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ChangeDetectionStrategy } from '@angular/core';
 import { Evento } from '../../interfaces/eventos';
 import { Alert } from '../../interfaces/alert';
 import { FormsModule } from '@angular/forms';
@@ -10,17 +10,25 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { InscribirNoSocioComponent } from '../modals/inscribir-no-socio/inscribir-no-socio.component';
 import { EventoUsuarioService } from '../../services/eventoUsuario.service';
 import { EventoUsuario } from '../../interfaces/eventoUsuario';
-import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { NgxExtendedPdfViewerService, pdfDefaultOptions } from 'ngx-extended-pdf-viewer';
+import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
+import { environment } from '../../../environments/environment.development';
+import { File } from '../../interfaces/upload';
+import { FileService } from '../../services/file.service';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+
 
 
 @Component({
   selector: 'app-evento',
   standalone: true,
-  imports: [FormsModule, AlertComponent,PdfViewerModule],
+  imports: [FormsModule, AlertComponent,PdfViewerModule,NgxExtendedPdfViewerModule,ToastModule,ButtonModule],
   templateUrl: './evento.component.html',
   styleUrl: './evento.component.css',
-  providers:[DialogService, InscribirNoSocioComponent]
+  providers:[DialogService, InscribirNoSocioComponent],
+  
 })
 
 
@@ -29,12 +37,18 @@ export class EventoComponent implements OnInit{
   alert : Alert
   evento : Evento
   eventoUsuario : EventoUsuario
+  resultado : any = {}
 
 
-  constructor(private eventosService: EventosService, private router: Router,private dialogService: DialogService, private route: ActivatedRoute, private eventoUsuarioService: EventoUsuarioService) {
+  constructor(private fileService: FileService, private pdfService: NgxExtendedPdfViewerService,private eventosService: EventosService, private router: Router,private dialogService: DialogService, private route: ActivatedRoute, private eventoUsuarioService: EventoUsuarioService) {
     this.evento = {};
     this.alert = new Alert();
     this.eventoUsuario = {};
+
+    pdfDefaultOptions.doubleTapZoomFactor = '150%'; 
+    pdfDefaultOptions.maxCanvasPixels = 4096 * 4096 * 5; 
+    pdfDefaultOptions.assetsFolder = 'bleeding-edge';
+    
 
   }
 
@@ -43,20 +57,47 @@ export class EventoComponent implements OnInit{
       const id = params.get('id');
       if (id) {
         this.getEvento(id);
+        
+        
       }
     });
+    
+    
   }
 
   getEvento(id:any) {
     this.eventosService.getEvento(id).subscribe({
       next: (evento: any | undefined) => {
-        this.evento = evento
-        console.log(evento)
+        this.evento = evento[0]
+        console.log(this.evento)
+
+
+
+        let pdf: File = {
+          id: this.evento.pdf?.ruta,
+          where: environment.events_path
+        }
+        console.log(pdf)
+        this.fileService.showImage(pdf).subscribe({
+          next: (pdf: any | undefined) => {
+    
+            this.resultado = ({id:this.evento.pdf?.ruta, pdf: URL.createObjectURL(pdf)})
+       
+            
+          },
+        });
+
+
+
       },
       error: (err) => {
         console.log(err);
       },
     });
+    
+    
+
+    
   }
 
 
@@ -111,7 +152,27 @@ export class EventoComponent implements OnInit{
     });
   }
 
+  showPdf() {
+    
+      let pdf: File = {
+        id: this.evento.pdf?.ruta,
+        where: environment.events_path
+      }
+      console.log(pdf)
+      this.fileService.showImage(pdf).subscribe({
+        next: (pdf: any | undefined) => {
+
+          this.resultado = ({id:this.evento.pdf?.ruta, pdf: URL.createObjectURL(pdf)})
+     
+          
+        },
+      });
+    }
+
+
+    
+  }
 
 
 
-}
+

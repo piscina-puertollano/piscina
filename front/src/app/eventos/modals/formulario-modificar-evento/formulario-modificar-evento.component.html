@@ -1,0 +1,36 @@
+<!-- // Gonzalo Martinez Haro-->
+<div class="form-container">
+    <div>
+        <p-toast></p-toast>
+  
+        <div class="card flex justify-content-center">
+            <p-toast></p-toast>
+            
+            <h1>Modifca el Evento</h1>
+            
+                <label for="nombreEvento">Nombre del Evento</label>
+                <input type="text" id="nombreEvento" pInputText required [(ngModel)]="evento.nombre" class="input-field">
+                
+                <label for="sedeEvento">Sede</label>
+                <input type="text" id="sedeEvento" pInputText required [(ngModel)]="evento.sede" class="input-field">
+                
+                <label for="categoriaEvento">Categoría</label>
+                <p-dropdown [options]="categorias" optionLabel="nombre" [(ngModel)]="evento.categoria" [showClear]="true" placeholder="Seleccione Categoria" ></p-dropdown>
+                
+                <label for="fechaEvento">Fecha</label>
+                <p-calendar [(ngModel)]="evento.fecha" dateFormat="dd/mm/yy"></p-calendar>
+  
+                <label for="descEvento">Descripción</label>
+                <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="evento.desc" ></textarea>
+  
+                <label for="descEvento">Privado</label>
+                <p-inputSwitch [(ngModel)]="evento.privado"></p-inputSwitch>
+  
+                <label for="descEvento">Visible</label>
+                <p-inputSwitch [(ngModel)]="evento.visible"></p-inputSwitch>
+                
+                <button label="Añadir" (click)="updateEvento()" pButton pRipple label="Agregar evento" class="p-button-success"></button>
+            
+        </div>
+    </div>
+  </div>

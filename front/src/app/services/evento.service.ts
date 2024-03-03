@@ -38,7 +38,7 @@ export class EventosService {
       }
 
       getEvento(id:any): Observable<Evento | undefined> {
-        return this.http.get<Evento>(this.urlGetEvento+id).pipe(
+        return this.http.get<Evento>(this.urlGetEvento+id,{withCredentials: true}).pipe(
           catchError((error) =>{
             return of(error)
           })

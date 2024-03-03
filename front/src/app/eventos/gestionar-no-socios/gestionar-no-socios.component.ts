@@ -5,12 +5,44 @@ import { noSocioService } from '../../services/noSocio.service';
 import { Alert } from '../../interfaces/alert';
 import { AlertComponent } from '../../utils/alert/alert.component';
 import { FormsModule } from '@angular/forms';
+import { Table, TableModule } from 'primeng/table';
+import { ProgressBarModule } from 'primeng/progressbar';
+import {
+  ConfirmationService,
+  FilterService,
+  MessageService,
+} from 'primeng/api';
+import { TooltipModule } from 'primeng/tooltip';
+import { CurrencyPipe, DatePipe } from '@angular/common';
+import { ToastModule } from 'primeng/toast';
+import { ToolbarModule } from 'primeng/toolbar';
+import { FileUploadModule } from 'primeng/fileupload';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { DialogModule } from 'primeng/dialog';
+import { DialogComponent } from '../../utils/dialog/dialog.component';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { InputTextModule } from 'primeng/inputtext';
 
 
 @Component({
   selector: 'app-gestionar-no-socios',
   standalone: true,
-  imports: [FormsModule, AlertComponent],
+  imports: [FormsModule,
+     AlertComponent,
+     InputTextModule,
+     TableModule,
+     DatePipe,
+     CurrencyPipe,
+     ProgressBarModule,
+     FormsModule,
+     TooltipModule,
+     ToastModule,
+     ToolbarModule,
+     FileUploadModule,
+     ConfirmDialogModule,
+     DialogModule,
+     DialogComponent,
+    ],
   templateUrl: './gestionar-no-socios.component.html',
   styleUrl: './gestionar-no-socios.component.css'
 })
@@ -19,6 +51,8 @@ export class GestionarNoSociosComponent implements OnInit{
   alert: Alert;
   noSocio: NoSocio;
   noSocios: Array<NoSocio> = [];
+  selectNoSocios!: Array<NoSocio>;
+  searchValue: string = '';
 
   constructor(private noSocioService: noSocioService, ) {
     this.alert = new Alert();

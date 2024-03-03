@@ -1,10 +1,23 @@
 // Gonzalo Martinez Haro
-export class Evento {
+export interface Evento {
     id?: number;
     nombre?: string;
     fecha?: string;
     sede?: string;
-    categoria?: string;
+    categoria?: Categoria;
     visible?: boolean;
-    privado?: boolean
+    privado?: boolean;
+    desc?: Text,
+    pdf?:   Pdf | null;
+  }
+
+  export interface Pdf {
+
+    ruta?: string;
+  }
+
+  export interface Categoria{
+
+    id?: number;
+    nombre?: string;
   }

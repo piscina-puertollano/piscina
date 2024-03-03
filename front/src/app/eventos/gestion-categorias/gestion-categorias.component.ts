@@ -6,13 +6,45 @@ import { Router } from '@angular/router';
 import { Alert } from '../../interfaces/alert';
 import { AlertComponent } from '../../utils/alert/alert.component';
 import { FormsModule } from '@angular/forms';
+import { Table, TableModule } from 'primeng/table';
+import { ProgressBarModule } from 'primeng/progressbar';
+import {
+  ConfirmationService,
+  FilterService,
+  MessageService,
+} from 'primeng/api';
+import { TooltipModule } from 'primeng/tooltip';
+import { CurrencyPipe, DatePipe } from '@angular/common';
+import { ToastModule } from 'primeng/toast';
+import { ToolbarModule } from 'primeng/toolbar';
+import { FileUploadModule } from 'primeng/fileupload';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { DialogModule } from 'primeng/dialog';
+import { DialogComponent } from '../../utils/dialog/dialog.component';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { InputTextModule } from 'primeng/inputtext';
 import { FormularioInsertarCategoriaComponent } from '../modals/formulario-insertar-categoria/formulario-insertar-categoria.component';
-import { DialogService } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-gestion-categorias',
   standalone: true,
-  imports: [FormsModule, AlertComponent,FormularioInsertarCategoriaComponent],
+  imports: [FormsModule,
+    AlertComponent,
+    FormularioInsertarCategoriaComponent,
+    InputTextModule,
+    TableModule,
+    DatePipe,
+    CurrencyPipe,
+    ProgressBarModule,
+    FormsModule,
+    TooltipModule,
+    ToastModule,
+    ToolbarModule,
+    FileUploadModule,
+    ConfirmDialogModule,
+    DialogModule,
+    DialogComponent,
+    ],
   templateUrl: './gestion-categorias.component.html',
   styleUrl: './gestion-categorias.component.css',
   providers:[FormularioInsertarCategoriaComponent,DialogService]
@@ -22,6 +54,9 @@ export class GestionCategoriasComponent implements OnInit{
   alert: Alert;
   categoria: Categoria;
   categorias: Array<Categoria> = []
+  selectCategorias!: Array<Categoria>
+  searchValue: string = '';
+
 
 
   constructor(private categoriaService: CategoriaService, private router: Router,private dialogService: DialogService) {

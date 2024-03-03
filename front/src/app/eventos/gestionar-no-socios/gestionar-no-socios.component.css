@@ -1,25 +1,47 @@
-.contenedor-flex {
+i {
+    cursor: pointer;
+  }
+  
+  app-modal {
+    margin: 20px;
+    margin-right: 150px;
     display: flex;
-    align-items: flex-start;
-    margin: 10px;
-}
+    justify-content: end;
+    align-items: center;
+  }
+  
+  :host ::ng-deep .p-progressbar {
+    height: 0.5rem;
+    background-color: #d8dadc;
+  }
+  :host ::ng-deep .p-progressbar .p-progressbar-value {
+    background-color: #607d8b;
+  }
+  
+  
+  
+  .card {
+    position: relative;
+    max-width: 80%;
+    min-width: 10%;
+    color-scheme: light dark !important;
+    margin-left: 150px;
+  }
+  
+  #title{
+    text-align: center;
+    font-size: 2rem;
+  }
+  
+  .test {
+    border-radius: 20%;
+  }
+  
+  #btnGestCategorias{
 
-.contenedor-flex-small {
-    display: flex;
-    align-items: flex-start;
-    margin-left: 10px;
-    flex-direction: column; /* Establece la dirección de los elementos como una columna */
-    align-items: center; /* Alinea los elementos horizontalmente en el centro */
-    justify-content: center; /* Alinea los elementos verticalmente en el centro */
-}
+    margin-left: 25px;
 
-.contenedor-flex-button {
-    display: flex;
-    align-items: flex-start;
-    margin-top: 75px;
-    margin-left: 30px;
-    flex-direction: column; /* Establece la dirección de los elementos como una columna */
-    align-items: center; /* Alinea los elementos horizontalmente en el centro */
-    justify-content: center; /* Alinea los elementos verticalmente en el centro */
-
-}
+  }
+  
+  
+  

@@ -24,6 +24,8 @@ import { PuntuacionComponent } from './puntuaciones/puntuacion/puntuacion.compon
 import { AsignarClasesUsuariosComponent } from './asignar-clases-usuarios/asignar-clases-usuarios.component';
 
 
+import { ExamplePdfViewerComponent } from './example-pdf-viewer/example-pdf-viewer.component';
+
 export const routes: Routes = [
   {path: '', component: ClubComponent },
   {path: 'login', component: LoginComponent },
@@ -45,6 +47,9 @@ export const routes: Routes = [
   {path: 'descEvento/:id', component: EventoComponent},
   {path: 'gestionNoSocios', component: GestionarNoSociosComponent},
   {path: 'puntuaciones', component: PuntuacionComponent},
+
+  {path: 'pdf', component: ExamplePdfViewerComponent},
+
 
 
 ];

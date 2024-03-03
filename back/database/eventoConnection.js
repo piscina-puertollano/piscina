@@ -12,43 +12,28 @@ class eventoConnection{
 
     getEventos = async() => {
 
-        
         let eventos = []
-        conx.conectar
+        conx.conectar()
         
         eventos = await models.Evento.findAll({
-            attributes: ['id', 'nombre', 'fecha', 'idCategoria', 'sede']
-        })
-        
-        let devolver = []
-
-        for(let i=0;i < eventos.length;i++){
-            
-            devolver[i] = {}
-            devolver[i].id = eventos[i].id
-            //console.log('entra')
-            devolver[i].nombre = eventos[i].nombre
-            devolver[i].fecha = eventos[i].fecha
-            devolver[i].sede = eventos[i].sede
-            let categoria = {}
-            //categoria = await models.Categoria.findByPk(eventos[i].idCategoria);
-
-            categoria = await models.Categoria.findOne({
-                where: { id: { [Op.eq]: eventos[i].idCategoria } },
-                include: [{
-                    model: models.Evento,
-                    as: 'eventos'
-                  }]
-                });
-
-            devolver[i].categoria = categoria.nombre;
-
-
-        }
-       
+            attributes: ['id', 'nombre', 'fecha', 'sede', 'privado', 'desc'],
+            include: [
+                {
+                  model: models.Assets,
+                  as: "pdf",
+                  attributes: ["ruta"]
+                },
+                {
+                    model: models.Categoria,
+                    as: "categoria",
+                    attributes: ["id","nombre"]
+                  },
+                
+            ]
+        })    
         
         conx.desconectar
-        return devolver
+        return eventos
     }
 
 
@@ -57,73 +42,60 @@ class eventoConnection{
         
         
         let eventos = []
-        conx.conectar
+        conx.conectar()
         
         eventos = await models.Evento.findAll({
             where: { visible: { [Op.eq]: true } },
-            attributes: ['id', 'nombre', 'fecha', 'idCategoria', 'sede']
+            attributes: ['id', 'nombre', 'fecha', 'idCategoria', 'sede','privado','desc'],
+            include: [
+                {
+                  model: models.Assets,
+                  as: "pdf",
+                  attributes: ["ruta"]
+                },
+                {
+                    model: models.Categoria,
+                    as: "categoria",
+                    attributes: ["id","nombre"]
+                  },
+                
+            ]
         })
-        
-        let devolver = []
-
-        for(let i=0;i < eventos.length;i++){
-            
-            devolver[i] = {}
-            devolver[i].id = eventos[i].id
-            //console.log('entra')
-            devolver[i].nombre = eventos[i].nombre
-            devolver[i].fecha = eventos[i].fecha
-            devolver[i].sede = eventos[i].sede
-            let categoria = {}
-            //categoria = await models.Categoria.findByPk(eventos[i].idCategoria);
-
-            categoria = await models.Categoria.findOne({
-                where: { id: { [Op.eq]: eventos[i].idCategoria } },
-                include: [{
-                    model: models.Evento,
-                    as: 'eventos'
-                  }]
-                });
-            devolver[i].categoria = categoria.nombre;
-
-
-        }
        
         
-        conx.desconectar
+        conx.desconectar()
         return devolver
     }
 
     getEvento = async(id) => {
 
-        conx.conectar
+        conx.conectar()
+
         
-        let evento = await models.Evento.findByPk(id)
+        //let evento = await models.Evento.findByPk(id)
 
-        //.raw
 
-        let devolver = {}
+        let evento = await models.Evento.findAll({
+            where: { id: { [Op.eq]: id } },
+            attributes: ['id', 'nombre', 'fecha', 'idCategoria', 'sede','privado','desc','visible'],
+            include: [
+                {
+                  model: models.Assets,
+                  as: "pdf",
+                  attributes: ["ruta"]
+                },
+                {
+                    model: models.Categoria,
+                    as: "categoria",
+                    attributes: ["id","nombre"]
+                  },
+                
+            ]
+        })
+       
 
-        devolver.id = evento.id
-        devolver.nombre = evento.nombre
-        devolver.fecha = evento.fecha
-        devolver.sede = evento.sede
-        devolver.visible = evento.visible
-        devolver.privado = evento.privado
-        let categoria = ''
-        
-        categoria = await models.Categoria.findOne({
-            where: { id: { [Op.eq]: evento.idCategoria } },
-            include: [{
-                model: models.Evento,
-                as: 'eventos'
-              }]
-            });
-
-        devolver.categoria = categoria.nombre;
-
-        conx.desconectar
-        return devolver
+        conx.desconectar()
+        return evento
 
         
     }
@@ -131,7 +103,7 @@ class eventoConnection{
     insertEvento = async(body) => {
 
         let resultado = 0
-        conx.conectar
+        conx.conectar()
 
         
         let devolver = {}
@@ -140,21 +112,12 @@ class eventoConnection{
         devolver.nombre = body.nombre
         devolver.fecha = body.fecha
         devolver.sede = body.sede
-        //Faltan las checkbox
-        //devolver.visible = evento.visible
-        //devolver.privado = evento.privado
+        devolver.desc = body.desc
+        devolver.idCategoria = body.categoria.id
+        devolver.visible = body.visible
+        devolver.privado = body.privado
         
-        let categoria = ''
-
-        categoria = await models.Categoria.findOne({
-            where: { nombre: { [Op.eq]: body.categoria } },
-            include: [{
-                model: models.Evento,
-                as: 'eventos'
-              }]
-            });
-
-        devolver.idCategoria = categoria.id;
+        
             
         try {
             let nuevoEvento = await models.Evento.create(devolver)
@@ -163,7 +126,7 @@ class eventoConnection{
         } catch (error) {
             return error
         }finally{
-            conx.desconectar
+            conx.desconectar()
         }
     }
 
@@ -171,7 +134,7 @@ class eventoConnection{
     updateEvento = async(id,body) => {
 
         let resultado
-        conx.conectar
+        conx.conectar()
         resultado = await models.Evento.findByPk(id)
         
         if (!resultado){
@@ -186,19 +149,11 @@ class eventoConnection{
         devolver.nombre = body.nombre
         devolver.fecha = body.fecha
         devolver.sede = body.sede
+        devolver.desc = body.desc
+        devolver.idCategoria = body.categoria.id
         devolver.visible = body.visible
         devolver.privado = body.privado
-        let categoria = ''
-
-        categoria = await models.Categoria.findOne({
-            where: { nombre: { [Op.eq]: body.categoria } },
-            include: [{
-                model: models.Evento,
-                as: 'eventos'
-              }]
-            });
-
-        devolver.idCategoria = categoria.id;
+        console.log(devolver)
         
         await resultado.update(devolver);
         conx.desconectar();
@@ -208,7 +163,7 @@ class eventoConnection{
 
         
         let resultado
-        conx.conectar
+        conx.conectar()
 
         resultado = await models.Evento.findByPk(id)
         
@@ -229,7 +184,7 @@ class eventoConnection{
     
         try {
             
-            conx.conectar
+            conx.conectar();
             let resultado = await models.Evento.destroy({
                 where: { idCategoria: idCategoria },
             });
@@ -238,7 +193,7 @@ class eventoConnection{
         } catch (error) {
             return error;
         }finally{
-            conx.desconectar
+            conx.desconectar();
         }
 
     }
