@@ -24,7 +24,7 @@ module.exports = {
         type: Sequelize.DataTypes.INTEGER,
         references: {
           model: {
-            tableName: 'eventos'
+            tableName: process.env.TABLE_EVENTOS
           },
           key: 'id'
         },

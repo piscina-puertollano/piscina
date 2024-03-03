@@ -14,7 +14,7 @@ module.exports = {
         type: Sequelize.DataTypes.INTEGER,
         references: {
           model: {
-            tableName: 'noSocios'
+            tableName: process.env.TABLE_NOSOCIOs
           },
           key: 'id'
         },
@@ -24,7 +24,7 @@ module.exports = {
         type: Sequelize.DataTypes.INTEGER,
         references: {
           model: {
-            tableName: 'eventos'
+            tableName: process.env.TABLE_EVENTOS
           },
           key: 'id'
         },
