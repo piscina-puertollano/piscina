@@ -4,7 +4,7 @@
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { FilterService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogModule } from 'primeng/dialog';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -14,19 +14,16 @@ import { Table, TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TooltipModule } from 'primeng/tooltip';
-import { Alert } from '../../interfaces/alert';
+import { environment } from '../../../environments/environment.development';
+import { Puntuacion, Socio } from '../../interfaces/puntuacion';
 import { User } from '../../interfaces/user';
+import { AuthService } from '../../services/auth.service';
+import { FileService } from '../../services/file.service';
 import { PuntuacionService } from '../../services/puntuacion.service';
 import { AlertComponent } from '../../utils/alert/alert.component';
 import { DialogComponent } from '../../utils/dialog/dialog.component';
-import { ModificarPuntuacionComponent } from '../modificar-puntuacion/modificar-puntuacion.component';
-import { FilterService, MessageService } from 'primeng/api';
-import { UserService } from '../../services/user.service';
-import { FileService } from '../../services/file.service';
-import { Puntuacion, Socio } from '../../interfaces/puntuacion';
-import { environment } from '../../../environments/environment.development';
-import { AuthService } from '../../services/auth.service';
 import { CrearPuntuacionComponent } from '../crear-puntuacion/crear-puntuacion.component';
+import { ModificarPuntuacionComponent } from '../modificar-puntuacion/modificar-puntuacion.component';
 
 @Component({
   selector: 'app-puntuacion',

@@ -1,1 +1,7 @@
-<p>modificar-puntuacion works!</p>
+<form>
+    <label for="nota">Nota del socio:</label>
+    <input [(ngModel)]="puntuacion!.nota" name="nota" type="number">
+    <br>
+    <button>Cancelar</button>
+    <button (click)="updateNota()">Guardar</button>
+</form>
