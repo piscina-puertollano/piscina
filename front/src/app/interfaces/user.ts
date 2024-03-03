@@ -2,6 +2,8 @@
  * @author: badr
  */
 
+import { Puntuacion } from "./puntuacion";
+
 export interface User {
     id?:        number;
     idSocio?:   number;
@@ -15,6 +17,8 @@ export interface User {
     corriente_pago?:     boolean;
     roles?:     Role[];
     image?:     Image | null;
+    puntuacionesUsuario?: Puntuacion[];
+
 }
 
 export interface Image {

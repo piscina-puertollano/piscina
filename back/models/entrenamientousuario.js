@@ -1,5 +1,5 @@
 /**
- * author: Marina Laguna
+ * @author Marina Laguna
  */
 'use strict';
 const {
@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'EntrenamientoUsuario',
-    tableName: 'entrenamientosUsuarios'
+    tableName: process.env.TABLE_ENTRENAMIENTOS_USUARIO
   });
   return EntrenamientoUsuario;
 };

@@ -1,19 +1,22 @@
+/**
+ * @author Marina Laguna
+ */
 'use strict';
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('ejercicioEntrenamiento', {
+    await queryInterface.createTable(process.env.TABLE_EJERCICIO_ENTRENAMIENTO, {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      idEjercicio: {
+      ejercicioId: {
         type: Sequelize.DataTypes.INTEGER,
         references: {
           model: {
-            tableName: 'ejercicio',
+            tableName: process.env.TABLE_EJERCICIOS,
           },
           key: 'id',
         },
@@ -23,7 +26,7 @@ module.exports = {
         type: Sequelize.DataTypes.INTEGER,
         references: {
           model: {
-            tableName: 'entrenamientos',
+            tableName: process.env.TABLE_ENTRENAMIENTOS,
           },
           key: 'id',
         },
@@ -40,6 +43,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('ejercicioEntrenamiento');
+    await queryInterface.dropTable(process.env.TABLE_EJERCICIO_ENTRENAMIENTO);
   }
 };

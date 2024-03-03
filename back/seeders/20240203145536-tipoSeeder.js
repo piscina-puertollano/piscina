@@ -1,9 +1,12 @@
+/**
+ * @author Marina Laguna
+ */
 'use strict';
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.bulkInsert('tipo', [{
+    await queryInterface.bulkInsert(process.env.TABLE_TIPO_EJERCICIOS, [{
       nombre: 'calentamiento',
       descripcion: 'El propósito principal del calentamiento es aumentar la temperatura corporal, mejorar la circulación sanguínea, flexibilizar los músculos y articulaciones, y activar el sistema cardiovascular.',
     },

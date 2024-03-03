@@ -1,12 +1,12 @@
 /**
- * author: Marina Laguna
+ * @author Marina Laguna
  */
 'use strict';
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.bulkInsert('recursosEntrenamientos', [{
+    await queryInterface.bulkInsert(process.env.TABLE_RECURSOS_ENTRENAMIENTO, [{
       idEntrenamiento: 1,
       asset_id: 1,
       createdAt: new Date(),

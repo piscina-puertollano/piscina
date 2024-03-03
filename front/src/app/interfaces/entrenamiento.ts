@@ -2,10 +2,10 @@ import { EjercicioEntrenamiento } from "./ejercicio-entrenamiento"
 import { Ejercicios } from "./ejercicios"
 
 /**
- * author: Marina Laguna
+ * @author: Marina Laguna
  */
 export interface Entrenamiento {
-    id?:number
+    id?:number 
     nombre?:string
     descripcion?:string
     ejercicios?: Ejercicios[]

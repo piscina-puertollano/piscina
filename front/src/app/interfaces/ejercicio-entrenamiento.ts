@@ -1,6 +1,6 @@
 import { Ejercicios } from "./ejercicios";
 /**
- * author: Marina Laguna
+ * @author: Marina Laguna
  */
 export interface EjercicioEntrenamiento {
     idEjercicio: number,
