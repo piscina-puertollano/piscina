@@ -52,8 +52,8 @@ export class EntrenamientoComponent {
     this.alert = new Alert();
   }
 
-  ngOnInit(): void {
-    this.listarEntrenamientos()
+  ngOnInit(){
+    this.listarEntrenamientos();
   }
 
   openDialog(id?: number) {
