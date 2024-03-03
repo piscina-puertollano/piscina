@@ -19,6 +19,7 @@ import { UsuarioClaseFaltas } from '../interfaces/usuarioClaseFaltas';
 import moment from 'moment';
 import { DialogModule } from 'primeng/dialog';
 import {DropdownModule} from 'primeng/dropdown';
+import { MultiSelectModule } from 'primeng/multiselect';
 
 @Component({
   selector: 'app-faltas',
@@ -32,6 +33,7 @@ import {DropdownModule} from 'primeng/dropdown';
     DropdownModule,
     RouterLink,
     DialogModule,
+    MultiSelectModule
   ],
   templateUrl: './faltas.component.html',
   styleUrl: './faltas.component.css',

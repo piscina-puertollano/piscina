@@ -14,10 +14,14 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   ClaseHasUsuario.init({
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
     id_usuario: {
        type: DataTypes.INTEGER,
        allowNull: false,
-       primaryKey: true, // Indica que id_usuario es la clave primaria
     },
     id_clase: DataTypes.INTEGER
    }, {

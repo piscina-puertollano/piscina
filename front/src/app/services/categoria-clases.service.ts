@@ -14,7 +14,7 @@ export class CategoriaClasesService {
 
   constructor(private http: HttpClient) { }
   private baseUrl : string = environment.baseUrl
-  private urAllClases : string = this.baseUrl+'/clases'
+  private urAllClases : string = this.baseUrl+'/categorias/clase'
 
   agregarCategoria(nuevaClase: CategoriaClases): Observable<CategoriaClases> {
     return this.http.post<CategoriaClases>(this.urAllClases, nuevaClase).pipe(
@@ -50,7 +50,7 @@ export class CategoriaClasesService {
   
   deleteCategoriaClase(claseId: string): Observable<Array<CategoriaClases> | undefined> {
     const apiUrl = `${this.urAllClases}/${claseId}`;
-    return this.http.delete<CategoriaClases>(apiUrl, {withCredentials: true}).pipe(
+    return this.http.delete<CategoriaClases>(apiUrl).pipe(
       catchError((error) =>{
         return of(error)
       })

@@ -1,1 +1,24 @@
-<p>asignar-clases-usuarios works!</p>
+<div class="card">
+  <h1 id="title" class="m-0">Asignación de clases - nadadores</h1>
+ </div>
+
+<p-table [value]="arrClaseUsuario" [paginator]="true" [rows]="10" [globalFilterFields]="['id_clase', 'id_usuario']">
+  <ng-template pTemplate="header">
+     <tr>
+       <th>Usuario</th>
+       <th>Clase</th>
+       <th>Acciones</th>
+     </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-claseUsuario>
+     <tr>
+       <td>{{ claseUsuario.id_usuario }}</td>
+       <td>{{ claseUsuario.id_clase }}</td>
+       <td>
+         <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success m-2"></button>
+         <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-2" (click)="deleteRelacion(claseUsuario.id_clase)"></button>
+       </td>
+     </tr>
+  </ng-template>
+ </p-table>
+ 

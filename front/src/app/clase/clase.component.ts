@@ -15,9 +15,9 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { DialogModule } from 'primeng/dialog';
 import moment from 'moment';
 import { ToastModule } from 'primeng/toast';
-import { Categoria } from '../interfaces/categoria';
-import { CategoriaService } from '../services/categoria.service';
 import { DropdownModule } from 'primeng/dropdown';
+import { CategoriaClasesService } from '../services/categoria-clases.service';
+import { CategoriaClases } from '../interfaces/categoriaClases';
 @Component({
   selector: 'app-clase',
   standalone: true,
@@ -36,7 +36,7 @@ export class ClaseComponent implements OnInit {
   displayDialogCrear: boolean = false;
   claseCrear: Clase = { id: 0, id_categoria: 0, nombre: '', hora_inicio: '', hora_fin: '', descripcion: '' };
  
-  categoriaSelecionada: Categoria = new Categoria();
+  categoriaSelecionada: CategoriaClases = new CategoriaClases();
   dia: any;
   horaInicio: string = ''
   horaFin: string = ''
@@ -49,8 +49,8 @@ export class ClaseComponent implements OnInit {
     { label: 'Jueves', value: 'Jueves' },
     { label: 'Viernes', value: 'Viernes' },
   ];
-  arrCategorias: Array<Categoria> = [];
-  selectedCategoria: Categoria = new Categoria();
+  arrCategorias: Array<CategoriaClases> = [];
+  selectedCategoria: CategoriaClases = new CategoriaClases();
   
  
   abrirModalCrear() {
@@ -60,7 +60,7 @@ export class ClaseComponent implements OnInit {
   crearClase() {
      this.displayDialogCrear = false;
   }
-  constructor(private service: ClaseService, private CategoriaService: CategoriaService, private router: Router) {
+  constructor(private service: ClaseService, private CategoriaService: CategoriaClasesService, private router: Router) {
      this.clase = {};
      this.horaFin = ''
      this.horaInicio = ''
@@ -74,7 +74,7 @@ export class ClaseComponent implements OnInit {
   }
 
   allCategorias() {
-    this.CategoriaService.getCategorias().subscribe({
+    this.CategoriaService.allCategorias().subscribe({
       next: (categoria: any | undefined) => {
         console.log(categoria);
         if (categoria.status >= 400) {
@@ -84,6 +84,7 @@ export class ClaseComponent implements OnInit {
             'No se han podido cargar la informacion. Póngase en contacto con un administrador.';
         } else {
           this.arrCategorias = categoria;
+          console.log(this.arrCategorias)
         }
       },
       error: (err) => {
