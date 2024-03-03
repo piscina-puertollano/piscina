@@ -48,122 +48,125 @@ export class AsignarClasesUsuariosComponent implements OnInit {
   arrUsers: Array<User> = [];
   searchValue: string = '';
   whatSearch: string = '';
- 
+
   clase: Clase;
   claseUsuario: claseUsuario;
   arrClaseUsuario: Array<claseUsuario> = [];
   arrClases: Array<Clase> = [];
- 
+
   resultadoRelacion: asignacionClasesUsuario[] = [];
- 
+
   constructor(
-     private service: ClaseService,
-     private UsuarioService: UserService,
-     private ClasehasusuarioService: ClasehasusuarioService,
-     private router: Router
+    private service: ClaseService,
+    private UsuarioService: UserService,
+    private ClasehasusuarioService: ClasehasusuarioService,
+    private router: Router
   ) {
-     this.alert = new Alert();
-     this.clase = {};
-     this.claseUsuario = {};
-     this.user = {};
+    this.alert = new Alert();
+    this.clase = {};
+    this.claseUsuario = {};
+    this.user = {};
   }
- 
+
   ngOnInit(): void {
     this.allUsers();
     this.allClases();
-   }
-   
-   allUsers() {
-    this.UsuarioService.allUsers().subscribe({
-       next: (user: any | undefined) => {
-         if (user.status >= 400) {
-           this.alert.show = true;
-           this.alert.header = 'Error';
-           this.alert.message = 'No se han podido cargar a los usuarios. Póngase en contacto con un adminsitrador.';
-         } else {
-           this.arrUsers = user;
-           this.allClases(); // Llamamos a allClases después de cargar usuarios
-         }
-       },
-       error: (err) => {
-         console.log(err);
-       },
-    });
-   }
-   
-   allClases() {
-    this.service.allClases().subscribe({
-       next: (clase: any | undefined) => {
-         if (clase.status >= 400) {
-           this.alert.show = true;
-           this.alert.header = 'Error';
-           this.alert.message = 'No se han podido cargar la informacion. Póngase en contacto con un adminsitrador.';
-         } else {
-           this.arrClases = clase;
-           this.allClasesUsuarios(); // Llamamos a allClasesUsuarios después de cargar clases
-         }
-       },
-       error: (err) => {
-         console.log(err);
-       },
-    });
-   }
-   
-   allClasesUsuarios() {
-    this.ClasehasusuarioService.allRelacion().subscribe({
-       next: (categoria: any | undefined) => {
-         if (categoria.status >= 400) {
-           this.alert.show = true;
-           this.alert.header = 'Error';
-           this.alert.message = 'No se han podido cargar la informacion. Póngase en contacto con un administrador.';
-         } else {
-           this.arrClaseUsuario = categoria;
-           this.resultadoRelacion = []; // Inicializamos el array resultadoRelacion
-   
-           for (let i = 0; i < this.arrClaseUsuario.length; i++) {
-             const clases = this.arrClaseUsuario[i];
-             const user = this.arrUsers.find(
-               (user) => user.id === clases.id_usuario
-             );
-             const clase = this.arrClases.find(
-               (clase) => clase.id === clases.id_clase
-             );
-   
-             const relacion = {
-               id: clases.id,
-               id_usuario: clases.id_usuario,
-               nombre_usuario: user?.firstName,
-               id_clase: clases.id_clase,
-               nombre_clase: clase?.nombre
-             };
-             this.resultadoRelacion.push(relacion);
-           }
-           console.log(this.resultadoRelacion);
-         }
-       },
-       error: (err) => {
-         console.log(err);
-       },
-    });
-   }
-   
-  deleteRelacion(id: any) {
-     this.ClasehasusuarioService.deleteRelacion(id).subscribe({
-       next: (clase: any | undefined) => {
-         if (clase.length == 0 || clase.status == 404) {
-           this.alert.show = true;
-           this.alert.header = 'Error';
-           this.alert.message = 'El usuario no se ha podido eliminar';
-         } else {
-           this.alert.show = true;
-           this.alert.header = 'Operación completada';
-           this.alert.message = 'Usuario eliminado correctamente';
-           location.reload();
-         }
-       },
-       error: (err) => {
-         console.log(err);
-       },
-     });
   }
- }
+
+  allUsers() {
+    this.UsuarioService.allUsers().subscribe({
+      next: (user: any | undefined) => {
+        if (user.status >= 400) {
+          this.alert.show = true;
+          this.alert.header = 'Error';
+          this.alert.message =
+            'No se han podido cargar a los usuarios. Póngase en contacto con un adminsitrador.';
+        } else {
+          this.arrUsers = user;
+          this.allClases(); // Llamamos a allClases después de cargar usuarios
+        }
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
+
+  allClases() {
+    this.service.allClases().subscribe({
+      next: (clase: any | undefined) => {
+        if (clase.status >= 400) {
+          this.alert.show = true;
+          this.alert.header = 'Error';
+          this.alert.message =
+            'No se han podido cargar la informacion. Póngase en contacto con un adminsitrador.';
+        } else {
+          this.arrClases = clase;
+          this.allClasesUsuarios(); // Llamamos a allClasesUsuarios después de cargar clases
+        }
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
+
+  allClasesUsuarios() {
+    this.ClasehasusuarioService.allRelacion().subscribe({
+      next: (categoria: any | undefined) => {
+        if (categoria.status >= 400) {
+          this.alert.show = true;
+          this.alert.header = 'Error';
+          this.alert.message =
+            'No se han podido cargar la informacion. Póngase en contacto con un administrador.';
+        } else {
+          this.arrClaseUsuario = categoria;
+          this.resultadoRelacion = []; // Inicializamos el array resultadoRelacion
+
+          for (let i = 0; i < this.arrClaseUsuario.length; i++) {
+            const clases = this.arrClaseUsuario[i];
+            const user = this.arrUsers.find(
+              (user) => user.id === clases.id_usuario
+            );
+            const clase = this.arrClases.find(
+              (clase) => clase.id === clases.id_clase
+            );
+
+            const relacion = {
+              id: clases.id,
+              id_usuario: clases.id_usuario,
+              nombre_usuario: user?.firstName,
+              id_clase: clases.id_clase,
+              nombre_clase: clase?.nombre,
+            };
+            this.resultadoRelacion.push(relacion);
+          }
+          console.log(this.resultadoRelacion);
+        }
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
+
+  deleteRelacion(id: any) {
+    this.ClasehasusuarioService.deleteRelacion(id).subscribe({
+      next: () => {
+        // La operación de eliminación fue exitosa
+        this.alert.show = true;
+        this.alert.header = 'Operación completada';
+        this.alert.message = 'Usuario eliminado correctamente';
+        location.reload();
+      },
+      error: (err) => {
+        // Hubo un error al intentar eliminar
+        console.log(err);
+        this.alert.show = true;
+        this.alert.header = 'Error';
+        this.alert.message =
+          'No se ha podido eliminar el usuario. Por favor, intente de nuevo.';
+      },
+    });
+  }
+}
