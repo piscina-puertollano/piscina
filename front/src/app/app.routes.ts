@@ -1,27 +1,23 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './users/login/login.component';
-import { UsersComponent } from './users/admin/users.component';
-import { ClaseComponent} from "./clase/clase.component";
-import { EntrenamientoComponent } from './entrenamientos/entrenamiento/entrenamiento.component';
-import { ListComponent } from './users/list/list.component';
-import { ClubComponent } from './landing/club/club.component';
+import { ClaseComponent } from "./clase/clase.component";
 import { ClubEditComponent } from './editor/club/club.component';
-import { ContactComponent } from './landing/contact/contact.component';
-import { ListNewsComponent } from './news/list/list.component';
-import { CreateNewComponent } from './news/create-new/create-new.component';
-import { ModificarEntrenamientoComponent } from './entrenamientos/modificar-entrenamiento/modificar-entrenamiento.component';
-import { CrearEntrenamientoComponent } from './entrenamientos/crear-entrenamiento/crear-entrenamiento.component';
-import { ProfileComponent } from './users/profile/profile.component';
-import { FaltasComponent } from './faltas/faltas.component';
 import { ConsultarEntrenamientoComponent } from './entrenamientos/consultar-entrenamiento/consultar-entrenamiento.component';
-import { ShowNewComponent } from './news/show-new/show-new.component';
-import { ListaEventosComponent } from './eventos/lista-eventos/lista-eventos.component';
-import { GestionEventosComponent } from './eventos/gestion-eventos/gestion-eventos.component';
-import { GestionCategoriasComponent } from './eventos/gestion-categorias/gestion-categorias.component';
+import { EntrenamientoComponent } from './entrenamientos/entrenamiento/entrenamiento.component';
 import { EventoComponent } from './eventos/evento/evento.component';
+import { GestionCategoriasComponent } from './eventos/gestion-categorias/gestion-categorias.component';
+import { GestionEventosComponent } from './eventos/gestion-eventos/gestion-eventos.component';
 import { GestionarNoSociosComponent } from './eventos/gestionar-no-socios/gestionar-no-socios.component';
+import { ListaEventosComponent } from './eventos/lista-eventos/lista-eventos.component';
+import { FaltasComponent } from './faltas/faltas.component';
+import { ClubComponent } from './landing/club/club.component';
+import { ContactComponent } from './landing/contact/contact.component';
+import { CreateNewComponent } from './news/create-new/create-new.component';
+import { ListNewsComponent } from './news/list/list.component';
+import { ShowNewComponent } from './news/show-new/show-new.component';
 import { PuntuacionComponent } from './puntuaciones/puntuacion/puntuacion.component';
-import { AsignarClasesUsuariosComponent } from './asignar-clases-usuarios/asignar-clases-usuarios.component';
+import { ListComponent } from './users/list/list.component';
+import { LoginComponent } from './users/login/login.component';
+import { ProfileComponent } from './users/profile/profile.component';
 
 
 export const routes: Routes = [
