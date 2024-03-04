@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { HeadersComponent } from './headers/headers.component';
+import { HeadersComponent } from './components/headers/headers.component';
 import {
   ConfirmationService,
   MessageService,
   PrimeNGConfig,
 } from 'primeng/api';
-import { SignupComponent } from './users/signup/signup/signup.component';
+import { SignupComponent } from './components/users/signup/signup/signup.component';
 import { io } from 'socket.io-client';
 import { environment } from '../environments/environment.development';
 import { WebsocketsService } from './services/websockets.service';
