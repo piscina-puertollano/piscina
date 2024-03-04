@@ -70,6 +70,14 @@ export class AsignarClasesUsuariosComponent implements OnInit {
     { label: 'Viernes', value: 'Viernes' },
   ];
 
+  displayDialogEditar: boolean = false;
+  editData: any = {
+    user: null,
+    dia: null,
+    clase: null,
+  };
+  id: number = 0
+
   constructor(
     private service: ClaseService,
     private UsuarioService: UserService,
@@ -87,23 +95,26 @@ export class AsignarClasesUsuariosComponent implements OnInit {
     this.allClases();
     this.allClasesUsuarios();
     this.alert = new Alert();
-    this.selectedDia = ''
+    this.selectedDia = '';
   }
 
   onDiaSeleccionado(event: any) {
     console.log('Día seleccionado:', event.value);
-    this.clasesFiltradas = this.arrClases.filter(clase => clase.nombre === event.value);
+    this.clasesFiltradas = this.arrClases.filter(
+      (clase) => clase.nombre === event.value
+    );
     for (let index = 0; index < this.clasesFiltradas.length; index++) {
-      
-      const horaInicio: moment.Moment = moment(this.clasesFiltradas[index].hora_inicio, "HH:mm:ss");
-      this.clasesFiltradas[index].hora_inicio = horaInicio.format("HH:mm");
-  }
+      const horaInicio: moment.Moment = moment(
+        this.clasesFiltradas[index].hora_inicio,
+        'HH:mm:ss'
+      );
+      this.clasesFiltradas[index].hora_inicio = horaInicio.format('HH:mm');
+    }
 
-  for (const clase of this.clasesFiltradas) {
+    for (const clase of this.clasesFiltradas) {
       console.log(clase.nombre);
+    }
   }
- }
-   
 
   cerrarModalCrear() {
     this.displayDialogCrear = false;
@@ -207,14 +218,13 @@ export class AsignarClasesUsuariosComponent implements OnInit {
   agregarRelacion() {
     let nuevaRelacion = {
       id_usuario: this.selectedUser,
-      id_clase: this.selectedClase
-      
+      id_clase: this.selectedClase,
     };
-  
+
     this.ClasehasusuarioService.agregarRelacion(nuevaRelacion).subscribe({
       next: (resultado: any) => {
         console.log(resultado);
-        if (resultado.status >=  400) {
+        if (resultado.status >= 400) {
           this.alert.show = true;
           this.alert.header = 'Error';
           this.alert.message =
@@ -227,9 +237,42 @@ export class AsignarClasesUsuariosComponent implements OnInit {
         console.log(err);
         this.alert.show = true;
         this.alert.header = 'Error';
-        this.alert.message =
-          'Ha ocurrido un error al realizar la asignacion.';
+        this.alert.message = 'Ha ocurrido un error al realizar la asignacion.';
       },
     });
-  }  
+  }
+
+  openEditModal(claseUsuario: any) {
+    this.displayDialogEditar = true;
+    this.editData = {
+      id: claseUsuario.id,
+      user: claseUsuario.id_usuario,
+    };
+  }
+
+  actualizarRelacion() {
+    let relacionActualizada = {
+      id_usuario: this.editData.user,
+      id_clase: this.editData.clase,
+    };
+    this.ClasehasusuarioService.actualizarRelacion(this.editData.id, relacionActualizada).subscribe({
+      next: (resultado: any) => {
+        console.log(resultado);
+        if (resultado.status >= 400) {
+          this.alert.show = true;
+          this.alert.header = 'Error';
+          this.alert.message =
+            'No se ha podido insertar la nueva categoría. Póngase en contacto con un administrador.';
+        } else {
+          location.reload();
+        }
+      },
+      error: (err) => {
+        console.log(err);
+        this.alert.show = true;
+        this.alert.header = 'Error';
+        this.alert.message = 'Ha ocurrido un error al realizar la asignacion.';
+      },
+    });
+  }
 }

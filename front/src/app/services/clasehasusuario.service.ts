@@ -15,6 +15,7 @@ export class ClasehasusuarioService {
   constructor(private http: HttpClient) {}
   private baseUrl: string = environment.baseUrl;
   private urlRelacion: string = this.baseUrl + '/asignar/clase/usuario';
+  private urlActulizarRelacion: string = this.baseUrl + '/actualizar/clase/usuario';
   private urlEliminarRelacion: string = this.baseUrl + '/eliminar/clase/usuario';
   private urlObtener: string = this.baseUrl + '/obtener/clases';
 
@@ -31,6 +32,16 @@ export class ClasehasusuarioService {
     return this.http.post<claseUsuario>(this.urlRelacion, nuevaClase).pipe(
       catchError((error) => {
         console.error('Error al agregar la clase', error);
+        return of(error);
+      })
+    );
+  }
+
+  
+  actualizarRelacion(id: number, claseUsuario: claseUsuario): Observable<claseUsuario | undefined> {
+    const url = `${this.urlActulizarRelacion}/${id}`;
+    return this.http.put<claseUsuario>(url, claseUsuario, {withCredentials: false}).pipe(
+      catchError((error) => {
         return of(error);
       })
     );
