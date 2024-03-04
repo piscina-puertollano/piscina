@@ -70,7 +70,7 @@ module.exports = {
         id:5,
         firstName:'entrenador',
         lastName: 'entrenador',
-        photo_profile: 4,
+        photo_profile: 5,
         email: 'entrenador@piscina.com',
         num_socio: null,
         corriente_pago:1,

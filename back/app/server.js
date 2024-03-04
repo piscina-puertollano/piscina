@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 require('dotenv').config()
 const mongoose = require("mongoose");
-const { socketController } = require("../controllers/socketController");
+const { socketController } = require("../controllers/services/socketController");
 mongoose.set("strictQuery", false);
 const fileUpload = require('express-fileupload');
 
@@ -81,29 +81,29 @@ class Server {
   }
 
   routes() {
-    this.app.use(this.userRouteClasesPath, require("../routes/claseRoutes"));
-    this.app.use(this.userRouteClasesPath, require("../routes/faltasRoutes"));
-    this.app.use(this.userRouteClasesPath, require("../routes/claseHasUsuarioRoutes"));
-    this.app.use(this.userRouteClasesPath, require("../routes/categoriaClaseRoutes"));
+    this.app.use(this.userRouteClasesPath, require("../routes/trainer/claseRoutes"));
+    this.app.use(this.userRouteClasesPath, require("../routes/trainer/faltasRoutes"));
+    this.app.use(this.userRouteClasesPath, require("../routes/trainer/claseHasUsuarioRoutes"));
+    this.app.use(this.userRouteClasesPath, require("../routes/trainer/categoriaClaseRoutes"));
 
-    this.app.use(this.apiFiles, require("../routes/uploadsRoutes"));
-    this.app.use(this.userRoutePath, require("../routes/userRoutes"));
-    this.app.use(this.userRoutePath, require("../routes/alergiasRoutes"));
-    this.app.use(this.userRoutePath, require("../routes/newsRoutes"));
-    this.app.use(this.commentsRoutePath, require("../routes/commentsRoutes"));
-    this.app.use(this.userRoutePath, require("../routes/clubRoutes"));
+    this.app.use(this.apiFiles, require("../routes/services/uploadsRoutes"));
+    this.app.use(this.userRoutePath, require("../routes/users/userRoutes"));
+    this.app.use(this.userRoutePath, require("../routes/users/alergiasRoutes"));
+    this.app.use(this.userRoutePath, require("../routes/news/newsRoutes"));
+    this.app.use(this.commentsRoutePath, require("../routes/news/commentsRoutes"));
+    this.app.use(this.userRoutePath, require("../routes/landing/clubRoutes"));
     this.app.use(this.userRoutePath, require("../routes/assetsRoutes"));
 
-    this.app.use(this.entrenamientoPath, require('../routes/entrenamientosRoutes'))
-    this.app.use(this.ejerEntreRoutePath, require("../routes/ejercicioEntrenamientosRoutes"));
-    this.app.use(this.puntuacionRoutePath, require("../routes/puntuacionRoutes"));
-    this.app.use(this.ejercicioRoutePath, require('../routes/ejerciciosRoutes'));
-    this.app.use(this.tiposRoutePath, require("../routes/tiposRoutes"));
+    this.app.use(this.entrenamientoPath, require('../routes/training/entrenamientosRoutes'))
+    this.app.use(this.ejerEntreRoutePath, require("../routes/training/ejercicioEntrenamientosRoutes"));
+    this.app.use(this.puntuacionRoutePath, require("../routes/training/puntuacionRoutes"));
+    this.app.use(this.ejercicioRoutePath, require('../routes/training/ejerciciosRoutes'));
+    this.app.use(this.tiposRoutePath, require("../routes/training/tiposRoutes"));
 
-    this.app.use(this.eventosRoutePath, require("../routes/eventoRoutes"));
-    this.app.use(this.categoriasRoutePath,require("../routes/categoriaRoutes"));
-    this.app.use(this.noSociosRoutePath, require("../routes/noSocioRoutes"));
-    this.app.use(this.eventoUsuariosRoutePath,require("../routes/eventoUsuarioRoutes")); 
+    this.app.use(this.eventosRoutePath, require("../routes/events/eventoRoutes"));
+    this.app.use(this.categoriasRoutePath,require("../routes/events/categoriaRoutes"));
+    this.app.use(this.noSociosRoutePath, require("../routes/events/noSocioRoutes"));
+    this.app.use(this.eventoUsuariosRoutePath,require("../routes/events/eventoUsuarioRoutes"));
   }
 
   sockets() {
