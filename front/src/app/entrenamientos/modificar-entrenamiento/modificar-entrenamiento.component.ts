@@ -8,6 +8,8 @@ import { TiposEjercicios } from '../../interfaces/tipos-ejercicios';
 import { EjerciciosService } from '../../services/ejercicios.service';
 import { EntrenamientoService } from '../../services/entrenamiento.service';
 import { AlertComponent } from '../../utils/alert/alert.component';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { MessageService } from 'primeng/api';
 
 @Component({
  selector: 'app-modificar-entrenamiento',
@@ -20,16 +22,19 @@ export class ModificarEntrenamientoComponent implements OnInit {
  alert: Alert;
  arrEntrenamientos: Array<Entrenamiento> = [];
  tiposEjercicios: TiposEjercicios[] = [];
- @Input() entrenamiento: Entrenamiento;
+ @Input() entrenamiento!: Entrenamiento;
+ dialogRef: DynamicDialogRef
 
- constructor(private entrenamientoService: EntrenamientoService, private ejerciciosService: EjerciciosService, private router: Router, private route: ActivatedRoute) {
+ ref: DynamicDialogRef | undefined;
+
+
+ constructor(private entrenamientoService: EntrenamientoService, private ejerciciosService: EjerciciosService, private router: Router, private route: ActivatedRoute, public config: DynamicDialogConfig, private messageService: MessageService, dialogRef: DynamicDialogRef) {
     this.alert = new Alert();
-    this.entrenamiento = {};
+    this.dialogRef = dialogRef;
  }
 
  ngOnInit(): void {
-    console.log('Datos del entrenamiento', this.entrenamiento);
-    console.log(this.entrenamiento.id);
+  this.entrenamiento = this.config.data.entrenamiento
     if (this.entrenamiento && this.entrenamiento.id) {
       this.getEntrenamiento();
     } else {
@@ -52,6 +57,14 @@ export class ModificarEntrenamientoComponent implements OnInit {
       next: (entrenamiento: any | undefined) => {
         this.entrenamiento = entrenamiento;
         this.router.navigate(['/training']);
+
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Operación completada',
+          detail: 'Entrenamiento actualizado',
+        });
+
+        this.dialogRef.close();
       },
       error: (err) => {
         console.log(err);

@@ -12,6 +12,8 @@ import { TiposEjercicios } from '../../interfaces/tipos-ejercicios';
 import { EjerciciosService } from '../../services/ejercicios.service';
 import { EntrenamientoService } from '../../services/entrenamiento.service';
 import { AuthService } from '../../services/auth.service';
+import { MessageService } from 'primeng/api';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-crear-entrenamiento',
@@ -27,8 +29,12 @@ export class CrearEntrenamientoComponent {
   tipo: TiposEjercicios = {id: 0, nombre: '', descripcion:''}
   tiposEjercicios: TiposEjercicios[] = [];
   nuevoEjercicio: Ejercicios = { descripcion: '', idTipo:  0 };
+  dialogRef: DynamicDialogRef
 
-  constructor(private authService: AuthService, private entrenamientoService: EntrenamientoService,private ejerciciosService: EjerciciosService, private router: Router) {
+  ref: DynamicDialogRef | undefined;
+
+  constructor(private authService: AuthService, private entrenamientoService: EntrenamientoService,private ejerciciosService: EjerciciosService, private router: Router, private messageService: MessageService, dialogRef: DynamicDialogRef) {
+    this.dialogRef = dialogRef;
   }
 
   ngOnInit(){
@@ -37,8 +43,14 @@ export class CrearEntrenamientoComponent {
 
   insertEntrenamiento() {
     this.entrenamientoService.insertEntrenamiento(this.entrenamiento).subscribe({
-      next: (nuevoEntrenamiento: Entrenamiento) => {
-        this.router.navigate(['/training']);
+      next: (resultado) => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Operación completada',
+          detail: 'Entrenamiento creado'
+        });
+
+        this.dialogRef.close();
       },
       error: (err) => {
         console.error('Error al insertar el entrenamiento:', err);

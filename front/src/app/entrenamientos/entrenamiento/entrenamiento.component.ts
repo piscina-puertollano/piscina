@@ -69,8 +69,9 @@ export class EntrenamientoComponent {
                  '640px': '90vw'
                },
                data: {
-                 entrenamiento: entrenamiento
-               }
+                 entrenamiento: entrenamiento,
+                 dialogRef: this.ref
+               },
              });
            } else {
              console.error('No se pudo obtener el entrenamiento con el ID proporcionado o el entrenamiento no tiene un ID definido.');

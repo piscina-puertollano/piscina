@@ -19,7 +19,7 @@ import { DialogComponent } from '../../utils/dialog/dialog.component';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { firstValueFrom } from 'rxjs';
-import { File } from '../../interfaces/upload';
+import { Files } from '../../interfaces/upload';
 import { FileService } from '../../services/file.service';
 import { environment } from '../../../environments/environment.development';
 import { FormularioInsertarComponent } from '../modals/formulario-insertar-evento/formulario-insertar.component';
