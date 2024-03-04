@@ -85,6 +85,7 @@ export class AsignarClasesUsuariosComponent implements OnInit {
   ngOnInit(): void {
     this.allUsers();
     this.allClases();
+    this.allClasesUsuarios();
     this.alert = new Alert();
     this.selectedDia = ''
   }
@@ -204,6 +205,31 @@ export class AsignarClasesUsuariosComponent implements OnInit {
   }
 
   agregarRelacion() {
-    let nuevaRelacion = {};
-  }
+    let nuevaRelacion = {
+      id_usuario: this.selectedUser,
+      id_clase: this.selectedClase
+      
+    };
+  
+    this.ClasehasusuarioService.agregarRelacion(nuevaRelacion).subscribe({
+      next: (resultado: any) => {
+        console.log(resultado);
+        if (resultado.status >=  400) {
+          this.alert.show = true;
+          this.alert.header = 'Error';
+          this.alert.message =
+            'No se ha podido insertar la nueva categoría. Póngase en contacto con un administrador.';
+        } else {
+          location.reload();
+        }
+      },
+      error: (err) => {
+        console.log(err);
+        this.alert.show = true;
+        this.alert.header = 'Error';
+        this.alert.message =
+          'Ha ocurrido un error al realizar la asignacion.';
+      },
+    });
+  }  
 }
