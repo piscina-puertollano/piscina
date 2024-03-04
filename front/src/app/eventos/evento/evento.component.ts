@@ -14,7 +14,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { NgxExtendedPdfViewerService, pdfDefaultOptions } from 'ngx-extended-pdf-viewer';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { environment } from '../../../environments/environment.development';
-import { File } from '../../interfaces/upload';
+import { Files } from '../../interfaces/upload';
 import { FileService } from '../../services/file.service';
 import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
@@ -71,9 +71,7 @@ export class EventoComponent implements OnInit{
         this.evento = evento[0]
         console.log(this.evento)
 
-
-
-        let pdf: File = {
+        let pdf: Files = {
           id: this.evento.pdf?.ruta,
           where: environment.events_path
         }
@@ -154,7 +152,7 @@ export class EventoComponent implements OnInit{
 
   showPdf() {
     
-      let pdf: File = {
+      let pdf: Files = {
         id: this.evento.pdf?.ruta,
         where: environment.events_path
       }
