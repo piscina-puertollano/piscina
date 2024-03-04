@@ -38,8 +38,22 @@ export class DashboardComponent implements OnInit {
       image: environment.tutor_card_image,
       title: 'Gestionar mis socios',
       content: 'Para gestionar mis socios',
-      link: '/admin-socios',
+      link: '/admin-partners',
     },
+    {
+      id_rol: environment.rol_entrenador,
+      image: environment, //poner imagen
+      title: 'Gestionar entrenamientos',
+      content: 'Para realizar el gestión de los entrenamientos',
+      link: '/training',
+    },
+    {
+      id_rol: environment.rol_entrenador,
+      image: environment, //poner imagen
+      title: 'Gestión de Calificaciones de los Socios',
+      content: 'Añadir calificaciones a los socios',
+      link: '/scores',
+    }
   ];
 
   myCards() {
