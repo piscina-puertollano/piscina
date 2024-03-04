@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Role, User } from '../../../../interfaces/user';
 import { InputTextModule } from 'primeng/inputtext';
@@ -29,7 +29,7 @@ import { environment } from '../../../../../environments/environment.development
   styleUrl: './signup.component.css',
   providers: [MessageService],
 })
-export class SignupComponent implements OnInit{
+export class SignupComponent implements OnInit, OnDestroy{
   user?: User;
   uploadedFiles: any[] = [];
 
@@ -51,17 +51,23 @@ export class SignupComponent implements OnInit{
       this.getAllSocios()
   }
 
+  ngOnDestroy(): void {
+      
+  }
+
   signup() {
     this.userService.signup(this.user!).subscribe({
       next: (user: any | undefined) => {
         console.log(user);
         this.messageService.add({
           severity: 'success',
-          summary: 'Success',
+          summary: 'Correcto',
           detail: 'Usuario creado',
         });
+        
       },
     });
+
   }
 
   getAllSocios() {

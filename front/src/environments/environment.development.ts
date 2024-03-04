@@ -39,5 +39,7 @@ export const environment = {
     redactor_card_image: '../../assets/cards-dashboard/_86275f07-3393-436b-bd61-2750bf845a4c.jpg',
     tutor_card_image: '../../assets/cards-dashboard/istockphoto-1345951925-640x640.jpg',
     indexContact: '/contact',
-    getAllAlergias: '/alergias'
+    getAllAlergias: '/alergias',
+    showContact: '/contact',
+    mail: '/mail'
 };

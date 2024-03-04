@@ -78,7 +78,7 @@ export class CreateNewComponent {
             setTimeout(() => {
               this.messageService.add({
                 severity: 'success',
-                summary: 'Success',
+                summary: 'Correcto',
                 detail: 'Noticia creada',
                 life: 3000,
               });

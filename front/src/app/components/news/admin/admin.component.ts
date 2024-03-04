@@ -55,7 +55,7 @@ export class AdminComponent implements OnInit {
           console.log(news);
           this.messageService.add({
             severity: 'success',
-            summary: 'Success',
+            summary: 'Correcto',
             detail: 'Noticia eliminada correctamente',
           });
         },

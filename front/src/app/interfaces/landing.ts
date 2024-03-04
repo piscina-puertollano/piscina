@@ -21,3 +21,10 @@ export interface Asset{
 export interface Foto {
     ruta: string;
 }
+
+export interface Contact {
+    _id?:   string;
+    name:  string;
+    tlf:   string;
+    email: string;
+}

@@ -26,6 +26,8 @@ import { EditNewComponent } from './components/news/edit-new/edit-new.component'
 import { PuntuacionComponent } from './components/puntuaciones/puntuacion/puntuacion.component';
 import { AsignarClasesUsuariosComponent } from './components/asignar-clases-usuarios/asignar-clases-usuarios.component';
 import { ExamplePdfViewerComponent } from './components/example-pdf-viewer/example-pdf-viewer.component';
+import { EditContactComponent } from './components/editor/contact/contact.component';
+
 
 export const routes: Routes = [
   {path: '', component: ClubComponent },
@@ -36,13 +38,14 @@ export const routes: Routes = [
   {path: 'my-profile', component: ProfileComponent },
   {path: 'news', component: ListNewsComponent },
   {path: 'list-news', component: AdminComponent },
-  {path: 'edit-new/:id', component: EditNewComponent },
+  {path: 'edit/landing', component: ClubEditComponent},
+  {path: 'edit/new/:id', component: EditNewComponent },
+  {path: 'edit/contact', component: EditContactComponent },
   {path: 'new/:id', component: ShowNewComponent },
   {path: 'create-new', component: CreateNewComponent },
   {path: 'contact', component: ContactComponent },
   {path: 'class', component: ClaseComponent},//clases
   {path: 'training', component: EntrenamientoComponent},//entrenamientos
-  {path: 'edit', component: ClubEditComponent},
   {path: 'training/:id', component: ConsultarEntrenamientoComponent},
   {path: 'faults', component: FaltasComponent},//faltas
   {path: 'list-events', component: ListaEventosComponent },
