@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('respond_comments', {
+    await queryInterface.createTable(process.env.TABLE_COMMENTS_RESPOND, {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -38,6 +38,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('respond_comments');
+    await queryInterface.dropTable(process.env.TABLE_COMMENTS_RESPOND);
   }
 };
