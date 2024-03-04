@@ -6,11 +6,10 @@
       <form>
         <div class="p-field">
           <label for="nota">Nota</label>
-          <input pInputText id="nota"  name="nota" required>
+          <input pInputText id="nota" name="nota" [(ngModel)]="puntuacion.nota" required>
         </div>
         <div class="p-field">
-          <button pButton type="submit" icon="pi pi-check" (click)="insertPuntuacion(puntuacion)">Crear</button>
-        </div>
+          <button pButton type="submit" icon="pi pi-check" (click)="insertPuntuacion(puntuacion); $event.preventDefault()">Crear</button>        </div>
       </form>
     </div>
     <div class="footer">

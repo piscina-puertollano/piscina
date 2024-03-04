@@ -89,9 +89,9 @@ export class PuntuacionComponent {
              '640px': '90vw'
            },
            data: {
-             socioId: id
-           }
-         });
+             socioId: id,
+            }
+          });
        }
     }
    }
@@ -109,6 +109,7 @@ export class PuntuacionComponent {
       next: (users: any[]) => {
         this.arrSocio = users.map((user: User) => {
           const socio: Socio = { ...user };
+          console.log(socio)
           if (user.puntuacionesUsuario && user.puntuacionesUsuario.length > 0) {
             socio.nota = user.puntuacionesUsuario[0].nota;
           } else {

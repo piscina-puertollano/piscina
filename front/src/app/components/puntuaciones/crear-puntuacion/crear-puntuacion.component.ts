@@ -1,36 +1,47 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Puntuacion } from '../../../interfaces/puntuacion';
-import { DynamicDialogModule, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DynamicDialogConfig, DynamicDialogModule, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { PuntuacionService } from '../../../services/puntuacion.service';
 import { MessageService } from 'primeng/api';
 import { DialogComponent } from '../../../utils/dialog/dialog.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-crear-puntuacion',
   standalone: true,
-  imports: [DynamicDialogModule],
+  imports: [DynamicDialogModule, FormsModule],
   templateUrl: './crear-puntuacion.component.html',
   styleUrls: ['./crear-puntuacion.component.css']
 })
 export class CrearPuntuacionComponent {
-  puntuacion: Puntuacion = {nota: 0};
-  dialogRef: DynamicDialogRef;
+  puntuacion: Puntuacion = {nota: 0,};
+  @Input() socioId!: number;
+  /*   dialogRef: DynamicDialogRef;
+ */
+  constructor(dialogRef: DynamicDialogRef, private puntuacionService: PuntuacionService, private messageService: MessageService, public config: DynamicDialogConfig){
+    this.socioId = this.config.data.puntuacion
 
-  constructor(dialogRef: DynamicDialogRef, private puntuacionService: PuntuacionService, private messageService: MessageService){
-    this.dialogRef = dialogRef;
-  }
+    /*     this.dialogRef = dialogRef;
+ */  }
 
-  insertPuntuacion(puntuacion: Puntuacion) {
+  insertPuntuacion(puntuacion: any) {
+    this.socioId = this.config.data.socioId
+    console.log(this.socioId)
+    puntuacion = {
+      userId: this.socioId,
+    }
+    console.log(puntuacion)
     this.puntuacionService.insertPuntuacion(puntuacion).subscribe({
-      next: (resultado) => {
+      next: (puntuacion) => {
+        console.log(puntuacion)
         this.messageService.add({
           severity: 'success',
           summary: 'Operación completada',
           detail: 'Puntuación creada'
         });
 
-        this.dialogRef.close();
-      },
+/*         this.dialogRef.close();
+ */      },
       error: (err) => {
         console.error('Error al insertar una puntuacion:', err);
       }

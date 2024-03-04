@@ -42,7 +42,7 @@ export class PuntuacionService {
   }
 
   insertPuntuacion(puntuacion: Puntuacion): Observable<Entrenamiento> {
-    const url = this.urlInsertPuntuacion;
+    const url = `${this.urlInsertPuntuacion}/crear-puntuacion`;
     return this.http.post<Puntuacion>(url, puntuacion, {withCredentials:true}).pipe(
       catchError((error) => {
         console.error('Error al insertar la puntuación:', error);
