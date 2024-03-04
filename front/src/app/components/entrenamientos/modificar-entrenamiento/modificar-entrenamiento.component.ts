@@ -2,23 +2,14 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-<<<<<<< HEAD:front/src/app/entrenamientos/modificar-entrenamiento/modificar-entrenamiento.component.ts
-import { Alert } from '../../interfaces/alert';
-import { Entrenamiento } from '../../interfaces/entrenamiento';
-import { TiposEjercicios } from '../../interfaces/tipos-ejercicios';
-import { EjerciciosService } from '../../services/ejercicios.service';
-import { EntrenamientoService } from '../../services/entrenamiento.service';
-import { AlertComponent } from '../../utils/alert/alert.component';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { MessageService } from 'primeng/api';
-=======
 import { Alert } from '../../../interfaces/alert';
 import { Entrenamiento } from '../../../interfaces/entrenamiento';
 import { TiposEjercicios } from '../../../interfaces/tipos-ejercicios';
 import { EjerciciosService } from '../../../services/ejercicios.service';
 import { EntrenamientoService } from '../../../services/entrenamiento.service';
 import { AlertComponent } from '../../../utils/alert/alert.component';
->>>>>>> f0f820888a5fbfe28ae960c6b40ad6001465a6ca:front/src/app/components/entrenamientos/modificar-entrenamiento/modificar-entrenamiento.component.ts
 
 @Component({
  selector: 'app-modificar-entrenamiento',

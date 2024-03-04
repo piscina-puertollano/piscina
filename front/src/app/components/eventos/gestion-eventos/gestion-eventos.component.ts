@@ -19,15 +19,9 @@ import { DialogComponent } from '../../../utils/dialog/dialog.component';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { firstValueFrom } from 'rxjs';
-<<<<<<< HEAD:front/src/app/eventos/gestion-eventos/gestion-eventos.component.ts
-import { Files } from '../../interfaces/upload';
-import { FileService } from '../../services/file.service';
-import { environment } from '../../../environments/environment.development';
-=======
 import { Files } from '../../../interfaces/upload';
 import { FileService } from '../../../services/file.service';
 import { environment } from '../../../../environments/environment.development';
->>>>>>> f0f820888a5fbfe28ae960c6b40ad6001465a6ca:front/src/app/components/eventos/gestion-eventos/gestion-eventos.component.ts
 import { FormularioInsertarComponent } from '../modals/formulario-insertar-evento/formulario-insertar.component';
 import { FormularioModificarEventoComponent } from '../modals/formulario-modificar-evento/formulario-modificar-evento.component';
 import { Evento } from '../../../interfaces/eventos';

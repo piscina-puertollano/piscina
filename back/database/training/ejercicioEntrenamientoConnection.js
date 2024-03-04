@@ -38,6 +38,7 @@ class ejercicioEntrenamientoConnection {
     }
 
     getEntrenamientoId = async (id) => {
+        console.log('LLamada a getEntrenamientoId con id: ', id)
         try {
             conexion.conectar();
             const entrenamiento = await models.Entrenamiento.findByPk(id, {
@@ -55,13 +56,14 @@ class ejercicioEntrenamientoConnection {
                     }]
                 }]
             });
-            conexion.desconectar();    
+            console.log('entrenamiento:',entrenamiento)
+            conexion.desconectar();
             return entrenamiento;
         } catch (error) {
             console.error(error);
             throw error;
         }
-    };
+    }
 
     insertEntrenamiento = async (body) => {
         let resultado = 0;

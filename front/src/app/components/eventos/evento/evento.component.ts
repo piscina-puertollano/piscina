@@ -13,15 +13,9 @@ import { EventoUsuario } from '../../../interfaces/eventoUsuario';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { NgxExtendedPdfViewerService, pdfDefaultOptions } from 'ngx-extended-pdf-viewer';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
-<<<<<<< HEAD:front/src/app/eventos/evento/evento.component.ts
-import { environment } from '../../../environments/environment.development';
-import { Files } from '../../interfaces/upload';
-import { FileService } from '../../services/file.service';
-=======
 import { environment } from '../../../../environments/environment.development';
 import { Files } from '../../../interfaces/upload';
 import { FileService } from '../../../services/file.service';
->>>>>>> f0f820888a5fbfe28ae960c6b40ad6001465a6ca:front/src/app/components/eventos/evento/evento.component.ts
 import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
 
@@ -77,11 +71,6 @@ export class EventoComponent implements OnInit{
         this.evento = evento[0]
         console.log(this.evento)
 
-<<<<<<< HEAD:front/src/app/eventos/evento/evento.component.ts
-
-
-=======
->>>>>>> f0f820888a5fbfe28ae960c6b40ad6001465a6ca:front/src/app/components/eventos/evento/evento.component.ts
         let pdf: Files = {
           id: this.evento.pdf?.ruta,
           where: environment.events_path

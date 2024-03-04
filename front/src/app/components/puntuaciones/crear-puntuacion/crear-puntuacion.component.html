@@ -1,7 +1,19 @@
-<form>
-    <label for="nota">Nota del socio:</label>
-    <input name="nota" type="number">
-    <br>
-    <button>Cancelar</button>
-    <button>Guardar</button>
-</form>
+<div>
+    <div class="header">
+      <h3>Crear Puntuación</h3>
+    </div>
+    <div class="body">
+      <form>
+        <div class="p-field">
+          <label for="nota">Nota</label>
+          <input pInputText id="nota"  name="nota" required>
+        </div>
+        <div class="p-field">
+          <button pButton type="submit" icon="pi pi-check" (click)="insertPuntuacion(puntuacion)">Crear</button>
+        </div>
+      </form>
+    </div>
+    <div class="footer">
+      <button pButton label="Cerrar">Cerrar</button>
+    </div>
+  </div>

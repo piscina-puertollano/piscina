@@ -172,13 +172,12 @@ class puntuacionConnection{
 
     async getPuntuacionExistente(userId, idEntrenamiento) {
         try {
-            const puntuacionExistente = await models.Puntuacion.findOne({
+            const puntuacionExistente = await models.PuntuacionUsuario.findOne({
                 where: {
-                    userId: userId,
-                    idEntrenamiento: idEntrenamiento
+                    id_user: userId,
                 }
             });
-
+    
             return puntuacionExistente !== null;
         } catch (error) {
             console.error('Error al verificar la existencia de la puntuación:', error);

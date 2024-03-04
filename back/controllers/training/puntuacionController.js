@@ -37,18 +37,21 @@ const puntuacionInsert = async (req, res = response) => {
     try {
         const puntuacionExistente = await conexion.getPuntuacionExistente(userId, idEntrenamiento);
 
+
         if (puntuacionExistente) {
             return res.status(203).json({ message: 'La puntuación ya está registrada para este usuario' });
         }
 
         if (nota < 5) {
-            if (await idEntrenamientoExistente(idEntrenamiento)) {
-                const msg = await conexion.insertPuntuacion(req.body);
-                await AsignacionController.asignarEntrenamiento(req, res);
-                return res.status(200).json({ message: 'Puntuacion creada correctamente con su asignacion.', data: req.body });
-            } else {
+            const entrenamientoExiste =  await conexionEntrenamiento.getEntrenamientoId(idEntrenamiento);
+            if (!entrenamientoExiste) {
                 return res.status(203).json({ message: 'El idEntrenamiento no es válido' });
             }
+            const msg = await conexion.insertPuntuacion(req.body);
+            if (nota < 5) {
+                await AsignacionController.asignarEntrenamiento(req, res);
+                return res.status(200).json({ message: 'Puntuacion creada correctamente con su asignacion.', data: req.body });
+            }            
         } else {
             const msg = await conexion.insertPuntuacion(req.body);
             return res.status(200).json({ message: 'Puntuacion creada correctamente.', data: { nota, userId, idEntrenamiento } });
@@ -59,16 +62,7 @@ const puntuacionInsert = async (req, res = response) => {
             return res.status(500).json({ error: 'Error en el servidor' });
         }
     }
-};
 
-const idEntrenamientoExistente = async (idEntrenamiento) => {
-    try {
-        const entrenamiento = await conexionEntrenamiento.getEntrenamientoId(idEntrenamiento);
-        return entrenamiento !== null;
-    } catch (error) {
-        console.error('Error al verificar al encontrar el entrenamiento:', error);
-        return false;
-    }
 };
 
 const puntuacionUpdate = (req,res = response) => {

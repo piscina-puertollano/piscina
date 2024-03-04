@@ -6,23 +6,14 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastModule } from 'primeng/toast';
-<<<<<<< HEAD:front/src/app/entrenamientos/crear-entrenamiento/crear-entrenamiento.component.ts
-import { Ejercicios } from '../../interfaces/ejercicios';
-import { Entrenamiento } from '../../interfaces/entrenamiento';
-import { TiposEjercicios } from '../../interfaces/tipos-ejercicios';
-import { EjerciciosService } from '../../services/ejercicios.service';
-import { EntrenamientoService } from '../../services/entrenamiento.service';
-import { AuthService } from '../../services/auth.service';
-import { MessageService } from 'primeng/api';
-import { DynamicDialogRef } from 'primeng/dynamicdialog';
-=======
 import { Ejercicios } from '../../../interfaces/ejercicios';
 import { Entrenamiento } from '../../../interfaces/entrenamiento';
 import { TiposEjercicios } from '../../../interfaces/tipos-ejercicios';
 import { EjerciciosService } from '../../../services/ejercicios.service';
 import { EntrenamientoService } from '../../../services/entrenamiento.service';
 import { AuthService } from '../../../services/auth.service';
->>>>>>> f0f820888a5fbfe28ae960c6b40ad6001465a6ca:front/src/app/components/entrenamientos/crear-entrenamiento/crear-entrenamiento.component.ts
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-crear-entrenamiento',
