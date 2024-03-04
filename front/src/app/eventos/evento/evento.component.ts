@@ -14,7 +14,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { NgxExtendedPdfViewerService, pdfDefaultOptions } from 'ngx-extended-pdf-viewer';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { environment } from '../../../environments/environment.development';
-import { File } from '../../interfaces/upload';
+import { Files } from '../../interfaces/upload';
 import { FileService } from '../../services/file.service';
 import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
@@ -53,12 +53,11 @@ export class EventoComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    this.comprobarEdad()
     this.route.paramMap.subscribe(params => {
       const id = params.get('id');
       if (id) {
-        this.getEvento(id);
-        
-        
+        this.getEvento(id); 
       }
     });
     
@@ -69,11 +68,9 @@ export class EventoComponent implements OnInit{
     this.eventosService.getEvento(id).subscribe({
       next: (evento: any | undefined) => {
         this.evento = evento[0]
-        console.log(this.evento)
-
-
-
-        let pdf: File = {
+        
+        if(this.evento.pdf?.ruta != null){
+        let pdf: Files = {
           id: this.evento.pdf?.ruta,
           where: environment.events_path
         }
@@ -82,11 +79,9 @@ export class EventoComponent implements OnInit{
           next: (pdf: any | undefined) => {
     
             this.resultado = ({id:this.evento.pdf?.ruta, pdf: URL.createObjectURL(pdf)})
-       
-            
           },
         });
-
+      }
 
 
       },
@@ -103,22 +98,31 @@ export class EventoComponent implements OnInit{
 
   inscribirSocio() {
 
-    this.eventoUsuario.idEvento = this.evento.id
-    //this.eventoUsuario.idUsuario =
     
-    this.eventoUsuarioService.insertNoSocio(this.eventoUsuario).subscribe({
-      next: (eventoUsuario: any | undefined) => {
-        this.eventoUsuario = eventoUsuario
+    const localStorage = document.defaultView?.localStorage
+    const userJson = localStorage?.getItem('user')
+      if(userJson){
+        const user = JSON.parse(userJson)
 
-        this.alert.show = true;
-        this.alert.type = 'succes'
-        this.alert.header = 'Ya esta Inscrito';
-        setTimeout(() => this.alert.show = false, 2500);
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    })
+        this.eventoUsuario.idEvento = this.evento.id
+        this.eventoUsuario.idUsuario = user.user.id
+    
+        this.eventoUsuarioService.insertNoSocio(this.eventoUsuario).subscribe({
+        next: (eventoUsuario: any | undefined) => {
+          this.eventoUsuario = eventoUsuario
+
+          this.alert.show = true;
+          this.alert.type = 'succes'
+          this.alert.header = 'Ya esta Inscrito';
+          setTimeout(() => this.alert.show = false, 2500);
+          },
+          error: (err) => {
+            console.log(err);
+          },
+        })
+      }
+
+    
   }
 
   comprobarPrivado() {  
@@ -154,7 +158,7 @@ export class EventoComponent implements OnInit{
 
   showPdf() {
     
-      let pdf: File = {
+      let pdf: Files = {
         id: this.evento.pdf?.ruta,
         where: environment.events_path
       }
@@ -168,6 +172,72 @@ export class EventoComponent implements OnInit{
         },
       });
     }
+
+    comprobarSocio(){
+      
+      const localStorage = document.defaultView?.localStorage;
+      console.log(localStorage)
+      if (localStorage) {
+        const userJson = localStorage.getItem('user');
+        if(userJson != null){
+          const user = JSON.parse(userJson);
+  
+        if (user.token) {
+          
+          this.comprobarEdad()
+        } else {
+          this.comprobarPrivado()
+        }
+  
+        }else{
+          this.comprobarPrivado()
+        }
+        
+      } else {
+        console.log('El localStorage no está disponible en el servidor.');
+      }
+    }
+
+    comprobarEdad(){
+
+      const localStorage = document.defaultView?.localStorage;
+      const userJson = localStorage?.getItem('user');
+
+        if(userJson != null){
+          const user = JSON.parse(userJson);
+       
+          const fechaNacimiento  = user.user.born_date;
+          const añoNacimiento = fechaNacimiento .substring(0, 4);
+
+          const fechaActual = new Date();
+          const añoActual = new Date().getFullYear();
+
+          const resultado = añoActual - añoNacimiento
+          
+          if(resultado <18){
+
+            this.alert.show = true;
+            this.alert.header = 'No Puedes Inscribirte';
+            this.alert.message =
+            'Necesitas ser mayor de edad para inscribirte';
+            setTimeout(() => this.alert.show = false, 2500);
+          }else{
+            this.inscribirSocio()
+
+          }
+        }else{
+          console.log('user null')
+        }
+    }
+
+
+
+   
+
+
+
+    
+
 
 
     

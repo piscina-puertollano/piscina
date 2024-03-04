@@ -18,7 +18,7 @@
               <p-dropdown [options]="categorias" optionLabel="nombre" [(ngModel)]="evento.categoria" [showClear]="true" placeholder="Seleccione Categoria"></p-dropdown>
               
               <label for="fechaEvento">Fecha</label>
-              <p-calendar dateFormat="dd/mm/yy" [(ngModel)]="evento.fecha" ></p-calendar>
+              <p-calendar  [minDate]="fechaLimite" dateFormat="dd/mm/yy" [(ngModel)]="evento.fecha" ></p-calendar>
 
               <label for="descEvento">Descripción</label>
               <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="evento.desc" ></textarea>

@@ -14,6 +14,7 @@ import { Categoria } from '../../../interfaces/categoria';
 import { CategoriaService } from '../../../services/categoria.service';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputSwitchModule } from 'primeng/inputswitch';
+import { PrimeNGConfig } from 'primeng/api';
 
 
 
@@ -31,15 +32,36 @@ export class FormularioInsertarComponent implements OnInit {
   evento: Evento;
   categorias: Array<Categoria> = []
   
-  
+  fechaLimite: Date;
+
   
 
-  constructor(private eventosService: EventosService, private categoriaService: CategoriaService) {
+  constructor(private eventosService: EventosService, private categoriaService: CategoriaService,private config: PrimeNGConfig) {
     this.evento = {};
+
+    const hoy = new Date();
+    this.fechaLimite = new Date();
+
+    this.fechaLimite.setDate(hoy.getDate() + 7);
+    this.fechaLimite.setHours(23, 59, 59, 999); 
+  
+
   }
 
   ngOnInit(): void {
       this.getCategorias()
+      this.config.setTranslation(
+        {
+          firstDayOfWeek: 1, // La semana comienza en lunes
+          dayNames: ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"],
+          dayNamesShort: ["dom", "lun", "mar", "mié", "jue", "vie", "sáb"],
+          dayNamesMin: ["D", "L", "M", "X", "J", "V", "S"],
+          monthNames: ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"],
+          monthNamesShort: ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"],
+          today: 'Hoy',
+          clear: 'Borrar'
+        }
+      )
   }
 
   insertEvento() {

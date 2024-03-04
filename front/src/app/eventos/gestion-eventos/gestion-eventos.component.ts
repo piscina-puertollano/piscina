@@ -19,7 +19,7 @@ import { DialogComponent } from '../../utils/dialog/dialog.component';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { firstValueFrom } from 'rxjs';
-import { File } from '../../interfaces/upload';
+import { Files } from '../../interfaces/upload';
 import { FileService } from '../../services/file.service';
 import { environment } from '../../../environments/environment.development';
 import { FormularioInsertarComponent } from '../modals/formulario-insertar-evento/formulario-insertar.component';
@@ -65,6 +65,8 @@ export class GestionEventosComponent implements OnInit{
   searchValue: string = '';
   ref: DynamicDialogRef | undefined;
 
+  userJson: string | any;
+
   constructor(private eventosService: EventosService,private dialogService: DialogService) {
     this.evento = {};
     this.alert = new Alert();
@@ -86,7 +88,7 @@ export class GestionEventosComponent implements OnInit{
           this.alert.message =
             'No se han podido cargar a los eventos.';
         } else {
-          this.eventos = evento
+          this.eventos = evento        
         }
       },
       error: (err) => {
@@ -184,6 +186,7 @@ export class GestionEventosComponent implements OnInit{
     });
   }
 
-  
+ 
+ 
   
 }

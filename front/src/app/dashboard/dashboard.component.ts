@@ -40,6 +40,13 @@ export class DashboardComponent implements OnInit {
       content: 'Para gestionar mis socios',
       link: '/admin-socios',
     },
+    {
+      id_rol: environment.rol_admin,
+      image: environment.admin_card_image,
+      title: 'Gestionar Eventos',
+      content: 'Para gestionar eventos, categorias y no socios',
+      link: '/gestionEventos',
+    },
   ];
 
   myCards() {

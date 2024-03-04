@@ -61,7 +61,7 @@ export class GestionarNoSociosComponent implements OnInit{
 
   ngOnInit(): void {
     this.getNoSocios(); 
-      
+    
   }
 
   getNoSocios() {
@@ -77,6 +77,7 @@ export class GestionarNoSociosComponent implements OnInit{
             'No se han podido cargar a los eventos.';
         } else {
           this.noSocios = noSocio
+          console.log(this.noSocios)
         }
       },
       error: (err) => {

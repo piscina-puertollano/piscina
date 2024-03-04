@@ -37,7 +37,6 @@
 
         <ng-template pTemplate="header">
             <tr>
-                <th>ID</th>
                 <th pSortableColumn="nombre">Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
                 <th pSortableColumn="apellidos">Apellidos <p-sortIcon field="apellidos"></p-sortIcon></th>
                 <th pSortableColumn="email">Correo <p-sortIcon field="email"></p-sortIcon></th>
@@ -47,12 +46,11 @@
 
         <ng-template pTemplate="body" let-noSocio>
             <tr>
-                <td>{{ noSocio.id }}</td>
                 <td>{{ noSocio.nombre }}</td>
                 <td>{{ noSocio.apellidos }}</td>
                 <td>{{ noSocio.email }}</td>
                 <td>
-                    <button pButton pRipple icon="pi pi-eye" class="p-button-rounded p-button-info m-2" (click)="getNoSocio(noSocio.id)"></button>
+                  
                     <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-2" (click)="deleteNoSocio(noSocio.id)"></button>
                 </td>
             </tr>

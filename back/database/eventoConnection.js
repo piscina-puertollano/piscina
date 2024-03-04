@@ -16,7 +16,7 @@ class eventoConnection{
         conx.conectar()
         
         eventos = await models.Evento.findAll({
-            attributes: ['id', 'nombre', 'fecha', 'sede', 'privado', 'desc'],
+            attributes: ['id', 'nombre', 'fecha', 'sede', 'privado', 'desc','visible'],
             include: [
                 {
                   model: models.Assets,
@@ -39,8 +39,6 @@ class eventoConnection{
 
     getEventosVisibles = async() => {
 
-        
-        
         let eventos = []
         conx.conectar()
         
@@ -62,9 +60,8 @@ class eventoConnection{
             ]
         })
        
-        
         conx.desconectar()
-        return devolver
+        return eventos
     }
 
     getEvento = async(id) => {
@@ -132,16 +129,11 @@ class eventoConnection{
 
 
     updateEvento = async(id,body) => {
-
-        let resultado
-        conx.conectar()
-        resultado = await models.Evento.findByPk(id)
         
-        if (!resultado){
-            console.log(id);
-            conx.desconectar();
-            throw error;
-        }
+        conx.conectar()
+        let resultado
+        resultado = await models.Evento.findByPk(id)
+        console.log(resultado)
 
         let devolver = {}
 
@@ -153,7 +145,8 @@ class eventoConnection{
         devolver.idCategoria = body.categoria.id
         devolver.visible = body.visible
         devolver.privado = body.privado
-        console.log(devolver)
+        //console.log(devolver)
+        
         
         await resultado.update(devolver);
         conx.desconectar();

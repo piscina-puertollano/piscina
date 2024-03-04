@@ -28,7 +28,7 @@ export class ListaEventosComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.getEventos()
+    this.comprobarSocio()
   }
 
   descEvento(eventoId: any) {
@@ -46,7 +46,6 @@ export class ListaEventosComponent implements OnInit{
             'No se han podido cargar a los eventos.';
         } else {
           this.eventos = evento
-          console.log(evento.categoria)
         }
       },
       error: (err) => {
@@ -74,5 +73,29 @@ export class ListaEventosComponent implements OnInit{
     });
   }
 
+  comprobarSocio(){
+      
+    const localStorage = document.defaultView?.localStorage;
+    console.log(localStorage)
+    if (localStorage) {
+      
+        const userJson = localStorage.getItem('user');
+        if(userJson != null){
+          const user = JSON.parse(userJson);
+
+          if (user.token) {
+          
+            this.getEventos()
+          } else {
+            this.getEventosVisibles()
+          }
+            }else{
+              this.getEventosVisibles()
+            }
+        
+    } else {
+      console.log('El localStorage no está disponible en el servidor.');
+    }
+  }
   
 }
