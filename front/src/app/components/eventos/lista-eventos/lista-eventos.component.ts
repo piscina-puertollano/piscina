@@ -32,7 +32,7 @@ export class ListaEventosComponent implements OnInit{
   }
 
   descEvento(eventoId: any) {
-    this.router.navigate(['/descEvento', eventoId]);
+    this.router.navigate(['/events', eventoId]);
   }
 
   getEventos() {

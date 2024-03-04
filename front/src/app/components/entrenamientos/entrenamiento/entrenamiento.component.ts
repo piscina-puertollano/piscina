@@ -120,7 +120,7 @@ export class EntrenamientoComponent {
 
   consultarEntre(id?: number): void{
     if (typeof id === 'number'){
-      this.router.navigate(['/consultar-entrenamiento', id]);
+      this.router.navigate(['/consult-training', id]);
     } else {
       console.error('Id no válido: ', id);
     }

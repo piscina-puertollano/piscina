@@ -32,7 +32,7 @@ export const routes: Routes = [
   {path: 'home', component: DashboardComponent },
   {path: 'login', component: LoginComponent },
   {path: 'users', component: ListComponent },
-  {path: 'admin-socios', component: AdminSociosComponent },
+  {path: 'admin-partners', component: AdminComponent },//admin-socios
   {path: 'my-profile', component: ProfileComponent },
   {path: 'news', component: ListNewsComponent },
   {path: 'list-news', component: AdminComponent },
@@ -40,21 +40,21 @@ export const routes: Routes = [
   {path: 'new/:id', component: ShowNewComponent },
   {path: 'create-new', component: CreateNewComponent },
   {path: 'contact', component: ContactComponent },
-  {path: 'clases', component: ClaseComponent},
-  {path: 'entrenamientos', component: EntrenamientoComponent},
+  {path: 'class', component: ClaseComponent},//clases
+  {path: 'training', component: EntrenamientoComponent},//entrenamientos
   {path: 'edit', component: ClubEditComponent},
-  {path: 'consultar-entrenamiento/:id', component: ConsultarEntrenamientoComponent},
-  {path: 'faltas', component: FaltasComponent},
-  {path: 'asignar/clases', component: AsignarClasesUsuariosComponent},
-  {path: 'listaEventos', component: ListaEventosComponent },
-  {path: 'gestionEventos', component: GestionEventosComponent },
-  {path: 'gestionCategorias', component: GestionCategoriasComponent},
-  {path: 'descEvento/:id', component: EventoComponent},
-  {path: 'gestionNoSocios', component: GestionarNoSociosComponent},
-  {path: 'puntuaciones', component: PuntuacionComponent},
-
+  {path: 'training/:id', component: ConsultarEntrenamientoComponent},
+  {path: 'faults', component: FaltasComponent},//faltas
+  {path: 'list-events', component: ListaEventosComponent },
+  {path: 'event-management', component: GestionEventosComponent },//gestionar-evento
+  {path: 'event-category', component: GestionCategoriasComponent},//gestionar-categoria
+  {path: 'events/:id', component: EventoComponent},//eventos
+  {path: 'non-member-management', component: GestionarNoSociosComponent},//gestion-no-socios
+  {path: 'scores', component: PuntuacionComponent},//puntuaciones
+  {path: 'assign-class', component: AsignarClasesUsuariosComponent},//asignar-clase
   {path: 'pdf', component: ExamplePdfViewerComponent},
 
 
 
 ];
+

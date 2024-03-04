@@ -38,7 +38,7 @@ export class CrearEntrenamientoComponent {
   insertEntrenamiento() {
     this.entrenamientoService.insertEntrenamiento(this.entrenamiento).subscribe({
       next: (nuevoEntrenamiento: Entrenamiento) => {
-        this.router.navigate(['/entrenamientos']);
+        this.router.navigate(['/training']);
       },
       error: (err) => {
         console.error('Error al insertar el entrenamiento:', err);
