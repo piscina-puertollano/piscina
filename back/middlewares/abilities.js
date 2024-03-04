@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const Conexion = require("../database/UserConnection");
+const Conexion = require("../database/users/UserConnection");
 
 /**
  * @author: badr

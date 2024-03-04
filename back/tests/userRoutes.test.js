@@ -1,6 +1,6 @@
 const request = require('supertest');
 const express = require('express');
-const routes = require('../routes/userRoutes')
+const routes = require('../routes/users/userRoutes')
 /**
  * @author: badr
  */
