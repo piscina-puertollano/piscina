@@ -20,9 +20,18 @@ h1{
 
 .galeria {
     position: relative;
-    width:  80%;
-    max-width:  800px;
-    box-shadow:  0  4px  8px rgba(0,  0,  0,  0.1);
-    border-radius:  5px;
+    width: 80%;
+    max-width: 800px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
     overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.galeria img {
+    max-width: 100%;
+    height: auto;
+    margin: 10px;
 }

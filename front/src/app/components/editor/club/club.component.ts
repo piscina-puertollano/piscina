@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { EditorModule } from 'primeng/editor';
 import { LandingService } from '../../../services/landing.service';
-import { Club, Estructura } from '../../../interfaces/landing';
+import { Club } from '../../../interfaces/landing';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { DialogComponent } from '../../../utils/dialog/dialog.component';
@@ -45,7 +45,7 @@ import { ImageModule } from 'primeng/image';
 export class ClubEditComponent implements OnInit {
   text: string | undefined;
   title: string | undefined;
-  directiva: Estructura[] | undefined;
+  textStructure: string | undefined;
   fotos?: Array<any>;
   arrPhotos?: Array<any>;
   noText = 'No hay imagenes';
@@ -53,7 +53,9 @@ export class ClubEditComponent implements OnInit {
   updatePhotos?: any;
   arrUpdatePhotos?: any;
 
+
   club?: Club;
+  structure?:Club;
   galery?: Club;
 
   constructor(
@@ -66,6 +68,7 @@ export class ClubEditComponent implements OnInit {
     this.fotos = [];
     this.showGalery();
     this.showHistory();
+    this.showStructure()
   }
 
   showHistory() {
@@ -81,11 +84,25 @@ export class ClubEditComponent implements OnInit {
     });
   }
 
+  showStructure() {
+    this.landingService.showSection('structure').subscribe({
+      next: (club: Club | undefined) => {
+        this.structure = club;
+        this.textStructure = club?.estructura;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
+
   update(confirm: Boolean) {
     if (confirm) {
       this.club!.history = this.text;
       this.club!.title = this.title;
       this.updateFunction(this.club!);
+      this.structure!.estructura = this.textStructure;
+      this.updateFunction(this.structure!);
     } else {
       console.log('cancelado');
     }

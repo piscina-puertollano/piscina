@@ -14,11 +14,7 @@
         @if(club.tag=='structure'){
             <section id="structure">
                 <h3>Estructura organizativa:</h3>
-                @for(objEstructura of club?.estructura; track objEstructura){
-                    @for(estructura of [objEstructura]; track estructura){
-                        <li> {{estructura.puesto}}: {{estructura.nombre}}</li>
-                    }
-                }
+                <div [innerHTML]="club?.estructura"></div>
             </section>
         }
 
