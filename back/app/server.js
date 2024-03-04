@@ -49,11 +49,17 @@ class Server {
         ":" +
         process.env.DB_MONGO_PORT +
         "/" +
-        process.env.DB_MONGO_DATABASE,
-      {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      }
+        process.env.DB_MONGO_DATABASE
+        /**
+         * En la consola salta un warning advirtiendo de que 
+         * esos atributos están deprecated. 
+         * 
+         */
+      //   ,
+      // {
+      //   useNewUrlParser: true,
+      //   useUnifiedTopology: true,
+      // }
     );
 
     this.db = mongoose.connection;
@@ -92,6 +98,7 @@ class Server {
     this.app.use(this.userRoutePath, require("../routes/news/newsRoutes"));
     this.app.use(this.commentsRoutePath, require("../routes/news/commentsRoutes"));
     this.app.use(this.userRoutePath, require("../routes/landing/clubRoutes"));
+    this.app.use(this.userRoutePath, require("../routes/landing/contactRoutes"));
     this.app.use(this.userRoutePath, require("../routes/assetsRoutes"));
 
     this.app.use(this.entrenamientoPath, require('../routes/training/entrenamientosRoutes'))
