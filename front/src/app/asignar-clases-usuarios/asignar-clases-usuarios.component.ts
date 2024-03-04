@@ -58,6 +58,17 @@ export class AsignarClasesUsuariosComponent implements OnInit {
   resultadoRelacion: asignacionClasesUsuario[] = [];
 
   displayDialogCrear: boolean = false;
+  selectedUser: any = null;
+  selectedClase: any = null;
+  clasesFiltradas: any[] = [];
+  selectedDia: string = '';
+  diasSemana = [
+    { label: 'Lunes', value: 'Lunes' },
+    { label: 'Martes', value: 'Martes' },
+    { label: 'Miércoles', value: 'Miercoles' },
+    { label: 'Jueves', value: 'Jueves' },
+    { label: 'Viernes', value: 'Viernes' },
+  ];
 
   constructor(
     private service: ClaseService,
@@ -75,13 +86,27 @@ export class AsignarClasesUsuariosComponent implements OnInit {
     this.allUsers();
     this.allClases();
     this.alert = new Alert();
+    this.selectedDia = ''
   }
 
+  onDiaSeleccionado(event: any) {
+    console.log('Día seleccionado:', event.value);
+    this.clasesFiltradas = this.arrClases.filter(clase => clase.nombre === event.value);
+    for (let index = 0; index < this.clasesFiltradas.length; index++) {
+      
+      const horaInicio: moment.Moment = moment(this.clasesFiltradas[index].hora_inicio, "HH:mm:ss");
+      this.clasesFiltradas[index].hora_inicio = horaInicio.format("HH:mm");
+  }
 
+  for (const clase of this.clasesFiltradas) {
+      console.log(clase.nombre);
+  }
+ }
+   
 
   cerrarModalCrear() {
     this.displayDialogCrear = false;
-   }
+  }
 
   allUsers() {
     this.UsuarioService.allUsers().subscribe({
@@ -89,11 +114,11 @@ export class AsignarClasesUsuariosComponent implements OnInit {
         if (user.status >= 400) {
           this.alert.show = true;
           this.alert.header = 'Error';
-          this.alert.message =
-            'No se han podido cargar a los usuarios.';
+          this.alert.message = 'No se han podido cargar a los usuarios.';
         } else {
           this.arrUsers = user;
-          this.allClases(); 
+          console.log('Usuarios ', this.arrUsers);
+          this.allClases();
         }
       },
       error: (err) => {
@@ -108,11 +133,9 @@ export class AsignarClasesUsuariosComponent implements OnInit {
         if (clase.status >= 400) {
           this.alert.show = true;
           this.alert.header = 'Error';
-          this.alert.message =
-            'No se han podido cargar la informacion.';
+          this.alert.message = 'No se han podido cargar la informacion.';
         } else {
           this.arrClases = clase;
-          this.allClasesUsuarios();
         }
       },
       error: (err) => {
@@ -127,8 +150,7 @@ export class AsignarClasesUsuariosComponent implements OnInit {
         if (categoria.status >= 400) {
           this.alert.show = true;
           this.alert.header = 'Error';
-          this.alert.message =
-            'No se han podido cargar la informacion.';
+          this.alert.message = 'No se han podido cargar la informacion.';
         } else {
           this.arrClaseUsuario = categoria;
           this.resultadoRelacion = []; // Inicializamos el array resultadoRelacion
@@ -179,5 +201,9 @@ export class AsignarClasesUsuariosComponent implements OnInit {
 
   abrirModalCrear() {
     this.displayDialogCrear = true;
- }
+  }
+
+  agregarRelacion() {
+    let nuevaRelacion = {};
+  }
 }
