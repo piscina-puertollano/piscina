@@ -21,7 +21,7 @@ export class ClasehasusuarioService {
 
 
   allRelacion(): Observable<Array<claseUsuario> | undefined> {
-    return this.http.get<claseUsuario>(this.urlObtener).pipe(
+    return this.http.get<claseUsuario>(this.urlObtener, {withCredentials: true}).pipe(
       catchError((error) =>{
         return of(error)
       })
@@ -29,7 +29,7 @@ export class ClasehasusuarioService {
   }
 
   agregarRelacion(nuevaClase: claseUsuario): Observable<claseUsuario> {
-    return this.http.post<claseUsuario>(this.urlRelacion, nuevaClase).pipe(
+    return this.http.post<claseUsuario>(this.urlRelacion, nuevaClase, {withCredentials: true}).pipe(
       catchError((error) => {
         console.error('Error al agregar la clase', error);
         return of(error);
@@ -40,7 +40,7 @@ export class ClasehasusuarioService {
   
   actualizarRelacion(id: number, claseUsuario: claseUsuario): Observable<claseUsuario | undefined> {
     const url = `${this.urlActulizarRelacion}/${id}`;
-    return this.http.put<claseUsuario>(url, claseUsuario, {withCredentials: false}).pipe(
+    return this.http.put<claseUsuario>(url, claseUsuario, {withCredentials: true}).pipe(
       catchError((error) => {
         return of(error);
       })
@@ -49,7 +49,7 @@ export class ClasehasusuarioService {
 
   deleteRelacion(faltaId: string): Observable<Array<claseUsuario> | undefined> {
     const apiUrl = `${this.urlEliminarRelacion}/${faltaId}`;
-    return this.http.delete<claseUsuario>(apiUrl).pipe(
+    return this.http.delete<claseUsuario>(apiUrl, {withCredentials: true}).pipe(
       catchError((error) =>{
         return of(error)
       })
