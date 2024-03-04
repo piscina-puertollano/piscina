@@ -34,27 +34,33 @@ const puntuacionGetId = (req, res = response) => {
 const puntuacionInsert = async (req, res = response) => {
     const { nota, userId, idEntrenamiento } = req.body;
 
+    if (nota >= 5) {
+        req.body.idEntrenamiento = null;
+    }
+
     try {
         const puntuacionExistente = await conexion.getPuntuacionExistente(userId, idEntrenamiento);
-
 
         if (puntuacionExistente) {
             return res.status(203).json({ message: 'La puntuación ya está registrada para este usuario' });
         }
 
+        const msg = await conexion.insertPuntuacion(req.body);
+        const idPuntuacion = msg.id;
+
+        // Si la nota es menor que 5, verificar si el entrenamiento existe y asignarlo
         if (nota < 5) {
-            const entrenamientoExiste =  await conexionEntrenamiento.getEntrenamientoId(idEntrenamiento);
+            const entrenamientoExiste = await conexionEntrenamiento.getEntrenamientoId(idEntrenamiento);
             if (!entrenamientoExiste) {
                 return res.status(203).json({ message: 'El idEntrenamiento no es válido' });
             }
-            const msg = await conexion.insertPuntuacion(req.body);
-            if (nota < 5) {
-                await AsignacionController.asignarEntrenamiento(req, res);
-                return res.status(200).json({ message: 'Puntuacion creada correctamente con su asignacion.', data: req.body });
-            }            
+            // Asignar el entrenamiento
+            await AsignacionController.asignarEntrenamiento(req, res);
+            return res.status(200).json({ message: 'Puntuacion creada correctamente con su asignacion.', data: req.body });
         } else {
-            const msg = await conexion.insertPuntuacion(req.body);
-            return res.status(200).json({ message: 'Puntuacion creada correctamente.', data: { nota, userId, idEntrenamiento } });
+            // Si la nota no es menor que 5, devolver un mensaje indicando que no se puede asignar un entrenamiento
+            // No se inserta la asociación en puntuacionUsuario
+            return res.status(200).json({ message: 'Puntuacion creada correctamente. No se puede asignar un entrenamiento.', data: { nota, userId, idEntrenamiento: null } });
         }
     } catch (error) {
         console.error(error);
@@ -62,7 +68,6 @@ const puntuacionInsert = async (req, res = response) => {
             return res.status(500).json({ error: 'Error en el servidor' });
         }
     }
-
 };
 
 const puntuacionUpdate = (req,res = response) => {

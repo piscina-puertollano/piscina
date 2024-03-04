@@ -129,18 +129,34 @@ class puntuacionConnection{
     };
 
     insertPuntuacion = async(body) => {
-        let resultado = 0;
-        conexion.conectar;
-
         try {
-            console.log(body);
-            nuevaPuntuacion = await models.Puntuacion.create(body);
-            resultado = 1;
-            return resultado;
+            const nuevaPuntuacion = await models.Puntuacion.create(body);
+            const idPuntuacion = nuevaPuntuacion.id; // Asegúrate de que este es el ID correcto
+    
+            // Insertar la relación en la tabla puntuacionUsuario
+            const relacionInsertada = await models.PuntuacionUsuario.create({
+                id_user: body.userId,
+                idPuntuacion: idPuntuacion
+            });
+    
+            // Si todo salió bien, devolver el resultado
+            return { success: true, id: idPuntuacion, data: { nota: body.nota, userId: body.userId, idEntrenamiento: body.idEntrenamiento } };
         } catch (error) {
-            return error;
-        }finally{
-            conexion.desconectar;
+            console.error(error);
+            return { success: false, error: 'Error al insertar la puntuación o la relación en la tabla puntuacionUsuario' };
+        }
+    };
+
+    insertRelacionPuntuacionUsuario = async (userId, idPuntuacion) => {
+        try {
+            await models.PuntuacionUsuario.create({
+                id_user: userId,
+                idPuntuacion: idPuntuacion
+            });
+            return true;
+        }catch (error){
+            console.error(error);
+            return false
         }
     }
 
