@@ -6,7 +6,8 @@ import { Alert } from '../../../interfaces/alert';
 import { Puntuacion } from '../../../interfaces/puntuacion';
 import { PuntuacionService } from '../../../services/puntuacion.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DynamicDialogConfig } from 'primeng/dynamicdialog';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { MessageService } from 'primeng/api';
 
 /**
  * @author Marina Laguna
@@ -22,10 +23,11 @@ import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 export class ModificarPuntuacionComponent implements OnInit {
   alert: Alert;
   @Input() puntuacion!: Puntuacion;
+  dialogRef: DynamicDialogRef;
 
-  constructor(private puntuacionService: PuntuacionService, private router: Router, private route: ActivatedRoute, public config: DynamicDialogConfig){
+  constructor(dialogRef: DynamicDialogRef, private puntuacionService: PuntuacionService, private messageService: MessageService, private router: Router, private route: ActivatedRoute, public config: DynamicDialogConfig){
     this.alert = new Alert();
-
+    this.dialogRef = dialogRef;
   }
 
   ngOnInit(): void {
@@ -42,7 +44,16 @@ export class ModificarPuntuacionComponent implements OnInit {
       next: (puntuacion: any | undefined) => {
         if (puntuacion) {
           this.puntuacion = puntuacion;
-          this.alert.message = 'Puntuación actualizada con éxito.';
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Operación completada',
+            detail: 'Puntuación actualizada'
+          });
+
+          this.dialogRef.close();
+          setTimeout(() =>{
+            window.location.reload()
+          }, 2000);
         } else {
           this.alert.message = 'No se pudo actualizar la puntuación.';
         }
