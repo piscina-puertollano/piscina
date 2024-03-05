@@ -32,6 +32,14 @@ export class FaltasService {
     );
   }
 
+  actualizarFaltas(id: number, faltaUsuario: Faltas): Observable<Faltas| undefined> {
+    const url = `${this.urlAsignarFaltas}/${id}`;
+    return this.http.put<FaltasService>(url, faltaUsuario, {withCredentials: false}).pipe(
+      catchError((error) => {
+        return of(error);
+      })
+    );
+  }
   deleteFaltas(faltaId: string): Observable<Array<Faltas> | undefined> {
     const apiUrl = `${this.urlAsignarFaltas}/${faltaId}`;
     return this.http.delete<Faltas>(apiUrl).pipe(

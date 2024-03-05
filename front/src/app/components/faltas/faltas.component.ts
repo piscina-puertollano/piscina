@@ -1,26 +1,26 @@
 /**
  * author: Manuel Garcia
  */
-import { ClaseService } from './../../services/clase.service';
+import { User } from '../../interfaces/user';
+import { ButtonModule } from 'primeng/button';
+import { Router, RouterLink } from '@angular/router';
+import { TableModule } from 'primeng/table';
 import { Component, OnInit } from '@angular/core';
-import { AlertComponent } from '../../utils/alert/alert.component';
-import { InputTextModule } from 'primeng/inputtext';
+import { ClaseService } from '../../services/clase.service';
 import { Alert } from '../../interfaces/alert';
 import { FormsModule } from '@angular/forms';
-import { TableModule } from 'primeng/table';
-import { ButtonModule } from 'primeng/button';
-import { Faltas } from '../../interfaces/faltas';
-import { User } from '../../interfaces/user';
 import { Clase } from '../../interfaces/clase';
-import { FaltasService } from '../../services/faltas.service';
-import { Router, RouterLink } from '@angular/router';
-import { UserService } from '../../services/user.service';
-import { UsuarioClaseFaltas } from '../../interfaces/usuarioClaseFaltas';
+import { AlertComponent } from '../../utils/alert/alert.component';
 import moment from 'moment';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 import { DialogModule } from 'primeng/dialog';
-import {DropdownModule} from 'primeng/dropdown';
-import { MultiSelectModule } from 'primeng/multiselect';
-
+import { ToastModule } from 'primeng/toast';
+import { DropdownModule } from 'primeng/dropdown';
+import { UserService } from '../../services/user.service';
+import { asignacionClasesUsuario } from '../../interfaces/asignacionClases';
+import { Faltas } from '../../interfaces/faltas';
+import { FaltasService } from './../../services/faltas.service';
 @Component({
   selector: 'app-faltas',
   standalone: true,
@@ -28,44 +28,37 @@ import { MultiSelectModule } from 'primeng/multiselect';
     TableModule,
     FormsModule,
     AlertComponent,
+    ToastModule,
+    DialogModule,
+    DropdownModule,
     ButtonModule,
     InputTextModule,
-    DropdownModule,
-    RouterLink,
     DialogModule,
-    MultiSelectModule
+    RouterLink,
+    InputTextareaModule,
   ],
   templateUrl: './faltas.component.html',
   styleUrl: './faltas.component.css',
 })
 export class FaltasComponent implements OnInit {
-  faltas: Faltas;
   user: User;
-  clase: Clase;
   alert: Alert;
-  relaciones: UsuarioClaseFaltas;
-  resultadoRelacion: Array<UsuarioClaseFaltas> = [];
-
-  searchValue: string = '';
-  displayModal: boolean = false;
-  falta = {
-    id: '',
-    id_clase: null,
-  };
-
-  arrFaltas: Array<Faltas> = [];
   arrUsers: Array<User> = [];
-  arrClase: Array<Clase> = [];
+  searchValue: string = '';
+  whatSearch: string = '';
 
-  displayAddModal: boolean = false;
-  newFaltas = {
-    nombre_dia: '',
-    nombre_clase: '',
-    fecha: '',
-  };
+  clase: Clase;
+  faltas: Faltas;
+  arrClaseUsuario: Array<Faltas> = [];
+  arrClases: Array<Clase> = [];
 
-  listaClases:any
+  resultadoRelacion: asignacionClasesUsuario[] = [];
 
+  displayDialogCrear: boolean = false;
+  selectedUser: any = null;
+  selectedClase: any = null;
+  clasesFiltradas: any[] = [];
+  selectedDia: string = '';
   diasSemana = [
     { label: 'Lunes', value: 'Lunes' },
     { label: 'Martes', value: 'Martes' },
@@ -74,74 +67,121 @@ export class FaltasComponent implements OnInit {
     { label: 'Viernes', value: 'Viernes' },
   ];
 
+  displayDialogEditar: boolean = false;
+  editData: any = {
+    user: null,
+    dia: null,
+    clase: null,
+  };
+  id: number = 0
+
   constructor(
-    private service: FaltasService,
-    private UserService: UserService,
-    private ClaseService: ClaseService,
+    private service: ClaseService,
+    private UsuarioService: UserService,
+    private FaltasService: FaltasService,
     private router: Router
   ) {
-    this.user = {};
+    this.alert = new Alert();
     this.clase = {};
     this.faltas = {};
-    this.relaciones = {};
-    this.alert = new Alert();
+    this.user = {};
   }
 
   ngOnInit(): void {
-    this.allClases();
     this.allUsers();
+    this.allClases();
+    this.allClasesUsuarios();
+    this.alert = new Alert();
+    this.selectedDia = '';
   }
 
-  openAddModal() {
-    this.displayAddModal = true;
-  }
-  closeAddModal() {
-    this.displayAddModal = false;
-  }
-  addNewFalta() {
-    console.log(this.newFaltas);
-    this.closeAddModal();
+  onDiaSeleccionado(event: any) {
+    console.log('Día seleccionado:', event.value);
+    this.clasesFiltradas = this.arrClases.filter(
+      (clase) => clase.nombre === event.value
+    );
+    for (let index = 0; index < this.clasesFiltradas.length; index++) {
+      const horaInicio: moment.Moment = moment(
+        this.clasesFiltradas[index].hora_inicio,
+        'HH:mm:ss'
+      );
+      this.clasesFiltradas[index].hora_inicio = horaInicio.format('HH:mm');
+    }
+
+    for (const clase of this.clasesFiltradas) {
+      console.log(clase.nombre);
+    }
   }
 
-  updateData() {
-    console.log('Datos actualizados:', this.faltas);
-    this.displayModal = false;
+  cerrarModalCrear() {
+    this.displayDialogCrear = false;
   }
 
-  allFaltas() {
-    this.service.allFaltas().subscribe({
-      next: (faltas: any | undefined) => {
-        if (faltas.status >= 400) {
+  allUsers() {
+    this.UsuarioService.allUsers().subscribe({
+      next: (user: any | undefined) => {
+        if (user.status >= 400) {
           this.alert.show = true;
           this.alert.header = 'Error';
-          this.alert.message =
-            'No se han podido cargar la informacion. Póngase en contacto con un adminsitrador.';
+          this.alert.message = 'No se han podido cargar a los usuarios.';
         } else {
-          this.arrFaltas = faltas;
-          console.log(faltas)
-          console.log('faltas: ', this.arrFaltas)
-          
-          for (let i = 0; i < this.arrFaltas.length; i++) {
-            const falta = this.arrFaltas[i];
-            const user = this.arrUsers.find(
-              (user) => user.id === falta.id_usuario
-            );
-            const clase = this.arrClase.find(
-              (clase) => clase.id === falta.id_clase
-            );
+          this.arrUsers = user;
+          console.log('Usuarios ', this.arrUsers);
+          this.allClases();
+        }
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
 
-            const fecha = moment(falta.fecha)
-            
+  allClases() {
+    this.service.allClases().subscribe({
+      next: (clase: any | undefined) => {
+        if (clase.status >= 400) {
+          this.alert.show = true;
+          this.alert.header = 'Error';
+          this.alert.message = 'No se han podido cargar la informacion.';
+        } else {
+          this.arrClases = clase;
+        }
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
+
+  allClasesUsuarios() {
+    this.FaltasService.allFaltas().subscribe({
+      next: (categoria: any | undefined) => {
+        if (categoria.status >= 400) {
+          this.alert.show = true;
+          this.alert.header = 'Error';
+          this.alert.message = 'No se han podido cargar la informacion.';
+        } else {
+          this.arrClaseUsuario = categoria;
+          console.log('faltas', this.arrClaseUsuario)
+          this.resultadoRelacion = [];
+
+          for (let i = 0; i < this.arrClaseUsuario.length; i++) {
+            const clases = this.arrClaseUsuario[i];
+            const user = this.arrUsers.find(
+              (user) => user.id === clases.id_usuario
+            );
+            const clase = this.arrClases.find(
+              (clase) => clase.id === clases.id_clase
+            );
 
             const relacion = {
-              id: falta.id,
-              id_usuario: user?.id,
+              id: clases.id,
+              id_usuario: clases.id_usuario,
               nombre_usuario: user?.firstName,
-              id_clase: clase?.id,
+              id_clase: clases.id_clase,
               nombre_clase: clase?.nombre,
-              fecha: fecha.format('DD/MM/YYYY'),
             };
-            this.resultadoRelacion[i] = relacion;
+            this.resultadoRelacion.push(relacion);
           }
           console.log(this.resultadoRelacion);
         }
@@ -152,79 +192,84 @@ export class FaltasComponent implements OnInit {
     });
   }
 
-  allUsers() {
-    this.UserService.allUsersFaltas().subscribe({
-      next: (user: any | undefined) => {
-        if (user.status >= 400) {
-          this.alert.show = true;
-          this.alert.header = 'Error';
-          this.alert.message =
-            'No se han podido cargar a los usuarios. Póngase en contacto con un adminsitrador.';
-        } else {
-          this.arrUsers = user;
-          this.allFaltas();
-        }
+  deleteRelacion(id: any) {
+    this.FaltasService.deleteFaltas(id).subscribe({
+      next: () => {
+        this.alert.show = true;
+        this.alert.message = 'Usuario eliminado';
+        location.reload();
       },
       error: (err) => {
         console.log(err);
+        this.alert.show = true;
+        this.alert.header = 'Error';
+        this.alert.message =
+          'No se ha podido eliminar el usuario. Intentalo de nuevo.';
       },
     });
   }
 
-  allClases() {
-    this.ClaseService.allClases().subscribe({
-       next: (clase: any | undefined) => {
-         if (clase.status >= 400) {
-           this.alert.show = true;
-           this.alert.header = 'Error';
-           this.alert.message = 'No se han podido cargar a los usuarios. Póngase en contacto con un adminsitrador.';
-         } else {
-           this.arrClase = clase;
-           this.listaClases = [];
-           for (let i = 0; i < this.arrClase.length; i++) {
-            const horaInicio: moment.Moment = moment(this.arrClase[i].hora_inicio, "HH:mm:ss");
-            let claseSeleccionada = {
-               label: horaInicio.format("HH:mm"),
-               value: this.arrClase[i].id
-             };
-             // Agregar el nuevo objeto a listaClases usando push()
-             this.listaClases.push(claseSeleccionada);
-           }
-         }
-       },
-       error: (err) => {
-         console.log(err);
-       },
-    });
-   }
-   
-   
-
-  edit(faltas: Faltas) {
-    this.faltas = faltas;
-    this.displayModal = true;
-    console.log(faltas);
+  abrirModalCrear() {
+    this.displayDialogCrear = true;
   }
 
-  deleteFaltas(id: any) {
-    this.alert.show = false;
-    this.service.deleteFaltas(id).subscribe({
-      next: (faltas: any | undefined) => {
-        console.log(faltas);
-        if (faltas.length == 0 || faltas.status == 404) {
+  agregarRelacion() {
+    let nuevaRelacion = {
+      id_usuario: this.selectedUser,
+      id_clase: this.selectedClase,
+    };
+
+    this.FaltasService.agregarFalta(nuevaRelacion).subscribe({
+      next: (resultado: any) => {
+        console.log(resultado);
+        if (resultado.status >= 400) {
           this.alert.show = true;
           this.alert.header = 'Error';
-          this.alert.message = 'El usuario no se ha podido eliminar';
+          this.alert.message =
+            'No se ha podido insertar la nueva categoría. Póngase en contacto con un administrador.';
         } else {
-          this.alert.show = true;
-          this.alert.header = 'Operación completada';
-          this.alert.message = 'Usuario eliminado correctamente';
-          //this.alert.type = 'success'
           location.reload();
         }
       },
       error: (err) => {
         console.log(err);
+        this.alert.show = true;
+        this.alert.header = 'Error';
+        this.alert.message = 'Ha ocurrido un error al realizar la asignacion.';
+      },
+    });
+  }
+
+  openEditModal(claseUsuario: any) {
+    this.displayDialogEditar = true;
+    this.editData = {
+      id: claseUsuario.id,
+      user: claseUsuario.id_usuario,
+    };
+  }
+
+  actualizarRelacion() {
+    let relacionActualizada = {
+      id_usuario: this.editData.user,
+      id_clase: this.editData.clase,
+    };
+    this.FaltasService.actualizarFaltas(this.editData.id, relacionActualizada).subscribe({
+      next: (resultado: any) => {
+        console.log(resultado);
+        if (resultado.status >= 400) {
+          this.alert.show = true;
+          this.alert.header = 'Error';
+          this.alert.message =
+            'No se ha podido insertar la nueva categoría. Póngase en contacto con un administrador.';
+        } else {
+          location.reload();
+        }
+      },
+      error: (err) => {
+        console.log(err);
+        this.alert.show = true;
+        this.alert.header = 'Error';
+        this.alert.message = 'Ha ocurrido un error al realizar la asignacion.';
       },
     });
   }
