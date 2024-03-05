@@ -165,7 +165,7 @@ export class AsignarClasesUsuariosComponent implements OnInit {
           this.alert.message = 'No se han podido cargar la informacion.';
         } else {
           this.arrClaseUsuario = categoria;
-          this.resultadoRelacion = []; // Inicializamos el array resultadoRelacion
+          this.resultadoRelacion = [];
 
           for (let i = 0; i < this.arrClaseUsuario.length; i++) {
             const clases = this.arrClaseUsuario[i];
