@@ -32,17 +32,9 @@ export class ModalCrearEntreComponent {
     });
 
     this.ref.onClose.subscribe((data: any) => {
-      this.messageService.add({ severity: 'warn', summary: 'Advertencia', detail: 'No se ha creado el entrenamiento' });
+      if (data) {
+          this.messageService.add({ severity: 'warn', summary: 'Advertencia', detail: 'No se ha creado el entrenamiento' });
+      }
     });
-
-    this.ref.onMaximize.subscribe((value) => {
-      this.messageService.add({ severity: 'info', summary: 'Maximized', detail: `maximized: ${value.Maximized}`});
-    });
-  }
-
-  ngOnDestroy() {
-    if (this.ref) {
-      this.ref.close();
-    }
   }
 }

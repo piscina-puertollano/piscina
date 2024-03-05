@@ -52,9 +52,12 @@ export class EntrenamientoComponent {
     this.alert = new Alert();
   }
 
-  ngOnInit(){
+  ngOnInit() {
+    this.entrenamientoService.entrenamientoCreated.subscribe(() => {
+       this.listarEntrenamientos();
+    });
     this.listarEntrenamientos();
-  }
+   }
 
   openDialog(id?: number) {
     if (typeof id === 'number') {

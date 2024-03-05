@@ -33,7 +33,7 @@ export class CrearEntrenamientoComponent {
 
   ref: DynamicDialogRef | undefined;
 
-  constructor(private authService: AuthService, private entrenamientoService: EntrenamientoService,private ejerciciosService: EjerciciosService, private router: Router, private messageService: MessageService, dialogRef: DynamicDialogRef) {
+  constructor(private authService: AuthService, private entrenamientoService: EntrenamientoService, private ejerciciosService: EjerciciosService, private router: Router, private messageService: MessageService, dialogRef: DynamicDialogRef) {
     this.dialogRef = dialogRef;
   }
 
@@ -51,6 +51,7 @@ export class CrearEntrenamientoComponent {
         });
 
         this.dialogRef.close();
+        this.entrenamientoService.entrenamientoCreated.emit();      
       },
       error: (err) => {
         console.error('Error al insertar el entrenamiento:', err);

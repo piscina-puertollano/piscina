@@ -1,7 +1,7 @@
 /**
  * @author: Marina Laguna
  */
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, of } from 'rxjs';
@@ -19,6 +19,8 @@ export class EntrenamientoService {
   private urlgetEntrenamientoId : string = this.baseUrl + '/ejercicioEntrenamiento';
   private urldeleteEntrenamiento: string = this.baseUrl + '/ejercicioEntrenamiento';
   private urlInsertEntrenamiento: string = this.baseUrl + '/ejercicioEntrenamiento/crear-entrenamiento';
+
+  entrenamientoCreated = new EventEmitter<void>();
 
   getEntrenamientos(): Observable<Array<Entrenamiento> | undefined> {
     return this.http.get<any[]>(this.urlListarEntrenamientos, {withCredentials:true});
