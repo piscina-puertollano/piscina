@@ -74,7 +74,7 @@
 <p-dialog
   header="Registrar Faltas"
   [(visible)]="displayDialogCrear"
-  [style]="{ width: '65vw', height: '75vh' }"
+  [style]="{ width: '30vw', heigth: '20vw' }"
   [modal]="true"
   [closable]="false"
 >
@@ -119,7 +119,7 @@
     </p-multiSelect>
     <br />
     <br />
-    <p-button (click)="agregarFalta()">Registrar Faltas</p-button>
+    <p-button (click)="agregarFalta()" label="Registrar Faltas"></p-button>
     <p-button (click)="displayDialogCrear = false" label="Cancelar"></p-button>
   </div>
 </p-dialog>
