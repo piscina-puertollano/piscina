@@ -40,6 +40,21 @@ export class DashboardComponent implements OnInit {
       content: 'Para gestionar mis socios',
       link: '/admin-socios',
     },
+    {
+      id_rol: environment.rol_admin,
+      image: environment.admin_gestion_image,
+      title: 'Gestionar Clases',
+      content: 'Para gestionar las clases',
+      link: '/class',
+    },
+    {
+      id_rol: environment.rol_entrenador,
+      image: environment.entrenador_faltas_image,
+      title: 'Gestionar Faltas',
+      content: 'Para gestionar las faltas de los usuarios',
+      link: '/faults',
+    },
+
   ];
 
   myCards() {
