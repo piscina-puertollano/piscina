@@ -30,11 +30,6 @@ export class ModificarPuntuacionComponent implements OnInit {
 
   ngOnInit(): void {
     this.puntuacion = this.config.data.puntuacion
-    if (this.puntuacion) {
-      console.log('Datos de la puntuacion', this.puntuacion);
-    } else {
-      console.log('No se pasó ninguna puntuación al componente hijo.');
-    }
   }
 
   updateNota(){
@@ -48,7 +43,6 @@ export class ModificarPuntuacionComponent implements OnInit {
         if (puntuacion) {
           this.puntuacion = puntuacion;
           this.alert.message = 'Puntuación actualizada con éxito.';
-          this.router.navigate(['/puntuaciones'])
         } else {
           this.alert.message = 'No se pudo actualizar la puntuación.';
         }

@@ -147,17 +147,25 @@ export class PuntuacionComponent {
     }
   }
 
-  openAsignarEntre(socioId: number){
+  openAsignarEntre(socioId: number) {
+    // Find the socio in the arrSocio array by id
+    const socio = this.arrSocio.find(user => user.id === socioId);
+    // Extract the nota from the socio object
+    const nota = socio?.puntuacionesUsuario?.[0]?.nota;
+   
+    // Open the dialog with the socioId and nota
     this.ref = this.dialogService.open(AsignarEntrenamientosComponent, {
-      header: 'Asignar Entrenamiento',
-      modal: true,
-      breakpoints: {
-        '960px': '75vw',
-        '640px': '90vw'
-      },
-      data: {
-        socioId: socioId
-      }
-   });
-  }
+       header: 'Asignar Entrenamiento',
+       modal: true,
+       breakpoints: {
+         '960px': '75vw',
+         '640px': '90vw'
+       },
+       data: {
+         socioId: socioId,
+         nota: nota // Pass the nota to the dialog
+       }
+    });
+   }
+   
 }

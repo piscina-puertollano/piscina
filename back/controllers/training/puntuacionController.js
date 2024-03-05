@@ -31,6 +31,15 @@ const puntuacionGetId = (req, res = response) => {
     })
 }
 
+const puntuacionGetSocioId = (req, res) => {
+    const socioId = req.params.socioId; 
+    conexion.getPuntuacionSocioId(socioId).then(msg => {
+        res.status(200).json(msg);
+    }).catch( err => {
+        res.status(203).json({ message: 'Error al obtener la puntuación.', error: err });
+    });
+};
+
 const puntuacionInsert = async (req, res = response) => {
     const { nota, userId, idEntrenamiento } = req.body;
 
@@ -85,6 +94,7 @@ const puntuacionDelete = (req, res = response) => {
 module.exports = {
     sociosGet,
     puntuacionesGet,
+    puntuacionGetSocioId,
     puntuacionGetId,
     puntuacionInsert,
     puntuacionUpdate,

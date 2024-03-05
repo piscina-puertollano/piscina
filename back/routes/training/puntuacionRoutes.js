@@ -16,4 +16,5 @@ router.delete('/:id', [checkToken, tokenCanTrainer], controlador.puntuacionDelet
 //para calificarlos y poder asignarles entrenamientos
 router.get('/:id', [checkToken, tokenCanTrainer], controlador.puntuacionGetId);
 
+router.get('/socio/:socioId', [checkToken, tokenCanTrainer], controlador.puntuacionGetSocioId);
 module.exports = router;

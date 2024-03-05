@@ -10,36 +10,6 @@ const conexion = new Conexion()
 class puntuacionConnection{
     constructor() {}
 
-    /* getSocios = async () => {
-        try {
-            conexion.conectar();
-            const rolSocio = await models.Rol.findOne({
-                where: { name: 'socio' } 
-            });
-    
-            if (!rolSocio) {
-                throw new Error('No se encontró el rol de socio');
-            }
-    
-            const userRoles = await models.UserRol.findAll({
-                where: { id_rol: rolSocio.id },
-                include: [{
-                    model: models.Users,
-                    as: 'user', 
-                    attributes: ['id', 'firstName', 'lastname', 'photo_profile'] 
-                }]
-            });
-    
-           const socios = userRoles.map(userRole => userRole.user); 
-    
-            conexion.desconectar();
-            return socios;
-        } catch (error) {
-            console.error('Error al obtener los socios:', error);
-            throw error;
-        }
-    }; */
-
     getSocios = async () => {
         try {
             conexion.conectar();
@@ -90,6 +60,25 @@ class puntuacionConnection{
         }
     };
 
+    getPuntuacionSocioId = async (socioId) => {
+        try {
+            conexion.conectar();
+            const puntuacionUsuario = await models.PuntuacionUsuario.findOne({
+                where: { id_user: socioId },
+                include: [{
+                    model: models.Puntuacion,
+                    as: 'puntuacion',
+                    attributes: ['id', 'nota', 'idEntrenamiento']
+                }]
+            });
+            conexion.desconectar();
+            return puntuacionUsuario;
+        } catch (error){
+            console.error('Error al obtener la puntuación:', error);
+            throw error;
+        }
+    }
+
     getpuntuaciones = async() => {
         let puntuaciones = [];
         conexion.conectar;
@@ -131,15 +120,13 @@ class puntuacionConnection{
     insertPuntuacion = async(body) => {
         try {
             const nuevaPuntuacion = await models.Puntuacion.create(body);
-            const idPuntuacion = nuevaPuntuacion.id; // Asegúrate de que este es el ID correcto
+            const idPuntuacion = nuevaPuntuacion.id;
     
-            // Insertar la relación en la tabla puntuacionUsuario
             const relacionInsertada = await models.PuntuacionUsuario.create({
                 id_user: body.userId,
                 idPuntuacion: idPuntuacion
             });
     
-            // Si todo salió bien, devolver el resultado
             return { success: true, id: idPuntuacion, data: { nota: body.nota, userId: body.userId, idEntrenamiento: body.idEntrenamiento } };
         } catch (error) {
             console.error(error);
@@ -186,7 +173,7 @@ class puntuacionConnection{
         await resultado.destroy();
     }
 
-    async getPuntuacionExistente(userId, idEntrenamiento) {
+    getPuntuacionExistente = async (userId, idEntrenamiento) => {
         try {
             const puntuacionExistente = await models.PuntuacionUsuario.findOne({
                 where: {

@@ -26,6 +26,10 @@ export class PuntuacionService {
     return this.http.get<Array<Puntuacion> | undefined>(url, {withCredentials:true});
   }
 
+  getPuntuacionSocioId(){
+    
+  }
+
   getSocios(): Observable<any[]> {
     const url = `${this.urlGetSocios}/socios`
     return this.http.get<any[]>(url, {withCredentials:true});
