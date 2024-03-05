@@ -65,6 +65,9 @@ export class ModificarEntrenamientoComponent implements OnInit {
         });
 
         this.dialogRef.close();
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
       },
       error: (err) => {
         console.log(err);
