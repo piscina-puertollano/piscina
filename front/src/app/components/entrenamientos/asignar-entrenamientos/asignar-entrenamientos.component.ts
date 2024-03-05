@@ -76,24 +76,33 @@ export class AsignarEntrenamientosComponent {
     });
   }
 
-  asignar(idEntrenamiento: number) {
-    const puntuacionId = this.getPuntuacionIdBySocioId(this.socioId);
-    const updatedPuntuacion: Puntuacion = {
-      id: puntuacionId,
-      userId: this.socioId,
-      nota: this.nota,
-      idEntrenamiento: idEntrenamiento 
-    };
-
-    console.log(updatedPuntuacion)
-
-    this.puntuacionService.updatePuntuacion(updatedPuntuacion).subscribe({
-      next: (updatedPuntuacion) => {
-        console.log('Puntuación actualizada:', updatedPuntuacion);
-      },
-      error: (err) => {
-        console.error('Error al actualizar la puntuación:', err);
-      }
-    });
- }
+  async asignar(idEntrenamiento: number) {
+    try {
+       const puntuacion = await this.puntuacionService.getPuntuacionSocioId(this.socioId).toPromise();
+       if (!puntuacion) {
+         console.error('No se encontró la puntuación para el socio.');
+         return;
+       }
+   
+       const updatedPuntuacion: Puntuacion = {
+         id: puntuacion.id,
+         userId: this.socioId,
+         nota: this.nota,
+         idEntrenamiento: idEntrenamiento 
+       };
+   
+       console.log(updatedPuntuacion);
+   
+       this.puntuacionService.updatePuntuacion(updatedPuntuacion).subscribe({
+         next: (updatedPuntuacion) => {
+           console.log('Puntuación actualizada:', updatedPuntuacion);
+         },
+         error: (err) => {
+           console.error('Error al actualizar la puntuación:', err);
+         }
+       });
+    } catch (error) {
+       console.error('Error al obtener o actualizar la puntuación:', error);
+    }
+   }
 }
