@@ -18,10 +18,19 @@ export class ClasehasusuarioService {
   private urlActulizarRelacion: string = this.baseUrl + '/actualizar/clase/usuario';
   private urlEliminarRelacion: string = this.baseUrl + '/eliminar/clase/usuario';
   private urlObtener: string = this.baseUrl + '/obtener/clases';
+  private urlObtenerRecuperar: string = this.baseUrl + '/recuperar/clases';
 
 
   allRelacion(): Observable<Array<claseUsuario> | undefined> {
     return this.http.get<claseUsuario>(this.urlObtener, {withCredentials: true}).pipe(
+      catchError((error) =>{
+        return of(error)
+      })
+    )
+  }
+
+  allRelaciones(): Observable<Array<claseUsuario> | undefined> {
+    return this.http.get<claseUsuario>(this.urlObtenerRecuperar, {withCredentials: true}).pipe(
       catchError((error) =>{
         return of(error)
       })

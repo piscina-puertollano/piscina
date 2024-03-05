@@ -13,6 +13,7 @@ export class ClaseService {
   constructor(private http: HttpClient) { }
   private baseUrl : string = environment.baseUrl
   private urAllClases : string = this.baseUrl+'/clases'
+  private urAllClasesFaltas : string = this.baseUrl+'/recuperar/clases'
 
   agregarClase(nuevaClase: Clase): Observable<Clase> {
     return this.http.post<Clase>(this.urAllClases, nuevaClase,{withCredentials: true} ).pipe(
@@ -30,6 +31,15 @@ export class ClaseService {
       })
     )
   }
+
+  allClasesFaltas(): Observable<Array<Clase> | undefined> {
+    return this.http.get<Clase>(this.urAllClasesFaltas, {withCredentials: true}).pipe(
+      catchError((error) =>{
+        return of(error)
+      })
+    )
+  }
+
   searchClaseById(id:any): Observable<Array<Clase> | undefined> {
     return this.http.get<Clase>(this.urAllClases,id).pipe(
       catchError((error) =>{

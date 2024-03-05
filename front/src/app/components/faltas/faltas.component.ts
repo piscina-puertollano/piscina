@@ -149,7 +149,7 @@ export class FaltasComponent implements OnInit {
   }
 
   allUsers() {
-    this.UsuarioService.allUsers().subscribe({
+    this.UsuarioService.allUsersFaltas().subscribe({
       next: (user: any | undefined) => {
         if (user.status >= 400) {
           this.alert.show = true;
@@ -168,7 +168,7 @@ export class FaltasComponent implements OnInit {
   }
 
   allClases() {
-    this.service.allClases().subscribe({
+    this.service.allClasesFaltas().subscribe({
       next: (clase: any | undefined) => {
         if (clase.status >= 400) {
           this.alert.show = true;
@@ -224,7 +224,7 @@ export class FaltasComponent implements OnInit {
   }
 
   allClasesUsuarios() {
-    this.ClasehasusuarioService.allRelacion().subscribe({
+    this.ClasehasusuarioService.allRelaciones().subscribe({
       next: (categoria: any | undefined) => {
         if (categoria.status >= 400) {
           this.alert.show = true;
