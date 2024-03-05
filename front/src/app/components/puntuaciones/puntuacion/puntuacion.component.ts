@@ -60,6 +60,11 @@ export class PuntuacionComponent {
   constructor(private authService: AuthService, private filterService: FilterService, private puntuacionService: PuntuacionService, public dialogService: DialogService, private messageService: MessageService, private fileService: FileService){
   }
 
+  ngOnInit() {
+    this.loading = false;
+    this.socios();
+  }
+
   openDialog(id: number, tienePuntuacion: boolean) {
     if (typeof id === 'number') {
        if (tienePuntuacion) {
@@ -100,21 +105,12 @@ export class PuntuacionComponent {
        }
     }
    }
-  ngOnInit() {
-    this.loading = false;
-    this.socios();
-  }
-
-  clear(table: Table){
-    table.clear();
-  }
 
   socios() {
     this.puntuacionService.getSocios().subscribe({
        next: (users: any[]) => {
          this.arrSocio = users.map((user: User) => {
            const socio: Socio = { ...user };
-           console.log(socio)
            if (user.puntuacionesUsuario && user.puntuacionesUsuario.length > 0) {
              socio.nota = user.puntuacionesUsuario[0].nota;
              socio.mostrarBoton = socio.nota !== undefined && socio.nota < 5;

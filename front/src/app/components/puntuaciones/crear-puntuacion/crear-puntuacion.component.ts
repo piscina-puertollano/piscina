@@ -8,6 +8,7 @@ import { PuntuacionService } from '../../../services/puntuacion.service';
 import { MessageService } from 'primeng/api';
 import { DialogComponent } from '../../../utils/dialog/dialog.component';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-crear-puntuacion',
@@ -22,10 +23,10 @@ export class CrearPuntuacionComponent {
   dialogRef: DynamicDialogRef;
   asignarEntre: boolean = false;
 
-  constructor(dialogRef: DynamicDialogRef, private puntuacionService: PuntuacionService, private messageService: MessageService, public config: DynamicDialogConfig){
+  constructor(dialogRef: DynamicDialogRef, private puntuacionService: PuntuacionService, private messageService: MessageService, public config: DynamicDialogConfig, private router: Router){
     this.socioId = this.config.data.puntuacion
     this.dialogRef = dialogRef;
-    }
+  }
 
   insertPuntuacion(puntuacion: any) {
     this.socioId = this.config.data.socioId
@@ -46,6 +47,9 @@ export class CrearPuntuacionComponent {
         });
 
         this.dialogRef.close();
+        setTimeout(() =>{
+          window.location.reload()
+        }, 2000);
       },
       error: (err) => {
         console.error('Error al insertar una puntuacion:', err);

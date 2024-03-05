@@ -2,7 +2,7 @@
  * @author Marina Laguna
  */
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { Observable, catchError } from 'rxjs';
 import { Puntuacion } from '../interfaces/puntuacion';
