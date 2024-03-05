@@ -53,14 +53,6 @@
         <button
           pButton
           pRipple
-          icon="pi pi-pencil"
-          class="p-button-rounded p-button-success m-2"
-          (click)="openEditModal(claseUsuario)"
-        ></button>
-
-        <button
-          pButton
-          pRipple
           icon="pi pi-trash"
           class="p-button-rounded p-button-danger m-2"
           (click)="deleteRelacion(claseUsuario.id)"
@@ -119,61 +111,8 @@
       placeholder="Alumno"
     >
     </p-multiSelect>
-
     <br />
     <p-button (click)="agregarFalta()">Registrar Faltas</p-button>
     <p-button (click)="displayDialogCrear = false" label="Cancelar"></p-button>
-  </div>
-</p-dialog>
-
-<!-- Modal para modificar -->
-<p-dialog
-  header="Editar Clase"
-  [(visible)]="displayDialogEditar"
-  [style]="{ width: '60vw', height: '60vh' }"
-  [modal]="true"
-  [closable]="false"
->
-  <div class="form-container">
-    <output>Nadador: </output>
-    <p-dropdown
-      [options]="arrUsers"
-      [(ngModel)]="editData.user"
-      optionLabel="firstName"
-      optionValue="id"
-      [showClear]="true"
-      placeholder="Alumno"
-      [disabled]="true"
-    ></p-dropdown>
-    <br />
-    <br />
-
-    <output>Día: </output>
-    <p-dropdown
-      [options]="diasSemana"
-      [(ngModel)]="editData.dia"
-      optionLabel="label"
-      optionValue="value"
-      [showClear]="true"
-      placeholder="Selecciona un día"
-      (onChange)="onDiaSeleccionado($event)"
-      [disabled]="false"
-    ></p-dropdown>
-    <br />
-
-    <output>Hora Inicio</output>
-    <p-dropdown
-      [options]="clasesFiltradas"
-      [(ngModel)]="editData.clase"
-      optionLabel="hora_inicio"
-      optionValue="id"
-      [showClear]="true"
-      placeholder="Horario"
-      [disabled]="false"
-    ></p-dropdown>
-    <br />
-
-    <p-button (click)="actualizarRelacion()">Actualizar Clase</p-button>
-    <p-button (click)="displayDialogEditar = false" label="Cancelar"></p-button>
   </div>
 </p-dialog>
