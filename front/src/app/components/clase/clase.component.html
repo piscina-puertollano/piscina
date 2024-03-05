@@ -86,28 +86,38 @@
        </ng-template>
      </p-table>
      <!-- Modal para insertar-->
-     <p-dialog header="Crear nueva clase" [(visible)]="displayDialogCrear" [style]="{width: '50vw'}" [modal]="true" [closable]="false">
+     <p-dialog header="Crear nueva clase" [(visible)]="displayDialogCrear" [style]="{width: '30vw', heigth:'20vw'}" [modal]="true" [closable]="false">
       <div class="form-container">
          <div class="form-group">
            <output>Categoria</output>
+           <br>
            <p-dropdown [options]="arrCategorias" [(ngModel)]="categoriaSelecionada" optionLabel="nombre" [showClear]="true" placeholder="Selecciona una categoría"></p-dropdown>
          </div>
+         <br>
          <div class="form-group">
            <output>Nombre</output>
+           <br>
            <p-dropdown [options]="diasSemana" [(ngModel)]="dia" optionLabel="label" [showClear]="true" placeholder="Selecciona un día de la semana"></p-dropdown>
          </div>
+         <br>
          <div class="form-group">
            <output>Hora inicio</output>
-           <input type="time" [(ngModel)]="horaInicio" id="txtHoraInicio" />  
+           <br>
+           <p-calendar [(ngModel)]="horaInicio" [showTime]="true" [timeOnly]="true" hourFormat="24"></p-calendar>  
          </div>
+         <br>
          <div class="form-group">
            <output>Hora fin</output>
-           <input type="time" [(ngModel)]="horaFin" id="txtHoraFin"/>
+           <br>
+           <p-calendar [(ngModel)]="horaFin" [showTime]="true" [timeOnly]="true" hourFormat="24"></p-calendar>
          </div>
+         <br>
          <div class="form-group">
            <output>Descripcion</output>
-           <textarea id="txtdescripcion" [(ngModel)]="descripcion"></textarea>
+           <br>
+           <textarea id="txtdescripcion" [(ngModel)]="descripcion" pInputTextarea></textarea>
          </div>
+         <br>
          <p-button (click)="agregarClase()" routerLink="/clases">Crear clase</p-button>
          <p-button (click)="displayDialogCrear = false" label="Cancelar"></p-button>
       </div>

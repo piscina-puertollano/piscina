@@ -18,10 +18,11 @@ import { ToastModule } from 'primeng/toast';
 import { DropdownModule } from 'primeng/dropdown';
 import { CategoriaClasesService } from '../../services/categoria-clases.service';
 import { CategoriaClases } from '../../interfaces/categoriaClases';
+import { CalendarModule } from 'primeng/calendar';
 @Component({
   selector: 'app-clase',
   standalone: true,
-  imports: [TableModule, FormsModule, AlertComponent, ToastModule, DropdownModule, ButtonModule, InputTextModule, DialogModule, RouterLink, InputTextareaModule],
+  imports: [TableModule, FormsModule, AlertComponent, ToastModule, CalendarModule, InputTextareaModule, DropdownModule, ButtonModule, InputTextModule, DialogModule, RouterLink, InputTextareaModule],
   templateUrl: './clase.component.html',
   styleUrls: ['./clase.component.css'],
 })

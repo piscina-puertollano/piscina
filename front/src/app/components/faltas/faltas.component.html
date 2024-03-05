@@ -70,15 +70,17 @@
 </p-table>
 
 <!-- Modal insertar -->
+
 <p-dialog
   header="Registrar Faltas"
   [(visible)]="displayDialogCrear"
-  [style]="{ width: '60vw', height: '60vh' }"
+  [style]="{ width: '65vw', height: '75vh' }"
   [modal]="true"
   [closable]="false"
 >
   <div class="form-container">
     <output>Día: </output>
+    <br />
     <p-dropdown
       [options]="diasSemana"
       [(ngModel)]="selectedDia"
@@ -89,8 +91,10 @@
       (onChange)="onDiaSeleccionado($event)"
     ></p-dropdown>
     <br />
+    <br />
 
     <output>Hora Inicio</output>
+    <br />
     <p-dropdown
       [options]="clasesFiltradas"
       [(ngModel)]="selectedClase"
@@ -101,8 +105,10 @@
       (onChange)="onUsersSeleccionados($event)"
     ></p-dropdown>
     <br />
+    <br />
 
     <output>Nadador: </output>
+    <br />
     <p-multiSelect
       [options]="userFiltrado"
       [(ngModel)]="selectedUser"
@@ -111,6 +117,7 @@
       placeholder="Alumno"
     >
     </p-multiSelect>
+    <br />
     <br />
     <p-button (click)="agregarFalta()">Registrar Faltas</p-button>
     <p-button (click)="displayDialogCrear = false" label="Cancelar"></p-button>
