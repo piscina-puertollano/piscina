@@ -43,6 +43,7 @@ export const environment = {
     tutor_card_image: '../../assets/cards-dashboard/istockphoto-1345951925-640x640.jpg',
     entrenador_card_image: '../../assets/cards-dashboard/mejores_entrenamientos_natacion_2252.jpg',
     puntuacion_card_image: '../../assets/cards-dashboard/_92986fbf-d1c8-4636-9904-276b25ea2fb9.jpg',
+    socio_card_image: '../../assets/cards-dashboard/Ux0VAfghQMW8GNWsoWLtgg.jpg',
     indexContact: '/contact',
     getAllAlergias: '/alergias'
 };

@@ -78,7 +78,7 @@ export class AsignarEntrenamientosComponent {
 
   async asignar(idEntrenamiento: number) {
     try {
-       const puntuacion = await this.puntuacionService.getPuntuacionSocioId(this.socioId).toPromise();
+       const puntuacion = await this.puntuacionService.getPuntuacionEntrenador(this.socioId).toPromise();
        if (!puntuacion) {
          console.error('No se encontró la puntuación para el socio.');
          return;

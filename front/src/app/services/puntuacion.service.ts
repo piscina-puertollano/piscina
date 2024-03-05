@@ -26,8 +26,13 @@ export class PuntuacionService {
     return this.http.get<Array<Puntuacion> | undefined>(url, {withCredentials:true});
   }
 
-  getPuntuacionSocioId(socioId: number): Observable<Puntuacion | undefined> {
+  getPuntuacionEntrenador(socioId: number): Observable<Puntuacion | undefined> {
     const url = `${this.urlGetPuntuacionId}/socio/${socioId}`;
+    return this.http.get<Puntuacion | undefined>(url, { withCredentials: true });
+  }
+
+  getPuntuacionSocio(socioId: number): Observable<Puntuacion | undefined> {
+    const url = `${this.urlGetPuntuacionId}/notas/${socioId}`;
     return this.http.get<Puntuacion | undefined>(url, { withCredentials: true });
   }
 

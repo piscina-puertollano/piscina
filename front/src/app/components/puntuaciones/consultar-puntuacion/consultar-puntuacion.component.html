@@ -1,1 +1,17 @@
-<p>consultar-puntuacion works!</p>
+<section class="card">
+    <p>Nota Actual: {{ nota }}</p>
+    <h3>Entrenamiento Recomendado</h3>
+    @if(entrenamientoAsignado){
+        <div class="left-align">
+            <h4>{{ entrenamientoAsignado.nombre }} - {{ entrenamientoAsignado.descripcion }}</h4>
+            <h4>Ejercicios:</h4>
+            <ul>
+                @for(ejercicio of entrenamientoAsignado.EjercicioEntrenamientos; track ejercicio){
+                    <li><strong>{{ ejercicio.Ejercicio.Tipo?.nombre }} - </strong> {{ ejercicio.Ejercicio.descripcion }}</li>
+               }
+            </ul>
+        </div>
+    }@else{
+        <p>No hay entrenamiento asignado.</p>
+    }
+</section>

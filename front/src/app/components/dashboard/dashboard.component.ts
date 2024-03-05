@@ -41,6 +41,13 @@ export class DashboardComponent implements OnInit {
       link: '/admin-partners',
     },
     {
+      id_rol: environment.rol_socio,
+      image: environment.socio_card_image,
+      title: 'Consultar Calificaciones',
+      content: 'Par consultar la calificación general y si tenemos entrenamientos asignados',
+      link: '/score',
+    },
+    {
       id_rol: environment.rol_entrenador,
       image: environment.entrenador_card_image,
       title: 'Gestionar entrenamientos',

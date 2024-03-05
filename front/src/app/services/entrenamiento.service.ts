@@ -31,6 +31,11 @@ export class EntrenamientoService {
     return this.http.get<any[]>(url, {withCredentials:true});
   }
 
+  getEntrenamientoAsignado(idEntrenaminto: number): Observable<Entrenamiento | undefined> {
+    const url = `${this.urlgetEntrenamientoId}/asignado/${idEntrenaminto}`
+    return this.http.get<Entrenamiento | undefined>(url, {withCredentials:true});
+  }
+
   updateEntrenamientos(entrenamiento: Entrenamiento): Observable<Entrenamiento> {
     const url = `${this.urlUpdateEntrenamiento}/${entrenamiento.id}`;
     return this.http.put<Entrenamiento>(url, entrenamiento, {withCredentials:true}).pipe(
