@@ -10,7 +10,7 @@
         [value]="arrSocio"
         [rows]="10"
         [paginator]="true"
-        [globalFilterFields]="['Foto', 'Nombre', 'Apellido', 'Calificacion']"
+        [globalFilterFields]="['Nombre', 'Apellido', 'Calificacion']"
         [tableStyle]="selectSocio"
         [rowHover]="true"
         datakey="id"
@@ -28,7 +28,7 @@
 
         <ng-template pTemplate="header">
             <tr>
-                <th pSortableColumn="photo_profile">Foto de perfil</th>
+                <th>Foto de perfil</th>
                 <th pSortableColumn="firstName" style="min-width:10rem">Nombre <p-sortIcon field="firstName"></p-sortIcon></th>
                 <th pSortableColumn="lastName">Apellido<p-sortIcon field="lastName"></p-sortIcon></th>
                 <th pSortableColumn="nota">Calificación</th>
@@ -40,7 +40,7 @@
             <tr>
                 <td> 
                     @for(image of arrPhotoProfile; track image.id){
-                        @if(image.id == user.image.ruta){
+                        @if(image.id == user.image?.ruta){
                             <img src="{{image.image}}" id="imageProfile" width="50px"  alt="" srcset=""> 
                         }
                     }

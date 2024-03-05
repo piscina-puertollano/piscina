@@ -51,7 +51,7 @@
                 <td>
                     <button pButton pRipple icon="pi pi-info" (click)="consultarEntre(entrenamiento.id)"></button>
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="openDialog(entrenamiento.id)"></button>                    
-                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deleteEntrenamiento(entrenamiento)"></button>
+                    <app-dialog [icon]="'pi pi-trash'" [severity]="'danger'" [header]="'Alerta'" [message]="'¿Estás seguro de que quiere realizar esta acción? Va a eliminar un entrenamiento'" (eventEmiter)="deleteEntrenamiento(entrenamiento)"></app-dialog>
                 </td>
             </tr>
         </ng-template>
