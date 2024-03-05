@@ -79,14 +79,13 @@
 
 <!-- Modal insertar -->
 <p-dialog
-  header="Crear nueva clase"
+  header="Registrar Faltas"
   [(visible)]="displayDialogCrear"
   [style]="{ width: '60vw', height: '60vh' }"
   [modal]="true"
   [closable]="false"
 >
   <div class="form-container">
-    <output>Nadador: </output>
     <output>Día: </output>
     <p-dropdown
       [options]="diasSemana"
@@ -107,18 +106,22 @@
       optionValue="id"
       [showClear]="true"
       placeholder="Horario"
+      (onChange)="onUsersSeleccionados($event)"
     ></p-dropdown>
     <br />
-    <p-dropdown
-      [options]="arrUsers"
+
+    <output>Nadador: </output>
+    <p-multiSelect
+      [options]="userFiltrado"
       [(ngModel)]="selectedUser"
       optionLabel="firstName"
       optionValue="id"
-      [showClear]="true"
       placeholder="Alumno"
-    ></p-dropdown>
+    >
+    </p-multiSelect>
+
     <br />
-    <p-button (click)="agregarRelacion()">Crear clase</p-button>
+    <p-button (click)="agregarFalta()">Registrar Faltas</p-button>
     <p-button (click)="displayDialogCrear = false" label="Cancelar"></p-button>
   </div>
 </p-dialog>
