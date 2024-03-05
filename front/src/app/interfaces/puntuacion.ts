@@ -1,4 +1,4 @@
-import { User } from "./user";
+import { Image, User } from "./user";
 
 /**
  * @author Marina Laguna
@@ -13,4 +13,4 @@ export interface Puntuacion {
 export interface Socio extends User {
     nota?: number | null;
     mostrarBoton?: boolean;
-  }
+}

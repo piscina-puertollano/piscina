@@ -42,14 +42,14 @@ export class DashboardComponent implements OnInit {
     },
     {
       id_rol: environment.rol_entrenador,
-      image: environment, //poner imagen
+      image: environment.entrenador_card_image,
       title: 'Gestionar entrenamientos',
       content: 'Para realizar el gestión de los entrenamientos',
       link: '/training',
     },
     {
       id_rol: environment.rol_entrenador,
-      image: environment, //poner imagen
+      image: environment.puntuacion_card_image,
       title: 'Gestión de Calificaciones de los Socios',
       content: 'Añadir calificaciones a los socios',
       link: '/scores',

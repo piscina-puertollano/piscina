@@ -41,7 +41,8 @@ export const environment = {
     admin_card_image: '../../assets/cards-dashboard/_f85fcebc-e26f-4c23-97a8-7eefbbd9524c.jpg',
     redactor_card_image: '../../assets/cards-dashboard/_86275f07-3393-436b-bd61-2750bf845a4c.jpg',
     tutor_card_image: '../../assets/cards-dashboard/istockphoto-1345951925-640x640.jpg',
-    entrenador_card_image: '',
+    entrenador_card_image: '../../assets/cards-dashboard/mejores_entrenamientos_natacion_2252.jpg',
+    puntuacion_card_image: '../../assets/cards-dashboard/_92986fbf-d1c8-4636-9904-276b25ea2fb9.jpg',
     indexContact: '/contact',
     getAllAlergias: '/alergias'
 };

@@ -16,7 +16,7 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { TooltipModule } from 'primeng/tooltip';
 import { environment } from '../../../../environments/environment.development';
 import { Puntuacion, Socio } from '../../../interfaces/puntuacion';
-import { User } from '../../../interfaces/user';
+import { Image, User } from '../../../interfaces/user';
 import { AuthService } from '../../../services/auth.service';
 import { FileService } from '../../../services/file.service';
 import { PuntuacionService } from '../../../services/puntuacion.service';
@@ -25,6 +25,7 @@ import { DialogComponent } from '../../../utils/dialog/dialog.component';
 import { CrearPuntuacionComponent } from '../crear-puntuacion/crear-puntuacion.component';
 import { ModificarPuntuacionComponent } from '../modificar-puntuacion/modificar-puntuacion.component';
 import { AsignarEntrenamientosComponent } from '../../entrenamientos/asignar-entrenamientos/asignar-entrenamientos.component';
+import { Files } from '../../../interfaces/upload';
 
 @Component({
   selector: 'app-puntuacion',
@@ -50,6 +51,8 @@ export class PuntuacionComponent {
   loading: boolean = true;
   test?: Puntuacion;
   asignarEntreBtn: boolean = false;
+  arrImages?: Array<any>
+  images?: Array<any>
 
   ref: DynamicDialogRef | undefined;
   dialog: any;
@@ -108,44 +111,25 @@ export class PuntuacionComponent {
 
   socios() {
     this.puntuacionService.getSocios().subscribe({
-      next: (users: any[]) => {
-        this.arrSocio = users.map((user: User) => {
-          const socio: Socio = { ...user };
-          console.log(socio)
-          if (user.puntuacionesUsuario && user.puntuacionesUsuario.length > 0) {
-            socio.nota = user.puntuacionesUsuario[0].nota;
-            socio.mostrarBoton = socio.nota !== undefined && socio.nota < 5;
-          } else {
-            socio.nota = null;
-            socio.mostrarBoton = false
-          }
-          return socio;
-        });
-      },
-      error: (err) => {
-        console.log(err);
-      }
+       next: (users: any[]) => {
+         this.arrSocio = users.map((user: User) => {
+           const socio: Socio = { ...user };
+           console.log(socio)
+           if (user.puntuacionesUsuario && user.puntuacionesUsuario.length > 0) {
+             socio.nota = user.puntuacionesUsuario[0].nota;
+             socio.mostrarBoton = socio.nota !== undefined && socio.nota < 5;
+           } else {
+             socio.nota = null;
+             socio.mostrarBoton = false
+           }
+           return socio;
+         });
+       },
+       error: (err) => {
+         console.log(err);
+       }
     });
-  }
-
-  showImages() {
-    for (let user of this.arrSocio) {
-      let imageInfo = {
-          id: user.image?.ruta,
-          path: environment.photo_profile_path 
-      };
-
-      this.fileService.showImage(imageInfo).subscribe({
-          next: (image: any | undefined) => {
-              console.log(image);
-              this.arrPhotoProfile.push({ id: user.image?.ruta, image: URL.createObjectURL(image) });
-          },
-          error: (err) => {
-              console.error('Error al obtener la imagen:', err);
-          }
-      });
-    }
-  }
+   }
 
   openAsignarEntre(socioId: number) {
     const socio = this.arrSocio.find(user => user.id === socioId);
