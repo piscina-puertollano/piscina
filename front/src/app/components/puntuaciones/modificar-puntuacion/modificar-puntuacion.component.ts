@@ -55,11 +55,15 @@ export class ModificarPuntuacionComponent implements OnInit {
             window.location.reload()
           }, 2000);
         } else {
-          this.alert.message = 'No se pudo actualizar la puntuación.';
+          this.messageService.add({
+            severity: 'warn',
+            summary: 'Operación cancelada',
+            detail: 'No se ha podido actualizar la puntuación'
+          });
         }
       },
       error: (error) => {
-        this.alert.message = 'Error al actualizar la puntuación: ' + error.message;
+        console.error('Error al modificar una puntuacion:', error);
       }
     });
   }

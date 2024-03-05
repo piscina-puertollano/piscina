@@ -38,8 +38,7 @@ export class CrearPuntuacionComponent {
 
     console.log(puntuacion)
     this.puntuacionService.insertPuntuacion(puntuacion).subscribe({
-      next: (puntuacion) => {
-        console.log(puntuacion)
+      next: () => {
         this.messageService.add({
           severity: 'success',
           summary: 'Operación completada',

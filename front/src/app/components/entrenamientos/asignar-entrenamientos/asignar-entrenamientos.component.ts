@@ -23,7 +23,8 @@ import { DialogModule } from 'primeng/dialog';
 import { ModificarEntrenamientoComponent } from '../modificar-entrenamiento/modificar-entrenamiento.component';
 import { Puntuacion } from '../../../interfaces/puntuacion';
 import { PuntuacionService } from '../../../services/puntuacion.service';
-import { DynamicDialogConfig } from 'primeng/dynamicdialog';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-asignar-entrenamientos',
@@ -44,12 +45,14 @@ export class AsignarEntrenamientosComponent {
   selectEntrenamientos!: Array<Entrenamiento>;
   searchValue: string = '';
   test?: Entrenamiento;
+  dialogRef: DynamicDialogRef;
   @Input() socioId!: number;
   @Input() nota!: number
 
-  constructor(private authService: AuthService, private entrenamientoService: EntrenamientoService, private puntuacionService: PuntuacionService, private router: Router, private route: ActivatedRoute, public config: DynamicDialogConfig){
+  constructor(dialogRef: DynamicDialogRef, private messageService: MessageService, private authService: AuthService, private entrenamientoService: EntrenamientoService, private puntuacionService: PuntuacionService, private router: Router, private route: ActivatedRoute, public config: DynamicDialogConfig){
     this.entrenamiento = {};
     this.alert = new Alert();
+    this.dialogRef = dialogRef;
   }
 
   ngOnInit(){
@@ -94,8 +97,17 @@ export class AsignarEntrenamientosComponent {
        console.log(updatedPuntuacion);
    
        this.puntuacionService.updatePuntuacion(updatedPuntuacion).subscribe({
-         next: (updatedPuntuacion) => {
-           console.log('Puntuación actualizada:', updatedPuntuacion);
+         next: () => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Operación completada',
+            detail: 'Entrenamiento Asignado Correctamente'
+          });
+  
+          this.dialogRef.close();
+          setTimeout(() =>{
+            window.location.reload()
+          }, 2000);
          },
          error: (err) => {
            console.error('Error al actualizar la puntuación:', err);

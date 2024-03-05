@@ -39,7 +39,6 @@ export class ConsultarEntrenamientoComponent {
     this.entrenamientoService.updateEntrenamientos(this.entrenamiento).subscribe({
       next: (entrenamiento: any | undefined) => {
         this.entrenamiento = entrenamiento;
-        this.router.navigate(['/training']);
       },
       error: (err) => {
         console.log(err)
@@ -51,7 +50,8 @@ export class ConsultarEntrenamientoComponent {
     this.entrenamientoService.getEntrenamientoId({ id: this.entrenamiento.id }).subscribe({
       next: (response: any) => {
         if (response && !Array.isArray(response)) {
-          this.entrenamiento = response; 
+          this.entrenamiento = response;
+          console.log(this.entrenamiento) 
         } else {
           this.alert.show = true;
           this.alert.header = 'Error';
