@@ -24,6 +24,7 @@ import { AlertComponent } from '../../../utils/alert/alert.component';
 import { DialogComponent } from '../../../utils/dialog/dialog.component';
 import { CrearPuntuacionComponent } from '../crear-puntuacion/crear-puntuacion.component';
 import { ModificarPuntuacionComponent } from '../modificar-puntuacion/modificar-puntuacion.component';
+import { AsignarEntrenamientosComponent } from '../../entrenamientos/asignar-entrenamientos/asignar-entrenamientos.component';
 
 @Component({
   selector: 'app-puntuacion',
@@ -48,6 +49,7 @@ export class PuntuacionComponent {
   searchValue: string = '';
   loading: boolean = true;
   test?: Puntuacion;
+  asignarEntreBtn: boolean = false;
 
   ref: DynamicDialogRef | undefined;
   dialog: any;
@@ -112,8 +114,10 @@ export class PuntuacionComponent {
           console.log(socio)
           if (user.puntuacionesUsuario && user.puntuacionesUsuario.length > 0) {
             socio.nota = user.puntuacionesUsuario[0].nota;
+            socio.mostrarBoton = socio.nota !== undefined && socio.nota < 5;
           } else {
             socio.nota = null;
+            socio.mostrarBoton = false
           }
           return socio;
         });
@@ -141,5 +145,19 @@ export class PuntuacionComponent {
           }
       });
     }
+  }
+
+  openAsignarEntre(socioId: number){
+    this.ref = this.dialogService.open(AsignarEntrenamientosComponent, {
+      header: 'Asignar Entrenamiento',
+      modal: true,
+      breakpoints: {
+        '960px': '75vw',
+        '640px': '90vw'
+      },
+      data: {
+        socioId: socioId
+      }
+   });
   }
 }

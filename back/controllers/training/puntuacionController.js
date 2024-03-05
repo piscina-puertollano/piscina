@@ -48,18 +48,14 @@ const puntuacionInsert = async (req, res = response) => {
         const msg = await conexion.insertPuntuacion(req.body);
         const idPuntuacion = msg.id;
 
-        // Si la nota es menor que 5, verificar si el entrenamiento existe y asignarlo
         if (nota < 5) {
             const entrenamientoExiste = await conexionEntrenamiento.getEntrenamientoId(idEntrenamiento);
             if (!entrenamientoExiste) {
                 return res.status(203).json({ message: 'El idEntrenamiento no es válido' });
             }
-            // Asignar el entrenamiento
             await AsignacionController.asignarEntrenamiento(req, res);
             return res.status(200).json({ message: 'Puntuacion creada correctamente con su asignacion.', data: req.body });
         } else {
-            // Si la nota no es menor que 5, devolver un mensaje indicando que no se puede asignar un entrenamiento
-            // No se inserta la asociación en puntuacionUsuario
             return res.status(200).json({ message: 'Puntuacion creada correctamente. No se puede asignar un entrenamiento.', data: { nota, userId, idEntrenamiento: null } });
         }
     } catch (error) {

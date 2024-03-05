@@ -1,3 +1,6 @@
+/**
+ * @author Marina Laguna
+ */
 import { Component, Input } from '@angular/core';
 import { Puntuacion } from '../../../interfaces/puntuacion';
 import { DynamicDialogConfig, DynamicDialogModule, DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -16,13 +19,13 @@ import { FormsModule } from '@angular/forms';
 export class CrearPuntuacionComponent {
   puntuacion: Puntuacion = {nota: 0,};
   @Input() socioId!: number;
-  /*   dialogRef: DynamicDialogRef;
- */
+  dialogRef: DynamicDialogRef;
+  asignarEntre: boolean = false;
+
   constructor(dialogRef: DynamicDialogRef, private puntuacionService: PuntuacionService, private messageService: MessageService, public config: DynamicDialogConfig){
     this.socioId = this.config.data.puntuacion
-
-    /*     this.dialogRef = dialogRef;
- */  }
+    this.dialogRef = dialogRef;
+    }
 
   insertPuntuacion(puntuacion: any) {
     this.socioId = this.config.data.socioId
@@ -31,6 +34,7 @@ export class CrearPuntuacionComponent {
       userId: this.socioId,
       nota: this.puntuacion.nota,
     }
+
     console.log(puntuacion)
     this.puntuacionService.insertPuntuacion(puntuacion).subscribe({
       next: (puntuacion) => {
@@ -41,11 +45,11 @@ export class CrearPuntuacionComponent {
           detail: 'Puntuación creada'
         });
 
-/*         this.dialogRef.close();
- */      },
+        this.dialogRef.close();
+      },
       error: (err) => {
         console.error('Error al insertar una puntuacion:', err);
       }
-    })
+    });
   }
 }

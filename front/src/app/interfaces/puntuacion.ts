@@ -12,4 +12,5 @@ export interface Puntuacion {
 
 export interface Socio extends User {
     nota?: number | null;
+    mostrarBoton?: boolean;
   }
