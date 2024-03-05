@@ -19,7 +19,7 @@
         [value]="arrEntrenamientos"
         [rows]="10"
         [paginator]="true"
-        [globalFilterFields]="['entrenamientos', 'descripcion']"
+        [globalFilterFields]="['nombre', 'descripcion']"
         [tableStyle]="{ 'min-width': '75rem' }"
         [(selection)]="selectEntrenamientos"
         [rowHover]="true"
@@ -49,7 +49,7 @@
                 <td>{{ entrenamiento.nombre }}</td>
                 <td>{{ entrenamiento.descripcion}}</td>
                 <td>
-                    <button pButton pRipple icon="pi pi-info" (click)="consultarEntre(entrenamiento.id)"></button>
+                    <button pButton pRipple icon="pi pi-eye" class="p-button-rounded" (click)="consultarEntre(entrenamiento.id)"></button>
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="openDialog(entrenamiento.id)"></button>                    
                     <app-dialog [icon]="'pi pi-trash'" [severity]="'danger'" [header]="'Alerta'" [message]="'¿Estás seguro de que quiere realizar esta acción? Va a eliminar un entrenamiento'" (eventEmiter)="deleteEntrenamiento(entrenamiento)"></app-dialog>
                 </td>
