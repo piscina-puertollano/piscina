@@ -37,11 +37,11 @@ export class AppComponent implements OnInit {
     this.socket = io(environment.websocket);
 
     this.socket.on('connect', () => {
-      console.log('Connected to server');
+      //console.log('Connected to server');
     });
 
     this.socket.on('disconnect', () => {
-      console.log('Disconnected from server');
+      //console.log('Disconnected from server');
     });
 
     this.socket.on('created-new', (payload: any) => {
@@ -50,7 +50,7 @@ export class AppComponent implements OnInit {
         summary: 'Hay una nueva noticia disponible',
         detail: payload.title,
       });
-      console.log(payload);
+      //console.log(payload);
     });
 
     this.primengConfig.ripple = true;
