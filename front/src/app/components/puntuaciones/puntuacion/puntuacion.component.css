@@ -1,0 +1,16 @@
+#title{
+    text-align: center;
+    font-size: 2rem;
+}
+
+.card {
+    position: relative;
+    max-width: 100%;
+    min-width: 70%;
+    color-scheme: light dark !important;
+}
+
+#getScores{
+    display: flex;
+    justify-content: center;  
+}

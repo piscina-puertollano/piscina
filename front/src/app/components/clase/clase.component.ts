@@ -18,10 +18,11 @@ import { ToastModule } from 'primeng/toast';
 import { DropdownModule } from 'primeng/dropdown';
 import { CategoriaClasesService } from '../../services/categoria-clases.service';
 import { CategoriaClases } from '../../interfaces/categoriaClases';
+import { CalendarModule } from 'primeng/calendar';
 @Component({
   selector: 'app-clase',
   standalone: true,
-  imports: [TableModule, FormsModule, AlertComponent, ToastModule, DropdownModule, ButtonModule, InputTextModule, DialogModule, RouterLink, InputTextareaModule],
+  imports: [TableModule, FormsModule, AlertComponent, ToastModule, CalendarModule, InputTextareaModule, DropdownModule, ButtonModule, InputTextModule, DialogModule, RouterLink, InputTextareaModule],
   templateUrl: './clase.component.html',
   styleUrls: ['./clase.component.css'],
 })
@@ -76,7 +77,6 @@ export class ClaseComponent implements OnInit {
   allCategorias() {
     this.CategoriaService.allCategorias().subscribe({
       next: (categoria: any | undefined) => {
-        console.log(categoria);
         if (categoria.status >= 400) {
           this.alert.show = true;
           this.alert.header = 'Error';
@@ -84,17 +84,15 @@ export class ClaseComponent implements OnInit {
             'No se han podido cargar la informacion. Póngase en contacto con un administrador.';
         } else {
           this.arrCategorias = categoria;
-          console.log(this.arrCategorias)
         }
       },
       error: (err) => {
-        console.log(err);
+        //console.log(err);
       },
     });
   }   
 
   agregarClase() {
-    console.log(this.horaInicio)
     let nuevaClase = {
       id_categoria: this.categoriaSelecionada.id,
       nombre: this.dia.value,
@@ -105,7 +103,6 @@ export class ClaseComponent implements OnInit {
   
     this.service.agregarClase(nuevaClase).subscribe({
       next: (resultado: any) => {
-        console.log(resultado);
         if (resultado.status >=  400) {
           this.alert.show = true;
           this.alert.header = 'Error';
@@ -117,7 +114,7 @@ export class ClaseComponent implements OnInit {
         }
       },
       error: (err) => {
-        console.log(err);
+//        console.log(err);
         this.alert.show = true;
         this.alert.header = 'Error';
         this.alert.message =
@@ -129,7 +126,6 @@ export class ClaseComponent implements OnInit {
   allClases() {
     this.service.allClases().subscribe({
       next: (clase: any | undefined) => {
-        console.log(clase);
         if (clase.status >=  400) {
           this.alert.show = true;
           this.alert.header = 'Error';
@@ -146,7 +142,7 @@ export class ClaseComponent implements OnInit {
         }
       },
       error: (err) => {
-        console.log(err);
+//        console.log(err);
       },
     });
   }
@@ -155,14 +151,12 @@ export class ClaseComponent implements OnInit {
   edit(clase: Clase) {
     this.clase = clase;
     this.displayDialog = true;
-    console.log(clase);
  }
 
   deleteClase(id: any) {
     this.alert.show = false;
     this.service.deleteclase(id).subscribe({
       next: (clase: any | undefined) => {
-        console.log(clase);
         if (clase.length == 0 || clase.status == 404) {
           this.alert.show = true;
           this.alert.header = 'Error';
@@ -176,7 +170,7 @@ export class ClaseComponent implements OnInit {
         }
       },
       error: (err) => {
-        console.log(err);
+     //   console.log(err);
       },
     });
   }
@@ -188,12 +182,11 @@ export class ClaseComponent implements OnInit {
         .subscribe({
           next: (clase: Clase | undefined) => {
             if (clase) {
-              console.log(clase);
               location.reload()
             }
           },
           error: (err) => {
-            console.log(err);
+         //   console.log(err);
           },
         });
     } else {

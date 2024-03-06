@@ -7,12 +7,20 @@ module.exports = {
    
     await queryInterface.bulkInsert(process.env.TABLE_NOSOCIOS, [{
 
-      nombre: 'Carmelo',
-      apellidos: 'Carmelita',
-      email: 'carmelomelo@gmail.com',
+      nombre: 'Juan',
+      apellidos: 'Cuesta',
+      email: 'Juan@gmail.com',
       createdAt: new Date(),
       updatedAt: new Date()
    },
+   {
+    nombre: 'Emilio',
+    apellidos: 'nose',
+    email: 'Emilio@gmail.com',
+    createdAt: new Date(),
+    updatedAt: new Date()
+ },
+   
   ], {});
 },
 

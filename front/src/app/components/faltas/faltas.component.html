@@ -1,185 +1,140 @@
+<!-- Manuel Garcia -->
 <div class="card">
-  <h1 id="title" class="m-0">Gestión de Faltas</h1>
+  <h1 id="title" class="m-0">Registro de faltas</h1>
 </div>
-<section>
-  <div>
-    <p-table
-      id="faltasTable"
-      #dt
-      [value]="resultadoRelacion"
-      [rows]="10"
-      [paginator]="true"
-      [globalFilterFields]="['nombre_usuario', 'nombre_clase']"
-      [tableStyle]="{ 'min-width': '75rem' }"
-      [rowHover]="true"
-      dataKey="id"
-      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-      [showCurrentPageReport]="true"
-    >
-      <ng-template pTemplate="caption">
-        <div class="flex align-items-center justify-content-between">
-          <span class="p-input-icon-left">
-            <i class="pi pi-search"></i>
-            <input
-              [(ngModel)]="searchValue"
-              pInputText
-              type="text"
-              (input)="dt.filterGlobal(searchValue, 'contains')"
-              placeholder="Buscar..."
-            />
-          </span>
+
+<div class="tabl-container">
+  <p-table
+    [value]="resultadoRelacion"
+    #dt
+    [paginator]="true"
+    [rows]="10"
+    [globalFilterFields]="['nombre_clase', 'nombre_usuario']"
+    [tableStyle]="{ 'min-width': '75rem' }"
+    [rowHover]="true"
+    dataKey="id"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [showCurrentPageReport]="true"
+  >
+    <ng-template pTemplate="caption">
+      <div class="flex align-items-center justify-content-between">
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input
+            [(ngModel)]="searchValue"
+            pInputText
+            type="text"
+            (input)="dt.filterGlobal(searchValue, 'contains')"
+            placeholder="Buscar..."
+          />
+        </span>
+        <button
+        style="background-color: green;"
+          id="btnGestEventos"
+          pButton
+          pRipple
+          icon="pi pi-user"
+          class="p-button-rounded"
+          (click)="abrirModalCrear()"
+          label="Añadir faltas"
+        ></button>
+        <button
+          pButton
+          pRipple
+          icon="pi pi-home"
+          class="p-button-rounded"
+          routerLink="/home"
+          label="Volver al inicio"
+        ></button>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Usuario</th>
+        <th>Día</th>
+        <th>Acciones</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-claseUsuario>
+      <tr>
+        <td style="visibility: collapse; display: none">
+          {{ claseUsuario.id }}
+        </td>
+        <td>{{ claseUsuario.nombre_usuario }}</td>
+        <td>{{ claseUsuario.nombre_clase }}</td>
+        <td>
           <button
             pButton
             pRipple
-            icon="pi pi-plus"
-            class="p-button-rounded m-2"
-            (click)="openAddModal()"
-          >
-            Añadir Falta
-          </button>
-        </div>
-      </ng-template>
+            icon="pi pi-trash"
+            class="p-button-rounded p-button-danger m-2"
+            (click)="deleteRelacion(claseUsuario.id)"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
 
-      <ng-template pTemplate="header">
-        <tr>
-          <th>Alumno</th>
-          <th>Día</th>
-          <th>Fecha</th>
-          <th>Acciones</th>
-        </tr>
-      </ng-template>
-
-      <ng-template pTemplate="body" let-faltas>
-        <tr>
-          <td>{{ faltas.nombre_usuario }}</td>
-          <td>{{ faltas.nombre_clase }}</td>
-          <td>{{ faltas.fecha }}</td>
-          <td>
-            <button
-              pButton
-              pRipple
-              icon="pi pi-pencil"
-              class="p-button-rounded p-button-success m-2"
-              (click)="edit(faltas)"
-            ></button>
-            <button
-              pButton
-              pRipple
-              icon="pi pi-trash"
-              class="p-button-rounded p-button-danger m-2"
-              (click)="deleteFaltas(faltas.id)"
-            ></button>
-          </td>
-        </tr>
-      </ng-template>
-
-      <ng-template pTemplate="summary">
-        <div class="flex align-items-center justify-content-between">
-          En total hay
-          {{ resultadoRelacion ? resultadoRelacion.length : 0 }} Faltas.
-        </div>
-      </ng-template>
-    </p-table>
-
-    <!-- Modal para insertar faltas -->
-    <!-- Modal para añadir una nueva falta con selecciones -->
-    <p-dialog
-      [(visible)]="displayAddModal"
-      [modal]="true"
-      [style]="{ width: '500px', height: '450px' }"
-      id="addFaltasModal"
-    >
-      <p-header>Añadir Nueva Falta</p-header>
-      <div class="form-group">
-        <label for="newFaltasUsuario">Hora de la clase</label>
-        <br />
-        <p-dropdown
-          [(ngModel)]="newFaltas.nombre_clase"
-          name="listaClases"
-          id="listaClases"
-          [options]="listaClases"
-        >
-        </p-dropdown>
-        <br />
-        <label for="listaClase">Dia de la clase</label>
-        <br />
-        <p-dropdown
-          [(ngModel)]="newFaltas.nombre_dia"
-          name="listaClase"
-          id="listaClase"
-          [options]="diasSemana"
-        >
-        </p-dropdown>
+    <ng-template pTemplate="summary">
+      <div class="flex align-items-center justify-content-between">
+        En total hay
+        {{ resultadoRelacion ? resultadoRelacion.length : 0 }} Relaciones.
       </div>
-      <br>
-      <p-multiSelect [options]="diasSemana" [(ngModel)]="diasSemana" optionLabel="name"></p-multiSelect>
-      <p-footer>
-        <button
-          type="button"
-          pButton
-          icon="fa-close"
-          (click)="displayAddModal = false"
-          label="Cancelar"
-        ></button>
-        <button
-          type="button"
-          pButton
-          icon="fa-check"
-          (click)="addNewFalta()"
-          label="Añadir"
-        ></button>
-      </p-footer>
-    </p-dialog>
+    </ng-template>
+  </p-table>
+</div>
+<!-- Modal insertar -->
 
-    <!-- Modal para actualizar faltas -->
-    <p-dialog
-      [(visible)]="displayModal"
-      [modal]="true"
-      [style]="{ width: '500px', height: '450px' }"
-      id="modelclass"
+<p-dialog
+  header="Registrar Faltas"
+  [(visible)]="displayDialogCrear"
+  [style]="{ width: '30vw', heigth: '60vw' }"
+  [modal]="true"
+  [closable]="false"
+>
+  <div class="form-container">
+    <output>Día: </output>
+    <br />
+    <p-dropdown
+      [options]="diasSemana"
+      [(ngModel)]="selectedDia"
+      optionLabel="label"
+      optionValue="value"
+      [showClear]="true"
+      placeholder="Selecciona un día"
+      (onChange)="onDiaSeleccionado($event)"
+    ></p-dropdown>
+    <br />
+    <br />
+
+    <output>Hora Inicio</output>
+    <br />
+    <p-dropdown
+      [options]="clasesFiltradas"
+      [(ngModel)]="selectedClase"
+      optionLabel="hora_inicio"
+      optionValue="id"
+      [showClear]="true"
+      placeholder="Horario"
+      (onChange)="onUsersSeleccionados($event)"
+    ></p-dropdown>
+    <br />
+    <br />
+
+    <output>Nadador: </output>
+    <br />
+    <p-multiSelect
+      [options]="filtrado"
+      [(ngModel)]="selectedUser"
+      optionLabel="label"
+      optionValue="value"
+      placeholder="Alumno"
     >
-      <p-header>Actualizar Datos</p-header>
-      <div class="form-group">
-        <label for="txtid">ID</label>
-        <input
-          type="hidden"
-          [(ngModel)]="faltas.id"
-          name="txtid"
-          id="txtid"
-          disabled
-        />
-        <label for="txtid_clase">Clase</label>
-        <input
-          type="number"
-          [(ngModel)]="faltas.id_clase"
-          name="txtid_clase"
-          id="txtid_clase"
-          disabled
-        />
-        <label for="txtTemporada">Usuario</label>
-        <input
-          type="text"
-          [(ngModel)]="faltas.id"
-          name="txtTemporada"
-          id="txtTemporada"
-        />
-      </div>
-      <p-footer>
-        <button
-          type="button"
-          pButton
-          icon="fa-close"
-          (click)="displayModal = false"
-          label="Cancel"
-        ></button>
-        <button
-          type="button"
-          pButton
-          icon="fa-check"
-          (click)="updateData()"
-          label="Accept"
-        ></button>
-      </p-footer>
-    </p-dialog>
+    </p-multiSelect>
+    <br />
+    <br />
+    <p-button (click)="agregarFalta()" label="Registrar Faltas"></p-button>
+    <p-button (click)="displayDialogCrear = false" label="Cancelar"></p-button>
   </div>
-</section>
+</p-dialog>

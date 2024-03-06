@@ -45,8 +45,6 @@ class ejercicioConnection{
         conexion.conectar;
     
         try {
-            console.log(body);
-
             const nuevoEjercicio = await models.Ejercicio.create(body);
             const nuevoCalentamiento = await models.Calentamiento.create({ ejercicio: body.calentamiento });
             const nuevoPrincipal = await models.Principal.create({ ejercicio: body.principal });

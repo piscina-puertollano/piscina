@@ -1,12 +1,8 @@
 // Gonzalo Martinez Haro
 import { Component, OnInit } from '@angular/core';
-import { Table, TableModule } from 'primeng/table';
+import { TableModule } from 'primeng/table';
 import { ProgressBarModule } from 'primeng/progressbar';
-import {
-  ConfirmationService,
-  FilterService,
-  MessageService,
-} from 'primeng/api';
+import { MessageService } from 'primeng/api';
 import { TooltipModule } from 'primeng/tooltip';
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -18,16 +14,14 @@ import { DialogModule } from 'primeng/dialog';
 import { DialogComponent } from '../../../utils/dialog/dialog.component';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { InputTextModule } from 'primeng/inputtext';
-import { firstValueFrom } from 'rxjs';
-import { Files } from '../../../interfaces/upload';
-import { FileService } from '../../../services/file.service';
-import { environment } from '../../../../environments/environment.development';
 import { FormularioInsertarComponent } from '../modals/formulario-insertar-evento/formulario-insertar.component';
 import { FormularioModificarEventoComponent } from '../modals/formulario-modificar-evento/formulario-modificar-evento.component';
 import { Evento } from '../../../interfaces/eventos';
 import { EventosService } from '../../../services/evento.service';
-
 import { Alert } from '../../../interfaces/alert';
+import { MostarParticipantesComponent } from '../modals/mostar-participantes/mostar-participantes.component';
+import { Router } from '@angular/router';
+import { ModalBorradoComponent } from '../modals/modal-borrado/modal-borrado.component';
 
 
 
@@ -65,7 +59,7 @@ export class GestionEventosComponent implements OnInit{
   searchValue: string = '';
   ref: DynamicDialogRef | undefined;
 
-  constructor(private eventosService: EventosService,private dialogService: DialogService) {
+  constructor(private router: Router ,private eventosService: EventosService,private dialogService: DialogService,private messageService: MessageService) {
     this.evento = {};
     this.alert = new Alert();
   }
@@ -74,23 +68,23 @@ export class GestionEventosComponent implements OnInit{
     this.getEventos()
   }
 
+  gestionCategorias() {
+    this.router.navigate(['/event-category']);
+  }
+
+  gestionNoSocios() {
+    this.router.navigate(['/non-member-management']);
+  }
 
   getEventos() {
-    //console.log('asdf')
+   
     this.eventosService.getEventos().subscribe({
       next: (evento: any | undefined) => {
-        //console.log(evento)
-        if (evento.status >= 400) {
-          this.alert.show = true;
-          this.alert.header = 'Error';
-          this.alert.message =
-            'No se han podido cargar a los eventos.';
-        } else {
           this.eventos = evento
-        }
+        
       },
       error: (err) => {
-        console.log(err);
+        //console.log(err);
       },
     });
   }
@@ -99,7 +93,7 @@ export class GestionEventosComponent implements OnInit{
     this.eventosService.getEvento(id).subscribe({
       next: (evento: any | undefined) => {
         this.evento = evento;
-        console.log(evento);
+        //console.log(evento);
         this.evento = evento;
 
         this.ref = this.dialogService.open(FormularioModificarEventoComponent, { 
@@ -115,61 +109,12 @@ export class GestionEventosComponent implements OnInit{
       });
       },
       error: (err) => {
-        console.log(err);
+        //console.log(err);
       },
     });
   }
 
-  insertEvento() {
-    this.eventosService.insertEvento(this.evento).subscribe({
-      next: (evento: any | undefined) => {
-        console.log(evento)
-        this.evento = evento
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
-    window.location.reload();
-  }
 
-  updateEvento() {
-    this.eventosService.updateEvento(this.evento).subscribe({
-      next: (evento: any | undefined) => {
-        console.log(evento)
-        this.evento = evento
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
-    window.location.reload();
-  }
-
-  deleteEvento(id:any) {
-    this.alert.show = false;
-    this.eventosService.deleteEvento(id).subscribe({
-      next: (evento: any | undefined) => {
-        console.log(evento)
-        if (evento.length == 0 || evento.status == 404) {
-          this.alert.show = true;
-          this.alert.header = 'Error';
-          this.alert.message =
-            'El evento no se ha podido eliminar';
-        } else {
-          this.alert.show = true;
-          this.alert.header = 'Operación completada';
-          this.alert.message =
-            'Evento eliminado correctamente';
-          this.alert.type = 'success'
-        }
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
-    setTimeout(() => window.location.reload(), 2000);
-  }
 
 
   abrirModalInsert() {
@@ -182,6 +127,38 @@ export class GestionEventosComponent implements OnInit{
           '640px': '90vw'
       }
     });
+  }
+
+  abrirModalBorrado(id : any) {
+    this.dialogService.open(ModalBorradoComponent,{
+     
+      width: '50vw',
+      contentStyle: { overflow: 'auto' },
+      breakpoints: {
+          '960px': '75vw',
+          '640px': '90vw'
+      },
+      data:{
+        id : id,
+        tipo: 'evento'
+      }
+    });
+  }
+
+  abrirModalParticipantes(id : number) {
+
+    this.dialogService.open(MostarParticipantesComponent,{
+      header: 'Participantes',
+      width: '50vw',
+      contentStyle: { overflow: 'auto' },
+      breakpoints: {
+          '960px': '75vw',
+          '640px': '90vw'
+      },
+      data:{
+        id: id
+      }
+    })
   }
 
   

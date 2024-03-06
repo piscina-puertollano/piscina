@@ -35,7 +35,8 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Entrenamiento',
-    tableName: process.env.TABLE_ENTRENAMIENTOS
+    tableName: process.env.TABLE_ENTRENAMIENTOS,
+    freezeTableName: true,
   });
   return Entrenamiento;
 };

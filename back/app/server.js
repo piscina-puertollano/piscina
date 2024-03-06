@@ -69,7 +69,7 @@ class Server {
       console.error.bind(console, "Error de conexión a MongoDB:")
     );
     this.db.once("open", () => {
-      console.log("Conexión exitosa a MongoDB");
+      //console.log("Conexión exitosa a MongoDB");
     });
   }
 
@@ -121,13 +121,11 @@ class Server {
 
   listen() {
     this.app.listen(process.env.PORT, () => {
-      console.log(`Servidor escuchando en: ${process.env.PORT}`);
+      //console.log(`Servidor escuchando en: ${process.env.PORT}`);
     });
 
     this.serverWebSocket.listen(process.env.WEBSOCKETPORT, () => {
-      console.log(
-        `Servidor de WebSockets escuchando en: ${process.env.WEBSOCKETPORT}`
-      );
+      //console.log(`Servidor de WebSockets escuchando en: ${process.env.WEBSOCKETPORT}`);
     });
   }
 }

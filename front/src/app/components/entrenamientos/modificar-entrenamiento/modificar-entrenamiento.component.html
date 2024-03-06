@@ -6,10 +6,10 @@
   <textarea [(ngModel)]="entrenamiento.descripcion" name="descripcion"></textarea>
 
   <h3>Ejercicios del Entrenamiento</h3>
-  @for (ejercicioEntrenamiento of entrenamiento.EjercicioEntrenamientos; track $index) {
+  @for (ejercicioEntrenamiento of entrenamiento.EjercicioEntrenamientos; track entrenamiento) {
     <div>
-      <label for="ejercicioDescripcion{{$index}}">Descripción del ejercicio {{ $index +  1 }}</label>
-      <input [(ngModel)]="ejercicioEntrenamiento.Ejercicio.descripcion" name="ejercicioDescripcion{{$index}}" type="text">
+      <label for="ejercicioDescripcion{{entrenamiento}}">Descripción del ejercicio {{ $index +  1 }}</label>
+      <input [(ngModel)]="ejercicioEntrenamiento.Ejercicio.descripcion" name="ejercicioDescripcion{{entrenamiento}}" type="text">
     </div>
   } 
   <button (click)="updateEntrenamiento()">Modificar Entrenamiento</button>

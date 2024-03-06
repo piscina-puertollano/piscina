@@ -18,7 +18,7 @@ class UserModel {
       where: {
         email: email,
       },
-      attributes: ["id", "firstName", "lastName", "email", "tlf", "password" ,"domicilio", "corriente_pago","active"],
+      attributes: ["id", "firstName", "lastName", "email", "tlf", "password" ,"domicilio", "corriente_pago","active", "born_date"],
     });
     conexion.desconectar();
     if (!resultado) {
@@ -31,7 +31,7 @@ class UserModel {
     let resultado = [];
     conexion.conectar();
     resultado = await models.Users.findByPk(id_user,{
-      attributes: ["id", "firstName", "lastName", "email", "tlf", "domicilio", "corriente_pago","active"],
+      attributes: ["id", "firstName", "lastName", "email", "tlf", "domicilio", "corriente_pago","active",]
     });
     conexion.desconectar();
     if (!resultado) {

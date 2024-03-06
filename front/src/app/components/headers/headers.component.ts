@@ -38,6 +38,7 @@ export class HeadersComponent implements OnInit {
             },
             {
                 label: 'Actividad deportiva',
+                routerLink: '/list-events'
             },
             {
                 label: 'Master',
