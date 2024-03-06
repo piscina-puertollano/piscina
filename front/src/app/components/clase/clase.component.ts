@@ -87,7 +87,7 @@ export class ClaseComponent implements OnInit {
         }
       },
       error: (err) => {
-        console.log(err);
+        //console.log(err);
       },
     });
   }   
@@ -114,7 +114,7 @@ export class ClaseComponent implements OnInit {
         }
       },
       error: (err) => {
-        console.log(err);
+//        console.log(err);
         this.alert.show = true;
         this.alert.header = 'Error';
         this.alert.message =
@@ -142,7 +142,7 @@ export class ClaseComponent implements OnInit {
         }
       },
       error: (err) => {
-        console.log(err);
+//        console.log(err);
       },
     });
   }
@@ -170,7 +170,7 @@ export class ClaseComponent implements OnInit {
         }
       },
       error: (err) => {
-        console.log(err);
+     //   console.log(err);
       },
     });
   }
@@ -186,7 +186,7 @@ export class ClaseComponent implements OnInit {
             }
           },
           error: (err) => {
-            console.log(err);
+         //   console.log(err);
           },
         });
     } else {
