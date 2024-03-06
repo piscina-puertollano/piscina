@@ -1,12 +1,13 @@
 
 
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { MegaMenuItem, MenuItem } from 'primeng/api';
 import { MenubarModule } from 'primeng/menubar';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { MegaMenuModule } from 'primeng/megamenu';
 
 /**
  * @author: badr
@@ -15,14 +16,15 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-headers',
   standalone: true,
-  imports: [MenubarModule, ButtonModule, DialogModule],
+  imports: [MenubarModule, ButtonModule, DialogModule,MegaMenuModule],
   templateUrl: './headers.component.html',
   styleUrl: './headers.component.css'
 })
 export class HeadersComponent implements OnInit {
 
-    items: MenuItem[] | undefined;
+    items: MegaMenuItem[] | undefined;
     visible: boolean = false;
+    
 
     constructor(private authService: AuthService, private route: Router) {}
 

@@ -2,3 +2,21 @@
   color-scheme: light dark !important;
 
 }
+
+.flex {
+  display: flex;
+  align-items: center; /* Alinea los ítems al centro verticalmente */
+  justify-content: start;
+}
+
+/* Estilo para la imagen para asegurar que no exceda la altura de los ítems del menú */
+.flex img {
+  max-height: 100px; /* Ajusta la altura máxima para evitar que la imagen sea más grande que otros ítems */
+  margin-right: 20px;
+}
+
+.card {
+  display: flex;
+  align-items: center; /* Centra los elementos verticalmente */
+  justify-content: start; /* Alinea los elementos al inicio */
+}
