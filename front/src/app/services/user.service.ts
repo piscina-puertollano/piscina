@@ -23,11 +23,10 @@ export class UserService {
   private urAllUsersFaltas : string = this.baseUrl+environment.allUsersFaltas
   private urAllSocios: string = this.baseUrl+environment.showSocios
   private urlAsingSocio: string = this.baseUrl+environment.asignSocio
-  private urlRemoveSocio: string = this.baseUrl+environment.removeSocio
+  private urlResetPass: string = this.baseUrl+environment.urlResetPass
   private urlShowUser : string = this.baseUrl+environment.showUser
   private urlShowSociosOfTutor : string = this.baseUrl+environment.showSociosOfTutor
   private urlAllRols: string = this.baseUrl+environment.showRols
-  private urlAllAlergias: string = this.baseUrl+environment.getAllAlergias
 
   login(user:User): Observable<User | undefined> {
     return this.http.post<User>(this.urlLogin,user,{withCredentials:false}).pipe(
@@ -93,7 +92,15 @@ export class UserService {
   }
 
   deleteUser(userId: number): Observable<User | undefined> {
-    return this.http.delete<User>(this.urlShowUser+userId, {withCredentials: true}).pipe(
+    return this.http.delete<User>(this.urlShowUser+'/'+userId, {withCredentials: true}).pipe(
+      catchError((error) =>{
+        return of(error)
+      })
+    )
+  }
+
+  resetPass(user:User): Observable<User | undefined> {
+    return this.http.put<User>(this.urlResetPass, user, {withCredentials: true}).pipe(
       catchError((error) =>{
         return of(error)
       })
@@ -132,20 +139,6 @@ export class UserService {
     )
   }
 
-  getAlergias():Observable<Array<Alergias> | undefined> {
-    return this.http.get<Array<Alergias>>(this.urlAllAlergias, {withCredentials: true}).pipe(
-      catchError((error) =>{
-        return of(error)
-      })
-    )
-  }
 
-  getAlergiasOfUser(id:number):Observable<Array<Alergias> | undefined> {
-    return this.http.get<Array<Alergias>>(this.urlAllAlergias+'/'+id, {withCredentials: true}).pipe(
-      catchError((error) =>{
-        return of(error)
-      })
-    )
-  }
 
 }
