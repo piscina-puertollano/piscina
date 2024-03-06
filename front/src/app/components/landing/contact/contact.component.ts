@@ -106,7 +106,7 @@ export class ContactComponent implements OnInit {
       let message = {
         to: this.email,
         name: this.name,
-        message: this.message
+        message: this.sendMessage
       }
       this.mailService.sendMail(message).subscribe({
         next: (data: any | undefined) => {

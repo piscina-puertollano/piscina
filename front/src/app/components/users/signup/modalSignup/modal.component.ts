@@ -36,12 +36,6 @@ export class ModalSignupComponent implements OnDestroy{
             '640px': '90vw'
         }
     });
-
-    this.ref.onClose.subscribe((data: any) => {
-        console.log(data);
-        this.messageService.add({ severity: 'warn', summary: 'Advertencia', detail: 'No se ha creado el usuario' });
-    });
-
 }
 
   ngOnDestroy() {
