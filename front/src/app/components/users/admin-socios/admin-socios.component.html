@@ -2,7 +2,9 @@
     <div class="user-row">
         @for(user of arrUsers; track user.id){
             <div class="user-container">
-                <img src="{{user.photo_profile}}" alt="">
+                @if(image){
+                    <img src="{{image}}" alt="">
+                }
                 <label for="">Nombre</label>
                 <span>{{user.firstName}}</span>
                 <label for="">Apellidos</label>

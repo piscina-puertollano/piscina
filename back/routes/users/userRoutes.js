@@ -3,6 +3,7 @@ const controlador = require('../../controllers/users/userController');
 const { check } = require('express-validator');
 const { validateFilds, checkDiferenceAsign } = require('../../middlewares/validators');
 const { statusUser, tokenCanAdmin, tokenCanUserAuth, checkToken, tokenCanRedactor, tokenCanTutor, tokenCanSocio } = require('../../middlewares/abilities');
+const { login } = require('../../controllers/users/authController');
 const router = Router();
 
 /**
@@ -10,7 +11,7 @@ const router = Router();
  */
 
 
-router.post('/login/', statusUser ,controlador.login );
+router.post('/login/', statusUser ,login );
 router.get('/user/:id', [checkToken, tokenCanAdmin] ,controlador.showUser );
 
 router.get('/my-profile', [checkToken, tokenCanUserAuth], controlador.showUser );
@@ -30,7 +31,7 @@ router.post('/user/', [
 
 router.put('/user/', [checkToken, tokenCanAdmin],controlador.updateUser );
 router.get('/users/', [checkToken, tokenCanAdmin], controlador.index);
-router.post('/forget-pass/', controlador.forgetPass);
+router.put('/forget-pass/', [checkToken, tokenCanAdmin],controlador.forgetPass);
 router.post('/search', [checkToken, tokenCanAdmin], controlador.getUserByValue);
 
 //obtener los socios asociados a un tutor

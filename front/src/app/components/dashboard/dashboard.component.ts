@@ -82,6 +82,20 @@ export class DashboardComponent implements OnInit {
       content: 'Para gestionar eventos, categorias y no socios',
       link: '/event-management',
     },
+    {
+      id_rol: environment.rol_webmaster,
+      image: environment.tutor_card_image,
+      title: 'Gestionar Contactos',
+      content: 'Para la gestión de los contactos',
+      link: '/edit/contact',
+    },
+    {
+      id_rol: environment.rol_webmaster,
+      image: environment.tutor_card_image,
+      title: 'Gestionar Home',
+      content: 'Para la gestión del home y editar la estructura de la dirección, la historia y la galería',
+      link: '/edit/landing',
+    }
   ];
 
   myCards() {

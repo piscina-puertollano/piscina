@@ -22,6 +22,8 @@ import { environment } from '../../../../../environments/environment.development
 import { Files } from '../../../../interfaces/upload';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { FileUploadModule } from 'primeng/fileupload';
+import { AlergiasService } from '../../../../services/alergias.service';
 
 /**
  * @author: badr
@@ -37,6 +39,7 @@ import { MessageService } from 'primeng/api';
     ButtonModule,
     MultiSelectModule,
     ToastModule,
+    FileUploadModule
   ],
   templateUrl: './show.component.html',
   styleUrl: './show.component.css',
@@ -56,8 +59,8 @@ export class ShowComponent implements OnInit {
 
   arrAllSocios?: User[];
   arrAsignedSocios?: User[];
+  idPhoto?: any
 
-  @Output() updateUSer = new EventEmitter<User>();
   ref: DynamicDialogRef | undefined;
 
   constructor(
@@ -65,7 +68,8 @@ export class ShowComponent implements OnInit {
     public config: DynamicDialogConfig,
     private fileService: FileService,
     private userService: UserService,
-    private messageService: MessageService
+    private alergiasService: AlergiasService,
+    private messageService: MessageService,
   ) {}
 
   ngOnInit() {
@@ -90,9 +94,48 @@ export class ShowComponent implements OnInit {
     });
   }
 
+  uploadFile(event: any){
+    console.log(event);
+    let file = event.files;
+
+    file.forEach((element: any) => {
+      const formData = new FormData();
+      formData.append('archivo', element);
+
+      this.fileService.saveImage(formData, environment.photo_profile_path).subscribe({
+        next: (res: any) => {
+          console.log(res)
+          this.image = URL.createObjectURL(element)
+          this.idPhoto = res.id;
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    });
+  }
+
+  resetPass(){
+    this.userService.resetPass(this.user!).subscribe({
+      next:(mess: any)=>{
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Operación completada',
+          detail: 'Contraseña cambiada',
+        })
+      },error(err) {
+          console.log(err);
+      },
+    })
+  }
+
   updateUser() {
+    if(this.idPhoto != null){
+      this.user!.photo_profile = this.idPhoto
+    }
     this.userService.updateUser(this.user!).subscribe({
       next: (user: any | undefined) => {
+        this.saveAlergiasUser()
         let i = 0;
         let check = false;
         while (i < this.user!.roles!.length && !check) {
@@ -123,6 +166,7 @@ export class ShowComponent implements OnInit {
             users.splice(users.indexOf(user), 1);
           }
         }
+        console.log('socios', users);
         this.arrAllSocios = users;
       },
     });
@@ -131,6 +175,7 @@ export class ShowComponent implements OnInit {
   getAsignedSocios() {
     this.userService.getAsignedSocios(this.user!.id!).subscribe({
       next: (users: any | undefined) => {
+        console.log(users)
         this.arrAsignedSocios = users;
       },
     });
@@ -159,7 +204,7 @@ export class ShowComponent implements OnInit {
   }
 
   showAlergias() {
-    this.userService.getAlergias().subscribe({
+    this.alergiasService.getAlergias().subscribe({
       next: (alergias: Array<Alergias> | undefined) => {
         console.log(alergias)
         this.arrAlergias = alergias;
@@ -168,13 +213,26 @@ export class ShowComponent implements OnInit {
   }
 
   alergiasOfUser(id: any) {
-    this.userService.getAlergiasOfUser(id).subscribe({
+    this.alergiasService.getAlergiasOfUser(id).subscribe({
       next: (alergias: Array<Alergias> | undefined) => {
-        this.arrAlergiasUser  = []
-
+        this.arrAlergiasUser  = alergias
+        console.log(alergias)
       },
     });
   }
 
-
+  saveAlergiasUser() {
+    let alergia = {
+      id_user: this.user!.id!,
+      alergias: this.arrAlergiasUser!,
+    };
+    this.alergiasService.saveAlergiasUser(alergia).subscribe({
+      next: (user: any | undefined) => {
+        console.log(user)
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
+  }
 }

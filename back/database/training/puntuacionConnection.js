@@ -55,7 +55,6 @@ class puntuacionConnection{
             conexion.desconectar();
             return socios;
         } catch (error) {
-            console.error('Error al obtener los socios:', error);
             throw error;
         }
     };
@@ -74,7 +73,6 @@ class puntuacionConnection{
             conexion.desconectar();
             return puntuacionUsuario;
         } catch (error){
-            console.error('Error al obtener la puntuación:', error);
             throw error;
         }
     }
@@ -111,7 +109,6 @@ class puntuacionConnection{
                 return null;
             }
         } catch (error) {
-            console.error('Error al obtener la puntuación:', error);
             conexion.desconectar();
             throw error;
         }
@@ -129,7 +126,6 @@ class puntuacionConnection{
     
             return { success: true, id: idPuntuacion, data: { nota: body.nota, userId: body.userId, idEntrenamiento: body.idEntrenamiento } };
         } catch (error) {
-            console.error(error);
             return { success: false, error: 'Error al insertar la puntuación o la relación en la tabla puntuacionUsuario' };
         }
     };
@@ -142,7 +138,6 @@ class puntuacionConnection{
             });
             return true;
         }catch (error){
-            console.error(error);
             return false
         }
     }
@@ -183,7 +178,6 @@ class puntuacionConnection{
     
             return puntuacionExistente !== null;
         } catch (error) {
-            console.error('Error al verificar la existencia de la puntuación:', error);
             throw error;
         }
     }
@@ -217,7 +211,6 @@ class puntuacionConnection{
     
             return socios;
         } catch (error) {
-            console.error('Error al obtener los usuarios del tutor.', error);
             throw error;
         }
     }

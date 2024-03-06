@@ -83,7 +83,6 @@ export class CrearEntrenamientoComponent {
 
     this.entrenamientoService.insertEntrenamiento(this.entrenamiento).subscribe({
       next: () => {
-        console.log(this.entrenamiento)
         this.messageService.add({
           severity: 'success',
           summary: 'Operación completada',
@@ -94,7 +93,7 @@ export class CrearEntrenamientoComponent {
         this.entrenamientoService.entrenamientoCreated.emit();      
       },
       error: (err) => {
-        console.error('Error al insertar el entrenamiento:', err);
+        throw err;
       }
     });
   }
@@ -103,7 +102,7 @@ export class CrearEntrenamientoComponent {
     this.ejerciciosService.getTiposEjercicios().subscribe(tipos => {
       this.tiposEjercicios = tipos as TiposEjercicios[];
     }, error => {
-      console.error('Error al obtener los tipos de ejercicios:', error);
+      throw error;
     })
   }
 

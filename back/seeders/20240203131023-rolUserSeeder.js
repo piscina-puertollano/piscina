@@ -1,5 +1,6 @@
 'use strict';
 
+const { userRolFactory } = require('../factories/userRolFactory');
 const models = require('../models');
 
 /** @type {import('sequelize-cli').Migration} */
@@ -30,11 +31,14 @@ module.exports = {
       await entrenadorUser.setRoles([entrenadorRole]);
       await menorUser.setRoles(socioRole)
 
-
+      
     } catch (error) {
       console.error(error);
     }
- },
+    let factoryUserRols = await userRolFactory(5)
+    console.log(factoryUserRols)
+    await queryInterface.bulkInsert(process.env.TABLE_USER_ROLS, factoryUserRols, {});
+  },
  async down (queryInterface, Sequelize) {
   await queryInterface.bulkDelete(process.env.TABLE_USER_ROLS, null, {});
 }

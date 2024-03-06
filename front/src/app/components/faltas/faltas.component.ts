@@ -119,7 +119,7 @@ export class FaltasComponent implements OnInit {
 
   onUsersSeleccionados(event: any) {
     let filteredClaseUsuario = [];
-    console.log(event.value);
+    //console.log(event.value);
     for (let i = 0; i < this.resultadoUnion.length; i++) {
       if (this.resultadoUnion[i].id_clase == event.value) {
         filteredClaseUsuario.push(this.resultadoUnion[i].id_usuario);
@@ -157,7 +157,7 @@ export class FaltasComponent implements OnInit {
         }
       },
       error: (err) => {
-        console.log(err);
+        //console.log(err);
       },
     });
   }
@@ -174,7 +174,7 @@ export class FaltasComponent implements OnInit {
         }
       },
       error: (err) => {
-        console.log(err);
+        //console.log(err);
       },
     });
   }
@@ -211,7 +211,7 @@ export class FaltasComponent implements OnInit {
         }
       },
       error: (err) => {
-        console.log(err);
+        //console.log(err);
       },
     });
   }
@@ -224,12 +224,12 @@ export class FaltasComponent implements OnInit {
           this.alert.header = 'Error';
           this.alert.message = 'No se han podido cargar la informacion.';
         } else {
-          console.log(categorias);
+          //console.log(categorias);
           this.resultadoUnion = categorias;
         }
       },
       error: (err) => {
-        console.log(err);
+        //console.log(err);
       },
     });
   }
@@ -242,7 +242,7 @@ export class FaltasComponent implements OnInit {
         location.reload();
       },
       error: (err) => {
-        console.log(err);
+        //console.log(err);
         this.alert.show = true;
         this.alert.header = 'Error';
         this.alert.message =
@@ -281,7 +281,7 @@ export class FaltasComponent implements OnInit {
           }
         },
         error: (err) => {
-          console.log(err);
+         // console.log(err);
           this.alert.show = true;
           this.alert.header = 'Error';
           this.alert.message =
@@ -319,7 +319,7 @@ export class FaltasComponent implements OnInit {
         }
       },
       error: (err) => {
-        console.log(err);
+        //console.log(err);
         this.alert.show = true;
         this.alert.header = 'Error';
         this.alert.message = 'Ha ocurrido un error al realizar la asignacion.';

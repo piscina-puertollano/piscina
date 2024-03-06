@@ -80,7 +80,6 @@ export class AsignarEntrenamientosComponent {
     try {
        const puntuacion = await this.puntuacionService.getPuntuacionEntrenador(this.socioId).toPromise();
        if (!puntuacion) {
-         console.error('No se encontró la puntuación para el socio.');
          return;
        }
    
@@ -104,12 +103,9 @@ export class AsignarEntrenamientosComponent {
             window.location.reload()
           }, 2000);
          },
-         error: (err) => {
-           console.error('Error al actualizar la puntuación:', err);
-         }
        });
     } catch (error) {
-       console.error('Error al obtener o actualizar la puntuación:', error);
+       throw error;
     }
    }
 }

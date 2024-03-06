@@ -40,7 +40,6 @@ export class EntrenamientoService {
     const url = `${this.urlUpdateEntrenamiento}/${entrenamiento.id}`;
     return this.http.put<Entrenamiento>(url, entrenamiento, {withCredentials:true}).pipe(
       catchError((error) => {
-        console.error('Error al actualizar el entrenamiento:', error);
         throw error; 
       })
     );
@@ -50,7 +49,6 @@ export class EntrenamientoService {
     const url = `${this.urldeleteEntrenamiento}/${entrenamiento.id}`;  
     return this.http.delete<Entrenamiento>(url, {withCredentials:true}).pipe(
       catchError((error) => {
-        console.error('Error al eliminar el entrenamiento:', error);
         throw error;
       })
     );
@@ -60,7 +58,6 @@ export class EntrenamientoService {
     const url = this.urlInsertEntrenamiento;
     return this.http.post<Entrenamiento>(url, entrenamiento, {withCredentials:true}).pipe(
       catchError((error) => {
-        console.error('Error al insertar el entrenamiento:', error);
         throw error;
       })
     );

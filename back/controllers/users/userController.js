@@ -2,7 +2,7 @@ const { response, request } = require("express");
 const Conexion = require("../../database/users/UserConnection");
 const bcrypt = require("bcrypt");
 const { generateRandPass } = require("../../helpers/user");
-const { generarJWT } = require("../../helpers/jwt");
+const { sendMail } = require("../services/mailController");
 
 /**
  * @author: badr
@@ -58,39 +58,7 @@ const getUserByValue = (req, res = response) => {
     });
 };
 
-const login = (req, res) => {
-  let email = req.body.email;
-  let storedHash = "";
 
-  conx
-    .getUserByEmail(email)
-    .then((msg) => {
-      bcrypt.compare(req.body.password, storedHash, (err, result) => {
-        if (result) {
-          res.status(401).json({ msg: "Error with credentials, try again" });
-        }
-        conx.showRolUser(msg.id).then((roles) => {
-          let arrRoles = [];
-
-          roles.forEach((element) => {
-            if (element.id_rol != null) {
-              arrRoles.push(element.id_rol);
-            }
-          });
-
-          let token = generarJWT(msg.id, arrRoles);
-
-          res.status(200).json({
-            user: msg,
-            token,
-          });
-        });
-      });
-    })
-    .catch((err) => {
-      res.status(401).json({ msg: "Error with credentials, try again" });
-    });
-};
 const newUser = async (req, res) => {
   let randPass = generateRandPass();
   req.body.password = await bcrypt.hash(randPass, 10);
@@ -98,7 +66,23 @@ const newUser = async (req, res) => {
   conx
     .registrarUsuario(req.body)
     .then((msg) => {
+      conx.createUserRols(msg.id, req.body.roles).then(async (rtnMsg) => {
+        console.log(rtnMsg);
+        let mailOptions = {
+          from: process.env.MAIL_USER,
+          to: msg.email,
+          subject: "Bienvenido al Club de natación",
+          html: `<p>Hola ${msg.nombre},</p>
+                  <p>Gracias por registrarte en la plataforma de tutorías.</p>
+                  <p>Tu usuario es: ${msg.email}</p>
+                  <p>Tu contraseña es: ${randPass}</p>
+                  <p>Para iniciar sesión, utiliza la siguiente dirección: <a href="${process.env.URL_LOGIN}">${process.env.URL_LOGIN}</a></p>
+                  <p>Saludos cordiales</p>`,
+        };
+        await sendMail(mailOptions);
+      });
       console.log(msg);
+
       res.status(200).json(msg);
     })
     .catch((error) => {
@@ -117,13 +101,13 @@ const updateUser = async (req, res) => {
     await conx
       .updateRolsUser(req.body.id, req.body.roles)
       .then((msg) => {
-        let check = false
+        let check = false;
         let i = 0;
-        while(req.body.roles.length>i && !check){
-          if(req.body.roles[i]==process.env.ID_ROL_TUTOR){
-            check=true;
+        while (req.body.roles.length > i && !check) {
+          if (req.body.roles[i] == process.env.ID_ROL_TUTOR) {
+            check = true;
           }
-          i++
+          i++;
         }
         if (!check) {
           conx
@@ -162,7 +146,15 @@ const forgetPass = async (req, res) => {
       console.log(idUser.id);
       conx
         .updateUser(idUser.id, newPassword)
-        .then((msg) => {
+        .then(async (msg) => {
+          console.log("llego");
+          let mailOptions = {
+            from: process.env.MAIL_USER,
+            to: email,
+            subject: 'Recuperación de contraseña',
+            text: `Su contraseña ha sido actualizada, su nueva contraseña es: ${pass}`,
+          };
+          await sendMail(mailOptions);
           res.status(200).json({ msg: "new password: " + pass });
         })
         .catch((error) => {
@@ -227,7 +219,7 @@ const showSociosOfTutor = async (req, res) => {
           firstName: element.socio.firstName,
           lastName: element.socio.lastName,
           email: element.socio.email,
-          photo_profile: element.socio.image.ruta
+          photo_profile: element.socio.image.ruta,
         };
         arrSocios.push(rtnSocio);
       });
@@ -257,8 +249,8 @@ const asignUser = async (req, res) => {
 
   const tutorId = req.body.id_tutor;
   const socioId = req.body.id_socio;
-  
-  await  conx.removeSociosUser(tutorId).then((msg) => {
+
+  await conx.removeSociosUser(tutorId).then((msg) => {
     console.log(msg);
   });
 
@@ -275,7 +267,6 @@ const asignUser = async (req, res) => {
   } else {
     res.status(401).json({ msg: "El usuario ya está asociado o no existe" });
   }
-
 };
 
 const setUserToTutor = async (tutorId, socioId, arrSocios) => {
@@ -316,7 +307,6 @@ module.exports = {
   index,
   forgetPass,
   updateUser,
-  login,
   getUserByValue,
   deleteUser,
   showSociosOfTutor,

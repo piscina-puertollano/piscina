@@ -32,13 +32,11 @@ class ejercicioEntrenamientoConnection {
             conexion.desconectar();
             return entrenamientos;
         } catch (error) {
-            console.error(error);
             throw error;
         }
     }
 
     getEntrenamientoId = async (id) => {
-        console.log('LLamada a getEntrenamientoId con id: ', id)
         try {
             conexion.conectar();
             const entrenamiento = await models.Entrenamiento.findByPk(id, {
@@ -56,11 +54,9 @@ class ejercicioEntrenamientoConnection {
                     }]
                 }]
             });
-            console.log('entrenamiento:',entrenamiento)
             conexion.desconectar();
             return entrenamiento;
         } catch (error) {
-            console.error(error);
             throw error;
         }
     }
@@ -97,7 +93,6 @@ class ejercicioEntrenamientoConnection {
             resultado = 1;
             return resultado;
         } catch (error) {
-            console.error('Error durante la inserción:', error);
             throw error;
         } finally {
             conexion.desconectar();
@@ -106,7 +101,6 @@ class ejercicioEntrenamientoConnection {
 
     updateEntrenamiento = async (id, body) => {
         try {
-            console.log('Conectando a la base de datos...');
             conexion.conectar();
 
             const entrenamiento = await models.Entrenamiento.findByPk(id);
@@ -133,13 +127,10 @@ class ejercicioEntrenamientoConnection {
                     }
                 );
             }
-            console.log('Entrenamiento y ejercicios actualizados exitosamente.');
             return 'Éxito';
         } catch (error) {
-            console.error('Error al actualizar entrenamiento y ejercicios:', error);
             return error;
         } finally {
-            console.log('Desconectando de la base de datos...');
             conexion.desconectar();
         }
     };
@@ -153,10 +144,8 @@ class ejercicioEntrenamientoConnection {
                 }],
             });
 
-            console.log(entrenamiento)
     
             if (!entrenamiento) {
-                console.log('Entrenamiento no encontrado.');
                 return;
             }
     
@@ -168,9 +157,8 @@ class ejercicioEntrenamientoConnection {
     
             await entrenamiento.destroy();
     
-            console.log('Entrenamiento y ejercicios eliminados exitosamente.');
         } catch (error) {
-            console.error('Error al eliminar entrenamiento y ejercicios:', error);
+            throw error
         }
     };
 }

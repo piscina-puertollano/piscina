@@ -32,7 +32,6 @@ class entrenamientoConnection{
             conexion.desconectar();
             return entrenamientos;
         } catch (error) {
-            console.error(error);
             throw error;
         }
     }

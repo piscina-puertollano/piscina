@@ -10,7 +10,6 @@ const conx = new Conexion();
  */
 
 const uploadFile = async(req, res) => {
-    console.log('llego')
     try {
 
         const folder = req.header('folder')
@@ -70,8 +69,6 @@ const actualizarImagen = async(req, res ) => {
 
 
 const showFile = async(req, res) => {
-
-    console.log(req.params.id);
 
     const fileId = req.params.id
     const folder = req.body.folder;

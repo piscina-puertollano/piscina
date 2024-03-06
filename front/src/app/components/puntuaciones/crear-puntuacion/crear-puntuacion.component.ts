@@ -57,7 +57,7 @@ export class CrearPuntuacionComponent {
         }, 2000);
       },
       error: (err) => {
-        console.error('Error al insertar una puntuacion:', err);
+        throw err;
       }
     });
   }

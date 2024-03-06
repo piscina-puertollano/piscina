@@ -2,6 +2,9 @@
     <p-toast></p-toast>
     <div class="image">
         <img src="{{image}}" id="imageProfile" alt="foto de perfil">
+        <div style="margin: 10px;">
+            <p-fileUpload [customUpload]="true" mode="basic" chooseLabel="Actualizar imagen" name="demo[]" [auto]="true"  accept="image/*" (uploadHandler)="uploadFile($event)"></p-fileUpload>
+        </div>
     </div>
 
     <div class="form">
@@ -18,6 +21,9 @@
         
         <label for="">Domicilio</label>
         <input type="text" pInputText [(ngModel)]="user!.domicilio" />
+
+        <label for="">Contraseña</label>
+        <input type="password" pInputText [(ngModel)]="user!.password" />
         
         <label for="pago" >corriente de pago</label>
         <input type="checkbox" id="pago" name="corriente pago" disabled [checked]="user!.corriente_pago!">

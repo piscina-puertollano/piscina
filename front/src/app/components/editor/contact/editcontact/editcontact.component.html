@@ -1,0 +1,11 @@
+<p-toast></p-toast>
+<section id="form-container">
+    <label for="">Descripción</label>
+    <input type="text" pInputText [(ngModel)]="contact!.name" />
+    <label for="">Email</label>
+    <input type="text" pInputText [(ngModel)]="contact!.email" />
+    <label for="">Teléfono</label>
+    <input type="text" pInputText [(ngModel)]="contact!.tlf" />
+    <button pButton pRipple id="btnMargin" label="Guardar cambios" class="p-button-rounded p-button-success m-2" (click)="updateContact()"></button> 
+
+</section>
