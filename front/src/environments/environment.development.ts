@@ -41,7 +41,6 @@ export const environment = {
     rol_socio: 3,
     rol_entrenador: 4,
     rol_redactor : 5,
-    rol_webmaster: 6,
     admin_gestion_image:'../../assets/cards-dashboard/gestion.png',
     entrenador_faltas_image:'../../assets/cards-dashboard/listado.png',
     admin_card_image: '../../assets/cards-dashboard/_f85fcebc-e26f-4c23-97a8-7eefbbd9524c.jpg',
