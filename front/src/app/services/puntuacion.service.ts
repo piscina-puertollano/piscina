@@ -45,7 +45,6 @@ export class PuntuacionService {
     const url = `${this.urlUpdatePuntuacion}/${puntuacion.id}`;
     return this.http.put<Puntuacion>(url, puntuacion, {withCredentials:true}).pipe(
       catchError((error) => {
-        console.error('Error al actualizar la puntuación del usuario:', error);
         throw error;
       })
     )
@@ -55,7 +54,6 @@ export class PuntuacionService {
     const url = `${this.urlInsertPuntuacion}/crear-puntuacion`;
     return this.http.post<Puntuacion>(url, puntuacion, {withCredentials:true}).pipe(
       catchError((error) => {
-        console.error('Error al insertar la puntuación:', error);
         throw error;
       })
     )

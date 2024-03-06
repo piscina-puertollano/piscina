@@ -10,22 +10,20 @@ import { DialogModule } from 'primeng/dialog';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { ProgressBarModule } from 'primeng/progressbar';
-import { Table, TableModule } from 'primeng/table';
+import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TooltipModule } from 'primeng/tooltip';
-import { environment } from '../../../../environments/environment.development';
 import { Puntuacion, Socio } from '../../../interfaces/puntuacion';
-import { Image, User } from '../../../interfaces/user';
+import { User } from '../../../interfaces/user';
 import { AuthService } from '../../../services/auth.service';
 import { FileService } from '../../../services/file.service';
 import { PuntuacionService } from '../../../services/puntuacion.service';
 import { AlertComponent } from '../../../utils/alert/alert.component';
 import { DialogComponent } from '../../../utils/dialog/dialog.component';
+import { AsignarEntrenamientosComponent } from '../../entrenamientos/asignar-entrenamientos/asignar-entrenamientos.component';
 import { CrearPuntuacionComponent } from '../crear-puntuacion/crear-puntuacion.component';
 import { ModificarPuntuacionComponent } from '../modificar-puntuacion/modificar-puntuacion.component';
-import { AsignarEntrenamientosComponent } from '../../entrenamientos/asignar-entrenamientos/asignar-entrenamientos.component';
-import { Files } from '../../../interfaces/upload';
 
 @Component({
   selector: 'app-puntuacion',
@@ -86,7 +84,7 @@ export class PuntuacionComponent {
              }
            },
            (error) => {
-             console.error('Error al obtener la puntuación:', error);
+             throw error;
            }
          );
        } else {
@@ -121,7 +119,7 @@ export class PuntuacionComponent {
          });
        },
        error: (err) => {
-         console.error('Error al obtener los socios', err);
+         throw err;
        }
     });
    }

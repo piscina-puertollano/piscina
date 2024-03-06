@@ -72,7 +72,7 @@ export class ModificarPuntuacionComponent implements OnInit {
         }
       },
       error: (error) => {
-        console.error('Error al modificar una puntuacion:', error);
+        throw error;
       }
     });
   }

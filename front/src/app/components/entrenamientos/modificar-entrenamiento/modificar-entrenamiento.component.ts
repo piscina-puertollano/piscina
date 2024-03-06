@@ -69,7 +69,6 @@ export class ModificarEntrenamientoComponent implements OnInit {
     });
     return;
   }
-
     this.entrenamientoService.updateEntrenamientos(this.entrenamiento).subscribe({
       next: (entrenamiento: any | undefined) => {
         this.entrenamiento = entrenamiento;
