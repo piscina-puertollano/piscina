@@ -4,22 +4,22 @@ const controlador = require('../../controllers/events/categoriaController');
 const router = Router();
 const {validarCampos} = require("../../middlewares/validarCampos");
 const {check} = require('express-validator')
+const { statusUser, tokenCanAdmin, tokenCanUserAuth, checkToken, tokenCanRedactor, tokenCanTutor, tokenCanSocio } = require('../../middlewares/abilities');
 
 
 
 
 router.route('/')
     .get(controlador.categoriasGet)
-    .post([
+    .post([checkToken, tokenCanAdmin],[
         check('nombre','El nombre es obligatorio.').not().isEmpty(),
         validarCampos
     ], controlador.categoriaInsert)
 
 
 router.get('/:id', controlador.categoriaGet);
-router.post('/', controlador.categoriaInsert);
-router.put('/:id', controlador.categoriaUpdate);
-router.delete('/:id', controlador.categoriaDelete);
+router.put('/:id',[checkToken, tokenCanAdmin], controlador.categoriaUpdate);
+router.delete('/:id',[checkToken, tokenCanAdmin], controlador.categoriaDelete);
 
 
 module.exports = router;

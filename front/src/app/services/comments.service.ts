@@ -20,4 +20,20 @@ export class CommentsService {
       })
     )
   }
+
+  createComment(comment:Comment):Observable<Comment|undefined> {
+    return this.http.post<Comment>(this.url, comment, {withCredentials: true}).pipe(
+      catchError((error) => {
+        return of(error)
+      })
+    )
+  }
+
+  deleteComment(id:number):Observable<Comment|undefined> {
+    return this.http.delete<Comment>(this.url+id, {withCredentials: true}).pipe(
+      catchError((error) => {
+        return of(error)
+      })
+    )
+  }
 }

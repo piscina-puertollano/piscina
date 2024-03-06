@@ -1,0 +1,67 @@
+<section id="getUser">
+    <div class="card">
+        <h1 id="title" class="m-0">Gestión de contactos</h1>
+        <p-toast></p-toast>
+
+        <div id="addUser" >
+            <p-toolbar styleClass="mb-4 gap-2" >
+                <ng-template pTemplate="right">
+                    <app-modal-create-contact></app-modal-create-contact>
+                </ng-template>
+            </p-toolbar>
+        </div>
+ 
+        <p-table
+        id="table"
+        #dt
+        [value]="arrContact"
+        [rows]="10"
+        [paginator]="true"
+        [globalFilterFields]="['tlf', 'email']"
+        [tableStyle]="{ 'min-width': '75rem' }"
+        [(selection)]="selectContact"
+        [rowHover]="true"
+        dataKey="id"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [showCurrentPageReport]="true">
+        
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input [(ngModel)]="selectContact" pInputText type="text" (input)="dt.filterGlobal(selectContact, 'contains')" placeholder="Buscar..." />
+                </span>
+            </div>
+        </ng-template>
+        
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="email" style="min-width:10rem">email <p-sortIcon field="email"></p-sortIcon></th>
+                <th pSortableColumn="tlf" style="min-width:10rem">Teléfono <p-sortIcon field="tlf"></p-sortIcon></th>
+                <th>Acciones</th>
+            </tr>
+        </ng-template>
+        
+        <ng-template pTemplate="body" let-contact>
+            <tr>
+                <td>{{ contact.email }}</td>
+                <td>{{ contact.tlf}}</td>
+                <td>
+                    <button pButton pRipple id="btnMargin" icon="pi pi-pencil" class="p-button-rounded p-button-success m-2" (click)="openDialog(contact._id)"></button> 
+                    <app-dialog  [icon]="'pi pi-trash'" [severity]="'danger'" [header]="'Alerta'" [message]="'¿Estás seguro de que quiere realizar esta acción? Va a eliminar un usuario'" (eventEmiter)="deleteContact($event,contact._id)"></app-dialog>
+                    </td>
+            </tr>
+        </ng-template>
+        
+        <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">En total hay {{ arrContact ? arrContact.length : 0 }} Contactos agregados.</div>
+        </ng-template>
+    </p-table>
+</div>
+
+</section>
+
+
+<div class="card flex justify-content-center">
+    <p-toast></p-toast>
+</div>

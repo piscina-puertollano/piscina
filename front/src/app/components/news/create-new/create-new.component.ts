@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { News, PostNews } from '../../../interfaces/news';
+import { PostNews } from '../../../interfaces/news';
 import { NewsService } from '../../../services/news.service';
 import { DialogComponent } from '../../../utils/dialog/dialog.component';
 import { FormsModule } from '@angular/forms';
@@ -7,9 +7,11 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
-import { io } from 'socket.io-client';
 import { WebsocketsService } from '../../../services/websockets.service';
 import { EditorModule } from 'primeng/editor';
+import { FileUploadModule } from 'primeng/fileupload';
+import { environment } from '../../../../environments/environment.development';
+import { FileService } from '../../../services/file.service';
 
 /**
  * @author: badr
@@ -25,6 +27,7 @@ import { EditorModule } from 'primeng/editor';
     InputTextModule,
     ToastModule,
     EditorModule,
+    FileUploadModule,
   ],
   templateUrl: './create-new.component.html',
   styleUrl: './create-new.component.css',
@@ -32,11 +35,16 @@ import { EditorModule } from 'primeng/editor';
 })
 export class CreateNewComponent {
   news: PostNews;
+  image: any;
+  idPhoto?: number;
+  recomends: any;
+  showRecomend = false
 
   constructor(
     private newsService: NewsService,
     private websocket: WebsocketsService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private fileService: FileService
   ) {
     this.news = {};
   }
@@ -45,7 +53,7 @@ export class CreateNewComponent {
 
   validateNewsFields(): boolean {
     if (!this.news.title) {
-      setTimeout(() => {        
+      setTimeout(() => {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
@@ -56,12 +64,12 @@ export class CreateNewComponent {
     }
 
     if (!this.news.body) {
-      setTimeout(() => {        
+      setTimeout(() => {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
           detail: 'Por favor, introduce un contenido',
-          life:3000
+          life: 3000,
         });
       }, 1000);
       return false;
@@ -72,18 +80,18 @@ export class CreateNewComponent {
   createNew(eventEmiter: Boolean) {
     if (this.validateNewsFields()) {
       if (eventEmiter) {
-        this.news!.main_image = 11;
+        this.news!.main_image = this.idPhoto;
         this.newsService.createNew(this.news!!).subscribe({
           next: (news: any | undefined) => {
             setTimeout(() => {
               this.messageService.add({
                 severity: 'success',
-                summary: 'Success',
+                summary: 'Correcto',
                 detail: 'Noticia creada',
                 life: 3000,
               });
             }, 1000);
-            this.websocket.createNew(news)
+            this.websocket.createNew(news);
             console.log(news);
           },
           error: (err) => {
@@ -92,5 +100,44 @@ export class CreateNewComponent {
         });
       }
     }
+  }
+
+  uploadFile(event: any) {
+    console.log(event);
+    let file = event.files;
+
+    file.forEach((element: any) => {
+      const formData = new FormData();
+      formData.append('archivo', element);
+
+      this.fileService.saveImage(formData, environment.news_path).subscribe({
+        next: (res: any) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Correcto',
+            detail: 'Imagen subida',
+            life: 3000,
+          });
+          console.log(res);
+          this.image = URL.createObjectURL(element);
+          this.idPhoto = res.id;
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    });
+  }
+
+  getRecomends(){
+    this.newsService.getRecomendation().subscribe({
+      next: (recomends: any) => {
+        this.recomends = recomends;
+        this.showRecomend = true;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
 }

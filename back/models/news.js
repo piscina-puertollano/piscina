@@ -14,8 +14,8 @@ module.exports = (sequelize, DataTypes) => {
         as: 'author'
       });
       this.hasMany(models.Comments, {
-        foreignKey: 'id_news',
-        as: 'comments'
+        foreignKey: 'id_new',
+        as: 'comments',
       });
       this.hasOne(models.Assets, {
         foreignKey: 'id',
@@ -29,10 +29,11 @@ module.exports = (sequelize, DataTypes) => {
     body: DataTypes.TEXT,
     id_user: DataTypes.INTEGER,
     main_image: DataTypes.INTEGER,
+    summary: DataTypes.TEXT,
     visit_counter: DataTypes.INTEGER,
     share_counter: DataTypes.INTEGER,
-    like_counter: DataTypes.INTEGER,
-    dislike_counter: DataTypes.INTEGER,
+    likes_counter: DataTypes.INTEGER,
+    dislikes_counter: DataTypes.INTEGER,
     category: DataTypes.STRING,
     duration: DataTypes.INTEGER
   }, {

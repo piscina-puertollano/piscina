@@ -1,10 +1,9 @@
 <!-- // Gonzalo Martinez Haro-->
 <div class="form-container">
   <div>
-      <p-toast></p-toast>
-
+      
       <div class="card flex justify-content-center">
-          <p-toast></p-toast>
+          
           
           <h1>Inserta el Evento</h1>
           
@@ -18,16 +17,18 @@
               <p-dropdown [options]="categorias" optionLabel="nombre" [(ngModel)]="evento.categoria" [showClear]="true" placeholder="Seleccione Categoria"></p-dropdown>
               
               <label for="fechaEvento">Fecha</label>
-              <p-calendar dateFormat="dd/mm/yy" [(ngModel)]="evento.fecha" ></p-calendar>
+              <p-calendar  [minDate]="fechaLimite" dateFormat="dd/mm/yy" [(ngModel)]="evento.fecha" ></p-calendar>
 
               <label for="descEvento">Descripción</label>
               <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="evento.desc" ></textarea>
 
-              <label for="descEvento">Privado</label>
+              <label for="privadoEvento">Privado</label>
               <p-inputSwitch [(ngModel)]="evento.privado"></p-inputSwitch>
+              <p class=info>Los eventos privados seran exclusivos para los socios.</p>
 
-              <label for="descEvento">Visible</label>
+              <label for="visibleEvento">Visible</label>
               <p-inputSwitch [(ngModel)]="evento.visible"></p-inputSwitch>
+              <p class=info>Los eventos visibles se podran ver aunque no seas socio.</p>
               
               <button label="Añadir" (click)="insertEvento()" pButton pRipple label="Agregar evento" class="p-button-success"></button>
           

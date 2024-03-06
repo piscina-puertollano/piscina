@@ -38,6 +38,7 @@ export class HeadersComponent implements OnInit {
             },
             {
                 label: 'Actividad deportiva',
+                routerLink: '/list-events'
             },
             {
                 label: 'Master',
@@ -67,6 +68,9 @@ export class HeadersComponent implements OnInit {
                 command: () => {
                     this.authService.logout()
                     this.route.navigate(['/login'])
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 50);
                 }
             });
         } else {

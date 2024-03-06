@@ -25,7 +25,8 @@ describe('POST /login', () => {
         firstName: "fernando",
         lastName: "zabe",
         email: "faranzabe@piscina.com",
-        password: "1234"
+        password: "1234",
+        roles: [1]
       }
 
       //con token no tine que fallar - badr
@@ -52,5 +53,9 @@ describe('POST /user', () => {
         expect(response.statusCode).toBe(401);
   
       });
+
+      it('POST /user debe retornar 200', async () =>{
+
+      })
   });
   

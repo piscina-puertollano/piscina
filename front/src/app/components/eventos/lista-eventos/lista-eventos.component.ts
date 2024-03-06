@@ -28,7 +28,7 @@ export class ListaEventosComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.getEventos()
+    this.comprobarSocio()
   }
 
   descEvento(eventoId: any) {
@@ -38,7 +38,7 @@ export class ListaEventosComponent implements OnInit{
   getEventos() {
     this.eventosService.getEventos().subscribe({
       next: (evento: any | undefined) => {
-        console.log(evento)
+        //console.log(evento)
         if (evento.status >= 400) {
           this.alert.show = true;
           this.alert.header = 'Error';
@@ -46,11 +46,10 @@ export class ListaEventosComponent implements OnInit{
             'No se han podido cargar a los eventos.';
         } else {
           this.eventos = evento
-          console.log(evento.categoria)
         }
       },
       error: (err) => {
-        console.log(err);
+        //console.log(err);
       },
     });
   }
@@ -58,7 +57,7 @@ export class ListaEventosComponent implements OnInit{
   getEventosVisibles() {
     this.eventosService.getEventosVisibles().subscribe({
       next: (evento: any | undefined) => {
-        console.log(evento)
+        //console.log(evento)
         if (evento.status >= 400) {
           this.alert.show = true;
           this.alert.header = 'Error';
@@ -69,10 +68,34 @@ export class ListaEventosComponent implements OnInit{
         }
       },
       error: (err) => {
-        console.log(err);
+        //console.log(err);
       },
     });
   }
 
+  comprobarSocio(){
+      
+    const localStorage = document.defaultView?.localStorage;
+    //console.log(localStorage)
+    if (localStorage) {
+      
+        const userJson = localStorage.getItem('user');
+        if(userJson != null){
+          const user = JSON.parse(userJson);
+
+          if (user.token) {
+          
+            this.getEventos()
+          } else {
+            this.getEventosVisibles()
+          }
+            }else{
+              this.getEventosVisibles()
+            }
+        
+    } else {
+      //console.log('El localStorage no está disponible en el servidor.');
+    }
+  }
   
 }

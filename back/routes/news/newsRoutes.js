@@ -24,4 +24,16 @@ router.post('/new/', [
 
 router.delete('/new/:id',[checkToken, tokenCanRedactor], controlador.destroyNew );
 
+router.post('/counter' ,controlador.setCounts)
+router.get('/fast-reed', controlador.fastReed)
+router.get('/latest-news', controlador.latestNews);
+router.get('/popular-news', controlador.popularNews);
+router.get('/summaries', [checkToken, tokenCanRedactor],controlador.getAllSummaries);
+router.get('/rand-new', controlador.randNew);
+router.post('/afin-new', [
+    check('categories', 'Las gategorías tiene que ser un array de categorías').isArray(),
+    check('categories', `El array de categorías tiene que tener como mínimo ${process.env.MIN_SHOW_NEWS}`).isArray({min:process.env.MIN_SHOW_NEWS}),
+    validateFilds
+],controlador.afindFeed);
+
 module.exports = router;

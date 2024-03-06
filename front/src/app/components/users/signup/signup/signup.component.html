@@ -1,12 +1,6 @@
 <div class="form-container">
-    <div>
+    <div class="card flex justify-content-center">
         <p-toast></p-toast>
-
-
-        <div class="card flex justify-content-center">
-            <p-toast></p-toast>
-            
-        </div>
     </div>
 
     <label for="">Roles</label>
@@ -14,33 +8,39 @@
 
 
     @for(rol of this.user!.roles; track rol.id){
-        @if(rol.id == rolTutor){
-            <label for="">Socios a cargo</label>
-            <p-multiSelect [options]="arrAllSocios" [filter]="true"  [(ngModel)]="arrAsignedSocios" optionLabel="email"  placeholder="Seleccionar socios"></p-multiSelect>
-        }
+    @if(rol.id == rolTutor){
+    <label for="">Socios a cargo</label>
+    <p-multiSelect [options]="arrAllSocios" [filter]="true" [(ngModel)]="arrAsignedSocios" optionLabel="email"
+        placeholder="Seleccionar socios"></p-multiSelect>
     }
-    
+    }
+
     <label for="name">Nombre</label>
     <input type="text" id="name" pInputText required [(ngModel)]="user!.firstName">
 
     <label for="lastName">Apellidos</label>
-    <input type="text" id="lastName" pInputText required  [(ngModel)]="user!.lastName">
-    
+    <input type="text" id="lastName" pInputText required [(ngModel)]="user!.lastName">
+
     <label for="email">email</label>
-    <input type="email" id="email" required pInputText  [(ngModel)]="user!.email">
-    
+    <input type="email" id="email" required pInputText [(ngModel)]="user!.email">
+
     <label for="idSocio">Número de socio</label>
-    <input type="number" id="idSocio"  pInputText  [(ngModel)]="user!.idSocio">
-   
+    <input type="number" id="idSocio" pInputText [(ngModel)]="user!.idSocio">
+
     <label for="">Dirección</label>
-    <input type="number" id="idSocio" required pInputText [(ngModel)]="user!.domicilio">
+    <input type="text" id="idSocio" required pInputText [(ngModel)]="user!.domicilio">
 
     <label for="">Teléfono</label>
-    <input type="number" id="idSocio" required pInputText  [(ngModel)]="user!.tlf">
+    <input type="number" id="idSocio" required pInputText [(ngModel)]="user!.tlf">
 
-    <p-button label="Foto de perfil">
-        <input type="file" (click)="signup()" severity="success">  
-    </p-button>
-    
+    <div style="margin: 10px;">
+        @if(idPhoto == 1){
+        <p-fileUpload [customUpload]="true" mode="basic" chooseLabel="Subir imagen" name="demo[]" [auto]="true"
+            accept="image/*" (uploadHandler)="uploadFile($event)"></p-fileUpload>
+        }@else{
+        <img id="imageProfile" src="{{fotos.image}}" alt="" srcset="">
+        }
+    </div>
+
     <p-button label="Crear usuario" (click)="signup()" severity="success"></p-button>
 </div>

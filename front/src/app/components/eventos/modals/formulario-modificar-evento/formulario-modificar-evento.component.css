@@ -36,6 +36,14 @@
     border: 1px solid #ccc;
     border-radius: 5px;
   }
+
+  .card p-fileUpload{
+
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+
+  }
   
   .p-button-success {
     display: block;
@@ -52,3 +60,14 @@
   .p-button-success:hover {
     background-color: #218838;
   }
+
+  .info{
+    color:#a8a7a7;
+  }
+
+  .flex-row {
+    display: flex;
+    align-items: center; /* Alinea verticalmente los elementos */
+    justify-content: flex-start; /* Alinea horizontalmente los elementos al inicio */
+    gap: 10px; /* Espacio entre los elementos */
+}

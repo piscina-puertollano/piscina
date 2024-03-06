@@ -1,5 +1,5 @@
 // Gonzalo Martinez Haro
-import { Component, OnInit,ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Evento } from '../../../interfaces/eventos';
 import { Alert } from '../../../interfaces/alert';
 import { FormsModule } from '@angular/forms';
@@ -18,6 +18,7 @@ import { Files } from '../../../interfaces/upload';
 import { FileService } from '../../../services/file.service';
 import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
+import { MessageService } from 'primeng/api';
 
 
 
@@ -40,7 +41,7 @@ export class EventoComponent implements OnInit{
   resultado : any = {}
 
 
-  constructor(private fileService: FileService, private pdfService: NgxExtendedPdfViewerService,private eventosService: EventosService, private router: Router,private dialogService: DialogService, private route: ActivatedRoute, private eventoUsuarioService: EventoUsuarioService) {
+  constructor(private messageService: MessageService,private fileService: FileService, private pdfService: NgxExtendedPdfViewerService,private eventosService: EventosService, private router: Router,private dialogService: DialogService, private route: ActivatedRoute, private eventoUsuarioService: EventoUsuarioService) {
     this.evento = {};
     this.alert = new Alert();
     this.eventoUsuario = {};
@@ -69,27 +70,24 @@ export class EventoComponent implements OnInit{
     this.eventosService.getEvento(id).subscribe({
       next: (evento: any | undefined) => {
         this.evento = evento[0]
-        console.log(this.evento)
+        //console.log(this.evento)
 
         let pdf: Files = {
           id: this.evento.pdf?.ruta,
           where: environment.events_path
         }
-        console.log(pdf)
+        //console.log(pdf)
         this.fileService.showImage(pdf).subscribe({
           next: (pdf: any | undefined) => {
     
             this.resultado = ({id:this.evento.pdf?.ruta, pdf: URL.createObjectURL(pdf)})
        
-            
           },
         });
 
-
-
       },
       error: (err) => {
-        console.log(err);
+        //console.log(err);
       },
     });
     
@@ -101,37 +99,43 @@ export class EventoComponent implements OnInit{
 
   inscribirSocio() {
 
-    this.eventoUsuario.idEvento = this.evento.id
-    //this.eventoUsuario.idUsuario =
     
-    this.eventoUsuarioService.insertNoSocio(this.eventoUsuario).subscribe({
-      next: (eventoUsuario: any | undefined) => {
-        this.eventoUsuario = eventoUsuario
+    const localStorage = document.defaultView?.localStorage
+    const userJson = localStorage?.getItem('user')
+      if(userJson){
+        const user = JSON.parse(userJson)
 
-        this.alert.show = true;
-        this.alert.type = 'succes'
-        this.alert.header = 'Ya esta Inscrito';
-        setTimeout(() => this.alert.show = false, 2500);
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    })
+        this.eventoUsuario.idEvento = this.evento.id
+        this.eventoUsuario.idUsuario = user.user.id
+    
+        this.eventoUsuarioService.insertEventoUsuario(this.eventoUsuario).subscribe({
+        next: (eventoUsuario: any | undefined) => {
+          this.eventoUsuario = eventoUsuario
+
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Operación completada',
+            detail: 'Ya esta registrado',
+          });
+          },
+          error: (err) => {
+            //console.log(err);
+          },
+        })
+      }
+
+    
   }
 
   comprobarPrivado() {  
 
-    //realizar esta comprobación al cargar la pagina despues de comprobar si es socio, ó al pulsar el boton despues de verificar el tokken
-
     if(this.evento.privado == true){
 
-      this.alert.show = true;
-      this.alert.header = 'Evento privado';
-      this.alert.message =
-      'Este evento es unicamente para socios';
-      setTimeout(() => this.alert.show = false, 2500);
-
-      // ó desavilitar el boton en caso de comprobar al cargar la pagina
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Inscripcion Denegada',
+        detail: 'Evento solo para socios',
+      });
 
     }else{
 
@@ -156,7 +160,7 @@ export class EventoComponent implements OnInit{
         id: this.evento.pdf?.ruta,
         where: environment.events_path
       }
-      console.log(pdf)
+      //console.log(pdf)
       this.fileService.showImage(pdf).subscribe({
         next: (pdf: any | undefined) => {
 
@@ -167,7 +171,62 @@ export class EventoComponent implements OnInit{
       });
     }
 
+    comprobarSocio(){
+      
+      const localStorage = document.defaultView?.localStorage;
+      //console.log(localStorage)
+      if (localStorage) {
+        const userJson = localStorage.getItem('user');
+        if(userJson != null){
+          const user = JSON.parse(userJson);
+  
+        if (user.token) {
+          
+          this.comprobarEdad()
+        } else {
+          this.comprobarPrivado()
+        }
+  
+        }else{
+          this.comprobarPrivado()
+        }
+        
+      } else {
+        //console.log('El localStorage no está disponible en el servidor.');
+      }
+    }
 
+    comprobarEdad(){
+
+      const localStorage = document.defaultView?.localStorage;
+      const userJson = localStorage?.getItem('user');
+
+        if(userJson != null){
+          const user = JSON.parse(userJson);
+       
+          const fechaNacimiento  = user.user.born_date;
+          const añoNacimiento = fechaNacimiento .substring(0, 4);
+
+          const fechaActual = new Date();
+          const añoActual = new Date().getFullYear();
+
+          const resultado = añoActual - añoNacimiento
+          
+          if(resultado <18){
+
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Inscripcion Denegada',
+              detail: 'Solo pueden inscribirse mayores de edad',
+            });
+          }else{
+            this.inscribirSocio()
+
+          }
+        }else{
+          //console.log('user null')
+        }
+    }
     
   }
 

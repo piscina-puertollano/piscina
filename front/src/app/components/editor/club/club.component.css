@@ -16,7 +16,7 @@
     margin: 50px;
 }
 
-h1{
+h1, h3{
     text-align: center;
 }
 
@@ -41,4 +41,15 @@ h1{
     display: flex;
     justify-content: center;
     align-items: center; 
+}
+
+#structure{
+    position: relative;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    margin-top: 50px;
+    max-width: 50%;
 }

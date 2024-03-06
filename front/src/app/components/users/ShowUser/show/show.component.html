@@ -1,6 +1,9 @@
 <div class="container">
     <div class="image">
         <img src="{{image}}" id="imageProfile" alt="foto de perfil">
+        <div style="margin: 10px;">
+        <p-fileUpload [customUpload]="true" mode="basic" chooseLabel="Actualizar imagen" name="demo[]" [auto]="true"  accept="image/*" (uploadHandler)="uploadFile($event)"></p-fileUpload>
+        </div>
     </div>
     <p-toast></p-toast>
     <div class="form">
@@ -52,6 +55,6 @@
         <input type="checkbox" name="corriente pago" [checked]="user!.corriente_pago!">
         <label for="" id="pago">corriente de pago</label>
     </div>
-    <p-button id="btnPass" label="Generar nueva contraseña" severity="warning"></p-button>
+    <p-button id="btnPass" label="Generar nueva contraseña" severity="warning" (click)="resetPass()"></p-button>
     <p-button label="Actualizar" severity="success" (click)="updateUser()"></p-button>
 </div>

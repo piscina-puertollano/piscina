@@ -1,0 +1,56 @@
+i {
+  cursor: pointer;
+}
+
+app-modal-create-contact {
+  margin: 20px;
+  margin-right: 150px;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+:host ::ng-deep .p-progressbar {
+  height: 0.5rem;
+  background-color: #d8dadc;
+}
+:host ::ng-deep .p-progressbar .p-progressbar-value {
+  background-color: #607d8b;
+}
+
+#getUser {
+  display: flex;
+  justify-content: center;
+}
+
+.card {
+  position: relative;
+  max-width: 80%;
+  min-width: 10%;
+  color-scheme: light dark !important;
+}
+
+#title {
+  text-align: center;
+  font-size: 2rem;
+}
+
+.test {
+  border-radius: 20%;
+}
+
+#addUser {
+  margin-bottom: 25px;
+}
+
+#btnMargin {
+  margin-bottom: 10px;
+}
+
+#imageProfile {
+  max-height: 300px;
+  border-radius: 50%;
+  object-fit: cover;
+  aspect-ratio: 1;
+  box-shadow: 7px 9px 25px -16px rgba(0, 0, 0, 1);
+}

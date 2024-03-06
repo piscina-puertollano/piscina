@@ -18,38 +18,10 @@ class NewsModel {
       conexion.conectar();
       console.log(newId);
       resultado = await models.sequelize.query(
-        `SELECT comments.id, comment, author as author_id, respond_to as respond_to_id ,us.firstName as name_author, us.lastName as last_author, us_res.firstName as name_res, us_res.lastName as last_res
-        FROM comments
-        left join users as us on author = us.id
-        left join users as us_res on respond_to = us_res.id
-        where id_new = ?`,
-        {
-          replacements: [newId],
-          type: models.sequelize.QueryTypes.SELECT,
-        }
-      );
-      conexion.desconectar();
-      if (!resultado) {
-        throw new Error("No hay noticias");
-      }
-    } catch (error) {
-      console.log(error);
-      throw error;
-    } finally {
-      return resultado;
-    }
-  };
-
-  getAllByNewIdWithOutRespond = async (newId) => {
-    let resultado = [];
-    try {
-      conexion.conectar();
-      console.log(newId);
-      resultado = await models.sequelize.query(
-        `SELECT comments.id, comment, author as author_id, respond_to as respond_to_id ,us.firstName as name_author, us.lastName as last_author
-        FROM comments
-        inner join users as us on author = us.id
-        where id_new = ?`,
+        `SELECT comments.id, comment, author AS author_id, res.respond_to AS respond_to_id, us.firstName AS name_author,
+        us.lastName AS last_author FROM comments INNER JOIN users AS us ON author = us.id 
+        LEFT JOIN respond_comments AS res ON comments.id = res.id_comment
+          where id_new = ?`,
         {
           replacements: [newId],
           type: models.sequelize.QueryTypes.SELECT,
@@ -71,7 +43,7 @@ class NewsModel {
     let resultado = [];
     try {
       conexion.conectar();
-      resultado = await models.News.findByPk(id_new, {
+      resultado = await models.Comments.findByPk(id_new, {
         attributes: ["id", "title", "body"],
         include: [
           {
@@ -98,11 +70,11 @@ class NewsModel {
     }
   };
 
-  createNew = async (newBody) => {
+  createComment = async (newBody) => {
     let resultado = [];
     try {
       conexion.conectar();
-      resultado = await models.News.create(newBody);
+      resultado = await models.Comments.create(newBody);
 
       conexion.desconectar();
       if (!resultado) {
@@ -115,11 +87,28 @@ class NewsModel {
     }
   };
 
-  updateNew = async (id, updated_New) => {
+  respondComment = async (newBody) => {
     let resultado = [];
     try {
       conexion.conectar();
-      resultado = await models.News.findByPk(id);
+      resultado = await models.respond_comment.create(newBody);
+
+      conexion.desconectar();
+      if (!resultado) {
+        throw new Error("No se ha encontrado la noticia");
+      }
+    } catch (error) {
+      throw error;
+    } finally {
+      return resultado;
+    }
+  };
+
+  updateComment = async (id, updated_New) => {
+    let resultado = [];
+    try {
+      conexion.conectar();
+      resultado = await models.Comments.findByPk(id);
       resultado.update(updated_New);
       conexion.desconectar();
     } catch (error) {
@@ -133,19 +122,21 @@ class NewsModel {
     }
   };
 
-  deleteNewById = async (id_new) => {
+  deleteCommentById = async (id_new) => {
     let resultado = [];
     try {
       conexion.conectar();
-      resultado = await models.News.destroy(id_new);
-
+      resultado = await models.Comments.findByPk(id_new);
+      await resultado.destroy();
       conexion.desconectar();
+
+    } catch (error) {
+      console.log(error)
+      throw error;
+    } finally {
       if (!resultado) {
         throw new Error("No se ha encontrado la noticia");
       }
-    } catch (error) {
-      throw error;
-    } finally {
       return resultado;
     }
   };

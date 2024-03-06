@@ -13,16 +13,23 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.hasOne(models.News, {
+      this.belongsTo(models.News, {
         foreignKey: "id",
-        as: "comment_new",
+        as: "news",
+        onDelete: "cascade"
       });
-      this.hasMany(models.Comments, {
-        foreignKey: "respond_to",
-      });
+      this.hasMany(models.respond_comment, {
+        foreignKey: "id_comment",
+        as: "comment_respond",
+     });
+
+     this.hasMany(models.respond_comment, {
+      foreignKey: "id",
+      as: "respond_comment",
+   });
 
       this.belongsTo(models.Users, {
-        foreignKey: "id_user",
+        foreignKey: "id",
         as: "user_comments",
       });
     }
@@ -32,12 +39,11 @@ module.exports = (sequelize, DataTypes) => {
       id_new: DataTypes.INTEGER,
       comment: DataTypes.TEXT,
       author: DataTypes.INTEGER,
-      respond_to: DataTypes.INTEGER,
     },
     {
       sequelize,
       modelName: "Comments",
-      tableName: process.env.TABLE_COMMENTS
+      tableName: process.env.TABLE_COMMENTS,
     }
   );
   return Comments;

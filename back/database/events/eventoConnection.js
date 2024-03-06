@@ -2,7 +2,8 @@
 require('dotenv').config()
 const { Sequelize, Op } = require('sequelize');
 const models = require('../../models'); //Esto tiene acceso a todos los modelos.
-const Conexion = require('../connection')
+const Conexion = require('../connection');
+const users = require('../../models/users');
 const conx = new Conexion()
 
 
@@ -16,7 +17,7 @@ class eventoConnection{
         conx.conectar()
         
         eventos = await models.Evento.findAll({
-            attributes: ['id', 'nombre', 'fecha', 'sede', 'privado', 'desc'],
+            attributes: ['id', 'nombre', 'fecha', 'sede', 'privado', 'desc','visible'],
             include: [
                 {
                   model: models.Assets,
@@ -39,8 +40,6 @@ class eventoConnection{
 
     getEventosVisibles = async() => {
 
-        
-        
         let eventos = []
         conx.conectar()
         
@@ -62,9 +61,8 @@ class eventoConnection{
             ]
         })
        
-        
         conx.desconectar()
-        return devolver
+        return eventos
     }
 
     getEvento = async(id) => {
@@ -96,8 +94,6 @@ class eventoConnection{
 
         conx.desconectar()
         return evento
-
-        
     }
 
     insertEvento = async(body) => {
@@ -132,16 +128,11 @@ class eventoConnection{
 
 
     updateEvento = async(id,body) => {
-
-        let resultado
-        conx.conectar()
-        resultado = await models.Evento.findByPk(id)
         
-        if (!resultado){
-            console.log(id);
-            conx.desconectar();
-            throw error;
-        }
+        conx.conectar()
+        let resultado
+        resultado = await models.Evento.findByPk(id)
+        //console.log(resultado)
 
         let devolver = {}
 
@@ -153,7 +144,9 @@ class eventoConnection{
         devolver.idCategoria = body.categoria.id
         devolver.visible = body.visible
         devolver.privado = body.privado
-        console.log(devolver)
+        devolver.resultado = body.resultado
+        
+        
         
         await resultado.update(devolver);
         conx.desconectar();
@@ -168,7 +161,7 @@ class eventoConnection{
         resultado = await models.Evento.findByPk(id)
         
         if (!resultado){
-            console.log(id);
+            //console.log(id);
             conx.desconectar();
             throw error;
         }
@@ -197,10 +190,9 @@ class eventoConnection{
         }
 
     }
-    }
-
 
     
+}
 
 
 

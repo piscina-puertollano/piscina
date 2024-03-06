@@ -4,12 +4,12 @@ const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
   class Clase extends Model {
-    static associate(models) {
+    /*static associate(models) {
       Clase.belongsTo(models.Categoria, {
         foreignKey: 'id_categoria', 
         as: 'categoria'
       });
-    }
+    }*/
   }
 
   Clase.init({

@@ -20,6 +20,7 @@ class Server {
     this.noSociosRoutePath = "/api/noSocios";
     this.eventoUsuariosRoutePath = "/api/eventoUsuarios";
     this.apiFiles = "/api/file";
+    this.apiMail = "/api/mail";
     this.entrenamientoPath = "/api/entrenamiento"
     this.ejerEntreRoutePath = "/api/ejercicioEntrenamiento";
     this.puntuacionRoutePath = "/api/puntuaciones";
@@ -49,11 +50,17 @@ class Server {
         ":" +
         process.env.DB_MONGO_PORT +
         "/" +
-        process.env.DB_MONGO_DATABASE,
-      {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      }
+        process.env.DB_MONGO_DATABASE
+        /**
+         * En la consola salta un warning advirtiendo de que 
+         * esos atributos están deprecated. 
+         * 
+         */
+      //   ,
+      // {
+      //   useNewUrlParser: true,
+      //   useUnifiedTopology: true,
+      // }
     );
 
     this.db = mongoose.connection;
@@ -62,7 +69,7 @@ class Server {
       console.error.bind(console, "Error de conexión a MongoDB:")
     );
     this.db.once("open", () => {
-      console.log("Conexión exitosa a MongoDB");
+      //console.log("Conexión exitosa a MongoDB");
     });
   }
 
@@ -92,7 +99,9 @@ class Server {
     this.app.use(this.userRoutePath, require("../routes/news/newsRoutes"));
     this.app.use(this.commentsRoutePath, require("../routes/news/commentsRoutes"));
     this.app.use(this.userRoutePath, require("../routes/landing/clubRoutes"));
+    this.app.use(this.userRoutePath, require("../routes/landing/contactRoutes"));
     this.app.use(this.userRoutePath, require("../routes/assetsRoutes"));
+    this.app.use(this.apiMail, require("../routes/services/mailRoutes.js"));
 
     this.app.use(this.entrenamientoPath, require('../routes/training/entrenamientosRoutes'))
     this.app.use(this.ejerEntreRoutePath, require("../routes/training/ejercicioEntrenamientosRoutes"));
@@ -112,13 +121,11 @@ class Server {
 
   listen() {
     this.app.listen(process.env.PORT, () => {
-      console.log(`Servidor escuchando en: ${process.env.PORT}`);
+      //console.log(`Servidor escuchando en: ${process.env.PORT}`);
     });
 
     this.serverWebSocket.listen(process.env.WEBSOCKETPORT, () => {
-      console.log(
-        `Servidor de WebSockets escuchando en: ${process.env.WEBSOCKETPORT}`
-      );
+      //console.log(`Servidor de WebSockets escuchando en: ${process.env.WEBSOCKETPORT}`);
     });
   }
 }

@@ -24,7 +24,21 @@ const checkDiferenceAsign = (req, res, next) => {
     next();
 }
 
+function validateTLF(phoneNumber) {
+    const tlfRegex = /^\d{9}$/;
+   
+    return new Promise((resolve, reject)=>{
+        if(tlfRegex.test(phoneNumber)){
+            resolve(true)
+        }else{
+            reject(false)
+        }
+    })
+
+   }
+
 module.exports = {
     validateFilds,
-    checkDiferenceAsign
+    checkDiferenceAsign,
+    validateTLF
 }

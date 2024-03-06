@@ -18,7 +18,7 @@ class UserModel {
       where: {
         email: email,
       },
-      attributes: ["id", "firstName", "lastName", "email", "tlf", "domicilio", "corriente_pago","active"],
+      attributes: ["id", "firstName", "lastName", "email", "tlf", "password" ,"domicilio", "corriente_pago","active", "born_date"],
     });
     conexion.desconectar();
     if (!resultado) {
@@ -31,7 +31,7 @@ class UserModel {
     let resultado = [];
     conexion.conectar();
     resultado = await models.Users.findByPk(id_user,{
-      attributes: ["id", "firstName", "lastName", "email", "tlf", "domicilio", "corriente_pago","active"],
+      attributes: ["id", "firstName", "lastName", "email", "tlf", "domicilio", "corriente_pago","active",]
     });
     conexion.desconectar();
     if (!resultado) {
@@ -120,11 +120,6 @@ class UserModel {
     try {
       newUser = await models.Users.create(user);
     } catch (error) {
-      if (error instanceof Sequelize.UniqueConstraintError) {
-        console.log(`El id ${user.id} ya existe en la base de datos.`);
-      } else {
-        console.log("Ocurrió un error desconocido: ", error);
-      }
       throw error;
     } finally {
       conexion.desconectar();
@@ -145,6 +140,25 @@ class UserModel {
       conexion.desconectar();
     }
     return upUser;
+  };
+
+  createUserRols = async (userId, arrRolsId) => {
+    let newRoles = [];
+    try {
+      conexion.conectar();
+      for (let rol of arrRolsId) {
+        let newRole = await models.UserRol.create({
+          id_user: userId,
+          id_rol: rol.id,
+        });
+        newRoles.push(newRole);
+      }
+    } catch (error) {
+      throw error;
+    } finally {
+      conexion.desconectar();
+    }
+    return newRoles;
   };
 
   updateRolsUser = async (userId, arrRolsId) => {

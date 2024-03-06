@@ -1,4 +1,4 @@
-import { Image, User } from "./user";
+import { User } from "./user";
 
 /**
  * @author Marina Laguna

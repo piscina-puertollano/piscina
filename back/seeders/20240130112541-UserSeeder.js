@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const { userFactory } = require('../factories/userFactory');
 
 /** @type {import('sequelize-cli').Migration} */
 /**
@@ -80,7 +81,24 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       },
+      {
+        id:6,
+        firstName:'socio',
+        lastName: 'menor',
+        photo_profile: 3,
+        email: 'menor@piscina.com',
+        num_socio: null,
+        corriente_pago:1,
+        born_date: new Date('2010-01-01'),
+        domicilio: '503691.30310115 4282638.6555873',
+        password: await bcrypt.hash('1234', 10),
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
     ], {});
+
+    let factoryUser = await userFactory(10)
+    await queryInterface.bulkInsert(process.env.TABLE_USERS, factoryUser, {});
   },
   async down (queryInterface, Sequelize) {
 

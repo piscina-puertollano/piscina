@@ -6,6 +6,7 @@ import { FileService } from '../../../services/file.service';
 import { Files } from '../../../interfaces/upload';
 import { Image } from '../../../interfaces/user';
 import { environment } from '../../../../environments/environment.development';
+import { ImageModule } from 'primeng/image';
 
 /**
  * @author: badr
@@ -14,7 +15,7 @@ import { environment } from '../../../../environments/environment.development';
 @Component({
   selector: 'app-club',
   standalone: true,
-  imports: [GalleriaModule],
+  imports: [GalleriaModule, ImageModule],
   templateUrl: './club.component.html',
   styleUrl: './club.component.css'
 })

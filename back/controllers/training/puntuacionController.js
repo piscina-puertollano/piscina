@@ -98,7 +98,6 @@ const getTutorUsers = async (req, res) => {
 
         res.status(200).json(socios);
     } catch (error) {
-        console.error('Error al obtener los usuarios del tutor:', error);
         res.status(500).json({ message: 'Error interno del servidor' });
     }
 };

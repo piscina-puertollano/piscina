@@ -76,13 +76,9 @@ export class EntrenamientoComponent {
                  dialogRef: this.ref
                },
              });
-           } else {
-             console.error('No se pudo obtener el entrenamiento con el ID proporcionado o el entrenamiento no tiene un ID definido.');
            }
          },
        });
-    } else {
-       console.error('El ID del entrenamiento no se pasó como parámetro.');
     }
    }
 
@@ -99,7 +95,7 @@ export class EntrenamientoComponent {
         }
       },
       error: (err) => {
-        console.error('Error al listar los entrenamientos', err);
+        throw err;
       },
     });
   }
@@ -109,12 +105,10 @@ export class EntrenamientoComponent {
       next: (deletedEntrenamiento: Entrenamiento | undefined) => {
         if (deletedEntrenamiento) {
           this.arrEntrenamientos = this.arrEntrenamientos.filter(e => e.id !== entrenamiento.id);
-        } else {
-          console.error('El entrenamiento no pudo ser eliminado.');
-        }
+        } 
       },
       error: (err) => {
-        console.error('Error al eliminar el entrenamiento:', err);
+        throw err;
       }
     });
   }
@@ -122,8 +116,6 @@ export class EntrenamientoComponent {
   consultarEntre(id?: number): void{
     if (typeof id === 'number'){
       this.router.navigate(['/training', id]);
-    } else {
-      console.error('Id no válido: ', id);
     }
   }
 }

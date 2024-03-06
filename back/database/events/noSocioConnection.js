@@ -16,7 +16,7 @@ class noSocioConnection{
         conx.conectar
         
         noSocios = await models.NoSocio.findAll({
-            attributes: ['id', 'nombre', 'apellidos']
+            attributes: ['id', 'nombre', 'apellidos', 'email']
         })
         conx.desconectar
         return noSocios
@@ -66,7 +66,7 @@ class noSocioConnection{
         resultado = await models.NoSocio.findByPk(id)
             
         if (!resultado){
-            console.log(id);
+            //console.log(id);
             conx.desconectar
             throw error;
         }
@@ -82,7 +82,7 @@ class noSocioConnection{
         resultado = await models.NoSocio.findByPk(id)
 
         if (!resultado){
-            console.log(id);
+            //console.log(id);
             conx.desconectar
             throw error;
         }
@@ -91,7 +91,33 @@ class noSocioConnection{
         await resultado.destroy()
 
         }
+
+
+    getNoSocioConIdEvento = async(idEvento) => {
+
+        try {
+            conx.conectar();
+            const eventosNoSocio = await models.EventoNoSocio.findAll({
+                where:{ idEvento},
+                include:[{
+                    model: models.NoSocio,
+                    as: 'noSocio',
+                    attributes: ['nombre','apellidos','email']
+                }]
+            });
+
+            const noSocios = eventosNoSocio.map(eventoNoSocio => eventoNoSocio.noSocio);
+            
+            return noSocios;
+        } catch (error) {
+        console.error('Error al obtener usuarios por noSocio:', error);
+        throw error;
+        }
     }
+
+
+   
+}
 
 
 

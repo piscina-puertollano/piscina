@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { EditorModule } from 'primeng/editor';
 import { LandingService } from '../../../services/landing.service';
-import { Club, Estructura } from '../../../interfaces/landing';
+import { Club } from '../../../interfaces/landing';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { DialogComponent } from '../../../utils/dialog/dialog.component';
@@ -45,15 +45,17 @@ import { ImageModule } from 'primeng/image';
 export class ClubEditComponent implements OnInit {
   text: string | undefined;
   title: string | undefined;
-  directiva: Estructura[] | undefined;
+  textStructure: string | undefined;
   fotos?: Array<any>;
   arrPhotos?: Array<any>;
   noText = 'No hay imagenes';
   mutiple = true;
-  updatePhotos?:any;
-  arrUpdatePhotos?:any;
+  updatePhotos?: any;
+  arrUpdatePhotos?: any;
+
 
   club?: Club;
+  structure?:Club;
   galery?: Club;
 
   constructor(
@@ -66,6 +68,7 @@ export class ClubEditComponent implements OnInit {
     this.fotos = [];
     this.showGalery();
     this.showHistory();
+    this.showStructure()
   }
 
   showHistory() {
@@ -81,11 +84,25 @@ export class ClubEditComponent implements OnInit {
     });
   }
 
+  showStructure() {
+    this.landingService.showSection('structure').subscribe({
+      next: (club: Club | undefined) => {
+        this.structure = club;
+        this.textStructure = club?.estructura;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
+
   update(confirm: Boolean) {
     if (confirm) {
       this.club!.history = this.text;
       this.club!.title = this.title;
-      this.updateFunction(this.club!)
+      this.updateFunction(this.club!);
+      this.structure!.estructura = this.textStructure;
+      this.updateFunction(this.structure!);
     } else {
       console.log('cancelado');
     }
@@ -95,14 +112,13 @@ export class ClubEditComponent implements OnInit {
     if (confirm) {
       let i = 0;
       while (i < this.arrPhotos!.length) {
-        console.log(this.arrPhotos![i])
+        console.log(this.arrPhotos![i]);
         if (this.arrPhotos![i] == id) {
           this.arrPhotos!.splice(i, 1);
         } else {
           i++;
         }
       }
-      debugger
       let file: Files = {
         id: ruta,
         where: environment.landing_path,
@@ -114,11 +130,11 @@ export class ClubEditComponent implements OnInit {
             _id: this.galery?._id,
             assets: this.arrPhotos!,
           };
-          this.fotos = []
+          this.fotos = [];
           this.landingService.updateClub(club).subscribe({
             next: (club: Club | undefined) => {
               console.log(club);
-              this.showImages(club?.fotos!, club?.assets);
+              window.location.reload();
             },
             error: (err) => {
               console.log(err);
@@ -176,8 +192,8 @@ export class ClubEditComponent implements OnInit {
   }
 
   onUpload(event: any) {
-    this.updatePhotos = [] 
-    this.fotos = []
+    this.updatePhotos = [];
+    let aux = 0;
 
     let file = event.files;
 
@@ -187,7 +203,6 @@ export class ClubEditComponent implements OnInit {
 
       this.fileService.saveImage(formData, environment.landing_path).subscribe({
         next: (res: any) => {
-
           this.fotos?.push({
             image: URL.createObjectURL(element),
             ruta: res.ruta,
@@ -195,8 +210,16 @@ export class ClubEditComponent implements OnInit {
           });
 
           this.updatePhotos.push(res.id);
-          this.galery!.assets= this.updatePhotos
-          this.updateFunction(this.galery!);
+          aux++;
+          console.log(aux)
+          if ( aux == file.length) {
+            for (let i = 0; i < this.arrPhotos!.length; i++) {
+              this.updatePhotos.push(this.arrPhotos![i]);
+            }
+            this.galery!.assets = this.updatePhotos;
+            this.updateFunction(this.galery!);
+
+          }
         },
         error: (err) => {
           console.log(err);

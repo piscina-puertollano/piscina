@@ -32,9 +32,7 @@ export class ConsultarPuntuacionComponent {
     if (socioId) {
        this.getPuntuacionSocio(socioId);
        this.getSociosTutor(socioId)
-    } else {
-       console.error('No socioId found in local storage');
-    }
+    } 
    }
 
    getPuntuacionSocio(socioId: number) {
@@ -48,7 +46,7 @@ export class ConsultarPuntuacionComponent {
          } 
        },
        (error) => {
-         console.error('Error al obtener la puntuación del socio:', error);
+         throw error;
        }
     );
    }
@@ -58,12 +56,10 @@ export class ConsultarPuntuacionComponent {
       (entrenamiento: Entrenamiento | undefined) => {
         if (entrenamiento) {
           this.entrenamientoAsignado = entrenamiento;
-        } else {
-          console.error('No se encontró el entrenamiento asignado.');
         }
       },
       (error) => {
-        console.error('Error al obtener el entrenamiento asignado:', error);
+        throw error;
       }
     );
   }
@@ -74,7 +70,7 @@ export class ConsultarPuntuacionComponent {
          this.socios = socios;
        },
        (error) => {
-         console.error('Error al obtener los socios del tutor:', error);
+         throw error;
        }
     );
    }

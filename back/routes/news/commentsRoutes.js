@@ -11,7 +11,7 @@ const router = Router();
 
 
 router.get('/comments/:id_new', controlador.index );
-router.post('/comments/', [checkToken, tokenCanRedactor], controlador.createComment);
+router.post('/comments/', [checkToken], controlador.createComment);
 
 router.delete('/comments/:id_new',[checkToken, tokenCanRedactor], controlador.destroyComment );
 
