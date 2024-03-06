@@ -30,10 +30,17 @@ const index = async (req, res) => {
 };
 
 const createComment = async (req, res) => {
-  req.body.id_user = req.userId;
+  req.body.author = req.userId;
   await conx
-    .createNew(req.body)
-    .then((resNew) => {
+    .createComment(req.body)
+    .then(async (resNew) => {
+      if (req.body.respond_to != null) {
+        let respondComment = {
+          id_comment: resNew.id,
+          respond_to: req.body.respond_to,
+        };
+        await conx.respondComment(respondComment);
+      }
       res.status(200).json(resNew);
     })
     .catch((err) => {
@@ -46,11 +53,11 @@ const createComment = async (req, res) => {
 
 const destroyComment = async (req, res) => {
   try {
-    let resComment = await conx.createNew(req.params.id_new);
+    let resComment = await conx.deleteCommentById(req.params.id_new);
     if (resComment != 0) {
       res.status(200).json(resComment);
     } else {
-      res.status(400).json({ msg: "No se ha podido crear la noticia" });
+      res.status(400).json({ msg: "No se ha podido eliminar la noticia" });
     }
   } catch (err) {
     res.status(400).json({ error: err });
