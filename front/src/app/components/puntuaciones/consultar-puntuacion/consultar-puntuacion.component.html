@@ -1,5 +1,10 @@
 <section class="card">
-    <button>Seleccionar usuario</button>
+    <select>
+        <option value="">Seleccione un socio</option>
+        @for(socio of socios; track socio){
+            <option [value]="socio.id">{{ socio.lastName }}</option>
+        }
+    </select>
     <p>Nota Actual: {{ nota }}</p>
     <h3>Entrenamiento Recomendado</h3>
     @if(entrenamientoAsignado){

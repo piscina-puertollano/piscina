@@ -60,4 +60,9 @@ export class PuntuacionService {
       })
     )
   }
+
+  getSociosTutor(tutorId: number): Observable<any[]> {
+    const url = `${this.baseUrl}/puntuaciones/tutor-users/${tutorId}`;
+    return this.http.get<any[]>(url, {withCredentials: true });
+  }
 }

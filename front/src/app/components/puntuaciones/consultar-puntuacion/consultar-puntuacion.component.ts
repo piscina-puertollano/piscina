@@ -18,6 +18,7 @@ import { EntrenamientoService } from '../../../services/entrenamiento.service';
 export class ConsultarPuntuacionComponent {
   nota: number | undefined;
   entrenamientoAsignado: Entrenamiento | null = null;
+  socios: any[] = [];
 
   constructor(private puntuacionService: PuntuacionService, private entrenamientoService: EntrenamientoService, private route: ActivatedRoute) {
     const mainObject = JSON.parse(localStorage.getItem('user')! as string);
@@ -27,6 +28,7 @@ export class ConsultarPuntuacionComponent {
     if (socioId) {
        console.log(socioId);
        this.getPuntuacionSocio(socioId);
+       this.getSociosTutor(socioId)
     } else {
        console.error('No socioId found in local storage');
     }
@@ -64,4 +66,20 @@ export class ConsultarPuntuacionComponent {
       }
     );
   }
+
+  getSociosTutor(tutorId: number) {
+    this.puntuacionService.getSociosTutor(tutorId).subscribe(
+       (socios) => {
+        console.log('Socios recibidos:', socios);
+         this.socios = socios;
+       },
+       (error) => {
+         console.error('Error al obtener los socios del tutor:', error);
+       }
+    );
+   }
+
+   recargar(){
+    window.location.reload()
+   }
 }
