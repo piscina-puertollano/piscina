@@ -53,9 +53,9 @@ export class FaltasComponent implements OnInit {
 
   clase: Clase;
   faltas: Faltas;
-  arrClaseUsuario: Array<Faltas> = [];
+  arrClaseUsuario: Array<claseUsuario> = [];
   arrClases: Array<Clase> = [];
-
+  arrFaltas: Array<Faltas> = [];
   resultadoRelacion: asignacionClasesUsuario[] = [];
   resultadoUnion: claseUsuario[] = [];
 
@@ -63,7 +63,7 @@ export class FaltasComponent implements OnInit {
   selectedUser: any = null;
   selectedClase: any = null;
   clasesFiltradas: any[] = [];
-  userFiltrado: any[] = [];
+  filtrado: any[] = [];
   selectedDia: string = '';
   diasSemana = [
     { label: 'Lunes', value: 'Lunes' },
@@ -97,8 +97,8 @@ export class FaltasComponent implements OnInit {
   ngOnInit(): void {
     this.allUsers();
     this.allClases();
-    this.allClasesUsuarios();
     this.allFaltas();
+    this.allClasesUsuarios();
     this.alert = new Alert();
     this.selectedDia = '';
   }
@@ -119,27 +119,25 @@ export class FaltasComponent implements OnInit {
 
   onUsersSeleccionados(event: any) {
     let filteredClaseUsuario = [];
-    for (let i = 0; i < this.arrClaseUsuario.length; i++) {
-      if (this.arrClaseUsuario[i].id_clase === event.value) {
-        filteredClaseUsuario.push(this.arrClaseUsuario[i]);
+    console.log(event.value);
+    for (let i = 0; i < this.resultadoUnion.length; i++) {
+      if (this.resultadoUnion[i].id_clase == event.value) {
+        filteredClaseUsuario.push(this.resultadoUnion[i].id_usuario);
       }
     }
+    let userFiltrado: any[] = [];
 
-    let uniqueUserIds = new Set();
-    let filteredUsers = [];
-    for (let i = 0; i < filteredClaseUsuario.length; i++) {
+    for (let k = 0; k < filteredClaseUsuario.length; k++) {
       for (let j = 0; j < this.arrUsers.length; j++) {
-        if (
-          filteredClaseUsuario[i].id_usuario === this.arrUsers[j].id &&
-          !uniqueUserIds.has(this.arrUsers[j].id)
-        ) {
-          filteredUsers.push(this.arrUsers[j]);
-          uniqueUserIds.add(this.arrUsers[j].id);
-          break;
+        if (this.arrUsers[j].id == filteredClaseUsuario[k]) {
+          userFiltrado.push({
+            label: this.arrUsers[j].firstName,
+            value: this.arrUsers[j].id,
+          });
         }
       }
     }
-    this.userFiltrado = filteredUsers;
+    this.filtrado = userFiltrado;
   }
 
   cerrarModalCrear() {
@@ -189,11 +187,11 @@ export class FaltasComponent implements OnInit {
           this.alert.header = 'Error';
           this.alert.message = 'No se han podido cargar la informacion.';
         } else {
-          this.arrClaseUsuario = categoria;
+          this.arrFaltas = categoria;
           this.resultadoRelacion = [];
 
-          for (let i = 0; i < this.arrClaseUsuario.length; i++) {
-            const clases = this.arrClaseUsuario[i];
+          for (let i = 0; i < this.arrFaltas.length; i++) {
+            const clases = this.arrFaltas[i];
             const user = this.arrUsers.find(
               (user) => user.id === clases.id_usuario
             );
@@ -220,13 +218,14 @@ export class FaltasComponent implements OnInit {
 
   allClasesUsuarios() {
     this.ClasehasusuarioService.allRelaciones().subscribe({
-      next: (categoria: any | undefined) => {
-        if (categoria.status >= 400) {
+      next: (categorias: any | undefined) => {
+        if (categorias.status >= 400) {
           this.alert.show = true;
           this.alert.header = 'Error';
           this.alert.message = 'No se han podido cargar la informacion.';
         } else {
-          this.arrClaseUsuario = categoria;
+          console.log(categorias);
+          this.resultadoUnion = categorias;
         }
       },
       error: (err) => {
@@ -258,38 +257,39 @@ export class FaltasComponent implements OnInit {
 
   agregarFalta() {
     let completadas = 0;
-    const totalInserciones = this.selectedUser.length; 
-   
+    const totalInserciones = this.selectedUser.length;
+
     for (let i = 0; i < this.selectedUser.length; i++) {
-       const nuevaFalta = {
-         id_usuario: this.selectedUser[i],
-         id_clase: this.selectedClase,
-         fecha: moment().toDate(),
-       };
-   
-       this.FaltasService.agregarFalta(nuevaFalta).subscribe({
-         next: (resultado: any) => {
-           if (resultado.status >= 400) {
-             this.alert.show = true;
-             this.alert.header = 'Error';
-             this.alert.message = 'No se ha podido insertar la nueva falta. Póngase en contacto con un administrador.';
-           } else {
-             completadas++;
-             if (completadas === totalInserciones) {
-               location.reload();
-             }
-           }
-         },
-         error: (err) => {
-           console.log(err);
-           this.alert.show = true;
-           this.alert.header = 'Error';
-           this.alert.message = 'Ha ocurrido un error al realizar la asignación.';
-         },
-       });
+      const nuevaFalta = {
+        id_usuario: this.selectedUser[i],
+        id_clase: this.selectedClase,
+        fecha: moment().toDate(),
+      };
+
+      this.FaltasService.agregarFalta(nuevaFalta).subscribe({
+        next: (resultado: any) => {
+          if (resultado.status >= 400) {
+            this.alert.show = true;
+            this.alert.header = 'Error';
+            this.alert.message =
+              'No se ha podido insertar la nueva falta. Póngase en contacto con un administrador.';
+          } else {
+            completadas++;
+            if (completadas === totalInserciones) {
+              location.reload();
+            }
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.alert.show = true;
+          this.alert.header = 'Error';
+          this.alert.message =
+            'Ha ocurrido un error al realizar la asignación.';
+        },
+      });
     }
-   }
-   
+  }
 
   openEditModal(claseUsuario: any) {
     this.displayDialogEditar = true;
