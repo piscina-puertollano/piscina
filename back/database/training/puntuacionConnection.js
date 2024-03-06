@@ -21,7 +21,7 @@ class puntuacionConnection{
                 throw new Error('No se encontró el rol de socio');
             }
     
-            const userRoles = await models.UserRol.findAll({
+            const rolUsers = await models.UserRol.findAll({
                 where: { id_rol: rolSocio.id },
                 include: [{
                     model: models.Users,
@@ -42,9 +42,9 @@ class puntuacionConnection{
                 }]
             });
     
-            const socios = userRoles.map(userRole => {
-                const socio = userRole.user.get({ plain: true });
-                socio.puntuacionesUsuario = userRole.user.puntuacionesUsuario ? userRole.user.puntuacionesUsuario.map(puntuacionUsuario => {
+            const socios = rolUsers.map(rolUser => {
+                const socio = rolUser.user.get({ plain: true });
+                socio.puntuacionesUsuario = rolUser.user.puntuacionesUsuario ? rolUser.user.puntuacionesUsuario.map(puntuacionUsuario => {
                     const { idPuntuacion } = puntuacionUsuario;
                     const puntuacion = puntuacionUsuario.puntuacion ? puntuacionUsuario.puntuacion.get({ plain: true }) : null;
                     return { idPuntuacion, ...puntuacion };
@@ -184,6 +184,40 @@ class puntuacionConnection{
             return puntuacionExistente !== null;
         } catch (error) {
             console.error('Error al verificar la existencia de la puntuación:', error);
+            throw error;
+        }
+    }
+
+    getTutorUsers = async (userId) => {
+        try {
+            const userRole = await models.UserRol.findOne({
+                where: { id_user: userId },
+                include: [{
+                    model: models.Rol,
+                    as: 'rol',
+                    attributes: ['name']
+                }]
+            });
+    
+            if (!userRole || userRole.rol.name !== 'tutor') {
+                throw new Error('El usuario no es un tutor.');
+            }
+    
+            const tutorUsers = await models.TutorUser.findAll({
+                where: { id_tutor: userId },
+                attributes: ['id_socio']
+            });
+    
+            const sociosIds = tutorUsers.map(tutorUser => tutorUser.id_socio);
+    
+            const socios = await models.Users.findAll({
+                where: { id: sociosIds },
+                attributes: ['id', 'firstName', 'lastName', 'email'] 
+            });
+    
+            return socios;
+        } catch (error) {
+            console.error('Error al obtener los usuarios del tutor.', error);
             throw error;
         }
     }

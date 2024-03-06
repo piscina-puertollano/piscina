@@ -20,4 +20,6 @@ router.get('/:id', [checkToken, tokenCanTrainer], controlador.puntuacionGetId);
 
 //---------------RUTAS PARA SOCIO O TUTOR
 router.get('/notas/:socioId', [checkToken, tokenCanTutorOrSocio], controlador.puntuacionGetSocioId);
+router.get('/tutor-users/:userId', controlador.getTutorUsers);
+
 module.exports = router;

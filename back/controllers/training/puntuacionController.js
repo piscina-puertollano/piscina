@@ -91,6 +91,18 @@ const puntuacionDelete = (req, res = response) => {
     });
 };
 
+const getTutorUsers = async (req, res) => {
+    try {
+        const userId = req.params.userId; 
+        const socios = await conexion.getTutorUsers(userId);
+
+        res.status(200).json(socios);
+    } catch (error) {
+        console.error('Error al obtener los usuarios del tutor:', error);
+        res.status(500).json({ message: 'Error interno del servidor' });
+    }
+};
+
 module.exports = {
     sociosGet,
     puntuacionesGet,
@@ -98,5 +110,6 @@ module.exports = {
     puntuacionGetId,
     puntuacionInsert,
     puntuacionUpdate,
-    puntuacionDelete
+    puntuacionDelete,
+    getTutorUsers
 }
