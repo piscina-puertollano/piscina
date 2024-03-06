@@ -37,7 +37,6 @@ export const environment = {
     getComments: '/comments',
     rol_admin : 1,
     rol_tutor: 2,
-    rol_webmaster:6,
     rol_socio: 3,
     rol_entrenador: 4,
     rol_redactor : 5,
