@@ -70,26 +70,6 @@ export class ModificarEntrenamientoComponent implements OnInit {
     return;
   }
 
-  if (!this.entrenamiento.ejercicios || this.entrenamiento.ejercicios.length === 0) {
-    this.messageService.add({
-      severity: 'error',
-      summary: 'Error de validación',
-      detail: 'Debe agregar al menos un ejercicio.'
-    });
-    return; 
-  }
-
-  for (let i = 0; i < this.entrenamiento.ejercicios.length; i++) {
-    const ejercicio = this.entrenamiento.ejercicios[i];
-    if (!ejercicio.descripcion || ejercicio.descripcion.trim() === '' || ejercicio.idTipo === 0) {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error de validación',
-        detail: `El ejercicio ${i + 1} debe tener una descripción y un tipo seleccionado.`
-      });
-      return; 
-    }
- }
     this.entrenamientoService.updateEntrenamientos(this.entrenamiento).subscribe({
       next: (entrenamiento: any | undefined) => {
         this.entrenamiento = entrenamiento;
