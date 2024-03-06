@@ -13,6 +13,7 @@ import { Image } from '../../../interfaces/user';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
+import { ToolbarModule } from 'primeng/toolbar';
 
 @Component({
   selector: 'app-admin',
@@ -25,6 +26,7 @@ import { ButtonModule } from 'primeng/button';
     RouterLink,
     InputTextModule,
     ButtonModule,
+    ToolbarModule
   ],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.css',
@@ -37,6 +39,8 @@ export class AdminComponent implements OnInit {
   images?: Array<any>;
   selectNew?: News;
   searchValue: string = '';
+  offset: number = 0;
+  limit: number = 5;
 
   constructor(
     private dialogService: DialogService,

@@ -1,17 +1,85 @@
-<div class="news-container">
-    <h1 class="news-title">{{news?.title}}</h1>
-    <label class="news-author">Autor de la noticia: {{news?.author?.firstName}} {{news?.author?.lastName}}</label>
-    <div class="news-body" [innerHTML]="news?.body"></div>
-    <img class="news-image" [src]="image" alt="Imagen de la noticia">
-</div>
+<div class="content-container">
+    <p-toast></p-toast>
+    <div class="news-container">
+        <h1 class="news-title">{{news?.title}}</h1>
+        <strong>
+            <label class="news-author">Autor de la noticia: {{news?.author?.firstName}}
+                {{news?.author?.lastName}}</label>
+        </strong>
+        <br>
+        {{news?.visit_counter}}
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path
+                d="M15 12c0 1.654-1.346 3-3 3s-3-1.346-3-3 1.346-3 3-3 3 1.346 3 3zm9-.449s-4.252 8.449-11.985 8.449c-7.18 0-12.015-8.449-12.015-8.449s4.446-7.551 12.015-7.551c7.694 0 11.985 7.551 11.985 7.551zm-7 .449c0-2.757-2.243-5-5-5s-5 2.243-5 5 2.243 5 5 5 5-2.243 5-5z" />
+        </svg>
+        <br>
+        <div class="news-body" [innerHTML]="news?.body"></div>
+        <img class="news-image" [src]="image" alt="Imagen de la noticia">
+        <div class="actions">
+            {{news?.likes_counter}}
+            <img (click)="setCounter({id:news?.id, type:'like'})" width="24" height="24" class="icon"
+                src="https://img.icons8.com/material-rounded/24/facebook-like--v1.png" alt="facebook-like--v1" />
 
-<h4>Comentarios</h4>
+                {{news?.share_counter}}
+            <svg (click)="setCounter({id:news!.id, type:'share'})" xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                <path
+                    d="M307 34.8c-11.5 5.1-19 16.6-19 29.2v64H176C78.8 128 0 206.8 0 304C0 417.3 81.5 467.9 100.2 478.1c2.5 1.4 5.3 1.9 8.1 1.9c10.9 0 19.7-8.9 19.7-19.7c0-7.5-4.3-14.4-9.8-19.5C108.8 431.9 96 414.4 96 384c0-53 43-96 96-96h96v64c0 12.6 7.4 24.1 19 29.2s25 3 34.4-5.4l160-144c6.7-6.1 10.6-14.7 10.6-23.8s-3.8-17.7-10.6-23.8l-160-144c-9.4-8.5-22.9-10.6-34.4-5.4z" />
+            </svg>
 
-<section>
-    @for(comment of comments; track comment.id){
+            {{news?.dislikes_counter}}
+            <img (click)="setCounter({id:news?.id, type:'dislike'})" width="24" height="24" class="icon"
+                src="https://img.icons8.com/material-rounded/24/thumbs-down.png" alt="thumbs-down" />
+        </div>
+    </div>
 
-        <p-panel header={{comment.author}}>
-            <p>{{comment.comment}}</p>
+    <h2>Comentarios</h2>
+
+    <section>
+        <br>
+        @if(isAuth()){
+        <p-panel header="Nuevo comentario">
+            <div>
+                <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="newComment"></textarea>
+                <div style="margin-top: 10px">
+                    <p-button label="Crear comentario" (click)="createComment()"></p-button>
+                </div>
+            </div>
         </p-panel>
+        }
+    </section>
+
+    @if(comments){
+    <section>
+        @for(comment of comments; track comment.id){
+        <div style="margin-top: 20px;">
+            <p-panel header='Comentario id: {{comment.id}} autor: {{comment.name_author}} {{comment.last_author}}'>
+                @if(comment.respond_to_id != null){
+                <div>
+                    <p>Respuesta al ID de comentario: {{comment.respond_to_id}}</p>
+                    <p>Comentario: {{comment.comment}}</p>
+                </div>
+                }@else{
+                <div>
+                    <p>Comentario: {{comment.comment}}</p>
+                    @if(isAuth()){
+                    <p-button label="Responder" (click)="respond=true"></p-button>
+                    }
+
+                    @if(respond){
+
+                    <p-panel header="Responder">
+                        <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="responseComment"></textarea>
+                        <div style="margin-top: 10px">
+                            <p-button label="Responder al comentario" (click)="respondComment(comment.id)"></p-button>
+                        </div>
+                    </p-panel>
+                    }
+                </div>
+                }
+            </p-panel>
+        </div>
+        }
+    </section>
     }
-</section>
+</div>
