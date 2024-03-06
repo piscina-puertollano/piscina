@@ -102,31 +102,39 @@ class ejercicioEntrenamientoConnection {
     updateEntrenamiento = async (id, body) => {
         try {
             conexion.conectar();
-
+    
             const entrenamiento = await models.Entrenamiento.findByPk(id);
-
+    
             if (!entrenamiento) {
                 throw new Error('Entrenamiento no encontrado');
             }
-
+    
             await entrenamiento.update({
                 nombre: body.nombre,
                 descripcion: body.descripcion,
             });
-
-            for (const ejercicio of body.ejercicios) {
-                await models.Ejercicio.update(
-                    {
-                        descripcion: ejercicio.descripcion,
-                        idTipo: ejercicio.idTipo,
-                    },
-                    {
-                        where: {
-                            id: ejercicio.id,
-                        },
+        
+            if (Array.isArray(body.EjercicioEntrenamientos)) {
+                for (const ejercicioEntrenamiento of body.EjercicioEntrenamientos) {
+                    const ejercicioId = ejercicioEntrenamiento.ejercicioId;
+                    const descripcion = ejercicioEntrenamiento.Ejercicio.descripcion;
+                    const idTipo = ejercicioEntrenamiento.Ejercicio.idTipo;
+    
+                    if (ejercicioId && descripcion) {
+                        await models.Ejercicio.update(
+                            {
+                                descripcion: descripcion,
+                                idTipo: idTipo,
+                            },
+                            {
+                                where: {
+                                    id: ejercicioId,
+                                },
+                            }
+                        );
                     }
-                );
-            }
+                }
+            } 
             return 'Éxito';
         } catch (error) {
             return error;
