@@ -38,8 +38,22 @@ export class DashboardComponent implements OnInit {
       image: environment.tutor_card_image,
       title: 'Gestionar mis socios',
       content: 'Para gestionar mis socios',
-      link: '/admin-socios',
+      link: '/admin-partners',
     },
+    {
+      id_rol: environment.rol_webmaster,
+      image: environment.tutor_card_image,
+      title: 'Gestionar Contactos',
+      content: 'Para la gestión de los contactos',
+      link: '/edit/contact',
+    },
+    {
+      id_rol: environment.rol_webmaster,
+      image: environment.tutor_card_image,
+      title: 'Gestionar Home',
+      content: 'Para la gestión del home y editar la estructura de la dirección, la historia y la galería',
+      link: '/edit/landing',
+    }
   ];
 
   myCards() {
