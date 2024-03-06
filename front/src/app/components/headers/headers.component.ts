@@ -67,6 +67,9 @@ export class HeadersComponent implements OnInit {
                 command: () => {
                     this.authService.logout()
                     this.route.navigate(['/login'])
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 50);
                 }
             });
         } else {

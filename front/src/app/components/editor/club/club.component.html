@@ -151,7 +151,6 @@
         <tr>
           <td class="container">
             <p-image [styleClass]="'image'" src="{{ foto.image }}" alt="fotos disponibles"   width="250" [preview]="true"></p-image>
-              <!-- <img src="{{ foto.image }}" alt="fotos disponibles" id="image" srcset=""> -->
               <app-dialog  [severity]="'danger'" id="btnUpdate" [nameBtn]="'Eliminar'" [header]="'Alerta'" [message]="' Va a eliminar esta imagen. ¿Estás seguro de que quiere realizar esta acción? '" (eventEmiter)="deleteImage($event, foto.ruta, foto.id)"></app-dialog>
             
           </td>

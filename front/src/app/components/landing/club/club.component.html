@@ -22,7 +22,7 @@
             <div class="galeria">
                 @for(image of images; track image){
                 <div class="foto-actual">
-                        <img src="{{image.image}}" alt="" srcset="">
+                    <p-image src="{{image.image}}" alt="Image" height="250px" [preview]="true"></p-image>
                     </div>
                 }
             </div>
