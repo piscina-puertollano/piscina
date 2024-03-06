@@ -85,7 +85,7 @@ module.exports = {
         id:6,
         firstName:'socio',
         lastName: 'menor',
-        photo_profile: 3,
+        photo_profile: 6,
         email: 'menor@piscina.com',
         num_socio: null,
         corriente_pago:1,

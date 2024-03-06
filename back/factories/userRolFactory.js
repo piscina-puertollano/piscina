@@ -29,7 +29,7 @@ const userRolFactory = async (num_gen) => {
             arrUserRols.push(fakeUserRol);
         }
     }
-    return arrUserRols;
+    return Promise.all(arrUserRols);
 };
 
 module.exports = { 

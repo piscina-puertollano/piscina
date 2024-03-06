@@ -22,15 +22,6 @@
             <div class="randNew" (click)="addAfinCategory(randNew!.category)" routerLink='/new/{{randNew!.id}}'>
                 <div class="p-card">
                     <h3 >{{randNew!.title}}</h3>
-
-                    @if(images != null){
-                        @for(image of images; track image){
-                            @if(image.ruta != null && (image.ruta == randNew.new_image.ruta)){
-                                <img src="{{image.image}}" alt="{{image.alt}}">
-                            }
-                        }
-                    }
-
                 </div>
             </div>
         }
@@ -40,13 +31,6 @@
             <div class="popularNew" (click)="addAfinCategory(popularNew!.category)" routerLink='/new/{{popularNew!.id}}'>
                 <div class="p-card">
                     <h3 >{{popularNew!.title}}</h3>
-                    @if(images != null){
-                        @for(image of images; track image){
-                            <img src="{{image.image}}" alt="{{image.alt}}">
-                            @if(image.ruta != null && image.ruta == popularNew.new_image.ruta){
-                            }
-                        }
-                    }
                 </div>
             </div>
         }
