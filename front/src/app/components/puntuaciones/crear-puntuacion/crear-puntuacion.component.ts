@@ -28,6 +28,15 @@ export class CrearPuntuacionComponent {
   }
 
   insertPuntuacion(puntuacion: any) {
+    if (typeof this.puntuacion.nota !== 'number' || this.puntuacion.nota === 0) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error de validación',
+        detail: 'La nota debe ser un número y no puede ser 0.'
+      });
+      return;
+    }
+
     this.socioId = this.config.data.socioId
     puntuacion = {
       userId: this.socioId,
