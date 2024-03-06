@@ -1,3 +1,5 @@
+// Manuel García
+
 const express = require('express');
 const router = express.Router();
 const CategoriaClaseController = require('../../controllers/trainer/categoriaClaseController.js');

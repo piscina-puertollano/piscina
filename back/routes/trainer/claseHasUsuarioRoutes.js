@@ -1,10 +1,11 @@
+//Manuel Garcia
+
 const express = require('express');
 const router = express.Router();
 const ClaseHasUsuarioController = require('../../controllers/trainer/claseHasUsuarioController');
 const { checkToken, tokenCanTrainer, tokenCanAdmin } = require('../../middlewares/abilities.js');
 
 
-// Rutas para ClaseHasUsuario
 router.get('/obtener/clases', [checkToken, tokenCanAdmin], ClaseHasUsuarioController.obtenerClasesHasUsuarios);
 router.post('/asignar/clase/usuario', [checkToken, tokenCanAdmin], ClaseHasUsuarioController.crearClaseHasUsuario);
 router.put('/actualizar/clase/usuario/:id', [checkToken, tokenCanAdmin], ClaseHasUsuarioController.actualizarClaseHasUsuario);
