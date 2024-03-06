@@ -49,6 +49,8 @@ export const environment = {
     entrenador_card_image: '../../assets/cards-dashboard/mejores_entrenamientos_natacion_2252.jpg',
     puntuacion_card_image: '../../assets/cards-dashboard/_92986fbf-d1c8-4636-9904-276b25ea2fb9.jpg',
     socio_card_image: '../../assets/cards-dashboard/Ux0VAfghQMW8GNWsoWLtgg.jpg',
+    contact_card_image: '../../assets/cards-dashboard/_9edbc40b-aeca-4f56-9b1a-eed691dc871c.jpg',
+    landing_card_image: '../../assets/cards-dashboard/_e251221c-5699-4e20-9039-e2bf409da53d.jpg',
     indexContact: '/contact',
     getAllAlergias: '/alergias',
     showContact: '/contact',
