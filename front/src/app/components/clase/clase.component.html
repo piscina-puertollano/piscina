@@ -212,18 +212,17 @@
         <br /><br /><br />
       </div>
       <div class="p-field">
-        <label for="txtNombre">Dia: </label>
+        <label for="txtDia">Dia: </label>
         <br />
-        <input
-          type="text"
-          pInputText
-          [(ngModel)]="clase.nombre"
-          name="txtNombre"
-          id="txtNombre"
-        />
+        <p-dropdown
+           [options]="diasSemana"
+           [(ngModel)]="clase.nombre"
+           optionLabel="label"
+           [showClear]="true"
+           placeholder="Selecciona un día de la semana"
+        ></p-dropdown>
         <br />
-        <br />
-      </div>
+       </div>
       <div class="p-field">
         <label for="txtHoraInicio">Hora de inicio</label>
         <br />
