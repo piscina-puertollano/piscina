@@ -55,10 +55,9 @@ class ClaseHasUsuarioConnection {
     let con = new conexion();
     try {
        con.conectar();
-       // Asumiendo que 'id' se refiere a 'id_usuario' o 'id_clase'
        const claseHasUsuario = await models.clase_has_usuario.findOne({
          where: {
-           id_usuario: id // O id_clase: id, dependiendo de cuál sea el identificador único
+           id: id
          }
        });
        if (!claseHasUsuario) {

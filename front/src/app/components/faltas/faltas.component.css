@@ -46,8 +46,9 @@ app-modal {
     margin-bottom: 10px;
 }
 
-.modelclass {
-  width: 500px;
-  height: 450px;
-}
-
+.table-container {
+  display: flex;
+  justify-content: center;
+  margin: 80px auto; /* Ajusta el margen según sea necesario */
+ }
+ 
