@@ -69,12 +69,9 @@ export class ModificarEntrenamientoComponent implements OnInit {
     });
     return;
   }
-  console.log(this.entrenamiento)
     this.entrenamientoService.updateEntrenamientos(this.entrenamiento).subscribe({
       next: (entrenamiento: any | undefined) => {
-        console.log(entrenamiento)
         this.entrenamiento = entrenamiento;
-        console.log(this.entrenamiento)
         this.router.navigate(['/training']);
 
         this.messageService.add({
@@ -83,10 +80,10 @@ export class ModificarEntrenamientoComponent implements OnInit {
           detail: 'Entrenamiento actualizado',
         });
 
-        /* this.dialogRef.close();
+        this.dialogRef.close();
         setTimeout(() => {
           window.location.reload();
-        }, 2000); */
+        }, 2000);
       },
       error: (err) => {
         console.error('Error al modificar los entrenamientos', err);
