@@ -73,9 +73,6 @@ export class AsignarEntrenamientosComponent {
           this.alert.message = 'No se han podido cargar los entrenamientos. Póngase en contacto con un administrador.';
         }
       },
-      error: (err) => {
-        console.log(err);
-      },
     });
   }
 
@@ -93,9 +90,7 @@ export class AsignarEntrenamientosComponent {
          nota: this.nota,
          idEntrenamiento: idEntrenamiento 
        };
-   
-       console.log(updatedPuntuacion);
-   
+      
        this.puntuacionService.updatePuntuacion(updatedPuntuacion).subscribe({
          next: () => {
           this.messageService.add({

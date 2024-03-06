@@ -30,13 +30,11 @@ export class CrearPuntuacionComponent {
 
   insertPuntuacion(puntuacion: any) {
     this.socioId = this.config.data.socioId
-    console.log(this.socioId)
     puntuacion = {
       userId: this.socioId,
       nota: this.puntuacion.nota,
     }
 
-    console.log(puntuacion)
     this.puntuacionService.insertPuntuacion(puntuacion).subscribe({
       next: () => {
         this.messageService.add({

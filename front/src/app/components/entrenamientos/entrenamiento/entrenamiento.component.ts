@@ -80,9 +80,6 @@ export class EntrenamientoComponent {
              console.error('No se pudo obtener el entrenamiento con el ID proporcionado o el entrenamiento no tiene un ID definido.');
            }
          },
-         error: (err) => {
-           console.log(err);
-         }
        });
     } else {
        console.error('El ID del entrenamiento no se pasó como parámetro.');
@@ -102,7 +99,7 @@ export class EntrenamientoComponent {
         }
       },
       error: (err) => {
-        console.log(err);
+        console.error('Error al listar los entrenamientos', err);
       },
     });
   }

@@ -40,9 +40,6 @@ export class ConsultarEntrenamientoComponent {
       next: (entrenamiento: any | undefined) => {
         this.entrenamiento = entrenamiento;
       },
-      error: (err) => {
-        console.log(err)
-      }
     })
   }
 
@@ -51,7 +48,6 @@ export class ConsultarEntrenamientoComponent {
       next: (response: any) => {
         if (response && !Array.isArray(response)) {
           this.entrenamiento = response;
-          console.log(this.entrenamiento) 
         } else {
           this.alert.show = true;
           this.alert.header = 'Error';

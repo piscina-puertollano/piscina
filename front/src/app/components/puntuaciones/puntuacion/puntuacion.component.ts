@@ -70,7 +70,6 @@ export class PuntuacionComponent {
        if (tienePuntuacion) {
          this.puntuacionService.getPuntuacionId({id}).subscribe(
            (puntuacion: Puntuacion[] | undefined) => {
-             console.log(puntuacion);
              if (puntuacion) {
                this.ref = this.dialogService.open(ModificarPuntuacionComponent, {
                  header: 'Modificación de Calificación',
@@ -122,7 +121,7 @@ export class PuntuacionComponent {
          });
        },
        error: (err) => {
-         console.log(err);
+         console.error('Error al obtener los socios', err);
        }
     });
    }

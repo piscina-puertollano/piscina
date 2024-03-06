@@ -42,7 +42,6 @@ export class ModificarEntrenamientoComponent implements OnInit {
     }
 
     this.ejerciciosService.getTiposEjercicios().subscribe(tipos => {
-      console.log('Tipos de ejercicios:', tipos);
       if (Array.isArray(tipos)) {
         this.tiposEjercicios = tipos.map(ejercicio => ejercicio.Tipo).filter(tipo => tipo !== undefined) as TiposEjercicios[];
       } else {
@@ -70,7 +69,7 @@ export class ModificarEntrenamientoComponent implements OnInit {
         }, 2000);
       },
       error: (err) => {
-        console.log(err);
+        console.error('Error al modificar los entrenamientos', err);
       }
     });
  }
@@ -78,8 +77,6 @@ export class ModificarEntrenamientoComponent implements OnInit {
  getEntrenamiento() {
     this.entrenamientoService.getEntrenamientoId({ id: this.entrenamiento.id }).subscribe({
       next: (response: any) => {
-        console.log(this.entrenamiento.id);
-        console.log('Datos del entrenamiento:', response);
         if (response && !Array.isArray(response)) {
           this.entrenamiento = response;
         } else {

@@ -30,7 +30,6 @@ export class ConsultarPuntuacionComponent {
     const socioId = user ? user.id : null;
    
     if (socioId) {
-       console.log(socioId);
        this.getPuntuacionSocio(socioId);
        this.getSociosTutor(socioId)
     } else {
@@ -43,7 +42,6 @@ export class ConsultarPuntuacionComponent {
        (puntuacion: Puntuacion | undefined) => {
          if (puntuacion && puntuacion.puntuacion) {
            this.nota = puntuacion.puntuacion.nota; 
-           console.log(this.nota);
            if (puntuacion.puntuacion.idEntrenamiento !== null && puntuacion.puntuacion.idEntrenamiento !== undefined) {
              this.getEntrenamientoAsignado(puntuacion.puntuacion.idEntrenamiento);
            }
@@ -59,7 +57,6 @@ export class ConsultarPuntuacionComponent {
     this.entrenamientoService.getEntrenamientoAsignado(idEntrenamiento).subscribe(
       (entrenamiento: Entrenamiento | undefined) => {
         if (entrenamiento) {
-          console.log(entrenamiento)
           this.entrenamientoAsignado = entrenamiento;
         } else {
           console.error('No se encontró el entrenamiento asignado.');
@@ -74,7 +71,6 @@ export class ConsultarPuntuacionComponent {
   getSociosTutor(tutorId: number) {
     this.puntuacionService.getSociosTutor(tutorId).subscribe(
        (socios) => {
-        console.log('Socios recibidos:', socios);
          this.socios = socios;
        },
        (error) => {
