@@ -20,6 +20,7 @@ class Server {
     this.noSociosRoutePath = "/api/noSocios";
     this.eventoUsuariosRoutePath = "/api/eventoUsuarios";
     this.apiFiles = "/api/file";
+    this.apiMail = "/api/mail";
     this.entrenamientoPath = "/api/entrenamiento"
     this.ejerEntreRoutePath = "/api/ejercicioEntrenamiento";
     this.puntuacionRoutePath = "/api/puntuaciones";
@@ -100,6 +101,7 @@ class Server {
     this.app.use(this.userRoutePath, require("../routes/landing/clubRoutes"));
     this.app.use(this.userRoutePath, require("../routes/landing/contactRoutes"));
     this.app.use(this.userRoutePath, require("../routes/assetsRoutes"));
+    this.app.use(this.apiMail, require("../routes/services/mailRoutes.js"));
 
     this.app.use(this.entrenamientoPath, require('../routes/training/entrenamientosRoutes'))
     this.app.use(this.ejerEntreRoutePath, require("../routes/training/ejercicioEntrenamientosRoutes"));
