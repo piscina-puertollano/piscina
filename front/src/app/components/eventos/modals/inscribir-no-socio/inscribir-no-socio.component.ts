@@ -48,6 +48,18 @@ export class InscribirNoSocioComponent implements OnInit {
   }
 
   insertNoSocio() {
+
+    if(this.noSocio.nombre == null || this.noSocio.apellidos == null || this.noSocio.email == null){
+
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Campos vacios',
+        detail: 'No puede dejar vacios los campos nombre, fecha ,sede y categoria',
+
+      });
+
+    }else{
+
     this.noSocioService.insertNoSocio(this.noSocio,this.evento.id).subscribe({
       next: (noSocio: any | undefined) => {
         this.noSocio = noSocio
@@ -63,10 +75,9 @@ export class InscribirNoSocioComponent implements OnInit {
       },
     });
     
-    this.alert.show = true;
-    this.alert.type = 'success'
-    this.alert.header = 'Ya esta Inscrito';
+  
     setTimeout(() => window.location.reload(),2000);
+  }
     
   }
 

@@ -11,6 +11,24 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date()
    },
+   {
+    idUsuario: 1,
+    idEvento: 2,
+    createdAt: new Date(),
+    updatedAt: new Date()
+ },
+ {
+  idUsuario: 2,
+  idEvento: 2,
+  createdAt: new Date(),
+  updatedAt: new Date()
+},
+{
+  idUsuario: 2,
+  idEvento: 3,
+  createdAt: new Date(),
+  updatedAt: new Date()
+},
   ], {});
 },
 

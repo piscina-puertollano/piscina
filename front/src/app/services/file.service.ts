@@ -73,5 +73,14 @@ savePdf(pdf: FormData, where: string): Observable<any | undefined> {
   );
  }
 
+ deletePdf(pdf: Files):Observable<Files|undefined> {
+  let urldelete = this.url+'/'+pdf.id+'/'+pdf.where
+  return this.http.delete(urldelete, {withCredentials: true}).pipe(
+    catchError((error) =>{
+      return of(error)
+    })
+  )
+}
+
 
 }

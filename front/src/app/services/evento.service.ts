@@ -21,7 +21,7 @@ export class EventosService {
 
     
     getEventos(): Observable<Array<Evento> | undefined> {
-        return this.http.get<Evento>(this.urlGetEventos).pipe(
+        return this.http.get<Evento>(this.urlGetEventos,{withCredentials: true}).pipe(
           catchError((error) =>{
             return of(error)
           })
@@ -47,7 +47,7 @@ export class EventosService {
 
       insertEvento(evento:Evento): Observable<Evento | undefined> {
         
-        return this.http.post<Evento>(this.urlInsertEvento, evento).pipe(
+        return this.http.post<Evento>(this.urlInsertEvento, evento,{withCredentials: true}).pipe(
           catchError((error) =>{
             return of(error)
           })
@@ -56,7 +56,7 @@ export class EventosService {
 
       updateEvento(evento:Evento): Observable<Array<Evento> | undefined> {
         
-        return this.http.put<Evento>(this.urlUpdateEvento+evento.id, evento).pipe(
+        return this.http.put<Evento>(this.urlUpdateEvento+evento.id, evento,{withCredentials: true}).pipe(
           catchError((error) =>{
             return of(error)
           })
@@ -64,7 +64,7 @@ export class EventosService {
       }
 
       deleteEvento(id: any): Observable<Array<Evento> | undefined> {
-        return this.http.delete<Evento>(this.urlDeleteEvento+id).pipe(
+        return this.http.delete<Evento>(this.urlDeleteEvento+id,{withCredentials: true}).pipe(
           catchError((error) =>{
             return of(error)
           })

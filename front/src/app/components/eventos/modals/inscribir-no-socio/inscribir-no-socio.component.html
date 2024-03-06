@@ -1,10 +1,10 @@
 <!--// Gonzalo Martinez Haro-->
 <div class="form-container">
   <div>
-      <p-toast></p-toast>
+      
 
       <div class="card flex justify-content-center">
-          <p-toast></p-toast>
+          
           
          
           @if(!visible){
@@ -17,9 +17,7 @@
           
         }@else{
               <h4>Introduce tus Datos</h4>
-              @if(alert.show){
-                  <app-alert header="{{alert.header}}" message="{{alert.message}}" type={{alert.type}} ></app-alert>
-              }
+              
               <form>
                   <label for="nombreNoSocio">Nombre</label>
                   <input type="text" id="nombreNoSocio" pInputText required [(ngModel)]="noSocio.nombre" name="nombreNoSocio">

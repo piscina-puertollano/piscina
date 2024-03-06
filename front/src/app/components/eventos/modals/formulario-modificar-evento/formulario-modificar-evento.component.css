@@ -64,3 +64,10 @@
   .info{
     color:#a8a7a7;
   }
+
+  .flex-row {
+    display: flex;
+    align-items: center; /* Alinea verticalmente los elementos */
+    justify-content: flex-start; /* Alinea horizontalmente los elementos al inicio */
+    gap: 10px; /* Espacio entre los elementos */
+}

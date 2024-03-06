@@ -32,8 +32,11 @@
                 <p class=info>Los eventos visibles se podran ver aunque no seas socio.</p>
 
                 <label for="resultadoEvento">Añadir Resultado</label>
-                <p-fileUpload mode="basic" chooseLabel="Elegir" name="resultadoEvento"  ></p-fileUpload>
-
+                <div class="flex-row">
+                    <p-fileUpload [customUpload]="true" mode="basic" chooseLabel="Elegir" name="resultadoEvento" [auto]="true" (uploadHandler)="cargarPDF($event)" ></p-fileUpload>
+                    <p-button label="Borrar Pdf" severity="danger" (click)="borrarPdf()"></p-button>
+                </div>
+                
                 <button label="Añadir" (click)="updateEvento()" pButton pRipple label="Actualizar evento" class="p-button-success"></button>
                 
         </div>

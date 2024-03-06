@@ -132,7 +132,7 @@ class eventoConnection{
         conx.conectar()
         let resultado
         resultado = await models.Evento.findByPk(id)
-        console.log(resultado)
+        //console.log(resultado)
 
         let devolver = {}
 
@@ -141,10 +141,10 @@ class eventoConnection{
         devolver.fecha = body.fecha
         devolver.sede = body.sede
         devolver.desc = body.desc
-        
         devolver.idCategoria = body.categoria.id
         devolver.visible = body.visible
         devolver.privado = body.privado
+        devolver.resultado = body.resultado
         
         
         

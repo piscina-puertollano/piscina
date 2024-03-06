@@ -72,7 +72,7 @@ export class FormularioModificarEventoComponent implements OnInit {
   }
   
   updateEvento() {
-    
+    console.log(this.evento)
     if(this.evento.nombre == '' || this.evento.fecha == '' || this.evento.categoria == null || this.evento.sede == ''){
 
       this.messageService.add({
@@ -99,7 +99,7 @@ export class FormularioModificarEventoComponent implements OnInit {
         console.log(err);
       },
     });
-    setTimeout(() => window.location.reload(), 1500);
+    //setTimeout(() => window.location.reload(), 1500);
   }
   }
 
@@ -138,6 +138,36 @@ export class FormularioModificarEventoComponent implements OnInit {
       console.error('Valor de fecha inválido:', fechaEvento);
       return '';
     }
+  }
+
+  cargarPDF(event: any) {
+    const file: File = event.files[0]; 
+    if (file) {
+      const formData = new FormData();
+      formData.append('archivo', file);
+  
+      this.fileService.savePdf(formData, 'events').subscribe({
+        next: (response) => {
+          console.log('PDF cargado con éxito', response);
+          
+          const pdf = {
+            ruta: response.ruta,
+          }
+        
+          this.evento.pdf = pdf; 
+          console.log(this.evento)
+         this.evento.resultado = response.id
+          
+        },
+        error: (error) => console.error(error)
+      });
+    }
+  }
+
+  borrarPdf(){
+
+    this.evento.resultado = null;
+    console.log(this.evento)
   }
 
 }

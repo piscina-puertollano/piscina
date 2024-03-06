@@ -15,6 +15,12 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { FileUploadModule } from 'primeng/fileupload';
 import { InputTextModule } from 'primeng/inputtext';
 import { Router } from '@angular/router';
+import { DialogService } from 'primeng/dynamicdialog';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { ModalBorradoComponent } from '../modals/modal-borrado/modal-borrado.component';
+
+
+
 
 
 
@@ -33,9 +39,11 @@ import { Router } from '@angular/router';
      ToastModule,
      ToolbarModule,
      FileUploadModule,
+     DynamicDialogModule
     ],
   templateUrl: './gestionar-no-socios.component.html',
-  styleUrl: './gestionar-no-socios.component.css'
+  styleUrl: './gestionar-no-socios.component.css',
+  providers:[DialogService]
 })
 export class GestionarNoSociosComponent implements OnInit{
 
@@ -45,7 +53,7 @@ export class GestionarNoSociosComponent implements OnInit{
   selectNoSocios!: Array<NoSocio>;
   searchValue: string = '';
 
-  constructor(private messageService: MessageService,private router: Router, private noSocioService: noSocioService) {
+  constructor(private messageService: MessageService,private router: Router, private noSocioService: noSocioService,private dialogService: DialogService) {
     this.alert = new Alert();
     this.noSocio = {};
   }
@@ -126,7 +134,7 @@ export class GestionarNoSociosComponent implements OnInit{
   }
 
 
-  /*abrirModalBorrado(id : any) {
+  abrirModalBorrado(id : any) {
     this.dialogService.open(ModalBorradoComponent,{
      
       width: '50vw',
@@ -140,7 +148,7 @@ export class GestionarNoSociosComponent implements OnInit{
         tipo: 'categoria'
       }
     });
-  }*/
+  }
 
 
 }

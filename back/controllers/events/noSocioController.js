@@ -95,11 +95,14 @@ const getNoSocioConIdEvento = (req,res = response) => {
     });
 }
 
+
+
 module.exports = {
     noSociosGet,
     noSocioGet,
     noSocioInsert,
     noSocioUpdate,
     noSocioDelete,
-    getNoSocioConIdEvento
+    getNoSocioConIdEvento,
+    
 }

@@ -17,7 +17,7 @@ export class EventoUsuarioService{
     private urlGetEventoUsuario : string = this.baseUrl + environment.getEventoUsuario 
 
     insertEventoUsuario(eventoUsuario:EventoUsuario): Observable<EventoUsuario | undefined> {
-        return this.http.post<EventoUsuario>(this.urlPostEventoUsuario, eventoUsuario).pipe(
+        return this.http.post<EventoUsuario>(this.urlPostEventoUsuario, eventoUsuario,{withCredentials: true}).pipe(
           catchError((error) =>{
             return of(error)
           })
@@ -25,7 +25,7 @@ export class EventoUsuarioService{
       }
     
     getUsuariosConIdEvento(id:number): Observable<EventoUsuario | undefined> {
-      return this.http.get<EventoUsuario>(this.urlGetEventoUsuario+id).pipe(
+      return this.http.get<EventoUsuario>(this.urlGetEventoUsuario+id,{withCredentials: true}).pipe(
         catchError((error) =>{
           return of(error)
         })
