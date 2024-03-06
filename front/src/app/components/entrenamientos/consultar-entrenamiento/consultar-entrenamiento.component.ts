@@ -56,7 +56,6 @@ export class ConsultarEntrenamientoComponent {
         }
       },
       error: (err) => {
-        console.error('Error al obtener el entrenamiento:', err);
         this.alert.show = true;
         this.alert.header = 'Error';
         this.alert.message = 'Ha ocurrido un error al intentar obtener el entrenamiento';

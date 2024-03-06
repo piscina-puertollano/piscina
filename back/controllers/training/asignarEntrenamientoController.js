@@ -18,7 +18,6 @@ const obtenerEntrenamientoId = async (id) => {
 
         return entrenamiento;
     } catch (error) {
-        console.error(error);
         throw error;
     }
 };
@@ -34,7 +33,6 @@ const asignarEntrenamiento = async (req, res) => {
         }
 
     } catch (error) {
-        console.error(error);
         return res.status(500).json({ error: 'Error en el servidor' });
     }
 };

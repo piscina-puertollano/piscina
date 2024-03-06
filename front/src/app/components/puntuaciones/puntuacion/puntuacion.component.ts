@@ -86,7 +86,7 @@ export class PuntuacionComponent {
              }
            },
            (error) => {
-             console.error('Error al obtener la puntuación:', error);
+             throw error;
            }
          );
        } else {
@@ -121,7 +121,7 @@ export class PuntuacionComponent {
          });
        },
        error: (err) => {
-         console.error('Error al obtener los socios', err);
+         throw err;
        }
     });
    }
