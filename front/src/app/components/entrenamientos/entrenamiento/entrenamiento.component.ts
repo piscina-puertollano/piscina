@@ -10,7 +10,7 @@ import { AlertComponent } from '../../../utils/alert/alert.component';
 import { TooltipModule } from 'primeng/tooltip';
 import { ToolbarModule } from 'primeng/toolbar';
 import { InputTextModule } from 'primeng/inputtext';
-import { Table, TableModule } from 'primeng/table';
+import { TableModule } from 'primeng/table';
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { FormsModule } from '@angular/forms';
@@ -52,9 +52,12 @@ export class EntrenamientoComponent {
     this.alert = new Alert();
   }
 
-  ngOnInit(){
+  ngOnInit() {
+    this.entrenamientoService.entrenamientoCreated.subscribe(() => {
+       this.listarEntrenamientos();
+    });
     this.listarEntrenamientos();
-  }
+   }
 
   openDialog(id?: number) {
     if (typeof id === 'number') {
@@ -69,16 +72,14 @@ export class EntrenamientoComponent {
                  '640px': '90vw'
                },
                data: {
-                 entrenamiento: entrenamiento
-               }
+                 entrenamiento: entrenamiento,
+                 dialogRef: this.ref
+               },
              });
            } else {
              console.error('No se pudo obtener el entrenamiento con el ID proporcionado o el entrenamiento no tiene un ID definido.');
            }
          },
-         error: (err) => {
-           console.log(err);
-         }
        });
     } else {
        console.error('El ID del entrenamiento no se pasó como parámetro.');
@@ -98,7 +99,7 @@ export class EntrenamientoComponent {
         }
       },
       error: (err) => {
-        console.log(err);
+        console.error('Error al listar los entrenamientos', err);
       },
     });
   }
@@ -120,7 +121,7 @@ export class EntrenamientoComponent {
 
   consultarEntre(id?: number): void{
     if (typeof id === 'number'){
-      this.router.navigate(['/consult-training', id]);
+      this.router.navigate(['/training', id]);
     } else {
       console.error('Id no válido: ', id);
     }

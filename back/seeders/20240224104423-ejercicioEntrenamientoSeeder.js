@@ -23,7 +23,25 @@ module.exports = {
     idEntrenamiento: 1,
     createdAt: new Date(),
     updatedAt: new Date()
-  }
+  },
+  {
+    ejercicioId: 4,
+    idEntrenamiento: 2,
+    createdAt: new Date(),
+    updatedAt: new Date()
+  },
+  {
+    ejercicioId: 5,
+    idEntrenamiento: 2,
+    createdAt: new Date(),
+    updatedAt: new Date()
+  },
+  {
+    ejercicioId: 6,
+    idEntrenamiento: 2,
+    createdAt: new Date(),
+    updatedAt: new Date()
+  },
 ])
   },
 

@@ -38,7 +38,7 @@ export class DashboardComponent implements OnInit {
       image: environment.tutor_card_image,
       title: 'Gestionar mis socios',
       content: 'Para gestionar mis socios',
-      link: '/admin-socios',
+      link: '/admin-partners',
     },
     {
       id_rol: environment.rol_admin,
@@ -54,7 +54,27 @@ export class DashboardComponent implements OnInit {
       content: 'Para gestionar las faltas de los usuarios',
       link: '/faults',
     },
-
+    {
+      id_rol: environment.rol_socio,
+      image: environment.socio_card_image,
+      title: 'Consultar Calificaciones',
+      content: 'Par consultar la calificación general y si tenemos entrenamientos asignados',
+      link: '/score',
+    },
+    {
+      id_rol: environment.rol_entrenador,
+      image: environment.entrenador_card_image,
+      title: 'Gestionar entrenamientos',
+      content: 'Para realizar el gestión de los entrenamientos',
+      link: '/training',
+    },
+    {
+      id_rol: environment.rol_entrenador,
+      image: environment.puntuacion_card_image,
+      title: 'Gestión de Calificaciones de los Socios',
+      content: 'Añadir calificaciones a los socios',
+      link: '/scores',
+    }
   ];
 
   myCards() {

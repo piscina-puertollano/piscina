@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { MessageService } from 'primeng/api';
 import { Alert } from '../../../interfaces/alert';
 import { Entrenamiento } from '../../../interfaces/entrenamiento';
 import { TiposEjercicios } from '../../../interfaces/tipos-ejercicios';
@@ -20,16 +22,19 @@ export class ModificarEntrenamientoComponent implements OnInit {
  alert: Alert;
  arrEntrenamientos: Array<Entrenamiento> = [];
  tiposEjercicios: TiposEjercicios[] = [];
- @Input() entrenamiento: Entrenamiento;
+ @Input() entrenamiento!: Entrenamiento;
+ dialogRef: DynamicDialogRef
 
- constructor(private entrenamientoService: EntrenamientoService, private ejerciciosService: EjerciciosService, private router: Router, private route: ActivatedRoute) {
+ ref: DynamicDialogRef | undefined;
+
+
+ constructor(private entrenamientoService: EntrenamientoService, private ejerciciosService: EjerciciosService, private router: Router, private route: ActivatedRoute, public config: DynamicDialogConfig, private messageService: MessageService, dialogRef: DynamicDialogRef) {
     this.alert = new Alert();
-    this.entrenamiento = {};
+    this.dialogRef = dialogRef;
  }
 
  ngOnInit(): void {
-    console.log('Datos del entrenamiento', this.entrenamiento);
-    console.log(this.entrenamiento.id);
+  this.entrenamiento = this.config.data.entrenamiento
     if (this.entrenamiento && this.entrenamiento.id) {
       this.getEntrenamiento();
     } else {
@@ -37,7 +42,6 @@ export class ModificarEntrenamientoComponent implements OnInit {
     }
 
     this.ejerciciosService.getTiposEjercicios().subscribe(tipos => {
-      console.log('Tipos de ejercicios:', tipos);
       if (Array.isArray(tipos)) {
         this.tiposEjercicios = tipos.map(ejercicio => ejercicio.Tipo).filter(tipo => tipo !== undefined) as TiposEjercicios[];
       } else {
@@ -48,13 +52,62 @@ export class ModificarEntrenamientoComponent implements OnInit {
  }
 
  updateEntrenamiento() {
+  if (!this.entrenamiento.nombre || this.entrenamiento.nombre.trim() === '') {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Error de validación',
+      detail: 'El nombre del entrenamiento es requerido.'
+    });
+    return;
+  }
+
+  if (!this.entrenamiento.descripcion || this.entrenamiento.descripcion.trim() === '') {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Error de validación',
+      detail: 'La descripción del entrenamiento es requerida.'
+    });
+    return;
+  }
+
+  if (!this.entrenamiento.ejercicios || this.entrenamiento.ejercicios.length === 0) {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Error de validación',
+      detail: 'Debe agregar al menos un ejercicio.'
+    });
+    return; 
+  }
+
+  for (let i = 0; i < this.entrenamiento.ejercicios.length; i++) {
+    const ejercicio = this.entrenamiento.ejercicios[i];
+    if (!ejercicio.descripcion || ejercicio.descripcion.trim() === '' || ejercicio.idTipo === 0) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error de validación',
+        detail: `El ejercicio ${i + 1} debe tener una descripción y un tipo seleccionado.`
+      });
+      return; 
+    }
+ }
     this.entrenamientoService.updateEntrenamientos(this.entrenamiento).subscribe({
       next: (entrenamiento: any | undefined) => {
         this.entrenamiento = entrenamiento;
         this.router.navigate(['/training']);
+
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Operación completada',
+          detail: 'Entrenamiento actualizado',
+        });
+
+        this.dialogRef.close();
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
       },
       error: (err) => {
-        console.log(err);
+        console.error('Error al modificar los entrenamientos', err);
       }
     });
  }
@@ -62,10 +115,9 @@ export class ModificarEntrenamientoComponent implements OnInit {
  getEntrenamiento() {
     this.entrenamientoService.getEntrenamientoId({ id: this.entrenamiento.id }).subscribe({
       next: (response: any) => {
-        console.log(this.entrenamiento.id);
-        console.log('Datos del entrenamiento:', response);
         if (response && !Array.isArray(response)) {
           this.entrenamiento = response;
+          console.log(this.entrenamiento)
         } else {
           this.alert.show = true;
           this.alert.header = 'Error';
