@@ -15,7 +15,7 @@ const newsFactory = async (num_gen) => {
             title: faker.lorem.sentence(),
             body: faker.lorem.paragraphs(),
             id_user: 1,
-            main_image: 2,
+            main_image: i+21,
             visit_counter: faker.number.int({max:50}),
             share_counter: faker.number.int({max:50}),
             likes_counter: faker.number.int({max:50}),

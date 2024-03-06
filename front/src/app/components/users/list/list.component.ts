@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Table, TableModule } from 'primeng/table';
 import { ProgressBarModule } from 'primeng/progressbar';
-import {
-  ConfirmationService,
-  FilterService,
-  MessageService,
-} from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { TooltipModule } from 'primeng/tooltip';
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -21,7 +17,6 @@ import { DialogComponent } from '../../../utils/dialog/dialog.component';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { ShowComponent } from '../ShowUser/show/show.component';
-import { firstValueFrom } from 'rxjs';
 import { SignupComponent } from '../signup/signup/signup.component';
 import { ModalSignupComponent } from '../signup/modalSignup/modal.component';
 import { Files } from '../../../interfaces/upload';
@@ -50,8 +45,7 @@ import { environment } from '../../../../environments/environment.development';
     ConfirmDialogModule,
     DialogModule,
     DialogComponent,
-    ModalSignupComponent
-    
+    ModalSignupComponent,
   ],
   templateUrl: './list.component.html',
   styleUrl: './list.component.css',
@@ -71,19 +65,15 @@ export class ListComponent implements OnInit {
   ref: DynamicDialogRef | undefined;
 
   constructor(
-    private filterService: FilterService,
     private userService: UserService,
     public dialogService: DialogService,
-    private messageService: MessageService,
     private fileService: FileService
   ) {}
 
-  openDialog(id:number){
-
+  openDialog(id: number) {
     this.userService.showUser(id).subscribe({
       next: (user: any | undefined) => {
         this.user = user;
-        console.log(user);
         this.test = user;
 
         this.ref = this.dialogService.open(ShowComponent, {
@@ -91,12 +81,12 @@ export class ListComponent implements OnInit {
           modal: true,
           breakpoints: {
             '960px': '75vw',
-            '640px': '90vw'
+            '640px': '90vw',
           },
-          data:{
-            user:user
-          }
-      });
+          data: {
+            user: user,
+          },
+        });
       },
       error: (err) => {
         console.log(err);
@@ -104,18 +94,17 @@ export class ListComponent implements OnInit {
     });
   }
 
-  createUSerDialog(){
-    this.ref = this.dialogService.open(SignupComponent, { 
+  createUSerDialog() {
+    this.ref = this.dialogService.open(SignupComponent, {
       header: 'Editar usuario',
-      data:{
-        user:this.user
-      }
-  });    
+      data: {
+        user: this.user,
+      },
+    });
     this.ref.onClose.subscribe((user: any) => {
-      this.allUsers()
-    })
+      this.allUsers();
+    });
   }
-
 
   clear(table: Table) {
     table.clear();
@@ -139,10 +128,9 @@ export class ListComponent implements OnInit {
   allUsers() {
     this.userService.allUsers().subscribe({
       next: (user: any | undefined) => {
-        console.log(user);
         this.arrUsers = user;
-        this.showImages()
-
+        console.log(this.arrUsers)
+        this.showImages();
       },
       error: (err) => {
         console.log(err);
@@ -154,8 +142,6 @@ export class ListComponent implements OnInit {
     this.userService.showUser(id).subscribe({
       next: (user: any | undefined) => {
         this.user = user;
-        console.log(user);
-        this.test = user;
       },
       error: (err) => {
         console.log(err);
@@ -164,23 +150,25 @@ export class ListComponent implements OnInit {
   }
 
   showImages() {
-    for(let user of this.arrUsers){
+    for (let user of this.arrUsers) {
       let image: Files = {
         id: user.image?.ruta,
-        where: environment.photo_profile_path
-      }
+        where: environment.photo_profile_path,
+      };
 
       this.fileService.showImage(image).subscribe({
         next: (image: any | undefined) => {
-
-          this.arrPhotoProfile.push({id:user.image?.ruta, image: URL.createObjectURL(image)})
+          this.arrPhotoProfile.push({
+            id: user.image?.ruta,
+            image: URL.createObjectURL(image),
+          });
         },
       });
     }
   }
 
-  deleteUser(eventEmiter: Boolean, id:number){
-    if(eventEmiter){
+  deleteUser(eventEmiter: Boolean, id: number) {
+    if (eventEmiter) {
       this.userService.deleteUser(id).subscribe({
         next: (user: any | undefined) => {
           this.user = user;
@@ -191,8 +179,6 @@ export class ListComponent implements OnInit {
       });
     }
   }
-
-
 
   updateUser(event: Boolean) {
     if (event) {

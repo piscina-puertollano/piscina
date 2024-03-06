@@ -35,9 +35,13 @@ module.exports = {
     } catch (error) {
       console.error(error);
     }
+
+    /*
+      a veces este factory da validatio error, no se el porque, a veces lo da y otras no,
+      no se cual es problema, pero a veces salta, y otras no. 
+    */
     let factoryUserRols = await userRolFactory(5)
-    console.log(factoryUserRols)
-    await queryInterface.bulkInsert(process.env.TABLE_USER_ROLS, factoryUserRols, {});
+    await queryInterface.bulkInsert(process.env.TABLE_USER_ROLS, factoryUserRols);
   },
  async down (queryInterface, Sequelize) {
   await queryInterface.bulkDelete(process.env.TABLE_USER_ROLS, null, {});
