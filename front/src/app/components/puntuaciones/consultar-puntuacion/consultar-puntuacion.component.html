@@ -1,10 +1,10 @@
 <section class="card">
-    <select>
-        <option value="">Seleccione un socio</option>
+    <select class="custom-select" [(ngModel)]="selectedSocioId" (ngModelChange)="socioSeleccionado($event)">
         @for(socio of socios; track socio){
             <option [value]="socio.id">{{ socio.lastName }}</option>
         }
     </select>
+    <button class="custom-button" (click)="recargar()">Volver</button>
     <p>Nota Actual: {{ nota }}</p>
     <h3>Entrenamiento Recomendado</h3>
     @if(entrenamientoAsignado){

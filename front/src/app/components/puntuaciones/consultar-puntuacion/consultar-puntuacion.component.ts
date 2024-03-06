@@ -7,11 +7,14 @@ import { ActivatedRoute } from '@angular/router';
 import { Puntuacion } from '../../../interfaces/puntuacion';
 import { Entrenamiento } from '../../../interfaces/entrenamiento';
 import { EntrenamientoService } from '../../../services/entrenamiento.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-consultar-puntuacion',
   standalone: true,
-  imports: [],
+  imports: [
+    FormsModule,
+  ],
   templateUrl: './consultar-puntuacion.component.html',
   styleUrl: './consultar-puntuacion.component.css'
 })
@@ -19,6 +22,7 @@ export class ConsultarPuntuacionComponent {
   nota: number | undefined;
   entrenamientoAsignado: Entrenamiento | null = null;
   socios: any[] = [];
+  selectedSocioId: number | null = null;
 
   constructor(private puntuacionService: PuntuacionService, private entrenamientoService: EntrenamientoService, private route: ActivatedRoute) {
     const mainObject = JSON.parse(localStorage.getItem('user')! as string);
@@ -77,6 +81,11 @@ export class ConsultarPuntuacionComponent {
          console.error('Error al obtener los socios del tutor:', error);
        }
     );
+   }
+
+   socioSeleccionado(socioId: number){
+    this.selectedSocioId = socioId;
+    this.getPuntuacionSocio(socioId)
    }
 
    recargar(){
