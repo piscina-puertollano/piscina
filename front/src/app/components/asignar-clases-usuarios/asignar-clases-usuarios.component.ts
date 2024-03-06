@@ -110,9 +110,7 @@ export class AsignarClasesUsuariosComponent implements OnInit {
       this.clasesFiltradas[index].hora_inicio = horaInicio.format('HH:mm');
     }
 
-    for (const clase of this.clasesFiltradas) {
-      console.log(clase.nombre);
-    }
+    
   }
 
   cerrarModalCrear() {
@@ -132,7 +130,7 @@ export class AsignarClasesUsuariosComponent implements OnInit {
         }
       },
       error: (err) => {
-        console.log(err);
+//        console.log(err);
       },
     });
   }
@@ -149,7 +147,7 @@ export class AsignarClasesUsuariosComponent implements OnInit {
         }
       },
       error: (err) => {
-        console.log(err);
+       // console.log(err);
       },
     });
   }
@@ -186,7 +184,7 @@ export class AsignarClasesUsuariosComponent implements OnInit {
         }
       },
       error: (err) => {
-        console.log(err);
+      //  console.log(err);
       },
     });
   }
@@ -199,7 +197,7 @@ export class AsignarClasesUsuariosComponent implements OnInit {
         location.reload();
       },
       error: (err) => {
-        console.log(err);
+        //console.log(err);
         this.alert.show = true;
         this.alert.header = 'Error';
         this.alert.message =
@@ -230,7 +228,7 @@ export class AsignarClasesUsuariosComponent implements OnInit {
         }
       },
       error: (err) => {
-        console.log(err);
+        //console.log(err);
         this.alert.show = true;
         this.alert.header = 'Error';
         this.alert.message = 'Ha ocurrido un error al realizar la asignacion.';
@@ -263,7 +261,7 @@ export class AsignarClasesUsuariosComponent implements OnInit {
         }
       },
       error: (err) => {
-        console.log(err);
+//        console.log(err);
         this.alert.show = true;
         this.alert.header = 'Error';
         this.alert.message = 'Ha ocurrido un error al realizar la asignacion.';
