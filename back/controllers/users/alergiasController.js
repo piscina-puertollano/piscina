@@ -65,7 +65,7 @@ const createAlergia = async (req, res) => {
 
 const updateAlergia = async (req, res) => {
   try {
-    let resComment = await conx.updateAlergia(req.params.id_new);
+    let resComment = await conx.updateAlergia(req.params.id);
     if (resComment != 0) {
       res.status(200).json(resComment);
     } else {
@@ -93,25 +93,26 @@ const destroyAlergia = async (req, res) => {
   const saveOrUpdateAlergiasOfUser = async (req, res) => {
     try {
       let alergias = req.body.alergias
-      let user = req.body.userId
-
+      let user = req.body.id_user
+      
       let oldAlergias = await conx.deleteAlergiasOfUser(user);
       
       if(oldAlergias){
         let saveAlergias = 0
 
         alergias.forEach(async element => {
-          saveAlergias = await conx.saveAlergiaOfUser(element);
+          saveAlergias = await conx.saveAlergiaOfUser(user, element.id);
         });
 
-        if (resComment != 0) {
-          res.status(200).json(resComment);
+        if (saveAlergias != 0) {
+          res.status(200).json(saveAlergias);
         } else {
           res.status(400).json({ msg: "No se ha podido crear la alergia" });
         }
       }
     } catch (err) {
-      res.status(400).json({ error: err });
+      console.log(err)
+      res.status(400).json({ error: err.message });
     }
   };
 

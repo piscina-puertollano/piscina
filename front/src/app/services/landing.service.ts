@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Asset, Club } from '../interfaces/landing';
+import { Asset, Club, Contact } from '../interfaces/landing';
 import { Observable, catchError, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment.development';
@@ -19,6 +19,8 @@ export class LandingService {
   urlUpdateClub =  environment.baseUrl+environment.indexClub+'/'
   urlIndex = environment.baseUrl+environment.updateclub
   urlContact = environment.baseUrl+environment.indexContact
+
+  urlShowContact = environment.baseUrl + environment.showContact
   
   index(): Observable<Club | undefined> {
     return this.http.get<Club>(this.urlIndex,{withCredentials:false}).pipe(
@@ -52,8 +54,40 @@ export class LandingService {
     )
   }
 
-  getContact(): Observable<Club | undefined> {
-    return this.http.get<Club>(this.urlIndex, {withCredentials:false}).pipe(
+  getContact(): Observable<Array<Contact> | undefined> {
+    return this.http.get<Contact>(this.urlShowContact, {withCredentials:false}).pipe(
+      catchError((error) =>{
+        return of(error)
+      })
+    )
+  }
+
+  showContact(id:number): Observable<Contact | undefined> {
+    return this.http.get<Contact>(this.urlContact+'/'+id, {withCredentials:false}).pipe(
+      catchError((error) =>{
+        return of(error)
+      })
+    )
+  }
+
+  createContact(contact:Contact): Observable<Contact | undefined> {
+    return this.http.post<Contact>(this.urlContact, contact, {withCredentials:true}).pipe(
+      catchError((error) =>{
+        return of(error)
+      })
+    )
+  }
+
+  updateContact(contact:Contact): Observable<Contact | undefined> {
+    return this.http.put<Contact>(this.urlContact+'/'+contact._id, contact, {withCredentials:true}).pipe(
+      catchError((error) =>{
+        return of(error)
+      })
+    )
+  }
+
+  deleteContact(id:number): Observable<Contact | undefined> {
+    return this.http.delete<Contact>(this.urlContact+'/'+id, {withCredentials:true}).pipe(
       catchError((error) =>{
         return of(error)
       })

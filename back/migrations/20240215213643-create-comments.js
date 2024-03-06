@@ -20,7 +20,9 @@ module.exports = {
         type: Sequelize.INTEGER,
         references:{
           model: {
-            tableName: process.env.TABLE_NEWS
+            tableName: process.env.TABLE_NEWS,
+            onDelete: "cascade"
+
           },
           key: 'id'
         }

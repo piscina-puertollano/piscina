@@ -11,7 +11,8 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        onDelete: 'cascade'
       },
       title: {
         type: Sequelize.STRING
@@ -37,6 +38,9 @@ module.exports = {
           key: 'id'
         }
       },
+      summary:{
+        type: Sequelize.TEXT,
+      },
       share_counter:{
         type: Sequelize.INTEGER,
         defaultValue: 0,
@@ -51,10 +55,6 @@ module.exports = {
         defaultValue: 0,
       },
       dislikes_counter:{
-        type: Sequelize.INTEGER,
-        defaultValue: 0,
-      },
-      views_counter:{
         type: Sequelize.INTEGER,
         defaultValue: 0,
       },

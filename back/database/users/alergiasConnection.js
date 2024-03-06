@@ -115,7 +115,7 @@ class AlergiasModel {
       conexion.conectar();
       resultado = await models.user_alergias.findAll({
         where: {
-          user_id: id,
+          id_user: id,
         },
       });
       conexion.desconectar();
@@ -132,23 +132,24 @@ class AlergiasModel {
   saveAlergiaOfUser = async (userId, alergiaId) =>{
     let resultado = [];
     try{
-
+        console.log(userId, alergiaId)
         conexion.conectar();
         resultado = await models.user_alergias.create(
             {
-                user_id: userId,
-                alergia_id: alergiaId
+                id_user: userId,
+                id_alergia: alergiaId
             }
         );
 
         conexion.desconectar();
-        if (!resultado) {
-          throw new Error("No se ha encontrado la alergia");
-        }
-        return resultado;
-
     }catch(error){
+      console.log(error)
         throw error;
+    }finally{
+      if (!resultado) {
+        throw new Error("No se ha encontrado la alergia");
+      }
+      return resultado;
     }
 
   }
@@ -157,19 +158,17 @@ class AlergiasModel {
     let resultado = [];
     try{
         conexion.conectar();
-        resultado = await models.user_alergias.destroy({
+        resultado = await models.user_alergias.findAll({
             where: {
-              user_id: userId,
+              id_user: userId,
             },
           });
 
         conexion.desconectar();
-        if (!resultado) {
-          throw new Error("No se ha encontrado la alergia");
-        }
         return resultado;
 
     }catch(error){
+      console.log(error)
         throw error;
     }
   }

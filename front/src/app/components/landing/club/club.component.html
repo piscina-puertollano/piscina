@@ -14,11 +14,7 @@
         @if(club.tag=='structure'){
             <section id="structure">
                 <h3>Estructura organizativa:</h3>
-                @for(objEstructura of club?.estructura; track objEstructura){
-                    @for(estructura of [objEstructura]; track estructura){
-                        <li> {{estructura.puesto}}: {{estructura.nombre}}</li>
-                    }
-                }
+                <div [innerHTML]="club?.estructura"></div>
             </section>
         }
 
@@ -26,7 +22,7 @@
             <div class="galeria">
                 @for(image of images; track image){
                 <div class="foto-actual">
-                        <img src="{{image.image}}" alt="" srcset="">
+                    <p-image src="{{image.image}}" alt="Image" height="250px" [preview]="true"></p-image>
                     </div>
                 }
             </div>

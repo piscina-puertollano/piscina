@@ -27,6 +27,6 @@ router.delete('/alergia/:id',[checkToken, tokenCanTutorOrSocio], controlador.des
 
 //----------------Alergias_user----------------------------
 
-router.post('alergia-user', [checkToken, tokenCanTutorOrSocio], controlador.saveOrUpdateAlergiasOfUser)
+router.post('/alergia-user', [checkToken, tokenCanTutorOrSocio], controlador.saveOrUpdateAlergiasOfUser)
 
 module.exports = router;

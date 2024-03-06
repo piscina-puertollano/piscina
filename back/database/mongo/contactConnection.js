@@ -12,7 +12,7 @@ class ContactConnection{
     allContact = async ()=>{
         let resClub = 0
         try{
-            resClub = await contactModel.find();
+            resClub = await contactModel.find({});
 
         }catch(error){
             throw new Error(error)
@@ -21,10 +21,22 @@ class ContactConnection{
         }
     }
 
-    showByTag = async (tag)=>{
+    createNewConctact = async (body)=>{
         let resClub = 0
         try{
-            resClub = await contactModel.findOne( { tag: tag });
+            resClub = await contactModel.create(body);
+
+        }catch(error){
+            throw new Error(error)
+        }finally{
+            return resClub
+        }
+    }
+
+    showById = async (contactId)=>{
+        let resClub = 0
+        try{
+            resClub = await contactModel.findById(contactId);
         }catch(error){
             throw new Error(error)
         }finally{

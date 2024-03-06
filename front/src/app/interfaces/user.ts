@@ -18,6 +18,7 @@ export interface User {
     roles?:     Role[];
     image?:     Image | null;
     puntuacionesUsuario?: Puntuacion[];
+    photo_profile?:  number;
 
 }
 

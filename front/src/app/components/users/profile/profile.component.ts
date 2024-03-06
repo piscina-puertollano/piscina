@@ -12,6 +12,7 @@ import { environment } from '../../../../environments/environment.development';
 import { Files } from '../../../interfaces/upload';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { FileUploadModule } from 'primeng/fileupload';
 
 /**
  * @author: badr
@@ -26,6 +27,7 @@ import { ToastModule } from 'primeng/toast';
     ButtonModule,
     InputTextModule,
     ToastModule,
+    FileUploadModule
   ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css',
@@ -34,6 +36,8 @@ import { ToastModule } from 'primeng/toast';
 export class ProfileComponent implements OnInit {
   user?: User;
   image?: any;
+  idPhoto?: any
+
 
   constructor(
     private authService: AuthService,
@@ -73,7 +77,32 @@ export class ProfileComponent implements OnInit {
       },
     });
   }
+
+  uploadFile(event: any){
+    console.log(event);
+    let file = event.files;
+
+    file.forEach((element: any) => {
+      const formData = new FormData();
+      formData.append('archivo', element);
+
+      this.fileService.saveImage(formData, environment.photo_profile_path).subscribe({
+        next: (res: any) => {
+          console.log(res)
+          this.image = URL.createObjectURL(element)
+          this.idPhoto = res.id;
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    });
+  }
+
   updateUser() {
+    if(this.idPhoto != null){
+      this.user!.photo_profile = this.idPhoto
+    }
     this.userService.updateUser(this.user!).subscribe({
       next: (user: User | undefined) => {
         console.log(user);

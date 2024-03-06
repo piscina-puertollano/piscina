@@ -1,1 +1,46 @@
-<h1>Contacto</h1>
+<div class="container">
+    <div class="contact-list">
+        @for(contact of arrContact; track contact.id){
+        <section>
+            <article>
+                <label for="">{{contact?.name}}</label>
+                <label for="">Email</label>
+                <span>{{contact?.email}}</span>
+                <label for="">Teléfono</label>
+                <span>{{contact?.tlf}}</span>
+            </article>
+        </section>
+        }
+    </div>
+    <div class="contact-form">
+        <section>
+            <article>
+                <h3>Formulario de contacto</h3>
+                <p>
+                    Con el siguiente formulario, puede comunicarse con nosotros fácilmente.
+                    <br>
+                    <br>
+                    Por favor, no dude en enviarnos un mensaje a través de este formulario. Estamos aquí para usted y
+                    estamos
+                    comprometidos a proporcionarle la información que necesita de la manera más eficiente posible.
+                </p>
+            </article>
+            <article>
+                @if(showAlert){
+                <p-messages [styleClass]="'alert'" [(value)]="message!" [enableService]="false"
+                    [closable]="false"></p-messages>
+                }
+                <label for="">Nombre</label>
+                <input type="text" pInputText [(ngModel)]="name" />
+                <label for="">Email</label>
+                <input type="text" pInputText [(ngModel)]="email" />
+                <label for="">Mensaje</label>
+                <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="sendMessage"></textarea>
+                <br>
+
+                <button pButton pRipple label="Enviar" class="p-button-success" [style]="'margin-top: 10px'"
+                    (click)="sendMail()"></button>
+            </article>
+        </section>
+    </div>
+</div>

@@ -27,7 +27,6 @@ export class LoginComponent {
   }
 
   onEnter(event:KeyboardEvent) {
-    console.log(event.key)
     if (event.key == "Enter") {
       this.login()
     }
@@ -59,7 +58,10 @@ export class LoginComponent {
         } else {
           localStorage.clear()
           localStorage.setItem('user', JSON.stringify(user));
-          this.router.navigateByUrl('/home')
+          this.router.navigate(['/home'])
+          setTimeout(() => {
+            window.location.reload();
+          }, 50);
         }
       },
       error: (err) => {

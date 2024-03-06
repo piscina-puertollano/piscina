@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const { userFactory } = require('../factories/userFactory');
 
 /** @type {import('sequelize-cli').Migration} */
 /**
@@ -95,6 +96,9 @@ module.exports = {
         updatedAt: new Date()
       },
     ], {});
+
+    let factoryUser = await userFactory(10)
+    await queryInterface.bulkInsert(process.env.TABLE_USERS, factoryUser, {});
   },
   async down (queryInterface, Sequelize) {
 

@@ -1,12 +1,63 @@
 <div class="container">
-    @for (newObj of arrNews; track $index) {
-        <div class="p-card" routerLink='/new/{{newObj.id}}'>
-            <h3>{{newObj.title}}</h3>
-            @for(image of images; track image){
-                @if(image.ruta == newObj.new_image.ruta){
-                    <img src="{{image.image}}" alt="{{image.alt}}">
-                }
+    <div class="news-section" >
+        <h1>Noticias</h1>
+            @for (newObj of arrNews; track $index) {
+                <div class="p-card" (click)="addAfinCategory(newObj.category)" routerLink='/new/{{newObj.id}}'>
+                    <h3>{{newObj.title}}</h3>
+                    
+                    @if(images != null){
+                        @for(image of images; track image){
+                            @if(image.ruta != null && image.ruta == newObj.new_image.ruta){
+                                <img src="{{image.image}}" alt="{{image.alt}}">
+                            }
+                        }
+                    }
+                </div>
             }
-        </div>
-    }
+    </div>
+
+    <div class="news-top">
+        @if(randNew){
+            <h3>Noticia destacada</h3>
+            <div class="randNew" (click)="addAfinCategory(randNew!.category)" routerLink='/new/{{randNew!.id}}'>
+                <div class="p-card">
+                    <h3 >{{randNew!.title}}</h3>
+
+                    @if(images != null){
+                        @for(image of images; track image){
+                            @if(image.ruta != null && (image.ruta == randNew.new_image.ruta)){
+                                <img src="{{image.image}}" alt="{{image.alt}}">
+                            }
+                        }
+                    }
+
+                </div>
+            </div>
+        }
+
+        @if(popularNew){
+            <h3>Última noticia</h3>
+            <div class="popularNew" (click)="addAfinCategory(popularNew!.category)" routerLink='/new/{{popularNew!.id}}'>
+                <div class="p-card">
+                    <h3 >{{popularNew!.title}}</h3>
+                    @if(images != null){
+                        @for(image of images; track image){
+                            <img src="{{image.image}}" alt="{{image.alt}}">
+                            @if(image.ruta != null && image.ruta == popularNew.new_image.ruta){
+                            }
+                        }
+                    }
+                </div>
+            </div>
+        }
+
+        @if(fastReed){
+            <h3>Lectura rápida</h3>
+            <div class="latestNew" (click)="addAfinCategory(fastReed!.category)" routerLink='/new/{{fastReed!.id}}'>
+                <div class="p-card">
+                    <h3 >{{fastReed!.title}}</h3>
+                </div>
+            </div>
+        }
+    </div>
 </div>
