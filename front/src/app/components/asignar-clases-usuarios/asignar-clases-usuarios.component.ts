@@ -99,7 +99,6 @@ export class AsignarClasesUsuariosComponent implements OnInit {
   }
 
   onDiaSeleccionado(event: any) {
-    console.log('Día seleccionado:', event.value);
     this.clasesFiltradas = this.arrClases.filter(
       (clase) => clase.nombre === event.value
     );
@@ -129,7 +128,6 @@ export class AsignarClasesUsuariosComponent implements OnInit {
           this.alert.message = 'No se han podido cargar a los usuarios.';
         } else {
           this.arrUsers = user;
-          console.log('Usuarios ', this.arrUsers);
           this.allClases();
         }
       },
@@ -185,7 +183,6 @@ export class AsignarClasesUsuariosComponent implements OnInit {
             };
             this.resultadoRelacion.push(relacion);
           }
-          console.log(this.resultadoRelacion);
         }
       },
       error: (err) => {
@@ -223,7 +220,6 @@ export class AsignarClasesUsuariosComponent implements OnInit {
 
     this.ClasehasusuarioService.agregarRelacion(nuevaRelacion).subscribe({
       next: (resultado: any) => {
-        console.log(resultado);
         if (resultado.status >= 400) {
           this.alert.show = true;
           this.alert.header = 'Error';
@@ -257,7 +253,6 @@ export class AsignarClasesUsuariosComponent implements OnInit {
     };
     this.ClasehasusuarioService.actualizarRelacion(this.editData.id, relacionActualizada).subscribe({
       next: (resultado: any) => {
-        console.log(resultado);
         if (resultado.status >= 400) {
           this.alert.show = true;
           this.alert.header = 'Error';
