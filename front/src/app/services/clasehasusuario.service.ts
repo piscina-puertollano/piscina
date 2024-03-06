@@ -38,7 +38,7 @@ export class ClasehasusuarioService {
   }
 
   agregarRelacion(nuevaClase: claseUsuario): Observable<claseUsuario> {
-    return this.http.post<claseUsuario>(this.urlRelacion, nuevaClase, {withCredentials: false}).pipe(
+    return this.http.post<claseUsuario>(this.urlRelacion, nuevaClase, {withCredentials: true}).pipe(
       catchError((error) => {
         console.error('Error al agregar la clase', error);
         return of(error);
