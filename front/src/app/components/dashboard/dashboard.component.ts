@@ -77,7 +77,7 @@ export class DashboardComponent implements OnInit {
     },
     {
       id_rol: environment.rol_admin,
-      image: environment.admin_card_image,
+      image: environment.gestion_eventos_image,
       title: 'Gestionar Eventos',
       content: 'Para gestionar eventos, categorias y no socios',
       link: '/event-management',
