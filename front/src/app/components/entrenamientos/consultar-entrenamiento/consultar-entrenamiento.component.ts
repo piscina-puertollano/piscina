@@ -62,4 +62,7 @@ export class ConsultarEntrenamientoComponent {
       }
     });
   }
+  recargar(){
+    this.router.navigate(['/training']);
+  }
 }
