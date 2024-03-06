@@ -5,8 +5,7 @@ import { Alert } from '../../../../interfaces/alert';
 import { FormsModule } from '@angular/forms';
 import { AlertComponent } from '../../../../utils/alert/alert.component';
 import { noSocioService } from '../../../../services/noSocio.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { DialogService } from 'primeng/dynamicdialog';
+import { Router } from '@angular/router';
 import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
@@ -71,7 +70,7 @@ export class InscribirNoSocioComponent implements OnInit {
         });
       },
       error: (err) => {
-        console.log(err);
+        //console.log(err);
       },
     });
     

@@ -1,12 +1,10 @@
 // Gonzalo Martinez Haro
 import { Component, OnInit } from '@angular/core';
-import { NgModule } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { Evento } from '../../../../interfaces/eventos';
 import { EventosService } from '../../../../services/evento.service';
 import { FormsModule } from '@angular/forms';
 import { AlertComponent } from '../../../../utils/alert/alert.component';
-import { DialogModule } from 'primeng/dialog';
 import { ToastModule } from 'primeng/toast';
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
@@ -86,7 +84,7 @@ export class FormularioInsertarComponent implements OnInit {
       next: (evento: any | undefined) => {
         
         this.evento = evento
-        console.log(this.evento)
+        //console.log(this.evento)
 
         this.messageService.add({
           severity: 'success',
@@ -96,7 +94,7 @@ export class FormularioInsertarComponent implements OnInit {
         
       },
       error: (err) => {
-        console.log(err);
+        //console.log(err);
       },
     });
     
@@ -109,12 +107,12 @@ export class FormularioInsertarComponent implements OnInit {
 
     this.categoriaService.getCategorias().subscribe({
       next: (categoria: any | undefined) => {
-        console.log(categoria)
+        //console.log(categoria)
           this.categorias = categoria
         
       },
       error: (err) => {
-        console.log(err);
+        //console.log(err);
       }
     })
 

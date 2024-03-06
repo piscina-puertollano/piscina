@@ -1,5 +1,5 @@
 // Gonzalo Martinez Haro
-import { Component, OnInit,ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Evento } from '../../../interfaces/eventos';
 import { Alert } from '../../../interfaces/alert';
 import { FormsModule } from '@angular/forms';
@@ -70,13 +70,13 @@ export class EventoComponent implements OnInit{
     this.eventosService.getEvento(id).subscribe({
       next: (evento: any | undefined) => {
         this.evento = evento[0]
-        console.log(this.evento)
+        //console.log(this.evento)
 
         let pdf: Files = {
           id: this.evento.pdf?.ruta,
           where: environment.events_path
         }
-        console.log(pdf)
+        //console.log(pdf)
         this.fileService.showImage(pdf).subscribe({
           next: (pdf: any | undefined) => {
     
@@ -87,7 +87,7 @@ export class EventoComponent implements OnInit{
 
       },
       error: (err) => {
-        console.log(err);
+        //console.log(err);
       },
     });
     
@@ -119,7 +119,7 @@ export class EventoComponent implements OnInit{
           });
           },
           error: (err) => {
-            console.log(err);
+            //console.log(err);
           },
         })
       }
@@ -129,8 +129,6 @@ export class EventoComponent implements OnInit{
 
   comprobarPrivado() {  
 
-    //realizar esta comprobación al cargar la pagina despues de comprobar si es socio, ó al pulsar el boton despues de verificar el tokken
-
     if(this.evento.privado == true){
 
       this.messageService.add({
@@ -138,8 +136,6 @@ export class EventoComponent implements OnInit{
         summary: 'Inscripcion Denegada',
         detail: 'Evento solo para socios',
       });
-
-      // ó desavilitar el boton en caso de comprobar al cargar la pagina
 
     }else{
 
@@ -164,7 +160,7 @@ export class EventoComponent implements OnInit{
         id: this.evento.pdf?.ruta,
         where: environment.events_path
       }
-      console.log(pdf)
+      //console.log(pdf)
       this.fileService.showImage(pdf).subscribe({
         next: (pdf: any | undefined) => {
 
@@ -178,7 +174,7 @@ export class EventoComponent implements OnInit{
     comprobarSocio(){
       
       const localStorage = document.defaultView?.localStorage;
-      console.log(localStorage)
+      //console.log(localStorage)
       if (localStorage) {
         const userJson = localStorage.getItem('user');
         if(userJson != null){
@@ -196,7 +192,7 @@ export class EventoComponent implements OnInit{
         }
         
       } else {
-        console.log('El localStorage no está disponible en el servidor.');
+        //console.log('El localStorage no está disponible en el servidor.');
       }
     }
 
@@ -228,7 +224,7 @@ export class EventoComponent implements OnInit{
 
           }
         }else{
-          console.log('user null')
+          //console.log('user null')
         }
     }
     

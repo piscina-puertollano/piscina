@@ -29,7 +29,7 @@ module.exports = {
      },
      {
       nombre: 'Competicion regional',
-      fecha: '30/05/2024/',
+      fecha: '30/05/2024',
       sede: 'Puertollano',
       idCategoria: 1,
       visible: false,
@@ -51,7 +51,7 @@ module.exports = {
    },
    {
     nombre: 'Competicion provincial',
-    fecha: '30/06/2024/',
+    fecha: '30/06/2024',
     sede: 'Ciudad Real',
     idCategoria: 1,
     visible: true,

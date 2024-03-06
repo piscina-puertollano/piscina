@@ -40,7 +40,7 @@ class eventoNoSocioConnection{
             idNoSocio: idNoSocio,
             idEvento: idEvento
         };
-        console.log(ids)
+        //console.log(ids)
         conx.conectar
         try {
 
@@ -55,7 +55,7 @@ class eventoNoSocioConnection{
             
             let nuevoNoSocio = await models.EventoNoSocio.create(ids)
             
-            console.log(ids)
+            //console.log(ids)
             return ids
         } catch (error) {
             return error
@@ -71,11 +71,11 @@ class eventoNoSocioConnection{
         resultado = await models.EventoNoSocio.findByPk(id)
             
         if (!resultado){
-            console.log(id);
+            //console.log(id);
             conx.desconectar();
             throw error;
         }
-        console.log(resultado);
+        //console.log(resultado);
         await resultado.update(body);
         conx.desconectar();
 

@@ -161,7 +161,7 @@ class eventoConnection{
         resultado = await models.Evento.findByPk(id)
         
         if (!resultado){
-            console.log(id);
+            //console.log(id);
             conx.desconectar();
             throw error;
         }

@@ -29,7 +29,6 @@ export class EventosService {
       }
 
       getEventosVisibles(): Observable<Array<Evento> | undefined> {
-        console.log('asdf')
         return this.http.get<Evento>(this.urlGetsEventosVisibles).pipe(
           catchError((error) =>{
             return of(error)

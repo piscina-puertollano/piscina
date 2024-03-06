@@ -66,7 +66,7 @@ class noSocioConnection{
         resultado = await models.NoSocio.findByPk(id)
             
         if (!resultado){
-            console.log(id);
+            //console.log(id);
             conx.desconectar
             throw error;
         }
@@ -82,7 +82,7 @@ class noSocioConnection{
         resultado = await models.NoSocio.findByPk(id)
 
         if (!resultado){
-            console.log(id);
+            //console.log(id);
             conx.desconectar
             throw error;
         }

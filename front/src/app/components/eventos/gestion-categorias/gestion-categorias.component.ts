@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { Alert } from '../../../interfaces/alert';
 import { AlertComponent } from '../../../utils/alert/alert.component';
 import { FormsModule } from '@angular/forms';
-import { Table, TableModule } from 'primeng/table';
+import { TableModule } from 'primeng/table';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { TooltipModule } from 'primeng/tooltip';
 import { CurrencyPipe, DatePipe } from '@angular/common';
@@ -16,7 +16,7 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogModule } from 'primeng/dialog';
 import { DialogComponent } from '../../../utils/dialog/dialog.component';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DialogService } from 'primeng/dynamicdialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormularioInsertarCategoriaComponent } from '../modals/formulario-insertar-categoria/formulario-insertar-categoria.component';
 import { ModalBorradoComponent } from '../modals/modal-borrado/modal-borrado.component';
@@ -78,13 +78,13 @@ export class GestionCategoriasComponent implements OnInit{
 
     this.categoriaService.getCategorias().subscribe({
       next: (categoria: any | undefined) => {
-        console.log(categoria)
+        //console.log(categoria)
         
           this.categorias = categoria
         
       },
       error: (err) => {
-        console.log(err);
+        //console.log(err);
       }
     })
   }
@@ -93,10 +93,10 @@ export class GestionCategoriasComponent implements OnInit{
     this.categoriaService.getCategoria(id).subscribe({
       next: (categoria: any | undefined) => {
         this.categoria = categoria
-        console.log(categoria)
+        //console.log(categoria)
       },
       error: (err) => {
-        console.log(err);
+        //console.log(err);
       },
     });
   }
@@ -104,11 +104,11 @@ export class GestionCategoriasComponent implements OnInit{
   insertCategoria() {
     this.categoriaService.insertCategoria(this.categoria).subscribe({
       next: (categoria: any | undefined) => {
-        console.log(categoria)
+        //console.log(categoria)
         this.categoria = categoria
       },
       error: (err) => {
-        console.log(err);
+        //console.log(err);
       },
     });
     window.location.reload();
@@ -117,11 +117,11 @@ export class GestionCategoriasComponent implements OnInit{
   updateCategoria() {
     this.categoriaService.updateCategoria(this.categoria).subscribe({
       next: (categoria: any | undefined) => {
-        console.log(categoria)
+        //console.log(categoria)
         this.categoria = categoria
       },
       error: (err) => {
-        console.log(err);
+        //console.log(err);
       },
     });
     window.location.reload();

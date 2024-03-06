@@ -1,4 +1,4 @@
-//Gonzalo M artinez Haro
+//Gonzalo Martinez Haro
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AlertComponent } from '../../../../utils/alert/alert.component';
@@ -67,7 +67,7 @@ export class ModalBorradoComponent implements OnInit{
 
     this.eventosService.deleteEvento(this.id).subscribe({
       next: (evento: any | undefined) => {
-        console.log(evento)
+        //console.log(evento)
 
         this.messageService.add({
           severity: 'success',
@@ -77,7 +77,7 @@ export class ModalBorradoComponent implements OnInit{
        
       },
       error: (err) => {
-        console.log(err);
+        //console.log(err);
       },
     });
     setTimeout(() => window.location.reload(), 2000);
@@ -88,7 +88,7 @@ export class ModalBorradoComponent implements OnInit{
    
     this.categoriaService.deleteCategoria(this.id).subscribe({
       next: (categoria: any | undefined) => {
-        console.log(categoria)
+        //console.log(categoria)
         this.messageService.add({
           severity: 'success',
           summary: 'Operación completada',
@@ -96,7 +96,7 @@ export class ModalBorradoComponent implements OnInit{
         });
       },
       error: (err) => {
-        console.log(err);
+        //console.log(err);
       },
     });
     setTimeout(() => window.location.reload(), 2000);
@@ -107,11 +107,15 @@ export class ModalBorradoComponent implements OnInit{
    
     this.noSocioService.deleteNoSocio(this.id).subscribe({
       next: (noSocio: any | undefined) => {
-        console.log(noSocio)
-       
+        //console.log(noSocio)
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Operación completada',
+          detail: 'No Socio eliminada',
+        });
       },
       error: (err) => {
-        console.log(err);
+        //console.log(err);
       },
     });
     setTimeout(() => window.location.reload(), 2000);

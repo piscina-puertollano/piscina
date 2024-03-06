@@ -1,4 +1,4 @@
-//Gonzalo M artinez Haro
+//Gonzalo Martinez Haro
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
@@ -14,7 +14,6 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { EventosService } from '../../../../services/evento.service';
 import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { UserService } from '../../../../services/user.service';
-import { EventoUsuario } from '../../../../interfaces/eventoUsuario';
 import { EventoUsuarioService } from '../../../../services/eventoUsuario.service';
 import { Participante } from '../../../../interfaces/participante';
 import { noSocioService } from '../../../../services/noSocio.service';
@@ -83,7 +82,7 @@ export class MostarParticipantesComponent implements OnInit {
 
         for(let i=0; i< this.listaUsuarios.length;i++){
 
-          console.log('entra')
+          //console.log('entra')
           
             this.participante.nombre = this.listaUsuarios[i].firstName
             this.participante.apellidos = this.listaUsuarios[i].lastName
@@ -92,10 +91,10 @@ export class MostarParticipantesComponent implements OnInit {
     
             this.participantes.push(this.participante)
             this.participante = {}
-            console.log(this.participante)
+            //console.log(this.participante)
 
         }
-        console.log(this.participantes)
+        //console.log(this.participantes)
       }
       
     })
@@ -107,11 +106,11 @@ export class MostarParticipantesComponent implements OnInit {
     this.noSocioService.getNoSociosConIdEvento(id).subscribe({
       next: (noSocios: any | undefined) => {
         this.listaNoSocios = noSocios
-        console.log(this.listaNoSocios)
+        //console.log(this.listaNoSocios)
         
         for(let i=0; i< this.listaNoSocios.length;i++){
 
-          console.log('entra')
+          //console.log('entra')
           
             this.participante.nombre = this.listaNoSocios[i].nombre
             this.participante.apellidos = this.listaNoSocios[i].apellidos
@@ -120,10 +119,10 @@ export class MostarParticipantesComponent implements OnInit {
     
             this.participantes.push(this.participante)
             this.participante = {}
-            console.log(this.participante)
+            //console.log(this.participante)
 
         }
-        console.log(this.participantes)
+        //console.log(this.participantes)
       }
       
     })

@@ -1,6 +1,6 @@
 // Gonzalo Martinez Haro
 import { Component, OnInit } from '@angular/core';
-import { Table, TableModule } from 'primeng/table';
+import { TableModule } from 'primeng/table';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { MessageService } from 'primeng/api';
 import { TooltipModule } from 'primeng/tooltip';
@@ -14,10 +14,6 @@ import { DialogModule } from 'primeng/dialog';
 import { DialogComponent } from '../../../utils/dialog/dialog.component';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { InputTextModule } from 'primeng/inputtext';
-import { firstValueFrom } from 'rxjs';
-import { Files } from '../../../interfaces/upload';
-import { FileService } from '../../../services/file.service';
-import { environment } from '../../../../environments/environment.development';
 import { FormularioInsertarComponent } from '../modals/formulario-insertar-evento/formulario-insertar.component';
 import { FormularioModificarEventoComponent } from '../modals/formulario-modificar-evento/formulario-modificar-evento.component';
 import { Evento } from '../../../interfaces/eventos';
@@ -88,7 +84,7 @@ export class GestionEventosComponent implements OnInit{
         
       },
       error: (err) => {
-        console.log(err);
+        //console.log(err);
       },
     });
   }
@@ -97,7 +93,7 @@ export class GestionEventosComponent implements OnInit{
     this.eventosService.getEvento(id).subscribe({
       next: (evento: any | undefined) => {
         this.evento = evento;
-        console.log(evento);
+        //console.log(evento);
         this.evento = evento;
 
         this.ref = this.dialogService.open(FormularioModificarEventoComponent, { 
@@ -113,7 +109,7 @@ export class GestionEventosComponent implements OnInit{
       });
       },
       error: (err) => {
-        console.log(err);
+        //console.log(err);
       },
     });
   }

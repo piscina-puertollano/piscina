@@ -1,6 +1,5 @@
-//Gonzalo M artinez Haro
+//Gonzalo Martinez Haro
 import { Component, OnInit } from '@angular/core';
-import { NgModule } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { Evento } from '../../../../interfaces/eventos';
 import { EventosService } from '../../../../services/evento.service';
@@ -72,7 +71,7 @@ export class FormularioModificarEventoComponent implements OnInit {
   }
   
   updateEvento() {
-    console.log(this.evento)
+    //console.log(this.evento)
     if(this.evento.nombre == '' || this.evento.fecha == '' || this.evento.categoria == null || this.evento.sede == ''){
 
       this.messageService.add({
@@ -85,7 +84,7 @@ export class FormularioModificarEventoComponent implements OnInit {
     this.evento.fecha = this.formatearFecha(this.evento.fecha)    
     this.eventosService.updateEvento(this.evento).subscribe({
       next: (evento: any | undefined) => {
-        console.log(evento)
+        //console.log(evento)
         this.evento = evento
 
         this.messageService.add({
@@ -96,10 +95,10 @@ export class FormularioModificarEventoComponent implements OnInit {
         
       },
       error: (err) => {
-        console.log(err);
+        //console.log(err);
       },
     });
-    //setTimeout(() => window.location.reload(), 1500);
+    setTimeout(() => window.location.reload(), 1500);
   }
   }
 
@@ -107,13 +106,13 @@ export class FormularioModificarEventoComponent implements OnInit {
 
     this.categoriaService.getCategorias().subscribe({
       next: (categoria: any | undefined) => {
-        console.log(categoria)
+        //console.log(categoria)
        
           this.categorias = categoria
         
       },
       error: (err) => {
-        console.log(err);
+        //console.log(err);
       }
     })
   }
@@ -148,14 +147,14 @@ export class FormularioModificarEventoComponent implements OnInit {
   
       this.fileService.savePdf(formData, 'events').subscribe({
         next: (response) => {
-          console.log('PDF cargado con éxito', response);
+          //console.log('PDF cargado con éxito', response);
           
           const pdf = {
             ruta: response.ruta,
           }
         
           this.evento.pdf = pdf; 
-          console.log(this.evento)
+          //console.log(this.evento)
          this.evento.resultado = response.id
           
         },
@@ -167,7 +166,7 @@ export class FormularioModificarEventoComponent implements OnInit {
   borrarPdf(){
 
     this.evento.resultado = null;
-    console.log(this.evento)
+    //console.log(this.evento)
   }
 
 }

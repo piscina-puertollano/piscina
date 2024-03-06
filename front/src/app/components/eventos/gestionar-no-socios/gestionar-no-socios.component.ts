@@ -5,7 +5,7 @@ import { noSocioService } from '../../../services/noSocio.service';
 import { Alert } from '../../../interfaces/alert';
 import { AlertComponent } from '../../../utils/alert/alert.component';
 import { FormsModule } from '@angular/forms';
-import { Table, TableModule } from 'primeng/table';
+import { TableModule } from 'primeng/table';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { MessageService } from 'primeng/api';
 import { TooltipModule } from 'primeng/tooltip';
@@ -72,18 +72,14 @@ export class GestionarNoSociosComponent implements OnInit{
   }
 
   getNoSocios() {
-
-    
+  
     this.noSocioService.getNoSocios().subscribe({
       next: (noSocio: any | undefined) => {
-        
-        
           this.noSocios = noSocio
-          console.log(this.noSocios)
-        
+          //console.log(this.noSocios)
       },
       error: (err) => {
-        console.log(err);
+        //console.log(err);
       },
     })
   }
@@ -96,7 +92,7 @@ export class GestionarNoSociosComponent implements OnInit{
         this.noSocio = noSocio
       },
       error: (err) => {
-        console.log(err);
+        //console.log(err);
       }
     })
   }
@@ -108,7 +104,7 @@ export class GestionarNoSociosComponent implements OnInit{
         this.noSocio = noSocio
       },
       error: (err) => {
-        console.log(err);
+        //console.log(err);
       }
     })
     window.location.reload();
@@ -118,7 +114,7 @@ export class GestionarNoSociosComponent implements OnInit{
     this.alert.show = false;
     this.noSocioService.deleteNoSocio(id).subscribe({
       next: (noSocio: any | undefined) => {
-        console.log(noSocio)
+        //console.log(noSocio)
 
         this.messageService.add({
           severity: 'success',
@@ -127,7 +123,7 @@ export class GestionarNoSociosComponent implements OnInit{
         });
       },
       error: (err) => {
-        console.log(err);
+        //console.log(err);
       },
     });
     setTimeout(() => window.location.reload(), 2000);
@@ -145,7 +141,7 @@ export class GestionarNoSociosComponent implements OnInit{
       },
       data:{
         id : id,
-        tipo: 'categoria'
+        tipo: 'noSocio'
       }
     });
   }

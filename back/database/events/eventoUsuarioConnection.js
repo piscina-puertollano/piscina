@@ -53,7 +53,7 @@ class eventoUsuarioConnection{
 
 
 
-            console.log(body)
+            //console.log(body)
             resultado = await models.EventoUsuario.create(body)
         } catch (error) {
             throw error
@@ -70,11 +70,11 @@ class eventoUsuarioConnection{
         resultado = await models.EventoUsuario.findByPk(id)
             
         if (!resultado){
-            console.log(id);
+            //console.log(id);
             conx.desconectar();
             throw error;
         }
-        console.log(resultado);
+        //console.log(resultado);
         await resultado.update(body);
         conx.desconectar();
 

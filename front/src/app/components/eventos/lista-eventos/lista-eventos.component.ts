@@ -38,7 +38,7 @@ export class ListaEventosComponent implements OnInit{
   getEventos() {
     this.eventosService.getEventos().subscribe({
       next: (evento: any | undefined) => {
-        console.log(evento)
+        //console.log(evento)
         if (evento.status >= 400) {
           this.alert.show = true;
           this.alert.header = 'Error';
@@ -49,7 +49,7 @@ export class ListaEventosComponent implements OnInit{
         }
       },
       error: (err) => {
-        console.log(err);
+        //console.log(err);
       },
     });
   }
@@ -57,7 +57,7 @@ export class ListaEventosComponent implements OnInit{
   getEventosVisibles() {
     this.eventosService.getEventosVisibles().subscribe({
       next: (evento: any | undefined) => {
-        console.log(evento)
+        //console.log(evento)
         if (evento.status >= 400) {
           this.alert.show = true;
           this.alert.header = 'Error';
@@ -68,7 +68,7 @@ export class ListaEventosComponent implements OnInit{
         }
       },
       error: (err) => {
-        console.log(err);
+        //console.log(err);
       },
     });
   }
@@ -76,7 +76,7 @@ export class ListaEventosComponent implements OnInit{
   comprobarSocio(){
       
     const localStorage = document.defaultView?.localStorage;
-    console.log(localStorage)
+    //console.log(localStorage)
     if (localStorage) {
       
         const userJson = localStorage.getItem('user');
@@ -94,7 +94,7 @@ export class ListaEventosComponent implements OnInit{
             }
         
     } else {
-      console.log('El localStorage no está disponible en el servidor.');
+      //console.log('El localStorage no está disponible en el servidor.');
     }
   }
   
