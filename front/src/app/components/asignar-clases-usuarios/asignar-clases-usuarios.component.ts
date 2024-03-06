@@ -20,8 +20,6 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { DialogModule } from 'primeng/dialog';
 import { ToastModule } from 'primeng/toast';
 import { DropdownModule } from 'primeng/dropdown';
-import { CategoriaClasesService } from '../../services/categoria-clases.service';
-import { CategoriaClases } from '../../interfaces/categoriaClases';
 import { UserService } from '../../services/user.service';
 import { asignacionClasesUsuario } from '../../interfaces/asignacionClases';
 @Component({
