@@ -1,41 +1,50 @@
+<!-- Manuel Garcia -->
 <div class="card">
   <h1 id="title" class="m-0">Asignación de clases - nadadores</h1>
 </div>
 
 <p-table
- [value]="resultadoRelacion"
- #dt
- [paginator]="true"
- [rows]="10"
- [globalFilterFields]="['nombre_clase', 'nombre_usuario']"
- [tableStyle]="{ 'min-width': '75rem' }"
- [rowHover]="true"
- dataKey="id"
- currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
- [showCurrentPageReport]="true"
+  [value]="resultadoRelacion"
+  #dt
+  [paginator]="true"
+  [rows]="10"
+  [globalFilterFields]="['nombre_clase', 'nombre_usuario']"
+  [tableStyle]="{ 'min-width': '75rem' }"
+  [rowHover]="true"
+  dataKey="id"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+  [showCurrentPageReport]="true"
 >
-
-<ng-template pTemplate="caption">
-  <div class="flex align-items-center justify-content-between">
-    <span class="p-input-icon-left">
-      <i class="pi pi-search"></i>
-      <input
-        [(ngModel)]="searchValue"
-        pInputText
-        type="text"
-        (input)="dt.filterGlobal(searchValue, 'contains')"
-        placeholder="Buscar..."
-      />
-    </span>
-    <button
+  <ng-template pTemplate="caption">
+    <div class="flex align-items-center justify-content-between">
+      <span class="p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input
+          [(ngModel)]="searchValue"
+          pInputText
+          type="text"
+          (input)="dt.filterGlobal(searchValue, 'contains')"
+          placeholder="Buscar..."
+        />
+      </span>
+      <button
         pButton
         pRipple
         icon="pi pi-user"
         class="p-button-rounded"
         (click)="abrirModalCrear()"
+        label="Asignar nueva clase"
       ></button>
-  </div>
-</ng-template>
+      <button
+            pButton
+            pRipple
+            icon="pi pi-home"
+            class="p-button-rounded"
+            routerLink="/class"
+            label="Volver"
+          ></button>
+    </div>
+  </ng-template>
 
   <ng-template pTemplate="header">
     <tr>
@@ -47,6 +56,7 @@
 
   <ng-template pTemplate="body" let-claseUsuario>
     <tr>
+      <td style="visibility: collapse; display: none">{{ claseUsuario.id }}</td>
       <td>{{ claseUsuario.nombre_usuario }}</td>
       <td>{{ claseUsuario.nombre_clase }}</td>
       <td>
@@ -55,7 +65,9 @@
           pRipple
           icon="pi pi-pencil"
           class="p-button-rounded p-button-success m-2"
+          (click)="openEditModal(claseUsuario)"
         ></button>
+
         <button
           pButton
           pRipple
@@ -76,5 +88,110 @@
 </p-table>
 
 <!-- Modal insertar -->
+<p-dialog
+  header="Crear nueva clase"
+  [(visible)]="displayDialogCrear"
+  [style]="{ width: '25vw', height: '65vh' }"
+  [modal]="true"
+  [closable]="false"
+>
+  <div class="form-container">
+    <output>Nadador: </output>
+    <br />
+    <p-dropdown
+      [options]="arrUsers"
+      [(ngModel)]="selectedUser"
+      optionLabel="firstName"
+      optionValue="id"
+      [showClear]="true"
+      placeholder="Alumno"
+    ></p-dropdown>
+    <br />
+    <br />
+    <output>Día: </output>
+    <br />
+    <p-dropdown
+      [options]="diasSemana"
+      [(ngModel)]="selectedDia"
+      optionLabel="label"
+      optionValue="value"
+      [showClear]="true"
+      placeholder="Selecciona un día"
+      (onChange)="onDiaSeleccionado($event)"
+    ></p-dropdown>
+    <br />
+    <br />
 
- 
+    <output>Hora Inicio</output>
+    <br />
+    <p-dropdown
+      [options]="clasesFiltradas"
+      [(ngModel)]="selectedClase"
+      optionLabel="hora_inicio"
+      optionValue="id"
+      [showClear]="true"
+      placeholder="Horario"
+    ></p-dropdown>
+    <br />
+    <br />
+
+    <p-button (click)="agregarRelacion()" label="Asignar clase"></p-button>
+    <p-button (click)="displayDialogCrear = false" label="Cancelar"></p-button>
+  </div>
+</p-dialog>
+
+<!-- Modal para modificar -->
+
+<p-dialog
+  header="Editar Clase"
+  [(visible)]="displayDialogEditar"
+  [style]="{ width: '30vw', heigth: '20vw' }"
+  [modal]="true"
+  [closable]="false"
+>
+  <div class="form-container">
+    <output>Nadador: </output>
+    <br />
+    <p-dropdown
+      [options]="arrUsers"
+      [(ngModel)]="editData.user"
+      optionLabel="firstName"
+      optionValue="id"
+      [showClear]="true"
+      placeholder="Alumno"
+      [disabled]="true"
+    ></p-dropdown>
+    <br />
+    <br />
+
+    <output>Día: </output>
+    <br />
+    <p-dropdown
+      [options]="diasSemana"
+      [(ngModel)]="editData.dia"
+      optionLabel="label"
+      optionValue="value"
+      [showClear]="true"
+      placeholder="Selecciona un día"
+      (onChange)="onDiaSeleccionado($event)"
+      [disabled]="false"
+    ></p-dropdown>
+    <br /><br />
+
+    <output>Hora Inicio</output>
+    <br />
+    <p-dropdown
+      [options]="clasesFiltradas"
+      [(ngModel)]="editData.clase"
+      optionLabel="hora_inicio"
+      optionValue="id"
+      [showClear]="true"
+      placeholder="Horario"
+      [disabled]="false"
+    ></p-dropdown>
+    <br /><br />
+
+    <p-button (click)="actualizarRelacion()" label="Actualizar Clase"></p-button>
+    <p-button (click)="displayDialogEditar = false" label="Cancelar"></p-button>
+  </div>
+</p-dialog>

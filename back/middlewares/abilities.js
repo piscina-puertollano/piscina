@@ -128,7 +128,8 @@ const tokenCanTrainer = (req, res, next) => {
   let i = 0;
   let check = true;
   while (i < roles.length && check) {
-    if (roles[i] == process.env.ID_ROL_TRAINER) {
+    if (roles[i] == process.env.ID_ROL_TRAINER || 
+      roles[i] == process.env.ID_ROL_ADMIN) {
       check = false;
     }
     i++;
