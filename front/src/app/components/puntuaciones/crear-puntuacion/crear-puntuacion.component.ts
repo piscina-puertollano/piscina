@@ -2,13 +2,12 @@
  * @author Marina Laguna
  */
 import { Component, Input } from '@angular/core';
-import { Puntuacion } from '../../../interfaces/puntuacion';
-import { DynamicDialogConfig, DynamicDialogModule, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { PuntuacionService } from '../../../services/puntuacion.service';
-import { MessageService } from 'primeng/api';
-import { DialogComponent } from '../../../utils/dialog/dialog.component';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
+import { DynamicDialogConfig, DynamicDialogModule, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { Puntuacion } from '../../../interfaces/puntuacion';
+import { PuntuacionService } from '../../../services/puntuacion.service';
 
 @Component({
   selector: 'app-crear-puntuacion',
