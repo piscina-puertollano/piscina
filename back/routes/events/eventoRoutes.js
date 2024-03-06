@@ -9,7 +9,7 @@ const { statusUser, tokenCanAdmin, tokenCanUserAuth, checkToken, tokenCanRedacto
 
 
 router.route('/')
-    .get([checkToken, tokenCanAdmin,tokenCanTutor],controlador.eventosGet)
+    .get([checkToken,tokenCanSocio],controlador.eventosGet)
     .post([[checkToken, tokenCanAdmin],
         check('nombre','El nombre es obligatorio.').not().isEmpty(),
         check('fecha', 'la fecha es obligatoria').not().isEmpty(),

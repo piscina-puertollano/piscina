@@ -53,7 +53,7 @@ export class InscribirNoSocioComponent implements OnInit {
       this.messageService.add({
         severity: 'warn',
         summary: 'Campos vacios',
-        detail: 'No puede dejar vacios los campos nombre, fecha ,sede y categoria',
+        detail: 'No puede dejar campos vacios',
 
       });
 
