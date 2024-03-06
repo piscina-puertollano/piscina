@@ -74,7 +74,14 @@ export class DashboardComponent implements OnInit {
       title: 'Gestión de Calificaciones de los Socios',
       content: 'Añadir calificaciones a los socios',
       link: '/scores',
-    }
+    },
+    {
+      id_rol: environment.rol_admin,
+      image: environment.admin_card_image,
+      title: 'Gestionar Eventos',
+      content: 'Para gestionar eventos, categorias y no socios',
+      link: '/event-management',
+    },
   ];
 
   myCards() {

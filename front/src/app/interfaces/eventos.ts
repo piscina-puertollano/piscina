@@ -9,10 +9,12 @@ export interface Evento {
     privado?: boolean;
     desc?: Text,
     pdf?:   Pdf | null;
+    resultado?:   number | null;
   }
 
   export interface Pdf {
 
+    //id?: number;
     ruta?: string;
   }
 

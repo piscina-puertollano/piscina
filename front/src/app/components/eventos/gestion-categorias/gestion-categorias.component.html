@@ -7,9 +7,12 @@
 
         <div id="addCategoria">
             <p-toolbar styleClass="mb-4 gap-2">
+                <div class="p-toolbar-group-left">
+                    <button id="btnAdd" (click)="abrirModal()" pButton pRipple label="Agregar nueva categoría" class="p-button-success"  icon="pi pi-plus"></button>
+                </div>
                 <ng-template pTemplate="right">
-                    <button id="btnAdd" (click)="abrirModal()" pButton pRipple label="Agregar nueva categoría" class="p-button-success"></button>
-                    <button id="btnGestEventos" pButton pRipple label="Gestionar Eventos" class="p-button-success"></button>
+                    <button id="btnGestEventos" (click)="gestionEventos()" pButton pRipple label="Gestionar Eventos" class="p-button-success"></button>
+                    <button  pButton pRipple (click)="gestionNoSocios()" label="Gestionar No Socios" class="p-button-success"></button>
                 </ng-template>
             </p-toolbar>
         </div>
@@ -39,7 +42,7 @@
 
         <ng-template pTemplate="header">
             <tr>
-                <th>ID categoría</th>
+               
                 <th pSortableColumn="nombre">Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
                 <th>Acciones</th>
             </tr>
@@ -47,11 +50,11 @@
 
         <ng-template pTemplate="body" let-categoria>
             <tr>
-                <td>{{ categoria.id }}</td>
+                
                 <td>{{ categoria.nombre }}</td>
                 <td>
-                    <button pButton pRipple icon="pi pi-eye" class="p-button-rounded p-button-info m-2" (click)="getCategoria(categoria.id)"></button>
-                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-2" (click)="deleteCategoria(categoria.id)"></button>
+                
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-2" (click)="abrirModalBorrado(categoria.id)"></button>
                 </td>
             </tr>
         </ng-template>

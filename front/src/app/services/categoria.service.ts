@@ -36,7 +36,7 @@ import { Categoria } from '../interfaces/categoria';
 
       insertCategoria(categoria:Categoria): Observable<Array<Categoria> | undefined> {
         
-        return this.http.post<Categoria>(this.urlGetsPostsCategorias, categoria).pipe(
+        return this.http.post<Categoria>(this.urlGetsPostsCategorias, categoria,{withCredentials: true}).pipe(
           catchError((error) =>{
             return of(error)
           })
@@ -45,7 +45,7 @@ import { Categoria } from '../interfaces/categoria';
 
       updateCategoria(categoria:Categoria): Observable<Array<Categoria> | undefined> {
         
-        return this.http.put<Categoria>(this.urlGetUpdateDeleteCategoria+categoria.id, categoria).pipe(
+        return this.http.put<Categoria>(this.urlGetUpdateDeleteCategoria+categoria.id, categoria,{withCredentials: true}).pipe(
           catchError((error) =>{
             return of(error)
           })
@@ -53,7 +53,7 @@ import { Categoria } from '../interfaces/categoria';
       }
 
       deleteCategoria(id: any): Observable<Array<Categoria> | undefined> {
-        return this.http.delete<Categoria>(this.urlGetUpdateDeleteCategoria+id).pipe(
+        return this.http.delete<Categoria>(this.urlGetUpdateDeleteCategoria+id,{withCredentials: true}).pipe(
           catchError((error) =>{
             return of(error)
           })

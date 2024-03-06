@@ -4,12 +4,13 @@ const controlador = require('../../controllers/events/eventoController');
 const router = Router();
 const {validarCampos} = require("../../middlewares/validarCampos");
 const {check} = require('express-validator')
+const { statusUser, tokenCanAdmin, tokenCanUserAuth, checkToken, tokenCanRedactor, tokenCanTutor, tokenCanSocio } = require('../../middlewares/abilities');
 
 
 
 router.route('/')
-    .get(controlador.eventosGet)
-    .post([
+    .get([checkToken, tokenCanAdmin,tokenCanTutor],controlador.eventosGet)
+    .post([[checkToken, tokenCanAdmin],
         check('nombre','El nombre es obligatorio.').not().isEmpty(),
         check('fecha', 'la fecha es obligatoria').not().isEmpty(),
         check('sede','La sede es obligatoria').not().isEmpty(),
@@ -22,8 +23,8 @@ router.route('/')
 router.get('/visibles', controlador.eventosVisiblesGet);
 
 router.get('/:id', controlador.eventoGet);
-router.put('/:id', controlador.eventoUpdate);
-router.delete('/:id', controlador.eventoDelete);
+router.put('/:id',[checkToken, tokenCanAdmin], controlador.eventoUpdate);
+router.delete('/:id',[checkToken, tokenCanAdmin], controlador.eventoDelete);
 
 
 

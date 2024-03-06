@@ -2,6 +2,10 @@
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
+  justify-content: center;
+  margin: 0 auto 20px;
+  max-width: calc(100% - 40px); 
+  padding: 0 20px; 
 }
 
 .card {
@@ -9,6 +13,14 @@
   border-radius: 8px;
   overflow: hidden;
   width: 300px;
+}
+
+.card-div {
+  position: relative;
+  max-width: 80%;
+  min-width: 10%;
+  color-scheme: light dark !important;
+  margin-left: 150px;
 }
 
 .card-header {
@@ -24,4 +36,11 @@
 i{
   margin-left: 270px;
   margin-bottom: 10px;
+}
+
+h1 {
+  margin:20px;
+  font-size: 1.5rem;
+  color: #243e59;
+  text-align: center;
 }

@@ -12,6 +12,12 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date()
    },
+   {
+    idNoSocio: 2,
+    idEvento: 1,
+    createdAt: new Date(),
+    updatedAt: new Date()
+ },
   ], {});
 },
 

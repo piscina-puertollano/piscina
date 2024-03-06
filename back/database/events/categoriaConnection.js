@@ -41,7 +41,7 @@ class categoriaConnection{
         conx.conectar
 
         try {
-            console.log(body)
+            //console.log(body)
             let nuevaCategoria= await models.Categoria.create(body)
             resultado = 1
             return resultado
@@ -60,7 +60,7 @@ class categoriaConnection{
         resultado = await models.Categoria.findByPk(id)
             
         if (!resultado){
-            console.log(id);
+            //console.log(id);
             conx.desconectar();
             throw error;
         }
@@ -77,7 +77,7 @@ class categoriaConnection{
         resultado = await models.Categoria.findByPk(id)
 
         if (!resultado){
-            console.log(id);
+            //console.log(id);
             conx.desconectar();
             throw error;
         }

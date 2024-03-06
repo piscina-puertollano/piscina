@@ -27,7 +27,7 @@ module.exports = {
         type: Sequelize.DataTypes.INTEGER,
         references: {
           model: {
-            tableName: process.env.TABLE_CATEGORIA_CLASES
+            tableName: process.env.TABLE_CATEGORIAS
           },
           key: 'id'
         },
@@ -43,13 +43,12 @@ module.exports = {
         type: Sequelize.INTEGER,
         references:{
           model: {
-            tableName: 'assets'   
+            tableName: process.env.TABLE_ASSETS  
           },
           key: 'id'
         },
       },
       desc: {
-        allowNull: false,
         type: Sequelize.TEXT
       },
       createdAt: {
