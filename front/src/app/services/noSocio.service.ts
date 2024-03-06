@@ -38,7 +38,7 @@ export class noSocioService {
       }
 
       insertNoSocio(noSocio:NoSocio,id:any): Observable<NoSocio | undefined> {
-        return this.http.post<NoSocio>(this.urlInsertNoSocio+id, noSocio,{withCredentials: true}).pipe(
+        return this.http.post<NoSocio>(this.urlInsertNoSocio+id, noSocio,{withCredentials: false}).pipe(
           catchError((error) =>{
             return of(error)
           })
@@ -64,7 +64,7 @@ export class noSocioService {
       }
 
       getNoSociosConIdEvento(id: any): Observable<NoSocio | undefined> {
-        return this.http.get<NoSocio>(this.urlGetNoSociosConIdEvento+id,{withCredentials: true}).pipe(
+        return this.http.get<NoSocio>(this.urlGetNoSociosConIdEvento+id,{withCredentials: false}).pipe(
           catchError((error) =>{
             return of(error)
           })

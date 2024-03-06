@@ -72,7 +72,7 @@ const newUser = async (req, res) => {
           from: process.env.MAIL_USER,
           to: msg.email,
           subject: "Bienvenido al Club de natación",
-          html: `<p>Hola ${msg.nombre},</p>
+          html: `<p>Hola ${msg.firstName},</p>
                   <p>Gracias por registrarte en la plataforma de tutorías.</p>
                   <p>Tu usuario es: ${msg.email}</p>
                   <p>Tu contraseña es: ${randPass}</p>
