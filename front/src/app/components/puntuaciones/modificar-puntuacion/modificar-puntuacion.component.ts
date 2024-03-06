@@ -6,7 +6,8 @@ import { Alert } from '../../../interfaces/alert';
 import { Puntuacion } from '../../../interfaces/puntuacion';
 import { PuntuacionService } from '../../../services/puntuacion.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DynamicDialogConfig } from 'primeng/dynamicdialog';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { MessageService } from 'primeng/api';
 
 /**
  * @author Marina Laguna
@@ -22,19 +23,15 @@ import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 export class ModificarPuntuacionComponent implements OnInit {
   alert: Alert;
   @Input() puntuacion!: Puntuacion;
+  dialogRef: DynamicDialogRef;
 
-  constructor(private puntuacionService: PuntuacionService, private router: Router, private route: ActivatedRoute, public config: DynamicDialogConfig){
+  constructor(dialogRef: DynamicDialogRef, private puntuacionService: PuntuacionService, private messageService: MessageService, private router: Router, private route: ActivatedRoute, public config: DynamicDialogConfig){
     this.alert = new Alert();
-
+    this.dialogRef = dialogRef;
   }
 
   ngOnInit(): void {
     this.puntuacion = this.config.data.puntuacion
-    if (this.puntuacion) {
-      console.log('Datos de la puntuacion', this.puntuacion);
-    } else {
-      console.log('No se pasó ninguna puntuación al componente hijo.');
-    }
   }
 
   updateNota(){
@@ -43,18 +40,39 @@ export class ModificarPuntuacionComponent implements OnInit {
       return;
     }
 
+    if (typeof this.puntuacion.nota !== 'number' || this.puntuacion.nota === 0) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error de validación',
+        detail: 'La nota debe ser un número y no puede ser 0.'
+      });
+      return;
+    }
+
     this.puntuacionService.updatePuntuacion(this.puntuacion).subscribe({
       next: (puntuacion: any | undefined) => {
         if (puntuacion) {
           this.puntuacion = puntuacion;
-          this.alert.message = 'Puntuación actualizada con éxito.';
-          this.router.navigate(['/puntuaciones'])
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Operación completada',
+            detail: 'Puntuación actualizada'
+          });
+
+          this.dialogRef.close();
+          setTimeout(() =>{
+            window.location.reload()
+          }, 2000);
         } else {
-          this.alert.message = 'No se pudo actualizar la puntuación.';
+          this.messageService.add({
+            severity: 'warn',
+            summary: 'Operación cancelada',
+            detail: 'No se ha podido actualizar la puntuación'
+          });
         }
       },
       error: (error) => {
-        this.alert.message = 'Error al actualizar la puntuación: ' + error.message;
+        console.error('Error al modificar una puntuacion:', error);
       }
     });
   }

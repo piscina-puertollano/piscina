@@ -45,3 +45,8 @@ app-modal {
 #btnMargin{
     margin-bottom: 10px;
 }
+
+.ui-calendar .ui-datepicker {
+  height: auto !important; 
+  width: auto !important;
+}

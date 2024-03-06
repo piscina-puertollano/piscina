@@ -24,6 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'Tipo',
     tableName: process.env.TABLE_TIPO,
     timestamps: false,
+    freezeTableName: true,
   });
   return Tipo;
 };

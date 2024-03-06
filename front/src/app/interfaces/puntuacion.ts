@@ -1,4 +1,4 @@
-import { User } from "./user";
+import { Image, User } from "./user";
 
 /**
  * @author Marina Laguna
@@ -6,9 +6,16 @@ import { User } from "./user";
 export interface Puntuacion {
     id?: number
     nota?: number
-    idEntrenamiento?: number
+    idEntrenamiento?: number | null
+    userId?: number
+    puntuacion?: {
+        id: number;
+        idEntrenamiento: number | null;
+        nota: number;
+     };
 }
 
 export interface Socio extends User {
     nota?: number | null;
-  }
+    mostrarBoton?: boolean;
+}
