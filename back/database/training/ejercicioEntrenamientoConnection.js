@@ -88,7 +88,7 @@ class ejercicioEntrenamientoConnection {
     
             const asociacionesEjercicios = ejerciciosInsertados.map(ejercicio => ({
                 idEntrenamiento: nuevoEntrenamiento.id,
-                idEjercicio: ejercicio.id
+                ejercicioId: ejercicio.id
             }));
     
             await models.EjercicioEntrenamiento.bulkCreate(asociacionesEjercicios);

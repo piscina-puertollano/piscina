@@ -83,6 +83,7 @@ export class CrearEntrenamientoComponent {
 
     this.entrenamientoService.insertEntrenamiento(this.entrenamiento).subscribe({
       next: () => {
+        console.log(this.entrenamiento)
         this.messageService.add({
           severity: 'success',
           summary: 'Operación completada',

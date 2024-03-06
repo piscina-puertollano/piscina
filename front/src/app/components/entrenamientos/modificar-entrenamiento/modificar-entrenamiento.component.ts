@@ -52,6 +52,44 @@ export class ModificarEntrenamientoComponent implements OnInit {
  }
 
  updateEntrenamiento() {
+  if (!this.entrenamiento.nombre || this.entrenamiento.nombre.trim() === '') {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Error de validación',
+      detail: 'El nombre del entrenamiento es requerido.'
+    });
+    return;
+  }
+
+  if (!this.entrenamiento.descripcion || this.entrenamiento.descripcion.trim() === '') {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Error de validación',
+      detail: 'La descripción del entrenamiento es requerida.'
+    });
+    return;
+  }
+
+  if (!this.entrenamiento.ejercicios || this.entrenamiento.ejercicios.length === 0) {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Error de validación',
+      detail: 'Debe agregar al menos un ejercicio.'
+    });
+    return; 
+  }
+
+  for (let i = 0; i < this.entrenamiento.ejercicios.length; i++) {
+    const ejercicio = this.entrenamiento.ejercicios[i];
+    if (!ejercicio.descripcion || ejercicio.descripcion.trim() === '' || ejercicio.idTipo === 0) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error de validación',
+        detail: `El ejercicio ${i + 1} debe tener una descripción y un tipo seleccionado.`
+      });
+      return; 
+    }
+ }
     this.entrenamientoService.updateEntrenamientos(this.entrenamiento).subscribe({
       next: (entrenamiento: any | undefined) => {
         this.entrenamiento = entrenamiento;
@@ -79,6 +117,7 @@ export class ModificarEntrenamientoComponent implements OnInit {
       next: (response: any) => {
         if (response && !Array.isArray(response)) {
           this.entrenamiento = response;
+          console.log(this.entrenamiento)
         } else {
           this.alert.show = true;
           this.alert.header = 'Error';
