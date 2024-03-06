@@ -25,19 +25,19 @@ module.exports = {
       updatedAt: new Date()
     },
     {
-      idTipo: 4,
+      idTipo: 1,
       descripcion: '50m Punto muerto de mariposa, 50m Punto muerto de pecho, 50m Punto muerto de espalda, 50m Punto muerto de braza',
       createdAt: new Date(),
       updatedAt: new Date()
     },
     {
-      idTipo: 5,
+      idTipo: 2,
       descripcion: '200m Nado libre, 200m Nado mariposa, 200m Nado pecho, 200m Nado espalda, 200m Nado braza',
       createdAt: new Date(),
       updatedAt: new Date()
     },
     {
-      idTipo: 6,
+      idTipo: 3,
       descripcion: '100m Nado continuo, 100m Nado de combinación (braza + pecho + espalda + estilos)',
       createdAt: new Date(),
       updatedAt: new Date()
