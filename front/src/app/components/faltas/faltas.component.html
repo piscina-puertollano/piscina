@@ -1,0 +1,140 @@
+<!-- Manuel Garcia -->
+<div class="card">
+  <h1 id="title" class="m-0">Registro de faltas</h1>
+</div>
+
+<div class="tabl-container">
+  <p-table
+    [value]="resultadoRelacion"
+    #dt
+    [paginator]="true"
+    [rows]="10"
+    [globalFilterFields]="['nombre_clase', 'nombre_usuario']"
+    [tableStyle]="{ 'min-width': '75rem' }"
+    [rowHover]="true"
+    dataKey="id"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [showCurrentPageReport]="true"
+  >
+    <ng-template pTemplate="caption">
+      <div class="flex align-items-center justify-content-between">
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input
+            [(ngModel)]="searchValue"
+            pInputText
+            type="text"
+            (input)="dt.filterGlobal(searchValue, 'contains')"
+            placeholder="Buscar..."
+          />
+        </span>
+        <button
+        style="background-color: green;"
+          id="btnGestEventos"
+          pButton
+          pRipple
+          icon="pi pi-user"
+          class="p-button-rounded"
+          (click)="abrirModalCrear()"
+          label="Añadir faltas"
+        ></button>
+        <button
+          pButton
+          pRipple
+          icon="pi pi-home"
+          class="p-button-rounded"
+          routerLink="/home"
+          label="Volver al inicio"
+        ></button>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Usuario</th>
+        <th>Día</th>
+        <th>Acciones</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-claseUsuario>
+      <tr>
+        <td style="visibility: collapse; display: none">
+          {{ claseUsuario.id }}
+        </td>
+        <td>{{ claseUsuario.nombre_usuario }}</td>
+        <td>{{ claseUsuario.nombre_clase }}</td>
+        <td>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-trash"
+            class="p-button-rounded p-button-danger m-2"
+            (click)="deleteRelacion(claseUsuario.id)"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="summary">
+      <div class="flex align-items-center justify-content-between">
+        En total hay
+        {{ resultadoRelacion ? resultadoRelacion.length : 0 }} Relaciones.
+      </div>
+    </ng-template>
+  </p-table>
+</div>
+<!-- Modal insertar -->
+
+<p-dialog
+  header="Registrar Faltas"
+  [(visible)]="displayDialogCrear"
+  [style]="{ width: '30vw', heigth: '60vw' }"
+  [modal]="true"
+  [closable]="false"
+>
+  <div class="form-container">
+    <output>Día: </output>
+    <br />
+    <p-dropdown
+      [options]="diasSemana"
+      [(ngModel)]="selectedDia"
+      optionLabel="label"
+      optionValue="value"
+      [showClear]="true"
+      placeholder="Selecciona un día"
+      (onChange)="onDiaSeleccionado($event)"
+    ></p-dropdown>
+    <br />
+    <br />
+
+    <output>Hora Inicio</output>
+    <br />
+    <p-dropdown
+      [options]="clasesFiltradas"
+      [(ngModel)]="selectedClase"
+      optionLabel="hora_inicio"
+      optionValue="id"
+      [showClear]="true"
+      placeholder="Horario"
+      (onChange)="onUsersSeleccionados($event)"
+    ></p-dropdown>
+    <br />
+    <br />
+
+    <output>Nadador: </output>
+    <br />
+    <p-multiSelect
+      [options]="filtrado"
+      [(ngModel)]="selectedUser"
+      optionLabel="label"
+      optionValue="value"
+      placeholder="Alumno"
+    >
+    </p-multiSelect>
+    <br />
+    <br />
+    <p-button (click)="agregarFalta()" label="Registrar Faltas"></p-button>
+    <p-button (click)="displayDialogCrear = false" label="Cancelar"></p-button>
+  </div>
+</p-dialog>

@@ -1,0 +1,52 @@
+i {
+  cursor: pointer;
+}
+
+app-modal {
+  margin: 20px;
+  margin-right: 150px;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+:host ::ng-deep .p-progressbar {
+  height: 0.5rem;
+  background-color: #d8dadc;
+}
+:host ::ng-deep .p-progressbar .p-progressbar-value {
+  background-color: #607d8b;
+}
+
+#getUser {
+  display: flex;
+  justify-content: center;
+}
+
+.card {
+  position: relative;
+  max-width: 80%;
+  min-width: 10%;
+  color-scheme: light dark !important;
+
+}
+
+
+#title{
+  text-align: center;
+  font-size: 2rem;
+}
+
+.test {
+  border-radius: 20%;
+}
+
+
+#btnMargin{
+    margin-bottom: 10px;
+}
+
+.ui-calendar .ui-datepicker {
+  height: auto !important; 
+  width: auto !important;
+}

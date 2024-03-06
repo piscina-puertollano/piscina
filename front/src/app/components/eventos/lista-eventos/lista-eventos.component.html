@@ -1,0 +1,22 @@
+<!-- // Gonzalo Martinez Haro-->
+<h1>Eventos y Competiciones</h1>
+<div class="eventos-container">
+  @for(evento of eventos; track evento.id){
+    <div class="card">
+      <p-card header={{evento.nombre}} subheader="{{evento.categoria?.nombre}}" [style]="{ width: '360px' }">
+        <ng-template pTemplate="header">
+          @if(evento.privado){
+            <img alt="Card" src="../../../assets/listaEventos/foto4.png" />
+          }@else{
+            <img alt="Card" src="../../../assets/listaEventos/foto3.png" />
+          }
+        </ng-template>
+          <p>Fecha:{{evento.fecha}}</p>
+          <p>Sede:{{evento.sede}}</p>
+        <ng-template pTemplate="footer">
+            <p-button label="Info" icon="pi pi-info-circle"  (click)="descEvento(evento.id)"></p-button>
+        </ng-template>
+      </p-card>
+    </div>
+  }
+</div>

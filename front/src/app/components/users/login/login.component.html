@@ -1,0 +1,14 @@
+<div id="background">
+    @if(showAlert){
+        <p-messages [styleClass]="'alert'" [(value)]="message!" [enableService]="false" [closable]="false"></p-messages>
+    }
+
+<section class="login-container">
+    <h1>Área privada</h1>
+    <label for="email">email</label>
+    <input type="email" id="email" required autocomplete [(ngModel)]="user.email">
+    <label for="pass">Contraseña</label>
+    <input type="password" id="pass" required autocomplete [(ngModel)]="user.password" (keypress)="onEnter($event)">
+    <input type="button" (click)="login()" value="Iniciar sesión">
+</section>
+</div>

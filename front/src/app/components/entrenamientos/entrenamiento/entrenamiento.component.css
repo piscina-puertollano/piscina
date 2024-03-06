@@ -1,0 +1,24 @@
+#title{
+    text-align: center;
+    font-size: 2rem;
+}
+
+app-modal-crear-entre {
+    margin: 20px;
+    margin-right: 150px;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.card {
+    position: relative;
+    max-width: 80%;
+    min-width: 10%;
+    color-scheme: light dark !important;
+}
+
+#getTraining{
+    display: flex;
+    justify-content: center;  
+}

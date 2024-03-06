@@ -1,0 +1,72 @@
+<!-- // Gonzalo Martinez Haro-->
+<section id="gestionNoSocios">
+    <div class="card">
+        <h1 id="title" class="m-0">Gestión de No Socios</h1>
+        <p-toast></p-toast>
+
+        <div id="addNoSocio">
+            <p-toolbar styleClass="mb-4 gap-2">
+                <div class="p-toolbar-group-left">
+                    <!-- <button id="btnGestCategorias" pButton pRipple label="Borrar todos" class="p-button-success"></button> -->
+                </div>
+                <ng-template pTemplate="right">
+                    <button id="btnGestEventos" (click)="gestionEventos()" pButton pRipple label="Gestionar Eventos" class="p-button-success"></button>
+                    <button id="btnGestCategorias" (click)="gestionCategorias()" pButton pRipple label="Gestionar Categorias" class="p-button-success"></button>
+                </ng-template>
+            </p-toolbar>
+        </div>
+
+        <p-table
+        id="tableNoSocios"
+        #dt
+        [value]="noSocios"
+        [rows]="10"
+        [paginator]="true"
+        [globalFilterFields]="['nombre', 'apellidos', 'email']"
+        [tableStyle]="{ 'min-width': '75rem' }"
+        [(selection)]="selectNoSocios"
+        [rowHover]="true"
+        dataKey="id"
+        currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} entradas"
+        [showCurrentPageReport]="true">
+
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input [(ngModel)]="searchValue" pInputText type="text" (input)="dt.filterGlobal(searchValue, 'contains')" placeholder="Buscar..." />
+                </span>
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="nombre">Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
+                <th pSortableColumn="apellidos">Apellidos <p-sortIcon field="apellidos"></p-sortIcon></th>
+                <th pSortableColumn="email">Correo <p-sortIcon field="email"></p-sortIcon></th>
+                <th>Acciones</th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-noSocio>
+            <tr>
+                <td>{{ noSocio.nombre }}</td>
+                <td>{{ noSocio.apellidos }}</td>
+                <td>{{ noSocio.email }}</td>
+                <td>
+                  
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-2" (click)="abrirModalBorrado(noSocio.id)"></button>
+                </td>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">En total hay {{ noSocios ? noSocios.length : 0 }} No Socios.</div>
+        </ng-template>
+        </p-table>
+    </div>
+</section>
+
+<div class="card flex justify-content-center">
+    <p-toast></p-toast>
+</div>
