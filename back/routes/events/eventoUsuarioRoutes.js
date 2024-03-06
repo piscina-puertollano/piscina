@@ -5,9 +5,9 @@ const router = Router();
 const { statusUser, tokenCanAdmin, tokenCanUserAuth, checkToken, tokenCanRedactor, tokenCanTutor, tokenCanSocio } = require('../../middlewares/abilities');
 
 
-router.post('/',[checkToken, tokenCanTutor,tokenCanAdmin], controlador.eventoUsuarioInsert);
+router.post('/',[checkToken, tokenCanSocio], [checkToken, tokenCanSocio],controlador.eventoUsuarioInsert);
 router.get('/',controlador.eventosUsuariosGets);
-router.get('/:id',[checkToken, tokenCanTutor], controlador.getUsuarioConIdEvento)
+router.get('/:id',[checkToken, tokenCanSocio], controlador.getUsuarioConIdEvento)
 
 
 module.exports = router;
