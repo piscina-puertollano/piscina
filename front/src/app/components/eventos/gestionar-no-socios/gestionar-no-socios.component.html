@@ -6,8 +6,12 @@
 
         <div id="addNoSocio">
             <p-toolbar styleClass="mb-4 gap-2">
+                <div class="p-toolbar-group-left">
+                    <!-- <button id="btnGestCategorias" pButton pRipple label="Borrar todos" class="p-button-success"></button> -->
+                </div>
                 <ng-template pTemplate="right">
-                    <button id="btnGestCategorias" pButton pRipple label="Borrar todos" class="p-button-success"></button>
+                    <button id="btnGestEventos" (click)="gestionEventos()" pButton pRipple label="Gestionar Eventos" class="p-button-success"></button>
+                    <button id="btnGestCategorias" (click)="gestionCategorias()" pButton pRipple label="Gestionar Categorias" class="p-button-success"></button>
                 </ng-template>
             </p-toolbar>
         </div>

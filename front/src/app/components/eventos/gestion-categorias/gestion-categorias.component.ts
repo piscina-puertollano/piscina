@@ -8,11 +8,6 @@ import { AlertComponent } from '../../../utils/alert/alert.component';
 import { FormsModule } from '@angular/forms';
 import { Table, TableModule } from 'primeng/table';
 import { ProgressBarModule } from 'primeng/progressbar';
-import {
-  ConfirmationService,
-  FilterService,
-  MessageService,
-} from 'primeng/api';
 import { TooltipModule } from 'primeng/tooltip';
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { ToastModule } from 'primeng/toast';
@@ -24,6 +19,8 @@ import { DialogComponent } from '../../../utils/dialog/dialog.component';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormularioInsertarCategoriaComponent } from '../modals/formulario-insertar-categoria/formulario-insertar-categoria.component';
+import { ModalBorradoComponent } from '../modals/modal-borrado/modal-borrado.component';
+
 
 @Component({
   selector: 'app-gestion-categorias',
@@ -69,19 +66,22 @@ export class GestionCategoriasComponent implements OnInit{
     this.getCategorias()
   }
 
+  gestionEventos() {
+    this.router.navigate(['/event-management']);
+  }
+
+  gestionNoSocios() {
+    this.router.navigate(['/non-member-management']);
+  }
+
   getCategorias() {
 
     this.categoriaService.getCategorias().subscribe({
       next: (categoria: any | undefined) => {
         console.log(categoria)
-        if(categoria.status >= 400) {
-          this.alert.show = true;
-          this.alert.header = 'Error';
-          this.alert.message =
-           'No se ha podido cargar las categorias';
-        }else{
+        
           this.categorias = categoria
-        }
+        
       },
       error: (err) => {
         console.log(err);
@@ -127,29 +127,23 @@ export class GestionCategoriasComponent implements OnInit{
     window.location.reload();
   }
 
-  deleteCategoria(id:any) {
-    this.alert.show = false;
-    this.categoriaService.deleteCategoria(id).subscribe({
-      next: (categoria: any | undefined) => {
-        console.log(categoria)
-        if (categoria.length == 0 || categoria.status == 404) {
-          this.alert.show = true;
-          this.alert.header = 'Error';
-          this.alert.message =
-            'La Categoria no se ha podido eliminar';
-        } else {
-          this.alert.show = true;
-          this.alert.header = 'Operación completada';
-          this.alert.message =
-            'Categoria eliminada correctamente';
-          this.alert.type = 'success'
-        }
+  
+
+
+  abrirModalBorrado(id : any) {
+    this.dialogService.open(ModalBorradoComponent,{
+     
+      width: '50vw',
+      contentStyle: { overflow: 'auto' },
+      breakpoints: {
+          '960px': '75vw',
+          '640px': '90vw'
       },
-      error: (err) => {
-        console.log(err);
-      },
+      data:{
+        id : id,
+        tipo: 'categoria'
+      }
     });
-    setTimeout(() => window.location.reload(), 2000);
   }
 
   abrirModal() {

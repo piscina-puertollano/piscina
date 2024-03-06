@@ -5,6 +5,8 @@ const router = Router();
 
 
 router.post('/', controlador.eventoUsuarioInsert);
+router.get('/',controlador.eventosUsuariosGets);
+router.get('/:id', controlador.getUsuarioConIdEvento)
 
 
 module.exports = router;

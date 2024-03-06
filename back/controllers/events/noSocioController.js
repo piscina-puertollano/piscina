@@ -83,10 +83,23 @@ const noSocioDelete = (req,res = response) => {
     })
 }
 
+const getNoSocioConIdEvento = (req,res = response) => {
+
+    conx.getNoSocioConIdEvento(req.params.id).then( msg => {
+        console.log('Obtenido Correctamente')
+        res.status(200).json(msg)
+
+    }).catch( err => {
+        console.log('No se ha podido obtener los noSocios')
+        res.status(203).json(err)
+    });
+}
+
 module.exports = {
     noSociosGet,
     noSocioGet,
     noSocioInsert,
     noSocioUpdate,
-    noSocioDelete
+    noSocioDelete,
+    getNoSocioConIdEvento
 }

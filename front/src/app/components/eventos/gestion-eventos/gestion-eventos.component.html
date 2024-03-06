@@ -2,13 +2,16 @@
 <section id="gestionEvento">
     <div class="card">
         <h1 id="title" class="m-0">Gestión de eventos</h1>
-        <p-toast></p-toast>
+        
 
         <div id="addEvento">
             <p-toolbar styleClass="mb-4 gap-2">
-                <ng-template pTemplate="right">
+                <div class="p-toolbar-group-left">
                     <button id="btnAdd" (click)="abrirModalInsert()" pButton pRipple label="Agregar nuevo evento" class="p-button-success" icon="pi pi-plus"></button>
-                    <button id="btnGestCategorias" pButton pRipple label="Gestionar Categorias" class="p-button-success"></button>
+                </div>
+                <ng-template pTemplate="right">
+                    <button id="btnGestCategorias" (click)="gestionCategorias()" pButton pRipple label="Gestionar Categorias" class="p-button-success"></button>
+                    <button  (click)="gestionNoSocios()" pButton pRipple label="Gestionar No Socios" class="p-button-success"></button>
                 </ng-template>
             </p-toolbar>
         </div>
@@ -55,8 +58,9 @@
                 <td>{{ evento.sede }}</td>
                 <td>{{ evento.categoria?.nombre }}</td>
                 <td>
-                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success m-2 m-2" (click)="getEvento(evento.id)"></button>
-                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-2" (click)="deleteEvento(evento.id)"></button>
+                    <button pButton pRipple icon="pi pi-user" class="p-button-rounded p-button m-2 buttons" (click)="abrirModalParticipantes(evento.id)"></button>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success m-2 buttons" (click)="getEvento(evento.id)"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger buttons" (click)="abrirModalBorrado(evento.id)"></button>
                 </td>
             </tr>
         </ng-template>
@@ -68,8 +72,6 @@
     </div>
 </section>
 
-<div class="card flex justify-content-center">
-    <p-toast></p-toast>
-</div>
+
 
 

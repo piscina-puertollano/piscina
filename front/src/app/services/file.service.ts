@@ -49,7 +49,7 @@ export class FileService {
   }
 
 
-
+//Gonzalo M artinez Haro
 showPdf(pdf: Files):Observable<Blob|undefined> {
   console.log(this.url+'/'+pdf.id)
   return this.http.post(this.url+'/'+pdf.id,{folder:pdf.where},{responseType: 'blob'}).pipe(
@@ -59,6 +59,19 @@ showPdf(pdf: Files):Observable<Blob|undefined> {
   )
 }
 
+savePdf(pdf: FormData, where: string): Observable<any | undefined> {
+
+  return this.http.post(this.url,pdf,{
+     headers: { 
+      'folder': where
+    },
+     withCredentials: true
+  }).pipe(
+     catchError((error) => {
+       return of(error);
+     })
+  );
+ }
 
 
 }

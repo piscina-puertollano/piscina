@@ -91,7 +91,30 @@ class noSocioConnection{
         await resultado.destroy()
 
         }
+
+
+    getNoSocioConIdEvento = async(idEvento) => {
+
+        try {
+            conx.conectar();
+            const eventosNoSocio = await models.EventoNoSocio.findAll({
+                where:{ idEvento},
+                include:[{
+                    model: models.NoSocio,
+                    as: 'noSocio',
+                    attributes: ['nombre','apellidos','email']
+                }]
+            });
+
+            const noSocios = eventosNoSocio.map(eventoNoSocio => eventoNoSocio.noSocio);
+            
+            return noSocios;
+        } catch (error) {
+        console.error('Error al obtener usuarios por noSocio:', error);
+        throw error;
+        }
     }
+}
 
 
 

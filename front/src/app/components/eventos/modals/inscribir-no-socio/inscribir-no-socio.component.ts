@@ -10,6 +10,8 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { MessageService } from 'primeng/api';
 
 
 @Component({
@@ -26,7 +28,7 @@ export class InscribirNoSocioComponent implements OnInit {
   visible: boolean
   evento: any;
 
-  constructor(private noSocioService: noSocioService, public config: DynamicDialogConfig){
+  constructor(private messageService: MessageService,private router: Router,private noSocioService: noSocioService, public config: DynamicDialogConfig, private ref: DynamicDialogRef){
     
     this.noSocio = {};
     this.visible = false;
@@ -35,13 +37,26 @@ export class InscribirNoSocioComponent implements OnInit {
   }
 
   ngOnInit(){
+    
     this.evento = this.config.data.evento;
+  }
+
+  redireccionarLogin() {
+
+    this.ref.close();
+    this.router.navigate(['/login']);
   }
 
   insertNoSocio() {
     this.noSocioService.insertNoSocio(this.noSocio,this.evento.id).subscribe({
       next: (noSocio: any | undefined) => {
         this.noSocio = noSocio
+
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Operación completada',
+          detail: 'Ya esta inscrito',
+        });
       },
       error: (err) => {
         console.log(err);
@@ -60,8 +75,5 @@ export class InscribirNoSocioComponent implements OnInit {
 
   }
 
-  redireccionarLogin(){
-
-  }
-
+  
 }

@@ -16,6 +16,31 @@ const eventoUsuarioInsert = (req,res = response) => {
     })
 }
 
+const eventosUsuariosGets = (req,res = response) => {
+
+    conx.getEventosUsuarios().then( msg => {
+        console.log('Obtenido Correctamente')
+        res.status(200).json(msg)
+    }).catch( err => {
+        console.log('No se ha podido obtener los datos')
+        res.status(203).json(err)
+    })
+} 
+
+const getUsuarioConIdEvento = (req,res = response) => {
+
+    conx.getUsuariosConIdEvento(req.params.id).then( msg => {
+        console.log('Obtenido Correctamente')
+        res.status(200).json(msg)
+
+    }).catch( err => {
+        console.log('No se ha podido obtener los usuarios')
+        res.status(203).json(err)
+    });
+}
+
 module.exports = {
-    eventoUsuarioInsert
+    eventoUsuarioInsert,
+    eventosUsuariosGets,
+    getUsuarioConIdEvento
 }

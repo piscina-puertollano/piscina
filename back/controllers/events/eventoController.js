@@ -97,11 +97,13 @@ const eventoDelete = (req,res = response) => {
     })
 }
 
+
+
 module.exports = {
     eventosVisiblesGet,
     eventosGet,
     eventoGet,
     eventoInsert,
     eventoUpdate,
-    eventoDelete
+    eventoDelete,
 }

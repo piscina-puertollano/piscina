@@ -2,7 +2,8 @@
 require('dotenv').config()
 const { Sequelize, Op } = require('sequelize');
 const models = require('../../models'); //Esto tiene acceso a todos los modelos.
-const Conexion = require('../connection')
+const Conexion = require('../connection');
+const users = require('../../models/users');
 const conx = new Conexion()
 
 
@@ -93,8 +94,6 @@ class eventoConnection{
 
         conx.desconectar()
         return evento
-
-        
     }
 
     insertEvento = async(body) => {
@@ -142,10 +141,11 @@ class eventoConnection{
         devolver.fecha = body.fecha
         devolver.sede = body.sede
         devolver.desc = body.desc
+        
         devolver.idCategoria = body.categoria.id
         devolver.visible = body.visible
         devolver.privado = body.privado
-        //console.log(devolver)
+        
         
         
         await resultado.update(devolver);
@@ -190,10 +190,9 @@ class eventoConnection{
         }
 
     }
-    }
-
 
     
+}
 
 
 

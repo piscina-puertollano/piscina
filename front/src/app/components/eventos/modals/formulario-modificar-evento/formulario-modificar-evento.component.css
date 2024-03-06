@@ -36,6 +36,14 @@
     border: 1px solid #ccc;
     border-radius: 5px;
   }
+
+  .card p-fileUpload{
+
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+
+  }
   
   .p-button-success {
     display: block;
@@ -51,4 +59,8 @@
   
   .p-button-success:hover {
     background-color: #218838;
+  }
+
+  .info{
+    color:#a8a7a7;
   }

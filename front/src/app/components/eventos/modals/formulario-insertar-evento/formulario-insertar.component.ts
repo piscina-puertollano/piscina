@@ -15,6 +15,8 @@ import { CategoriaService } from '../../../../services/categoria.service';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { PrimeNGConfig } from 'primeng/api';
+import { MessageService } from 'primeng/api';
+
 
 
 
@@ -36,7 +38,7 @@ export class FormularioInsertarComponent implements OnInit {
 
   
 
-  constructor(private eventosService: EventosService, private categoriaService: CategoriaService,private config: PrimeNGConfig) {
+  constructor(private eventosService: EventosService, private categoriaService: CategoriaService,private config: PrimeNGConfig,private messageService: MessageService) {
     this.evento = {};
 
     const hoy = new Date();
@@ -52,7 +54,7 @@ export class FormularioInsertarComponent implements OnInit {
       this.getCategorias()
       this.config.setTranslation(
         {
-          firstDayOfWeek: 1, // La semana comienza en lunes
+          firstDayOfWeek: 1, 
           dayNames: ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"],
           dayNamesShort: ["dom", "lun", "mar", "mié", "jue", "vie", "sáb"],
           dayNamesMin: ["D", "L", "M", "X", "J", "V", "S"],
@@ -62,22 +64,44 @@ export class FormularioInsertarComponent implements OnInit {
           clear: 'Borrar'
         }
       )
+      
+      
   }
 
   insertEvento() {
 
-    this.evento.fecha = this.formatearFecha(this.evento.fecha)
+    
 
+    if(this.evento.nombre == null || this.evento.fecha == null || this.evento.categoria == null || this.evento.sede == null){
+
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Campos vacios',
+        detail: 'No puede dejar vacios los campos nombre, fecha ,sede y categoria',
+
+      });
+    }else{
+    this.evento.fecha = this.formatearFecha(this.evento.fecha)
     this.eventosService.insertEvento(this.evento).subscribe({
       next: (evento: any | undefined) => {
-        console.log(this.evento)
+        
         this.evento = evento
+        console.log(this.evento)
+
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Operación completada',
+          detail: 'Evento creado',
+        });
+        
       },
       error: (err) => {
         console.log(err);
       },
     });
-    window.location.reload();
+    
+    setTimeout(() => window.location.reload(), 1500);
+  }
   }
 
 

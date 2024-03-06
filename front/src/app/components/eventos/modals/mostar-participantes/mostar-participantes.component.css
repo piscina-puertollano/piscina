@@ -18,16 +18,6 @@ i {
     background-color: #607d8b;
   }
   
-  
-  
-  .card {
-    position: relative;
-    max-width: 80%;
-    min-width: 10%;
-    color-scheme: light dark !important;
-    margin-left: 150px;
-  }
-  
   #title{
     text-align: center;
     font-size: 2rem;
@@ -36,12 +26,4 @@ i {
   .test {
     border-radius: 20%;
   }
-  
-  #btnGestEventos{
-
-    margin-right: 10px;
-
-  }
-  
-  
   

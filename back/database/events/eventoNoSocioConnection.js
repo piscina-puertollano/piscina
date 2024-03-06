@@ -43,6 +43,15 @@ class eventoNoSocioConnection{
         console.log(ids)
         conx.conectar
         try {
+
+            let eventosNoSocios = await models.EventoNoSocio.findAll()
+
+            for(let i=0; i<eventosNoSocios.length;i++){
+
+                if(eventosNoSocios[i].idNoSocio == body.idNoSocio && eventosNoSocios[i].idEvento == body.idEvento){
+                    return 'ya esta inscrito'
+                }
+            }
             
             let nuevoNoSocio = await models.EventoNoSocio.create(ids)
             

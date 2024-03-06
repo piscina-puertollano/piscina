@@ -41,6 +41,18 @@ class eventoUsuarioConnection{
         conx.conectar
 
         try {
+
+            let eventosUsuarios = await models.EventoUsuario.findAll()
+
+            for(let i=0; i<eventosUsuarios.length;i++){
+
+                if(eventosUsuarios[i].idUsuario == body.idUsuario && eventosUsuarios[i].idEvento == body.idEvento){
+                    return 'ya esta inscrito'
+                }
+            }
+
+
+
             console.log(body)
             resultado = await models.EventoUsuario.create(body)
         } catch (error) {
@@ -100,6 +112,28 @@ class eventoUsuarioConnection{
             conx.desconectar
         }
 
+    }
+
+    getUsuariosConIdEvento = async(idEvento) => {
+
+        try {
+            conx.conectar();
+            const eventosUsuarios = await models.EventoUsuario.findAll({
+                where:{ idEvento},
+                include:[{
+                    model: models.Users,
+                    as: 'usuario',
+                    attributes: ['firstName','lastName','email']
+                }]
+            });
+
+            const usuarios = eventosUsuarios.map(eventoUsuario => eventoUsuario.usuario);
+           
+            return usuarios;
+        } catch (error) {
+        console.error('Error al obtener usuarios por evento:', error);
+        throw error;
+        }
     }
 
 
