@@ -1,0 +1,32 @@
+<section id="landing">
+    @for(club of arrClub; track club._id){
+
+        @if(club.tag=='history'){
+
+            <h1>{{club?.title}}</h1>
+            
+            <div [innerHtml]="club?.history">
+
+            </div>
+            
+        }
+
+        @if(club.tag=='structure'){
+            <section id="structure">
+                <h3>Estructura organizativa:</h3>
+                <div [innerHTML]="club?.estructura"></div>
+            </section>
+        }
+
+        @if(club.tag=='galeria'){
+            <div class="galeria">
+                @for(image of images; track image){
+                <div class="foto-actual">
+                    <p-image src="{{image.image}}" alt="Image" height="250px" [preview]="true"></p-image>
+                    </div>
+                }
+            </div>
+  
+        }
+    }
+</section>

@@ -1,0 +1,62 @@
+<!-- // Gonzalo Martinez Haro-->
+<section id="participantes">
+    <div class="card">
+        <h1 id="title" class="m-0">Participantes</h1>
+        <p-toast></p-toast>
+
+        <p-table
+        id="tableParticipantes"
+        #dt
+        [value]="participantes"
+        [rows]="10"
+        [paginator]="true"
+        [globalFilterFields]="['nombre', 'apellidos', 'email', 'tipo']"
+        [tableStyle]="{ 'min-width': '45rem' }"
+        [(selection)]="selectParticipantes"
+        [rowHover]="true"
+        dataKey="id"
+        currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} entradas"
+        [showCurrentPageReport]="true">
+
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input [(ngModel)]="searchValue" pInputText type="text" (input)="dt.filterGlobal(searchValue, 'contains')" placeholder="Buscar..." />
+                </span>
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="header">
+            <tr>
+               
+                <th pSortableColumn="nombre">Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
+                <th pSortableColumn="apellidos">Apellidos <p-sortIcon field="apellidos"></p-sortIcon></th>
+                <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon></th>
+                <th pSortableColumn="tipo">Tipo <p-sortIcon field="tipo"></p-sortIcon></th>
+                
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-participante>
+            <tr>
+                
+                <td>{{ participante.nombre }}</td>
+                <td>{{ participante.apellidos }}</td>
+                <td>{{ participante.email }}</td>
+                <td>{{ participante.tipo}}</td>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">En total hay {{ participantes ? participantes.length : 0 }} Participantes.</div>
+        </ng-template>
+        </p-table>
+    </div>
+</section>
+
+<div class="card flex justify-content-center">
+    <p-toast></p-toast>
+</div>
+
+

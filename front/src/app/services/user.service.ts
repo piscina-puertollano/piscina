@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { Observable, catchError, of } from 'rxjs';
-import { Role, SocioTutor, User, UserRol } from '../interfaces/user';
+import { Alergias, Role, Socio, SocioTutor, User, UserRol } from '../interfaces/user';
 
 /**
  * @author: badr
@@ -20,9 +20,10 @@ export class UserService {
   private urlSignup : string = this.baseUrl+environment.showUser
   private urSearch : string = this.baseUrl+'/search'
   private urAllUsers : string = this.baseUrl+environment.allUsers
+  private urAllUsersFaltas : string = this.baseUrl+environment.allUsersFaltas
   private urAllSocios: string = this.baseUrl+environment.showSocios
   private urlAsingSocio: string = this.baseUrl+environment.asignSocio
-  private urlRemoveSocio: string = this.baseUrl+environment.removeSocio
+  private urlResetPass: string = this.baseUrl+environment.urlResetPass
   private urlShowUser : string = this.baseUrl+environment.showUser
   private urlShowSociosOfTutor : string = this.baseUrl+environment.showSociosOfTutor
   private urlAllRols: string = this.baseUrl+environment.showRols
@@ -36,7 +37,7 @@ export class UserService {
   }
 
   signup(user:User): Observable<User | undefined> {
-    return this.http.post<User>(this.urlSignup, user, {withCredentials:false}).pipe(
+    return this.http.post<User>(this.urlSignup, user, {withCredentials:true}).pipe(
       catchError((error) =>{
         return of(error)
       })
@@ -67,6 +68,14 @@ export class UserService {
     )
   }
 
+  allUsersFaltas(): Observable<Array<User> | undefined> {
+    return this.http.get<User>(this.urAllUsersFaltas, {withCredentials: true}).pipe(
+      catchError((error) =>{
+        return of(error)
+      })
+    )
+  }
+
   showUser(id:any): Observable<User | undefined> {
     return this.http.get<User>(this.urlShowUser+'/'+id, {withCredentials: true}).pipe(
       catchError((error) =>{
@@ -83,7 +92,15 @@ export class UserService {
   }
 
   deleteUser(userId: number): Observable<User | undefined> {
-    return this.http.delete<User>(this.urlShowUser+userId, {withCredentials: true}).pipe(
+    return this.http.delete<User>(this.urlShowUser+'/'+userId, {withCredentials: true}).pipe(
+      catchError((error) =>{
+        return of(error)
+      })
+    )
+  }
+
+  resetPass(user:User): Observable<User | undefined> {
+    return this.http.put<User>(this.urlResetPass, user, {withCredentials: true}).pipe(
       catchError((error) =>{
         return of(error)
       })
@@ -98,8 +115,8 @@ export class UserService {
     ))
   }
 
-  getAsignedSocios(userId: number): Observable<Array<User> | undefined> {
-    return this.http.get<User>(this.urlShowSociosOfTutor+'/'+userId, {withCredentials: true}).pipe(
+  getAsignedSocios(userId: number): Observable<Array<Socio> | undefined> {
+    return this.http.get<Socio>(this.urlShowSociosOfTutor+'/'+userId, {withCredentials: true}).pipe(
       catchError((error) =>{
         return of(error)
       }
@@ -121,5 +138,7 @@ export class UserService {
       })
     )
   }
+
+
 
 }

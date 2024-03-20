@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Categoria',
-    tableName: 'categorias'
+    tableName: process.env.TABLE_CATEGORIAS
   });
   return Categoria;
 };

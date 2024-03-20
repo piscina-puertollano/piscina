@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { HeadersComponent } from './headers/headers.component';
+import { HeadersComponent } from './components/headers/headers.component';
 import {
   ConfirmationService,
   MessageService,
   PrimeNGConfig,
 } from 'primeng/api';
-import { SignupComponent } from './users/signup/signup/signup.component';
+import { SignupComponent } from './components/users/signup/signup/signup.component';
 import { io } from 'socket.io-client';
 import { environment } from '../environments/environment.development';
 import { WebsocketsService } from './services/websockets.service';
@@ -37,11 +37,11 @@ export class AppComponent implements OnInit {
     this.socket = io(environment.websocket);
 
     this.socket.on('connect', () => {
-      console.log('Connected to server');
+      //console.log('Connected to server');
     });
 
     this.socket.on('disconnect', () => {
-      console.log('Disconnected from server');
+      //console.log('Disconnected from server');
     });
 
     this.socket.on('created-new', (payload: any) => {
@@ -50,7 +50,7 @@ export class AppComponent implements OnInit {
         summary: 'Hay una nueva noticia disponible',
         detail: payload.title,
       });
-      console.log(payload);
+      //console.log(payload);
     });
 
     this.primengConfig.ripple = true;

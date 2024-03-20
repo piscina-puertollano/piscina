@@ -18,6 +18,7 @@ export class noSocioService {
     private urlUpdateNoSocio : string = this.baseUrl + environment.getPostUpdateDeleteNoSocios
     private urlDeleteNoSocio: string = this.baseUrl + environment.getPostUpdateDeleteNoSocios
     private urlInsertNoSocio : string = this.baseUrl + environment.getPostUpdateDeleteNoSocios
+    private urlGetNoSociosConIdEvento: string = this.baseUrl + environment.getNosociosConIdEvento
 
 
     getNoSocios(): Observable<Array<NoSocio> | undefined> {
@@ -37,7 +38,7 @@ export class noSocioService {
       }
 
       insertNoSocio(noSocio:NoSocio,id:any): Observable<NoSocio | undefined> {
-        return this.http.post<NoSocio>(this.urlInsertNoSocio+id, noSocio).pipe(
+        return this.http.post<NoSocio>(this.urlInsertNoSocio+id, noSocio,{withCredentials: false}).pipe(
           catchError((error) =>{
             return of(error)
           })
@@ -47,7 +48,7 @@ export class noSocioService {
 
       updateNoSocio(noSocio:NoSocio): Observable<NoSocio | undefined> {
         
-        return this.http.put<NoSocio>(this.urlUpdateNoSocio+noSocio.id, noSocio).pipe(
+        return this.http.put<NoSocio>(this.urlUpdateNoSocio+noSocio.id, noSocio,{withCredentials: true}).pipe(
           catchError((error) =>{
             return of(error)
           })
@@ -55,7 +56,15 @@ export class noSocioService {
       }
 
       deleteNoSocio(id: any): Observable<NoSocio | undefined> {
-        return this.http.delete<NoSocio>(this.urlDeleteNoSocio+id).pipe(
+        return this.http.delete<NoSocio>(this.urlDeleteNoSocio+id,{withCredentials: true}).pipe(
+          catchError((error) =>{
+            return of(error)
+          })
+        )
+      }
+
+      getNoSociosConIdEvento(id: any): Observable<NoSocio | undefined> {
+        return this.http.get<NoSocio>(this.urlGetNoSociosConIdEvento+id,{withCredentials: false}).pipe(
           catchError((error) =>{
             return of(error)
           })

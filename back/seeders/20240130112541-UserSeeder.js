@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const { userFactory } = require('../factories/userFactory');
 
 /** @type {import('sequelize-cli').Migration} */
 /**
@@ -8,14 +9,7 @@ const bcrypt = require('bcrypt');
 module.exports = {
   async up (queryInterface, Sequelize) {
 
-    /**
-     *     num_socio: DataTypes.STRING,
-    corriente_pago: DataTypes.BOOLEAN,
-    born_date: DataTypes.DATE,
-    domicilio: DataTypes.STRING,
-    tlf: DataTypes.STRING,
-     */
-      await queryInterface.bulkInsert('users', [
+      await queryInterface.bulkInsert(process.env.TABLE_USERS, [
         {
           id:1,
         firstName:'admin',
@@ -35,7 +29,7 @@ module.exports = {
           id:2,
           firstName:'prueba',
           lastName: 'tutor',
-        photo_profile: 4,
+        photo_profile: 2,
         email: 'tutor@piscina.com',
         password: await bcrypt.hash('1234', 10),
         num_socio: null,
@@ -72,11 +66,42 @@ module.exports = {
         password: await bcrypt.hash('1234', 10),
         createdAt: new Date(),
         updatedAt: new Date()
-      }
+      },
+      {
+        id:5,
+        firstName:'entrenador',
+        lastName: 'entrenador',
+        photo_profile: 5,
+        email: 'entrenador@piscina.com',
+        num_socio: null,
+        corriente_pago:1,
+        born_date: new Date('2000-01-01'),
+        domicilio: '403691.30310115 4282638.6555873',
+        password: await bcrypt.hash('1234', 10),
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        id:6,
+        firstName:'socio',
+        lastName: 'menor',
+        photo_profile: 6,
+        email: 'menor@piscina.com',
+        num_socio: null,
+        corriente_pago:1,
+        born_date: new Date('2010-01-01'),
+        domicilio: '503691.30310115 4282638.6555873',
+        password: await bcrypt.hash('1234', 10),
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
     ], {});
+
+    let factoryUser = await userFactory(10)
+    await queryInterface.bulkInsert(process.env.TABLE_USERS, factoryUser, {});
   },
   async down (queryInterface, Sequelize) {
 
-     await queryInterface.bulkDelete('users', null, {});
+     await queryInterface.bulkDelete(process.env.TABLE_USERS, null, {});
   }
 };

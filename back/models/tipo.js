@@ -1,3 +1,6 @@
+/**
+ * @author Marina Laguna
+ */
 'use strict';
 const {
   Model
@@ -19,8 +22,9 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Tipo',
-    tableName: 'tipo',
+    tableName: process.env.TABLE_TIPO,
     timestamps: false,
+    freezeTableName: true,
   });
   return Tipo;
 };

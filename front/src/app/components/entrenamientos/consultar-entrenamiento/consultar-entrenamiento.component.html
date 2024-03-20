@@ -1,0 +1,14 @@
+
+<section class="card">
+  <h2>Consultar Entrenamiento</h2>
+
+  <p>Nombre: {{ entrenamiento.nombre }}</p>
+  <p>Descripción: {{ entrenamiento.descripcion }}</p>
+
+  <h3>Ejercicios del Entrenamiento</h3>
+  @for (ejercicio of entrenamiento.EjercicioEntrenamientos; track ejercicio){
+    <h4>Ejercicio {{ ejercicio.Ejercicio.Tipo?.nombre }}</h4>
+    <p>{{ ejercicio.Ejercicio.descripcion }}</p>
+  }
+  <button (click)="recargar()">Volver</button>
+</section>

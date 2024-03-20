@@ -1,11 +1,11 @@
 /**
- * author: Marina Laguna
+ * @author Marina Laguna
  */
 'use strict';
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('ejercicio', {
+    await queryInterface.createTable(process.env.TABLE_EJERCICIOS, {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -16,7 +16,7 @@ module.exports = {
         type: Sequelize.DataTypes.INTEGER,
         references: {
           model: {
-            tableName: 'tipo'
+            tableName: process.env.TABLE_TIPO_EJERCICIOS
           },
           key: 'id'
         },
@@ -36,6 +36,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('ejercicio');
+    await queryInterface.dropTable(process.env.TABLE_EJERCICIOS);
   }
 };

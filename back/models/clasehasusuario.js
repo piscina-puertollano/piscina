@@ -1,3 +1,4 @@
+// Manuel Garcia
 'use strict';
 const {
   Model
@@ -14,12 +15,22 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   ClaseHasUsuario.init({
-    id_usuario: DataTypes.INTEGER,
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    id_usuario: {
+       type: DataTypes.INTEGER,
+       allowNull: false,
+    },
     id_clase: DataTypes.INTEGER
-  }, {
+   }, {
     sequelize,
-    modelName: 'clase_has_usuario',
-    tableName: 'clase_has_usuario'
-  });
+    modelName: process.env.TABLE_CLASE_USUARIO,
+    tableName: process.env.TABLE_CLASE_USUARIO,
+    timestamps: false
+   });
+   
   return ClaseHasUsuario;
 };

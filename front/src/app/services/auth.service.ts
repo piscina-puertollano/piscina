@@ -33,4 +33,24 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('user');
   }
+
+  getRolesOfToken(): any {
+    try {
+      let token = JSON.parse(localStorage.getItem('user') as string).token.split('.')[1]
+      const rolesOfToken = JSON.parse(atob(token)).roles;
+      return rolesOfToken;
+    } catch (error) {
+      return null;
+    }
+ }
+
+ getIdOfToken(): any {
+    try {
+      let token = JSON.parse(localStorage.getItem('user') as string).token.split('.')[1]
+      const idOfToken = JSON.parse(atob(token)).uid;
+      return idOfToken;
+    } catch (error) {
+      return null;
+    }
+ }
 }

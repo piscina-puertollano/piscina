@@ -1,0 +1,44 @@
+<!-- // Gonzalo Martinez Haro-->
+<div class="form-container">
+    <div>
+       
+  
+        <div class="card flex justify-content-center">
+            
+            
+            <h1>Modifca el Evento</h1>
+            
+                <label for="nombreEvento">Nombre del Evento</label>
+                <input type="text" id="nombreEvento" pInputText required [(ngModel)]="evento.nombre" class="input-field">
+                
+                <label for="sedeEvento">Sede</label>
+                <input type="text" id="sedeEvento" pInputText required [(ngModel)]="evento.sede" class="input-field">
+                
+                <label for="categoriaEvento">Categoría</label>
+                <p-dropdown [options]="categorias" optionLabel="nombre" [(ngModel)]="evento.categoria" [showClear]="true" placeholder="Seleccione Categoria" ></p-dropdown>
+                
+                <label for="fechaEvento">Fecha</label>
+                <p-calendar  [minDate]="fechaLimite" dateFormat="dd/mm/yy" [(ngModel)]="evento.fecha" ></p-calendar>
+  
+                <label for="descEvento">Descripción</label>
+                <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="evento.desc" ></textarea>
+  
+                <label for="descEvento">Privado</label>
+                <p-inputSwitch [(ngModel)]="evento.privado"></p-inputSwitch>
+                <p class=info>Los eventos privados seran exclusivos para los socios</p>
+  
+                <label for="descEvento">Visible</label>
+                <p-inputSwitch [(ngModel)]="evento.visible"></p-inputSwitch>
+                <p class=info>Los eventos visibles se podran ver aunque no seas socio.</p>
+
+                <label for="resultadoEvento">Añadir Resultado</label>
+                <div class="flex-row">
+                    <p-fileUpload [customUpload]="true" mode="basic" chooseLabel="Elegir" name="resultadoEvento" [auto]="true" (uploadHandler)="cargarPDF($event)" ></p-fileUpload>
+                    <p-button label="Borrar Pdf" severity="danger" (click)="borrarPdf()"></p-button>
+                </div>
+                
+                <button label="Añadir" (click)="updateEvento()" pButton pRipple label="Actualizar evento" class="p-button-success"></button>
+                
+        </div>
+    </div>
+  </div>

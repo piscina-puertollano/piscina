@@ -1,5 +1,7 @@
 'use strict';
 
+const { assetsFactory } = require('../factories/assetsFactory');
+
 /** @type {import('sequelize-cli').Migration} */
 /**
  * @author: badr
@@ -7,45 +9,20 @@
 
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.bulkInsert('assets', [
-      {
-        id:1,
-        ruta:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKwciIK-5fa0Bz8LaUKjtcN05kVZqjeCBaE7bLXIPVWw&s',
-        public:false,
-        createdAt: new Date(),
-        updatedAt: new Date()
-    },
-      {
-        id:2,
-        public:false,
-        ruta:'https://fastly.picsum.photos/id/739/200/200.jpg?hmac=vjkuMOuAEhToH9GIXkmBicl7sUqPZ3k4rRHh6sQJWZ8',
-        createdAt: new Date(),
-        updatedAt: new Date()
-    },
-    {
-      id:3,
-      public:false,
-      ruta:'https://fastly.picsum.photos/id/54/200/200.jpg?hmac=-2_HX5umbAEVPP9CokmPW3Kc8V9iDplneKlS73LWdQQ',
-      createdAt: new Date(),
-      updatedAt: new Date()
-  },
-  {
-    id:4,
-    public:false,
-    ruta:'https://fastly.picsum.photos/id/460/200/200.jpg?hmac=hL3I5G2p0p6vDGPyV9hergug-KipbUJVxqnnGIEBXg4',
-    createdAt: new Date(),
-    updatedAt: new Date()
-  }
+    let arrPhotos = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg', '7.jpg', '8.jpg', '9.jpg', '10.jpg', '11.jpg', '12.jpg', '13.jpg', '14.jpg', '15.jpg', '16.jpg', '17.jpg', '18.jpg', '19.jpg', '20.jpg'];
+
+    let photos_profile = await assetsFactory(arrPhotos)
+    await queryInterface.bulkInsert(process.env.TABLE_ASSETS, photos_profile);
+
+    let arrNews = ['a.jpg', 'b.jpg', 'c.jpg', 'd.jpg', 'e.jpg', 'f.jpg', 'g.jpg', 'h.jpg', 'i.jpg', 'j.jpg']
     
-  ], {});
+    let news = await assetsFactory(arrNews)
+    await queryInterface.bulkInsert(process.env.TABLE_ASSETS, news);
+
   },
 
   async down (queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
+
+     await queryInterface.bulkDelete(process.env.TABLE_ASSETS, null, {});
   }
 };

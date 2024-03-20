@@ -1,0 +1,52 @@
+/* Adaptando estilos de list.component.css */
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh;
+  
+  }
+  
+  .card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 40px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px; 
+  }
+  
+  h3 {
+    margin: 0 0 20px 0;
+    font-size: 1.5rem;
+    color: #243e59;
+    text-align: center;
+  }
+
+  
+  .buttons-container {
+    display: flex;
+    justify-content:center;
+    width: 100%;
+
+  }
+
+  p-button{
+    margin: 5px;
+  }
+  
+  
+
+  
+  
+  
+
+  
+  
+  
+    
+  

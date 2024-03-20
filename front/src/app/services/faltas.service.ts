@@ -1,3 +1,6 @@
+/**
+ * author: Manuel Garcia
+ */
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, of } from 'rxjs';
@@ -13,7 +16,7 @@ export class FaltasService {
   private urlAsignarFaltas: string = this.baseUrl + '/faltas';
 
   allFaltas(): Observable<Array<Faltas> | undefined> {
-    return this.http.get<Faltas>(this.urlAsignarFaltas).pipe(
+    return this.http.get<Faltas>(this.urlAsignarFaltas, {withCredentials: true}).pipe(
       catchError((error) =>{
         return of(error)
       })
@@ -21,7 +24,7 @@ export class FaltasService {
   }
 
   agregarFalta(nuevaClase: Faltas): Observable<Faltas> {
-    return this.http.post<Faltas>(this.urlAsignarFaltas, nuevaClase).pipe(
+    return this.http.post<Faltas>(this.urlAsignarFaltas, nuevaClase, {withCredentials: true}).pipe(
       catchError((error) => {
         console.error('Error al agregar la clase', error);
         return of(error);
@@ -29,9 +32,17 @@ export class FaltasService {
     );
   }
 
+  actualizarFaltas(id: number, faltaUsuario: Faltas): Observable<Faltas| undefined> {
+    const url = `${this.urlAsignarFaltas}/${id}`;
+    return this.http.put<FaltasService>(url, faltaUsuario, {withCredentials: true}).pipe(
+      catchError((error) => {
+        return of(error);
+      })
+    );
+  }
   deleteFaltas(faltaId: string): Observable<Array<Faltas> | undefined> {
     const apiUrl = `${this.urlAsignarFaltas}/${faltaId}`;
-    return this.http.delete<Faltas>(apiUrl).pipe(
+    return this.http.delete<Faltas>(apiUrl, {withCredentials: true}).pipe(
       catchError((error) =>{
         return of(error)
       })

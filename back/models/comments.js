@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 
 /**
  * @author: badr
@@ -15,21 +13,38 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-     this.hasMany(models.Comments, 
-      {foreignKey: 'respond_to'});
+      this.belongsTo(models.News, {
+        foreignKey: "id",
+        as: "news",
+        onDelete: "cascade"
+      });
+      this.hasMany(models.respond_comment, {
+        foreignKey: "id_comment",
+        as: "comment_respond",
+     });
+
+     this.hasMany(models.respond_comment, {
+      foreignKey: "id",
+      as: "respond_comment",
+   });
 
       this.belongsTo(models.Users, {
-        foreignKey: 'id_user',
-        as:'user_comments'
-      })
+        foreignKey: "id",
+        as: "user_comments",
+      });
     }
   }
-  Comments.init({
-    comment: DataTypes.TEXT,
-    respond_to: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'Comments',
-  });
+  Comments.init(
+    {
+      id_new: DataTypes.INTEGER,
+      comment: DataTypes.TEXT,
+      author: DataTypes.INTEGER,
+    },
+    {
+      sequelize,
+      modelName: "Comments",
+      tableName: process.env.TABLE_COMMENTS,
+    }
+  );
   return Comments;
 };

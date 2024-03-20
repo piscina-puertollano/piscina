@@ -1,3 +1,6 @@
+/**
+ * @author Marina Laguna
+ */
 'use strict';
 const {
   Model
@@ -11,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       EjercicioEntrenamiento.belongsTo(models.Ejercicio, {
-        foreignKey: 'idEjercicio'
+        foreignKey: 'ejercicioId'
       });
 
       EjercicioEntrenamiento.belongsTo(models.Entrenamiento, { 
@@ -26,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true
     },
-    idEjercicio: {
+    ejercicioId: {
       type: DataTypes.INTEGER,
       references: {
         model: 'Ejercicio',
@@ -43,7 +46,8 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'EjercicioEntrenamiento',
-    tableName: 'ejercicioEntrenamiento'
+    tableName: process.env.TABLE_EJERCICIO_ENTRENAMIENTOS,
+    freezeTableName: true,
   });
   return EjercicioEntrenamiento;
 };

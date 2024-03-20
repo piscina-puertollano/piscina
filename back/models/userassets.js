@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'UserAssets',
-    tableName: 'user_assets'
+    tableName: process.env.TABLE_USER_ASSETS
   });
   return UserAssets;
 };

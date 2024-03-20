@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
         as: 'evento'
       });
 
-      this.belongsTo(models.NoSocio, {
+      this.belongsTo(models.Users, {
         foreignKey: 'idUsuario',
         as: 'usuario'
       });
@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'EventoUsuario',
-    tableName: 'eventosUsuarios'
+    tableName: process.env.TABLE_EVENTO_USUARIO
   });
   return EventoUsuario;
 };

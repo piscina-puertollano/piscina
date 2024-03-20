@@ -1,0 +1,65 @@
+<section id="getTraining">
+    <div class="card">
+        <h1 id="title">Gestión de Entrenamientos</h1>
+        <p-toast></p-toast>
+        
+        <div>
+            <div id="insertEntrenamiento">
+                <p-toolbar styleClass="mb-4 gap-2">
+                    <ng-template pTemplate="right">
+                        <app-modal-crear-entre></app-modal-crear-entre>
+                    </ng-template>
+                </p-toolbar>
+            </div>
+            <br>
+     
+            <p-table
+            id="table"
+            #dt
+            [value]="arrEntrenamientos"
+            [rows]="10"
+            [paginator]="true"
+            [globalFilterFields]="['nombre', 'descripcion']"
+            [tableStyle]="{ 'min-width': '75rem' }"
+            [(selection)]="selectEntrenamientos"
+            [rowHover]="true"
+            dataKey="id"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [showCurrentPageReport]="true">
+                
+                <ng-template pTemplate="caption">
+                    <div class="flex align-items-center justify-content-between">
+                        <span class="p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input [(ngModel)]="searchValue" pInputText type="text" (input)="dt.filterGlobal(searchValue, 'contains')" placeholder="Buscar..." />
+                        </span>
+                    </div>
+                </ng-template>
+                
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="entrenamientos" style="min-width:10rem">Entrenamientos <p-sortIcon field="entrenamientos"></p-sortIcon></th>
+                        <th pSortableColumn="descripcion">Descripcion <p-sortIcon field="descripcion"></p-sortIcon></th>
+                        <th>Acciones</th>
+                    </tr>
+                </ng-template>
+                
+                <ng-template pTemplate="body" let-entrenamiento>
+                    <tr>
+                        <td>{{ entrenamiento.nombre }}</td>
+                        <td>{{ entrenamiento.descripcion}}</td>
+                        <td>
+                            <button pButton pRipple icon="pi pi-eye" class="p-button-rounded" (click)="consultarEntre(entrenamiento.id)"></button>
+                            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="openDialog(entrenamiento.id)"></button>                    
+                            <app-dialog [icon]="'pi pi-trash'" [severity]="'danger'" [header]="'Alerta'" [message]="'¿Estás seguro de que quiere realizar esta acción? Va a eliminar un entrenamiento'" (eventEmiter)="deleteEntrenamiento(entrenamiento)"></app-dialog>
+                        </td>
+                    </tr>
+                </ng-template>
+                
+                <ng-template pTemplate="summary">
+                    <div class="flex align-items-center justify-content-between">En total hay {{ arrEntrenamientos ? arrEntrenamientos.length : 0 }} Entrenamientos.</div>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</section>

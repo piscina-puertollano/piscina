@@ -28,6 +28,12 @@ module.exports = (sequelize, DataTypes) => {
           foreignKey: 'idCategoria',
           as: 'categoria'
         });
+
+        this.hasOne(models.Assets, {
+          foreignKey: 'id',
+          sourceKey: 'resultado',
+          as: 'pdf'
+        });
       
     }
   }
@@ -37,11 +43,13 @@ module.exports = (sequelize, DataTypes) => {
     sede: DataTypes.STRING,
     idCategoria: DataTypes.INTEGER,
     visible: DataTypes.BOOLEAN,
-    privado: DataTypes.BOOLEAN
+    privado: DataTypes.BOOLEAN,
+    resultado: DataTypes.INTEGER,
+    desc: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Evento',
-    tableName: 'eventos'
+    tableName: process.env.TABLE_EVENTOS
   });
   return Evento;
 };

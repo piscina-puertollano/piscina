@@ -24,6 +24,8 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'user_alergias',
+    tableName: process.env.TABLE_USER_ALERGIA,
+
   });
   return user_alergias;
 };

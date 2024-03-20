@@ -1,0 +1,18 @@
+<!--// Gonzalo Martinez Haro-->
+<div class="form-container">
+  <div>
+      
+
+      <div class="card flex justify-content-center">
+        
+          
+          <h1>Inserta la Categoría</h1>
+          
+              <label for="nombreCategoria">Nombre de la Categoría</label>
+              <input type="text" id="nombreCategoria" pInputText required [(ngModel)]="categoria.nombre" name="nombreCategoria">
+
+              <button label="Añadir" (click)="insertCategoria()" pButton pRipple label="Agregar categoría" class="p-button-success"></button>
+          
+      </div>
+  </div>
+</div>

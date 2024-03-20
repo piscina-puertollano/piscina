@@ -26,6 +26,11 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'photo_profile',
         as: 'image'
      });
+
+     this.hasOne(models.Evento, {
+      foreignKey: 'resultado',
+      as: 'pdf'
+   });
     }
   }
   Assets.init({

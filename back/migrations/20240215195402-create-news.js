@@ -6,12 +6,13 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('news', {
+    await queryInterface.createTable(process.env.TABLE_NEWS, {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        onDelete: 'cascade'
       },
       title: {
         type: Sequelize.STRING
@@ -23,7 +24,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         references:{
           model: {
-            tableName: 'assets'          
+            tableName: process.env.TABLE_ASSETS     
           },
           key: 'id'
         }
@@ -32,13 +33,36 @@ module.exports = {
         type: Sequelize.INTEGER,
         references:{
           model: {
-            tableName: 'users'          
+            tableName: process.env.TABLE_USERS          
           },
           key: 'id'
         }
       },
+      summary:{
+        type: Sequelize.TEXT,
+      },
+      share_counter:{
+        type: Sequelize.INTEGER,
+        defaultValue: 0,
+      }
+      ,
       visit_counter:{
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        defaultValue: 0,
+      },
+      likes_counter:{
+        type: Sequelize.INTEGER,
+        defaultValue: 0,
+      },
+      dislikes_counter:{
+        type: Sequelize.INTEGER,
+        defaultValue: 0,
+      },
+      duration:{
+        type: Sequelize.STRING
+      },
+      category:{
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
@@ -51,6 +75,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('news');
+    await queryInterface.dropTable(process.env.TABLE_NEWS);
   }
 };

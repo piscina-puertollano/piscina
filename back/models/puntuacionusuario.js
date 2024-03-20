@@ -1,5 +1,5 @@
 /**
- * author: Marina Laguna
+ * @author Marina Laguna
  */
 'use strict';
 const {
@@ -13,7 +13,10 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      
+      PuntuacionUsuario.belongsTo(models.Puntuacion, {
+        foreignKey: 'idPuntuacion',
+        as: 'puntuacion'
+      });
     }
   }
   PuntuacionUsuario.init({
@@ -28,7 +31,8 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'PuntuacionUsuario',
-    tableName: 'puntuacionUsuarios'
+    tableName: process.env.TABLE_PUNTUACIONES_USUARIO,
+    freezeTableName: true,
   });
   return PuntuacionUsuario;
 };

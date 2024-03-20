@@ -1,15 +1,15 @@
+//Manuel Garcia
 'use strict';
-
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
   class Clase extends Model {
-    static associate(models) {
+    /*static associate(models) {
       Clase.belongsTo(models.Categoria, {
         foreignKey: 'id_categoria', 
         as: 'categoria'
       });
-    }
+    }*/
   }
 
   Clase.init({
@@ -34,6 +34,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.TIME,
       allowNull: false
     },
+    descripcion: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     createdAt: {
       type: DataTypes.DATE,
       allowNull: false
@@ -44,8 +48,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
-    modelName: 'clase',
-    tableName: 'clase'
+    modelName: process.env.TABLE_CLASES,
+    tableName: process.env.TABLE_CLASES
   });
 
   return Clase;
